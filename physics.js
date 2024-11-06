@@ -19,16 +19,24 @@ const Physics = (entities, { time, touches, dispatch }) => {
 
     Matter.Engine.update(engine);
 
+    if (entities["Point"] && entities["Point"].body.bounds.max.y >= windowHeight) {
+        Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 });
+        Matter.Body.setPosition(entities["Point"].body, {
+            x: getRandom(10 + 100 / 2, windowWidth - 10 - 100 / 2), 
+            y: -50
+        });
+    }
+
     if (!engine.collisionHandler) {
         engine.collisionHandler = Matter.Events.on(engine, "collisionStart", (event) => {
             event.pairs.forEach(({ bodyA, bodyB }) => {
                 if (bodyA.label === "Char" && bodyB.label === "Point") {
                     
                     dispatch({ type: "new_point" });
-
+                    Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 });
                     Matter.Body.setPosition(bodyB, {
-                        x: getRandom(10, windowWidth-10),
-                        y: -50 
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+                        y: -50
                     });
                 } else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
                     // Lähetä "game_over"-tapahtuma
