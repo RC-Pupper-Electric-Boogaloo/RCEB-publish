@@ -1,5 +1,5 @@
 import Matter from "matter-js"
-import Char from "../Components/Char"
+import Char from "../components/Char"
 import { Dimensions } from "react-native";
 import Obstacle from "../components/Obstacle";
 
@@ -14,7 +14,7 @@ export default restart => {
 
     let world = engine.world
 
-    world.gravity.y = 0 // muutettu 0.4-->0 jottei char komponentti tipu ruudula
+    world.gravity.y = 0.4 // muutettu 0.4-->0 jottei char komponentti tipu ruudula
 
     return {
         physics: { engine, world },
