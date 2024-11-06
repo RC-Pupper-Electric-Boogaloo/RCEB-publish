@@ -19,6 +19,6 @@ export default restart => {
     return {
         physics: { engine, world },
         Char: Char(world, 'red', { x: initialCharPositionX, y: initialCharPositionY }, { height: 40, width: 40 }),
-        Obstacle: Obstacle(world, 'black', { x: 60, y: 200 }, { height: 100, width: 100 }),
+        Obstacle: Obstacle(world, 'Obstacle', 'black', { x: 60, y: 200 }, { height: 50, width: 50 }),
     }
 }
