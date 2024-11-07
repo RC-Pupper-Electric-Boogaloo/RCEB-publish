@@ -7,14 +7,12 @@ const windowWidth = Dimensions.get('window').width
 const Physics = (entities, {time, touches }) => {
     let engine = entities.physics.engine
 
-    // Y-akseli lukittuna alalaitaan ja X-akseli muuttuu sormen kosketuksen mukaan
+    // X-akseli muuttuu sormen liikkeen mukaan ja Y-akseli lukittuna ala-laitaan
     touches.filter(t => t.type === 'move').forEach(t => {
         const fingerPositionX = t.event.pageX;
-
-        // X-akseli muuttuu sormen liikkeen mukaan ja Y-akseli lukittuna ala-laitaan
         Matter.Body.setPosition(entities.Char.body, {
-            x: fingerPositionX,
-            y: windowHeight - 30 
+            x: fingerPositionX, // sormella voidaan liikuttaa char:ia sivuttain
+            y: windowHeight - 70 //nostetaan char:ia ylemmäksi alareunasta
         });
     });
 
