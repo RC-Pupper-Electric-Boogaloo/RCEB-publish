@@ -1,27 +1,44 @@
-import Matter from "matter-js"
+import Matter from "matter-js";
 import { Dimensions } from "react-native";
+import { getRandom } from "./utils/random";
 
-const windowHeight = Dimensions.get('window').height
-const windowWidth = Dimensions.get('window').width
+const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get("window").width;
 
-const Physics = (entities, {time, touches }) => {
-    let engine = entities.physics.engine
+const Physics = (entities, { time, touches, dispatch }) => {
+    let engine = entities.physics.engine;
 
-    // Y-akseli lukittuna alalaitaan ja X-akseli muuttuu sormen kosketuksen mukaan
-    touches.filter(t => t.type === 'move').forEach(t => {
+    touches.filter(t => t.type === "move").forEach(t => {
         const fingerPositionX = t.event.pageX;
 
-        // X-akseli muuttuu sormen liikkeen mukaan ja Y-akseli lukittuna ala-laitaan
         Matter.Body.setPosition(entities.Char.body, {
             x: fingerPositionX,
-            y: windowHeight - 30 
+            y: windowHeight - 30
         });
     });
 
-    Matter.Engine.update(engine) // sisältäny time.delta  poistettu  matter-js: Matter.Engine.update: delta argument is recommended to be less than or equal to 16.667 ms. virheen vuoksi
+    Matter.Engine.update(engine);
 
-    
-    return entities
-}
+    if (!engine.collisionHandler) {
+        engine.collisionHandler = Matter.Events.on(engine, "collisionStart", (event) => {
+            event.pairs.forEach(({ bodyA, bodyB }) => {
+                if (bodyA.label === "Char" && bodyB.label === "Point") {
+                    
+                    dispatch({ type: "new_point" });
 
-export default Physics
+                    Matter.Body.setPosition(bodyB, {
+                        x: getRandom(0, windowWidth),
+                        y: -50 
+                    });
+                } else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
+                    // Lähetä "game_over"-tapahtuma
+                    dispatch({ type: "game_over" });
+                }
+            });
+        });
+    }
+
+    return entities;
+};
+
+export default Physics;

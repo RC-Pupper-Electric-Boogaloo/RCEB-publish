@@ -2,6 +2,7 @@ import Matter from "matter-js"
 import Char from "../components/Char"
 import { Dimensions } from "react-native";
 import Obstacle from "../components/Obstacle";
+import Point from "../components/Point";
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
@@ -14,11 +15,12 @@ export default restart => {
 
     let world = engine.world
 
-    world.gravity.y = 0.4 // muutettu 0.4-->0 jottei char komponentti tipu ruudula
+    world.gravity.y = 0.4 
 
     return {
         physics: { engine, world },
         Char: Char(world, 'red', { x: initialCharPositionX, y: initialCharPositionY }, { height: 40, width: 40 }),
         Obstacle: Obstacle(world, 'black', { x: 60, y: 200 }, { height: 100, width: 100 }),
+        Point: Point(world, 'orange', { x: 260, y: 200 }, {width: 100}),
     }
 }
