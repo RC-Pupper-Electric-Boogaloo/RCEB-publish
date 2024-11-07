@@ -44,7 +44,13 @@ const Physics = (entities, { time, touches, dispatch }) => {
                         y: -50
                     });
                    
-                } else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
+                } else if (bodyA.label === "Point" && bodyB.label === "Obstacle") {
+                    Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 });
+                    Matter.Body.setPosition(bodyB, {
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+                        y: -150
+                    });
+                }else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
                     // Lähetä "game_over"-tapahtuma
                     dispatch({ type: "game_over" });
                 }
