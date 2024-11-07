@@ -27,17 +27,18 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     dispatch({ type: "new_point" });
 
                     Matter.Body.setPosition(bodyB, {
-                        x: getRandom(0, windowWidth),
+                        x: getRandom(10, windowWidth-10),
                         y: -50 
                     });
                 } else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
                     // Lähetä "game_over"-tapahtuma
                     dispatch({ type: "game_over" });
                 }
+                
             });
         });
     }
-
+    
     return entities;
 };
 
