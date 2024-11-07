@@ -7,6 +7,8 @@ const windowWidth = Dimensions.get("window").width;
 
 const Physics = (entities, { time, touches, dispatch }) => {
     let engine = entities.physics.engine;
+    let world = engine.world;
+    let points = 0;
 
     touches.filter(t => t.type === "move").forEach(t => {
         const fingerPositionX = t.event.pageX;
@@ -18,11 +20,11 @@ const Physics = (entities, { time, touches, dispatch }) => {
     });
 
     Matter.Engine.update(engine);
-
+    
     if (entities["Point"] && entities["Point"].body.bounds.max.y >= windowHeight) {
         Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Point"].body, {
-            x: getRandom(10 + 100 / 2, windowWidth - 10 - 100 / 2), 
+            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
             y: -50
         });
     }
@@ -31,21 +33,26 @@ const Physics = (entities, { time, touches, dispatch }) => {
         engine.collisionHandler = Matter.Events.on(engine, "collisionStart", (event) => {
             event.pairs.forEach(({ bodyA, bodyB }) => {
                 if (bodyA.label === "Char" && bodyB.label === "Point") {
-                    
+                    points++;
+                    if (points % 10 === 0) {
+                        world.gravity.y = world.gravity.y*1.3;
+                    }
                     dispatch({ type: "new_point" });
                     Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 });
                     Matter.Body.setPosition(bodyB, {
                         x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
                         y: -50
                     });
+                   
                 } else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
                     // Lähetä "game_over"-tapahtuma
                     dispatch({ type: "game_over" });
                 }
-                
+
             });
         });
     }
+
     
     return entities;
 };
