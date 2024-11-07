@@ -1,27 +1,72 @@
-import Matter from "matter-js"
+import Matter from "matter-js";
 import { Dimensions } from "react-native";
+import { getRandom } from "./utils/random";
 
-const windowHeight = Dimensions.get('window').height
-const windowWidth = Dimensions.get('window').width
+const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get("window").width;
 
-const Physics = (entities, {time, touches }) => {
-    let engine = entities.physics.engine
+const Physics = (entities, { time, touches, dispatch }) => {
+    let engine = entities.physics.engine;
+    let world = engine.world;
+    let points = 0;
 
-    // Y-akseli lukittuna alalaitaan ja X-akseli muuttuu sormen kosketuksen mukaan
-    touches.filter(t => t.type === 'move').forEach(t => {
+    touches.filter(t => t.type === "move").forEach(t => {
         const fingerPositionX = t.event.pageX;
 
-        // X-akseli muuttuu sormen liikkeen mukaan ja Y-akseli lukittuna ala-laitaan
         Matter.Body.setPosition(entities.Char.body, {
             x: fingerPositionX,
-            y: windowHeight - 30 
+            y: windowHeight - 30
         });
     });
 
-    Matter.Engine.update(engine) // sisältäny time.delta  poistettu  matter-js: Matter.Engine.update: delta argument is recommended to be less than or equal to 16.667 ms. virheen vuoksi
+    Matter.Engine.update(engine);
+    
+    if (entities["Point"] && entities["Point"].body.bounds.max.y >= windowHeight) {
+        Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 });
+        Matter.Body.setPosition(entities["Point"].body, {
+            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+            y: -50
+        });
+    }
+    if (entities["Obstacle"] && entities["Obstacle"].body.bounds.max.y >= windowHeight) {
+        Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 });
+        Matter.Body.setPosition(entities["Obstacle"].body, {
+            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+            y: -50
+        });
+    }
+    if (!engine.collisionHandler) {
+        engine.collisionHandler = Matter.Events.on(engine, "collisionStart", (event) => {
+            event.pairs.forEach(({ bodyA, bodyB }) => {
+                if (bodyA.label === "Char" && bodyB.label === "Point") {
+                    points++;
+                    if (points % 10 === 0) {
+                        world.gravity.y = world.gravity.y*1.3;
+                    }
+                    dispatch({ type: "new_point" });
+                    Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 });
+                    Matter.Body.setPosition(bodyB, {
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+                        y: -50
+                    });
+                   
+                } else if (bodyA.label === "Point" && bodyB.label === "Obstacle") {
+                    Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 });
+                    Matter.Body.setPosition(bodyB, {
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+                        y: -150
+                    });
+                }else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
+                    // Lähetä "game_over"-tapahtuma
+                    dispatch({ type: "game_over" });
+                }
+
+            });
+        });
+    }
 
     
-    return entities
-}
+    return entities;
+};
 
-export default Physics
+export default Physics;
