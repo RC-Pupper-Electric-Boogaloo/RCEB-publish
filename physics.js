@@ -28,7 +28,13 @@ const Physics = (entities, { time, touches, dispatch }) => {
             y: -50
         });
     }
-
+    if (entities["Obstacle"] && entities["Obstacle"].body.bounds.max.y >= windowHeight) {
+        Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 });
+        Matter.Body.setPosition(entities["Obstacle"].body, {
+            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+            y: -50
+        });
+    }
     if (!engine.collisionHandler) {
         engine.collisionHandler = Matter.Events.on(engine, "collisionStart", (event) => {
             event.pairs.forEach(({ bodyA, bodyB }) => {
