@@ -5,7 +5,7 @@ import { GameEngine } from 'react-native-game-engine';
 import entities from './entities';
 import Physics from './physics';
 import BackgroundMusic, { usePlayCollisionSound, usePlayPointSound } from './components/BackgroundMusic';
-import HighscoreScreen from './screens/HighscoreScreen';
+import HighscoreScreen from './screens/highscoreScreen';
 
 export default function App() {
   const [running, setRunning] = useState(false);
