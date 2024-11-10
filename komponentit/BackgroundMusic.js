@@ -1,22 +1,17 @@
 import { Audio } from 'expo-av';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-const BackgroundMusic = () => {
+export const usePlayCollisionSound = () => {
+    const [sound, setSound] = useState(null);
+
     useEffect(() => {
-        let sound;
-
-        const playSound = async () => {
-            sound = new Audio.Sound();
-            try {
-                await sound.loadAsync(require('../assets/bgm.mp3'));
-                await sound.setIsLoopingAsync(true);
-                await sound.playAsync();
-            } catch (error) {
-                console.error("Error loading sound:", error);
-            }
+        const loadSound = async () => {
+            const collisionSound = new Audio.Sound();
+            await collisionSound.loadAsync(require('../assets/end.wav'));
+            setSound(collisionSound);
         };
 
-        playSound();
+        loadSound();
 
         return () => {
             if (sound) {
@@ -25,7 +20,56 @@ const BackgroundMusic = () => {
         };
     }, []);
 
-    return null;
+    return async () => {
+        if (sound) {
+            await sound.replayAsync();
+        }
+    };
+};
+
+export const usePlayPointSound = () => {
+    const [pointSound, setPointSound] = useState(null);
+
+    useEffect(() => {
+        const loadSound = async () => {
+            const pointSound = new Audio.Sound();
+            await pointSound.loadAsync(require('../assets/point.wav'));
+            setPointSound(pointSound);
+        };
+
+        loadSound();
+
+        return () => {
+            if (pointSound) {
+                pointSound.unloadAsync();
+            }
+        };
+    }, []);
+
+    return async () => {
+        if (pointSound) {
+            await pointSound.replayAsync();
+        }
+    };
+};
+
+const BackgroundMusic = () => {
+    useEffect(() => {
+        const playBackgroundMusic = async () => {
+            const backgroundSound = new Audio.Sound();
+            await backgroundSound.loadAsync(require('../assets/bgm.mp3'));
+            await backgroundSound.setIsLoopingAsync(true);
+            await backgroundSound.playAsync();
+
+            return () => {
+                backgroundSound.unloadAsync();
+            };
+        };
+
+        playBackgroundMusic();
+    }, []);
+
+    return null; // Ei tarvitse palauttaa näkyvää elementtiä
 };
 
 export default BackgroundMusic;
