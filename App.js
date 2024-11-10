@@ -4,6 +4,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
 import entities from './entities';
 import Physics from './physics';
+import BackgroundMusic from './components/BackgroundMusic';
 
 export default function App() {
   const [running, setRunning] = useState(false)
@@ -15,6 +16,8 @@ export default function App() {
   return (
     <View style={{ flex: 1 }}>
       <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20 }}>{currentPoints}</Text>
+      <BackgroundMusic />
+      {
       <GameEngine
         ref={(ref) => { setGameEngine(ref) }}
         systems={[Physics]}
@@ -36,7 +39,7 @@ export default function App() {
         <StatusBar style="auto" hidden={true} />
 
       </GameEngine>
-
+      }
       {!running ?
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <TouchableOpacity style={{ backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10 }}
