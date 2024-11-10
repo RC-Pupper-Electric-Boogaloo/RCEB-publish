@@ -1,9 +1,9 @@
 import Matter from "matter-js"
 import Char from "../Components/Char";
 import { Dimensions } from "react-native";
-import Obstacle from "../Components/Obstacle";
-import Point from "../Components/Point";
-import Wall from "../Components/Wall";
+import Obstacle from "../components/Obstacle";
+import Point from "../components/Point";
+import Wall from "../components/Wall";
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
