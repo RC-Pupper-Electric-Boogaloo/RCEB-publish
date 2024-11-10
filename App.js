@@ -44,7 +44,8 @@ export default function App() {
               setCurrentPoints(0)
               setRunning(true)
               gameEngine.swap(entities())
-            }}>
+              gameEngine.start()
+          }}>
             <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 30 }}>
               START GAME
             </Text>
