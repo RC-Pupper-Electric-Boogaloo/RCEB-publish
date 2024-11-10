@@ -4,9 +4,10 @@ import Constants from 'expo-constants';
 
 const highscores = [
     { id: '1', name: 'Player1', score: 100 },
-    { id: '2', name: 'Player2', score: 90 },
-    { id: '3', name: 'Player3', score: 80 },
-    // Add more highscores as needed
+    { id: '2', name: 'Player2', score: 93 },
+    { id: '3', name: 'Player3', score: 89 },
+    { id: '4', name: 'Player4', score: 84 },
+    { id: '5', name: 'Player5', score: 76 },
 ];
 
 const HighscoreScreen = () => {
@@ -20,11 +21,8 @@ const HighscoreScreen = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Highscores</Text>
-            <View style={styles.button}>
-                <Button title='regular' onPress={() => navigation.navigate('Game', { mode: 'regular' })} />
-                <Button title='infinite' onPress={() => navigation.navigate('Game', { mode: 'infinite' })} />
-            </View>
             <FlatList
+                style={styles.list}
                 data={highscores}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
@@ -50,6 +48,9 @@ const styles = StyleSheet.create({
         marginTop: Constants.statusBarHeight,
         marginBottom: 20,
     },
+    list: {
+        width: '100%',
+    },
     item: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
     },
     returnbutton: {
         marginTop: 20,
+        width: '60%',
     },
     name: {
         fontSize: 18,
