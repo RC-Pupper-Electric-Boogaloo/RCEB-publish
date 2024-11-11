@@ -1,5 +1,5 @@
 import { Audio } from 'expo-av';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export const usePlayCollisionSound = () => {
     const [sound, setSound] = useState(null);
@@ -53,23 +53,32 @@ export const usePlayPointSound = () => {
     };
 };
 
-const BackgroundMusic = () => {
+const BackgroundMusic = ({ stopRef }) => {
+    const backgroundSound = useRef(new Audio.Sound());
+
     useEffect(() => {
         const playBackgroundMusic = async () => {
-            const backgroundSound = new Audio.Sound();
-            await backgroundSound.loadAsync(require('../assets/bgm.mp3'));
-            await backgroundSound.setIsLoopingAsync(true);
-            await backgroundSound.playAsync();
-
-            return () => {
-                backgroundSound.unloadAsync();
-            };
+            await backgroundSound.current.loadAsync(require('../assets/bgm.mp3'));
+            await backgroundSound.current.setIsLoopingAsync(true);
+            await backgroundSound.current.playAsync();
         };
 
         playBackgroundMusic();
+
+        // Aseta pysäytysfunktio refiin, jotta App-komponentti voi käyttää sitä
+        stopRef.current = async () => {
+            if (backgroundSound.current) {
+                await backgroundSound.current.stopAsync();
+            }
+        };
+
+        return () => {
+            backgroundSound.current.unloadAsync();
+        };
     }, []);
 
-    return null; // Ei tarvitse palauttaa näkyvää elementtiä
+    return null;
 };
+
 
 export default BackgroundMusic;
