@@ -1,20 +1,48 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, StyleSheet, Button, TextInput } from 'react-native';
 import Constants from 'expo-constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const highscores = [
-    { id: '1', name: 'Player1', score: 100 },
-    { id: '2', name: 'Player2', score: 93 },
-    { id: '3', name: 'Player3', score: 89 },
-    { id: '4', name: 'Player4', score: 84 },
-    { id: '5', name: 'Player5', score: 76 },
-];
+const HighscoreScreen = ({points, onReturn}) => {
+    const [highScores, setHighScores] = useState([]);
+    
+ // Lataa ja päivittää highscoret aluksi ja aina, kun points muuttuu
+ useEffect(() => {
+    const saveAndLoadScores = async () => {
+      if (points) await savePoints(points);
+      const scores = await loadHighScores();
+      setHighScores(scores);
+    };
+    saveAndLoadScores();
+  }, [points]);
 
-const HighscoreScreen = () => {
-    const renderItem = ({ item }) => (
+// Tallentaa pisteet AsyncStorageen ja päivittää tilan
+const savePoints = async (points) => {
+    try {
+        const savedScores = await AsyncStorage.getItem('HIGHSCORES');
+        let scoresArray = savedScores ? JSON.parse(savedScores) : [];
+        scoresArray.push(points); // Lisää nykyiset pisteet listaan
+        await AsyncStorage.setItem('HIGHSCORES', JSON.stringify(scoresArray));
+    } catch (e) {
+        console.error("Pisteiden tallennus epäonnistui", e);
+    }
+};
+  // Funktio, joka lataa highscoret AsyncStoragesta
+const loadHighScores = async () => {
+    try {
+        const savedScores = await AsyncStorage.getItem('HIGHSCORES');
+        let scoresArray = savedScores ? JSON.parse(savedScores) : [];
+          // Järjestetään tulokset laskevaan järjestykseen ja pidetään vain top 10
+          return scoresArray.sort((a, b) => b - a).slice(0, 10);
+    } catch (e) {
+        console.error("Highscorejen lataaminen epäonnistui", e);
+        return [];
+    }
+};
+
+    const renderItem = ({ item, index }) => (
         <View style={styles.item}>
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.score}>{item.score}</Text>
+            <Text style={styles.name}>{index + 1}. {item}</Text>
         </View>
     );
 
@@ -23,13 +51,11 @@ const HighscoreScreen = () => {
             <Text style={styles.title}>Highscores</Text>
             <FlatList
                 style={styles.list}
-                data={highscores}
+                data={highScores}
                 renderItem={renderItem}
-                keyExtractor={item => item.id}
+                keyExtractor={(item, index) => index.toString()}
             />
-            <View style={styles.returnbutton}>
-                <Button title="Return" onPress={() => navigation.goBack()} />
-            </View>
+             <Button title="Return" onPress={onReturn} />
         </View>
     );
 };

@@ -5,11 +5,7 @@ import { GameEngine } from 'react-native-game-engine';
 import entities from './entities';
 import Physics from './physics';
 import BackgroundMusic, { usePlayCollisionSound, usePlayPointSound } from './components/BackgroundMusic';
-<<<<<<< HEAD
-import HighScore from './components/Highscore';
-=======
 import HighscoreScreen from './screens/highscoreScreen';
->>>>>>> de0cf182160cff2ac0df3b60a458ff287489007a
 
 export default function App() {
   const [running, setRunning] = useState(false);
@@ -17,14 +13,20 @@ export default function App() {
   const [currentPoints, setCurrentPoints] = useState(0);
   const playCollisionSound = usePlayCollisionSound();
   const playPointSound = usePlayPointSound();
-  const { highScores, savePoints } = HighScore();
+  const [showHighscores, setShowHighscores] = useState(false);
 
   useEffect(() => {
     setRunning(false);
-  }, [highScores]);
+  }, []);
 
+  const handleShowHighScores = () => {setShowHighscores(true);
+};
   return (
     <View style={{ flex: 1 }}>
+                 {showHighscores ? (
+                <HighscoreScreen points={currentPoints} onReturn={() => setShowHighscores(false)} />
+            ) : (
+                <>
       <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20 }}>{currentPoints}
       </Text>
       
@@ -40,7 +42,7 @@ export default function App() {
               playCollisionSound();
               setRunning(false);
               gameEngine.stop();
-              savePoints(currentPoints);
+              handleShowHighScores();
               break;
             case 'new_point':
               playPointSound();
@@ -65,14 +67,10 @@ export default function App() {
               START GAME
             </Text>
           </TouchableOpacity>
-          <Text style={{ fontSize: 18, marginTop: 20 }}>Highscores:</Text>
-{highScores.map((score, index) => (
-  <Text key={index} style={{ fontSize: 16 }}>
-    {index + 1}. {score}
-  </Text>
-))}
         </View>
       ) : null}
+      </>
+    )}
     </View>
   );
 }
