@@ -4,13 +4,14 @@ import { Dimensions } from "react-native";
 import Obstacle from "../components/Obstacle";
 import Point from "../components/Point";
 import Wall from "../components/Wall";
+import Backdrop from "../components/Backdrop";
 
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
-const initialCharPositionX = windowWidth / 2; // keskitetään char
-const initialCharPositionY = windowHeight - 50 //tuodaan char:ia ylemmäksi alareunasta
-const charSize = windowWidth / 4; // otetaan char:in leveydeksi näytön koosta 3osa
+const initialCharPositionX = windowWidth / 2; 
+const initialCharPositionY = windowHeight - 50 
+const charSize = windowWidth / 4; 
 
 export default restart => {
     let engine = Matter.Engine.create({ enableSleeping: false })
@@ -21,6 +22,7 @@ export default restart => {
 
     return {
         physics: { engine, world },
+        Backdrop: Backdrop(world, 'Backdrop', 'black', { x: windowWidth / 2, y: windowHeight / 2 }, { height: windowHeight * 2, width: windowWidth }),
         Char: Char(world, 'red', { x: initialCharPositionX, y: initialCharPositionY }, { height: 40, width: 40 }),
         Obstacle: Obstacle(world, 'Obstacle', 'black', { x: 60, y: -50 }, { height: 60, width: 60 }),
         Point: Point(world, 'orange', { x: 260, y: -50 }, { width: 100 }),

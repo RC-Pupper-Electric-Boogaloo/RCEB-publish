@@ -2,7 +2,7 @@ import Matter from 'matter-js'
 import React from 'react'
 import { View, Image } from 'react-native'
 
-const Obstacle = (props) => {
+const Backdrop = (props) => {
     const widthBody = props.body.bounds.max.x - props.body.bounds.min.x
     const heightBody = props.body.bounds.max.y - props.body.bounds.min.y
 
@@ -13,7 +13,7 @@ const Obstacle = (props) => {
 
     return (
         <Image
-            source={require('../assets/Obstacle.png')}
+            source={require('../assets/Backdrop.png')}
             style={{
                 position: 'absolute',
                 left: xBody,
@@ -21,27 +21,29 @@ const Obstacle = (props) => {
                 width: widthBody,
                 height: heightBody,
                 resizeMode: 'stretch',
+                zIndex: -1,
             }}
         />
     );
 };
 
 export default (world, label, color, pos, size) => {
-    const initialObstacle = Matter.Bodies.rectangle(
+    const initialBackdrop = Matter.Bodies.rectangle(
         pos.x,
         pos.y,
         size.width,
         size.height,
         {
-            label: 'Obstacle'
+            label,
+            isSensor: true,
         }
     )
-    Matter.World.add(world, initialObstacle)
+    Matter.World.add(world, initialBackdrop)
 
     return {
-        body: initialObstacle,
+        body: initialBackdrop,
         color,
         pos,
-        renderer: <Obstacle />
+        renderer: <Backdrop />
     }
 }

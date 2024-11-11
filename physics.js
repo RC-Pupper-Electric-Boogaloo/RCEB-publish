@@ -21,20 +21,27 @@ const Physics = (entities, { time, touches, dispatch }) => {
 
     Matter.Engine.update(engine);
     
-    if (entities["Point"] && entities["Point"].body.bounds.max.y >= windowHeight) {
+    if (entities["Point"] && entities["Point"].body.bounds.min.y >= windowHeight) {
         Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Point"].body, {
             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
             y: -50
         });
     }
-    if (entities["Obstacle"] && entities["Obstacle"].body.bounds.max.y >= windowHeight) {
+    if (entities["Obstacle"] && entities["Obstacle"].body.bounds.min.y >= windowHeight) {
         Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Obstacle"].body, {
             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
             y: -50
         });
     }
+    if (entities["Backdrop"] && entities["Backdrop"].body.bounds.max.y >= windowHeight + windowHeight) {
+        Matter.Body.setPosition(entities["Backdrop"].body, {
+            x: windowWidth / 2,
+            y: 0
+        });
+    }
+
     if (!engine.collisionHandler) {
         engine.collisionHandler = Matter.Events.on(engine, "collisionStart", (event) => {
             event.pairs.forEach(({ bodyA, bodyB }) => {

@@ -25,12 +25,12 @@ export default function App() {
     };
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#dcccFF' }}>
+        <View style={{ flex: 1, backgroundColor: '#b4b4b4' }}>
             {showHighscores ? (
                 <HighscoreScreen points={currentPoints} onReturn={() => setShowHighscores(false)} />
             ) : (
                 <>
-                    <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20 }}>
+                    <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20, zIndex: 100, position: 'absolute', right: 20, }}>
                         {currentPoints}
                     </Text>
 
