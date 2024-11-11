@@ -13,14 +13,23 @@ export default function App() {
   const [currentPoints, setCurrentPoints] = useState(0);
   const playCollisionSound = usePlayCollisionSound();
   const playPointSound = usePlayPointSound();
+  const [showHighscores, setShowHighscores] = useState(false);
 
   useEffect(() => {
     setRunning(false);
   }, []);
 
+  const handleShowHighScores = () => {setShowHighscores(true);
+};
   return (
     <View style={{ flex: 1 }}>
-      <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20 }}>{currentPoints}</Text>
+                 {showHighscores ? (
+                <HighscoreScreen points={currentPoints} onReturn={() => setShowHighscores(false)} />
+            ) : (
+                <>
+      <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20 }}>{currentPoints}
+      </Text>
+      
       <BackgroundMusic />
       <GameEngine
         ref={(ref) => { setGameEngine(ref); }}
@@ -33,6 +42,7 @@ export default function App() {
               playCollisionSound();
               setRunning(false);
               gameEngine.stop();
+              handleShowHighScores();
               break;
             case 'new_point':
               playPointSound();
@@ -59,6 +69,8 @@ export default function App() {
           </TouchableOpacity>
         </View>
       ) : null}
+      </>
+    )}
     </View>
   );
 }

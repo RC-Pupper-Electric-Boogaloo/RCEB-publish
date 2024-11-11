@@ -1,5 +1,5 @@
 import Matter from "matter-js"
-import Char from "../components/Char"
+import Char from "../components/Char";
 import { Dimensions } from "react-native";
 import Obstacle from "../components/Obstacle";
 import Point from "../components/Point";
@@ -8,8 +8,9 @@ import Wall from "../components/Wall";
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
-const initialCharPositionX = windowWidth / 2;
-const initialCharPositionY = windowHeight - 30
+const initialCharPositionX = windowWidth / 2; // keskitetään char
+const initialCharPositionY = windowHeight - 50 //tuodaan char:ia ylemmäksi alareunasta
+const charSize = windowWidth / 4; // otetaan char:in leveydeksi näytön koosta 3osa
 
 export default restart => {
     let engine = Matter.Engine.create({ enableSleeping: false })
@@ -26,4 +27,5 @@ export default restart => {
         RightWall: Wall(world, "black", { x: windowWidth - 10, y: windowHeight / 2 }, { height: windowHeight, width: 20 }),
         LeftWall: Wall(world, "black", { x: 10, y: windowHeight / 2 }, { height: windowHeight, width: 20 }),
     }
+    
 }
