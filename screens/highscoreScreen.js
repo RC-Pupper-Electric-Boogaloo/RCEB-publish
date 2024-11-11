@@ -16,21 +16,21 @@ const HighscoreScreen = ({points, onReturn}) => {
     saveAndLoadScores();
   }, [points]);
 
-// Tallentaa pisteet AsyncStorageen ja päivittää tilan
+// Tallentaa pisteet AsyncStorageen
 const savePoints = async (points) => {
     try {
-        const savedScores = await AsyncStorage.getItem('HIGHSCORES');
+        const savedScores = await AsyncStorage.getItem('HIGHSCORES'); // Ladataan nykyiset highscoret AsyncStorageista
         let scoresArray = savedScores ? JSON.parse(savedScores) : [];
         scoresArray.push(points); // Lisää nykyiset pisteet listaan
-        await AsyncStorage.setItem('HIGHSCORES', JSON.stringify(scoresArray));
+        await AsyncStorage.setItem('HIGHSCORES', JSON.stringify(scoresArray));  // Tallennetaan päivitetty lista takaisin AsyncStorageiin
     } catch (e) {
         console.error("Pisteiden tallennus epäonnistui", e);
     }
 };
-  // Funktio, joka lataa highscoret AsyncStoragesta
+  // Ladataan highscoret AsyncStoragesta
 const loadHighScores = async () => {
     try {
-        const savedScores = await AsyncStorage.getItem('HIGHSCORES');
+        const savedScores = await AsyncStorage.getItem('HIGHSCORES');// Haetaan tallennetut highscoret
         let scoresArray = savedScores ? JSON.parse(savedScores) : [];
           // Järjestetään tulokset laskevaan järjestykseen ja pidetään vain top 10
           return scoresArray.sort((a, b) => b - a).slice(0, 10);
@@ -42,7 +42,8 @@ const loadHighScores = async () => {
 
     const renderItem = ({ item, index }) => (
         <View style={styles.item}>
-            <Text style={styles.name}>{index + 1}. {item}</Text>
+            <Text style={styles.score}>{index + 1}. {item}</Text>
+            <Text style={styles.name}>{item.name}</Text>
         </View>
     );
 
