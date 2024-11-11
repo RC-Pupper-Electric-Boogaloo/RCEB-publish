@@ -5,6 +5,7 @@ import { GameEngine } from 'react-native-game-engine';
 import entities from './entities';
 import Physics from './physics';
 import BackgroundMusic, { usePlayCollisionSound, usePlayPointSound } from './components/BackgroundMusic';
+import HighScore from './components/Highscore';
 
 export default function App() {
   const [running, setRunning] = useState(false);
@@ -12,14 +13,17 @@ export default function App() {
   const [currentPoints, setCurrentPoints] = useState(0);
   const playCollisionSound = usePlayCollisionSound();
   const playPointSound = usePlayPointSound();
+  const { highScores, savePoints } = HighScore();
 
   useEffect(() => {
     setRunning(false);
-  }, []);
+  }, [highScores]);
 
   return (
     <View style={{ flex: 1 }}>
-      <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20 }}>{currentPoints}</Text>
+      <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20 }}>{currentPoints}
+      </Text>
+      
       <BackgroundMusic />
       <GameEngine
         ref={(ref) => { setGameEngine(ref); }}
@@ -32,6 +36,7 @@ export default function App() {
               playCollisionSound();
               setRunning(false);
               gameEngine.stop();
+              savePoints(currentPoints);
               break;
             case 'new_point':
               playPointSound();
@@ -56,6 +61,12 @@ export default function App() {
               START GAME
             </Text>
           </TouchableOpacity>
+          <Text style={{ fontSize: 18, marginTop: 20 }}>Highscores:</Text>
+{highScores.map((score, index) => (
+  <Text key={index} style={{ fontSize: 16 }}>
+    {index + 1}. {score}
+  </Text>
+))}
         </View>
       ) : null}
     </View>

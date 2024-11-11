@@ -1,5 +1,5 @@
 import Matter from "matter-js"
-import Char from "../Components/Char";
+import Char from "../components/Char";
 import { Dimensions } from "react-native";
 import Obstacle from "../components/Obstacle";
 import Point from "../components/Point";
