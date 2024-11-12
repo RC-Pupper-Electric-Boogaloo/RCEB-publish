@@ -55,6 +55,14 @@ export default function App() {
                                     playPointSound();
                                     setCurrentPoints(currentPoints + 1);
                                     break;
+                                case 'miss':
+                                    playCollisionSound();
+                                    if (currentPoints >= 5){
+                                        setCurrentPoints(currentPoints - 5);
+                                    } else {
+                                        setCurrentPoints(0);
+                                    }
+                                break;
                             }
                         }}
                         style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
