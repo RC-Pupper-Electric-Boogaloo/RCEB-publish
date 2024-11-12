@@ -6,11 +6,12 @@ import entities from './entities';
 import Physics from './physics';
 import BackgroundMusic, { usePlayCollisionSound, usePlayPointSound } from './components/BackgroundMusic';
 import HighscoreScreen from './screens/highscoreScreen';
-import GameScreen from './screens/gameScreen';
+import StartScreen from './screens/startScreen';
+
 
 export default function App() {
 
     return (
-            <GameScreen />
+        <StartScreen />
     );
 }
