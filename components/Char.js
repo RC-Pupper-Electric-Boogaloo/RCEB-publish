@@ -1,6 +1,6 @@
 import React from "react"
 import Matter from 'matter-js'
-import { View } from "react-native"
+import { View, Image } from 'react-native'
 
 const Char = (props) => {
     const widthBody = props.body.bounds.max.x - props.body.bounds.min.x
@@ -10,15 +10,15 @@ const Char = (props) => {
 
 
     return (
-        <View
+        <Image
+            source={require('../assets/Char.png')}
             style={{
-                borderWidth: 1,
-                borderColor: props.color,
                 position: 'absolute',
                 left: xBody,
                 top: yBody,
                 width: widthBody,
-                height: heightBody
+                height: heightBody,
+                resizeMode: 'stretch',
             }}
         />
     )

@@ -1,6 +1,6 @@
 import Matter from 'matter-js'
 import React from 'react'
-import { View } from 'react-native'
+import { View, Image } from 'react-native'
 
 const Point = (props) => {
     const diameter = props.body.circleRadius * 2;
@@ -11,17 +11,17 @@ const Point = (props) => {
     const color = props.color;
 
     return (
-        <View style={{
-            borderWidth: 1,
-            borderColor: color,
-            borderStyle: 'solid',
-            position: 'absolute',
-            left: xBody,
-            top: yBody,
-            width: diameter,
-            height: diameter,
-            borderRadius: props.body.circleRadius,
-        }} />
+        <Image
+            source={require('../assets/Point.png')}
+            style={{
+                position: 'absolute',
+                left: xBody,
+                top: yBody,
+                width: diameter,
+                height: diameter,
+                resizeMode: 'stretch',
+            }}
+        />
     );
 }
 
