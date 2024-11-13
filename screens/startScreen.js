@@ -4,34 +4,41 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 export default function StartScreen({ navigation }) {
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => { navigation.navigate('MainMenu') }}
-            >
-                <Text style={styles.buttonText}>START</Text>
-            </TouchableOpacity>
-        </View>
+        <ImageBackground
+            source={require('../assets/Taustakuva.jpg')}
+            style={styles.background}
+        >
+            <View style={styles.container}>
+                <TouchableOpacity style={styles.startButton} onPress={() => { navigation.navigate('MainMenu') }}>
+                    <Text style={styles.startButtonText}>START</Text>
+                </TouchableOpacity>
+            </View>
+        </ImageBackground>
     )
 }
 
 const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%',
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
-    button: {
-        backgroundColor: 'black',
+    startButton: {
+        backgroundColor: '#4CAF50',
+        paddingVertical: 15,
         paddingHorizontal: 30,
-        paddingVertical: 10,
-        width: '70%',
-        marginBottom: 20
+        borderRadius: 10,
     },
-    buttonText: {
+    startButtonText: {
+        color: '#fff',
+        fontSize: 24,
         fontWeight: 'bold',
-        color: 'white',
-        fontSize: 30,
-        textAlign: 'center'
-    }
-})
+    },
+});
