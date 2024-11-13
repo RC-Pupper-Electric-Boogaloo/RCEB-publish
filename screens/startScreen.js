@@ -28,12 +28,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'relative', 
   },
   startButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: 'red',
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 10,
+    position: 'absolute',  
+    bottom: '10%', 
   },
   startButtonText: {
     color: '#fff',

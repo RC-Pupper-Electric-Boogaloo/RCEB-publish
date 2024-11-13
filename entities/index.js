@@ -28,7 +28,7 @@ export default restart => {
         Obstacle: Obstacle(world, 'Obstacle', 'black', { x: 60, y: -50 }, { height: 60, width: 60 }, require('../assets/Obstacle.png')),
         Choco: Obstacle(world, 'Choco', 'black', { x: 160, y: -150 }, { height: 80, width: 80 }, require('../assets/Choco.png')),
         Point: Point(world, 'orange', { x: 260, y: -50 }, { width: 100 }),
-        Coin: Coin(world, 'gold', { x: 260, y: -50 }, { width: 70 }),
+        Coin: Coin(world, 'gold', { x: 260, y: -5*windowHeight }, { width: 70 }),
         RightWall: Wall(world, "black", { x: windowWidth - 10, y: windowHeight / 2 }, { height: windowHeight, width: 20 }),
         LeftWall: Wall(world, "black", { x: 10, y: windowHeight / 2 }, { height: windowHeight, width: 20 }),
     }

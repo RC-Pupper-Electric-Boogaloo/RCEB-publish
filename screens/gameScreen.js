@@ -15,7 +15,7 @@ export default function GameScreen({ navigation }) {
     const playCollisionSound = usePlayCollisionSound();
     const playPointSound = usePlayPointSound();
     const [showHighscores, setShowHighscores] = useState(false);
-    const stopMusicRef = useRef(); // Tämä on tärkeää, jotta stopRef on alustettu
+    const stopMusicRef = useRef(); 
 
     useEffect(() => {
         setRunning(false);
@@ -35,10 +35,6 @@ export default function GameScreen({ navigation }) {
                         {currentPoints}
                     </Text>
 
-                    <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20, zIndex: 100, position: 'absolute', right: 20, top: 70 }}>
-                        Kolikot: {coinCount}
-                    </Text>
-
                     <BackgroundMusic stopRef={stopMusicRef} />
                     <GameEngine
                         ref={(ref) => { setGameEngine(ref); }}
@@ -54,6 +50,7 @@ export default function GameScreen({ navigation }) {
                                     }
                                     setRunning(false);
                                     gameEngine.stop();
+                                    //lisää tänne coin_collected lisääminen storageen
                                     handleShowHighScores();
                                     break;
                                 case 'new_point':
@@ -61,7 +58,7 @@ export default function GameScreen({ navigation }) {
                                     setCurrentPoints(currentPoints + 1);
                                     break;
                                 case 'coin_collected':
-                                    // Päivitä kolikkolaskuri
+                                    playPointSound();
                                     setCoinCount(coinCount + 1);
                                     break;
                                 case 'miss':
@@ -85,7 +82,6 @@ export default function GameScreen({ navigation }) {
                                 style={{ backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10 }}
                                 onPress={() => {
                                     setCurrentPoints(0);
-                                    setCoinCount(0); // Nollaa kolikkolaskuri pelin alussa
                                     setRunning(true);
                                     gameEngine.swap(entities());
                                     gameEngine.start();
