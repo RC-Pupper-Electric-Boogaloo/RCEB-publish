@@ -1,23 +1,54 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity,SafeAreaView, StyleSheet } from 'react-native';
-import { GameEngine } from 'react-native-game-engine';
-import { StatusBar } from 'expo-status-bar';
-import entities from './entities';
-import Physics from './physics';
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ThemeProvider } from './components/Theme';
-import BackgroundMusic, { usePlayCollisionSound, usePlayPointSound } from './components/BackgroundMusic';
-import HighscoreScreen from './screens/highscoreScreen';
-import OptionScreen from './screens/optionScreen';
-import ShopScreen from './screens/shopScreen';
-import GameScreen from './screens/gameScreen';
-import MainMenuScreen from './screens/mainMenuScreen';
-import StartScreen from './screens/startScreen';
+import StartScreen from './screens/startScreen'
+import MainMenuScreen from './screens/mainMenuScreen'
+import GameScreen from './screens/gameScreen'
+import HighscoreScreen from './screens/highscoreScreen'
+import OptionScreen from './screens/optionScreen'
+import ShopScreen from './screens/shopScreen'
+
+const Stack = createNativeStackNavigator()
 
 export default function App() {
- return(
-    <ThemeProvider>
-    <GameScreen/>
-  </ThemeProvider>
-  
-    );
+
+    return (
+        <ThemeProvider>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName='Start'>
+                    <Stack.Screen
+                        name='Start'
+                        component={StartScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='MainMenu'
+                        component={MainMenuScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='Game'
+                        component={GameScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='Highscore'
+                        component={HighscoreScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='Options'
+                        component={OptionScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='Shop'
+                        component={ShopScreen}
+                        options={{ headerShown: false }}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </ThemeProvider>
+    )
 }
