@@ -37,6 +37,7 @@ const OptionScreen = ({onReturn}) => {
   const resetData = async () => {
     try {
       await AsyncStorage.removeItem('darkMode');
+      await AsyncStorage.removeItem('HIGHSCORES');
       setIsDarkMode(false);
       setIsMusicOn(false); 
       setIsSfxOn(false); 
