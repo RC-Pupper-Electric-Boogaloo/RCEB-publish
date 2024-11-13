@@ -6,6 +6,7 @@ import entities from '../entities';
 import Physics from '../physics';
 import BackgroundMusic, { usePlayCollisionSound, usePlayPointSound } from '../components/BackgroundMusic';
 import HighscoreScreen from './highscoreScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function GameScreen({ navigation }) {
     const [running, setRunning] = useState(false);
@@ -16,9 +17,30 @@ export default function GameScreen({ navigation }) {
     const playPointSound = usePlayPointSound();
     const [showHighscores, setShowHighscores] = useState(false);
     const stopMusicRef = useRef(); 
+    const [sfxOn, setSfxOn] = useState(true);
+    const [musicOn, setMusicOn] = useState(true); 
 
     useEffect(() => {
         setRunning(false);
+
+        // Lataa SFX-asetus AsyncStorage:sta
+        const loadSetting = async () => {
+            try {
+                const savedSfx = await AsyncStorage.getItem('SfxOn');
+                const parsedSfx = savedSfx === 'true';
+                setSfxOn(parsedSfx);
+                console.log('SfxOn loaded:', parsedSfx);
+    
+                const savedMusic = await AsyncStorage.getItem('MusicOn');
+                const parsedMusic = savedMusic === 'true';
+                setMusicOn(parsedMusic);
+                console.log('MusicOn loaded:', parsedMusic);
+            } catch (error) {
+                console.error('Error loading settings:', error);
+            }
+        };
+
+        loadSetting();
     }, []);
 
     const handleShowHighScores = () => {
@@ -35,7 +57,7 @@ export default function GameScreen({ navigation }) {
                         {currentPoints}
                     </Text>
 
-                    <BackgroundMusic stopRef={stopMusicRef} />
+                    {musicOn && <BackgroundMusic stopRef={stopMusicRef} />}
                     <GameEngine
                         ref={(ref) => { setGameEngine(ref); }}
                         systems={[Physics]}
@@ -44,7 +66,9 @@ export default function GameScreen({ navigation }) {
                         onEvent={(e) => {
                             switch (e.type) {
                                 case 'game_over':
-                                    playCollisionSound();
+                                    if (sfxOn) {
+                                        playCollisionSound();
+                                    }
                                     if (stopMusicRef.current) {
                                         stopMusicRef.current(); // Pysäytä musiikki
                                     }
@@ -54,15 +78,21 @@ export default function GameScreen({ navigation }) {
                                     handleShowHighScores();
                                     break;
                                 case 'new_point':
+                                    if (sfxOn) {
                                     playPointSound();
+                                    }
                                     setCurrentPoints(currentPoints + 1);
                                     break;
                                 case 'coin_collected':
+                                    if (sfxOn) {
                                     playPointSound();
+                                    }
                                     setCoinCount(coinCount + 1);
                                     break;
                                 case 'miss':
+                                    if (sfxOn) {
                                     playCollisionSound();
+                                    }
                                     if (currentPoints >= 5) {
                                         setCurrentPoints(currentPoints - 5);
                                     } else {
