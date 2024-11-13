@@ -35,7 +35,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
         Matter.Body.setVelocity(entities["Coin"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Coin"].body, {
             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
-            y: -50
+            y: getRandom(10, 20) * -windowHeight
         });
     }
 
@@ -83,12 +83,12 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     dispatch({ type: "coin_collected" });
 
                     // Tallennetaan kolikon määrä AsyncStorageiin
-                    AsyncStorage.setItem('coinCount', JSON.stringify(coinCount));
+                    //AsyncStorage.setItem('coinCount', JSON.stringify(coinCount)); // tää ei voi toimia näin, tuossa pitäisi ensin hakea kolikkojen määrä ja lisätä nämä siihen, tai viedä ne storageen vasta kun peli on ohi
 
                     Matter.Body.setVelocity(entities["Coin"].body, { x: 0, y: 0 });
-                    Matter.Body.setPosition(bodyB, {
+                    Matter.Body.setPosition(entities["Coin"].body, {
                         x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
-                        y: -50
+                        y: getRandom(10, 20) * -windowHeight
                     });
 
                 } else if (bodyA.label === "Point" && bodyB.label === "Obstacle") {
