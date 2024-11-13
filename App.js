@@ -17,5 +17,6 @@ export default function App() {
     <ThemeProvider>
     <GameScreen/>
   </ThemeProvider>
+  
     );
 }

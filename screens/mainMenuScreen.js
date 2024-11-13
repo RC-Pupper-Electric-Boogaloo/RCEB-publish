@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
 
-const MainMenuScreen = () => {
+const MainMenuScreen = ({navigation}) => {
     const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
     const styles = DarkTheme(isDarkMode);
     return (
@@ -23,14 +23,14 @@ const MainMenuScreen = () => {
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}
-                onPress={() => { }}
+                onPress={() => navigation.navigate('Options')} // 
             >
                 <Text style={styles.buttonText}>
                     OPTIONS
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}
-                onPress={() => { }}
+               onPress={() => navigation.navigate('Shop')}
             >
                 <Text style={styles.buttonText}>
                     SHOP

@@ -6,7 +6,7 @@ import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
 
 
-const OptionScreen = ({onReturn}) => {
+const OptionScreen = ({onReturn, navigation}) => {
 
   const [MusicOn, setIsMusicOn] = useState(false);
   const [SfxOn, setIsSfxOn] = useState(false);
@@ -83,7 +83,7 @@ return (
         <Text style={styles.buttonTitle}>RESET DATA</Text>
       </TouchableOpacity>
       
-       <TouchableOpacity style={[styles.button,styles.returnButton]} onPress={() => Navigation.goBack()}>
+       <TouchableOpacity style={[styles.button,styles.returnButton]} onPress={() => navigation.navigate("MainMenu")}>
        <Text style={styles.buttonTitle}>Return</Text>
        </TouchableOpacity>
 
