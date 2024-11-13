@@ -11,7 +11,7 @@ import ShopScreen from './screens/shopScreen';
 import GameScreen from './screens/gameScreen';
 
 export default function App() {
-
-            <GameScreen />
+ return(
+            <GameScreen/>
     );
 }
