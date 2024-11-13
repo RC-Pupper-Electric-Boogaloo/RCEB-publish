@@ -11,11 +11,12 @@ import OptionScreen from './screens/optionScreen';
 import ShopScreen from './screens/shopScreen';
 import GameScreen from './screens/gameScreen';
 import MainMenuScreen from './screens/mainMenuScreen';
+import StartScreen from './screens/startScreen';
 
 export default function App() {
  return(
     <ThemeProvider>
-    <OptionScreen/>
+    <GameScreen/>
   </ThemeProvider>
     );
 }
