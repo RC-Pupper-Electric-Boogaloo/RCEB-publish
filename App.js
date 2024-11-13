@@ -16,7 +16,7 @@ import StartScreen from './screens/startScreen';
 export default function App() {
  return(
     <ThemeProvider>
-    <GameScreen/>
+    <StartScreen/>
   </ThemeProvider>
   
     );
