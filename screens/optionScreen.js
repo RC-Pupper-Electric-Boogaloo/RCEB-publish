@@ -1,106 +1,92 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Constants from 'expo-constants';
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, TouchableOpacity} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import DarkTheme from '../styles/theme';
+import { useTheme } from '../components/Theme';
 
 
 const OptionScreen = ({onReturn}) => {
 
   const [MusicOn, setIsMusicOn] = useState(false);
   const [SfxOn, setIsSfxOn] = useState(false);
-  const [DarkModeOn, setIsDarkModeOn] = useState(false);
 
   const Music = () => setIsMusicOn(!MusicOn);
   const Sfx = () => setIsSfxOn(!SfxOn);
-  const DarkMode = () => setIsDarkModeOn(!DarkModeOn);
+
+  const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
+  const styles = DarkTheme(isDarkMode);
+
+  useEffect(() => {
+    const loadTheme = async () => {
+      try {
+        const savedTheme = await AsyncStorage.getItem('darkMode');
+  
+        if (savedTheme !== null) {
+          setIsDarkMode(savedTheme === 'true');
+        } else {
+          setIsDarkMode(false);
+        }
+      } catch (error) {
+        console.error("Error loading dark mode:", error);
+      }
+    };
+    loadTheme();
+  }, []);
+
+  const resetData = async () => {
+    try {
+      await AsyncStorage.removeItem('darkMode');
+      setIsDarkMode(false);
+      setIsMusicOn(false); 
+      setIsSfxOn(false); 
+      alert('Data reset successfully!');
+    } catch (error) {
+      console.error("Error resetting data:", error);
+    }
+  };
+
 // ON/OFF NAPPEIHIN VAIN LISÄTTY VÄRIN MUUNNOS!!! EI MUUTEN TOIMINNALLISUUTTA, RESET DATA JA RETURN EI TEHE MITÄÄN
 // POISTA TARVITTAESSA RESET DATA NAPIN ALERTTI!!
 return (
-    <View style={styles.container}>
-    <Text style={styles.title}>Options</Text>
+    <View style={[styles.container, styles.container]}>
+      <Text style={[styles.title, styles.title]}>Options</Text>
 
 
     <View style={styles.optionsContainer}>
     <View style={styles.Row}>
-       <Text style={styles.Label}>Music</Text>
+       <Text style={[styles.Label, styles.Label]}>Music</Text>
       <TouchableOpacity style={[styles.button, MusicOn && styles.activeButton]} onPress={Music}>
         <Text style={styles.buttonTitle}>{MusicOn ? "On":"Off"}</Text>
       </TouchableOpacity>
     </View>
 
     <View style={styles.Row}>
-        <Text style={styles.Label}>SFX</Text>
+        <Text style={[styles.Label, styles.Label]}>SFX</Text>
       <TouchableOpacity style={[styles.button, SfxOn && styles.activeButton]} onPress={Sfx}>
         <Text style={styles.buttonTitle}>{SfxOn ? "On":"Off"}</Text>
       </TouchableOpacity>
     </View>
 
     <View style={styles.Row}>
-        <Text style={styles.Label}>DarkMode</Text>
-      <TouchableOpacity style={[styles.button, DarkModeOn && styles.activeButton]} onPress={DarkMode}>
-        <Text style={styles.buttonTitle}>{DarkModeOn ? "On":"Off"}</Text>
+          <Text style={[styles.Label, styles.Label]}>Dark Mode</Text>
+          <TouchableOpacity style={styles.button}  onPress={toggleDarkMode}>
+            <Text style={styles.buttonTitle}>{isDarkMode ? "On" : "Off"}</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <TouchableOpacity
+        style={[styles.button, styles.resetButton, styles.resetButton]}
+        onPress={resetData}
+      >
+        <Text style={styles.buttonTitle}>RESET DATA</Text>
       </TouchableOpacity>
-    </View>
-    </View>
-
-      <TouchableOpacity style={[styles.button, styles.resetButton]} onPress={() => alert ('Data reset nappi toimii')}>
-       <Text style={styles.buttonTitle}>RESET DATA</Text>
-       </TouchableOpacity>
-
-       <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={onReturn}>
+      
+       <TouchableOpacity style={[styles.button,styles.returnButton]} onPress={onReturn}>
        <Text style={styles.buttonTitle}>Return</Text>
        </TouchableOpacity>
 
     </View>
 );
 };
-
-const styles = StyleSheet.create({
-container: {
-  flex: 1,
-  alignItems: 'center',
-  padding: 20,
-},
-title: {
-  fontSize: 24,
-  fontWeight: 'bold',
-},
-Row: {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  padding: 10,
-},
-Label: {
-    fontSize: 18,
-    marginRight: 10,
-},
-optionsContainer: {
-  flex: 1,
-  justifyContent: 'center',
-},
-
- // BUTTONIT
-button: {
-  paddingVertical: 10,
-  paddingHorizontal: 15,
-  borderRadius: 5,
-  backgroundColor: '#4CAF50',
-  marginBottom: 5,
-},
-buttonTitle: {
-  fontSize: 16,
-  color: 'black',
-  fontWeight: 'bold',
-},
-activeButton: {
-  backgroundColor: '#FF5722',
-},
-resetButton: {
-  backgroundColor: '#F44336',
-},
-returnButton: {
-  backgroundColor: '#2196F3',
-},
-});
-
-      
   export default OptionScreen;

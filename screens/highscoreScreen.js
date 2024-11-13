@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, Button, TextInput } from 'react-native';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DarkTheme from '../styles/theme';
+import { useTheme } from '../components/Theme';
 
 const HighscoreScreen = ({points, onReturn}) => {
     const [highScores, setHighScores] = useState([]);
+    const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
+    const styles = DarkTheme(isDarkMode);
     
  // Lataa ja päivittää highscoret aluksi ja aina, kun points muuttuu
  useEffect(() => {
@@ -61,47 +65,6 @@ const loadHighScores = async () => {
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginTop: Constants.statusBarHeight,
-        marginBottom: 20,
-    },
-    list: {
-        width: '100%',
-    },
-    item: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-    },
-    button: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
-        padding: 20,
-        marginBottom: 20,
-    },
-    returnbutton: {
-        marginTop: 20,
-        width: '60%',
-    },
-    name: {
-        fontSize: 18,
-    },
-    score: {
-        fontSize: 18,
-    },
-});
+
 
 export default HighscoreScreen;
