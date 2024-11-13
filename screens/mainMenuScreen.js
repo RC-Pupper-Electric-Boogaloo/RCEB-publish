@@ -1,8 +1,11 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import DarkTheme from '../styles/theme';
+import { useTheme } from '../components/Theme';
 
 const MainMenuScreen = () => {
-
+    const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
+    const styles = DarkTheme(isDarkMode);
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.button}
@@ -36,26 +39,5 @@ const MainMenuScreen = () => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    button: {
-        backgroundColor: 'black',
-        paddingHorizontal: 30,
-        paddingVertical: 10,
-        width: '70%',
-        marginBottom: 20
-    },
-    buttonText: {
-        fontWeight: 'bold',
-        color: 'white',
-        fontSize: 30,
-        textAlign: 'center'
-    }
-});
 
 export default MainMenuScreen;
