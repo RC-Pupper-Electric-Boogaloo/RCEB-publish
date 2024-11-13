@@ -1,19 +1,19 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const MainMenuScreen = () => {
+export default function MainMenuScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.button}
-                onPress={() => { }}
+                onPress={() => { navigation.navigate('Game') }}
             >
                 <Text style={styles.buttonText}>
                     PLAY
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}
-                onPress={() => { }}
+                onPress={() => { navigation.navigate('Highscore') }}
             >
                 <Text style={styles.buttonText}>
                     HIGHSCORES
@@ -35,7 +35,7 @@ const MainMenuScreen = () => {
             </TouchableOpacity>
         </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -56,6 +56,4 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center'
     }
-});
-
-export default MainMenuScreen;
+})
