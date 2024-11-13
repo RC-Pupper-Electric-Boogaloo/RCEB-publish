@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Button } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
 import { StatusBar } from 'expo-status-bar';
 import entities from '../entities';
@@ -11,7 +11,7 @@ export default function GameScreen({ navigation }) {
     const [running, setRunning] = useState(false);
     const [gameEngine, setGameEngine] = useState(null);
     const [currentPoints, setCurrentPoints] = useState(0);
-    const [coinCount, setCoinCount] = useState(0); 
+    const [coinCount, setCoinCount] = useState(0);
     const playCollisionSound = usePlayCollisionSound();
     const playPointSound = usePlayPointSound();
     const [showHighscores, setShowHighscores] = useState(false);
