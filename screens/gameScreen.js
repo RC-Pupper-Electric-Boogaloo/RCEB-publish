@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
 import { StatusBar } from 'expo-status-bar';
@@ -11,6 +11,7 @@ const GameScreen = () => {
     const [running, setRunning] = useState(false);
     const [gameEngine, setGameEngine] = useState(null);
     const [currentPoints, setCurrentPoints] = useState(0);
+    const [coinCount, setCoinCount] = useState(0); 
     const playCollisionSound = usePlayCollisionSound();
     const playPointSound = usePlayPointSound();
     const [showHighscores, setShowHighscores] = useState(false);
@@ -30,8 +31,12 @@ const GameScreen = () => {
                 <HighscoreScreen points={currentPoints} onReturn={() => setShowHighscores(false)} />
             ) : (
                 <>
-                    <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20, zIndex: 100, position: 'absolute', right: 20, }}>
+                    <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20, zIndex: 100, position: 'absolute', right: 20 }}>
                         {currentPoints}
+                    </Text>
+
+                    <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20, zIndex: 100, position: 'absolute', right: 20, top: 70 }}>
+                        Kolikot: {coinCount}
                     </Text>
 
                     <BackgroundMusic stopRef={stopMusicRef} />
@@ -55,6 +60,10 @@ const GameScreen = () => {
                                     playPointSound();
                                     setCurrentPoints(currentPoints + 1);
                                     break;
+                                case 'coin_collected':
+                                    // Päivitä kolikkolaskuri
+                                    setCoinCount(coinCount + 1);
+                                    break;
                                 case 'miss':
                                     playCollisionSound();
                                     if (currentPoints >= 5) {
@@ -69,12 +78,14 @@ const GameScreen = () => {
                     >
                         <StatusBar style="auto" hidden={true} />
                     </GameEngine>
+
                     {!running ? (
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                             <TouchableOpacity
                                 style={{ backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10 }}
                                 onPress={() => {
                                     setCurrentPoints(0);
+                                    setCoinCount(0); // Nollaa kolikkolaskuri pelin alussa
                                     setRunning(true);
                                     gameEngine.swap(entities());
                                     gameEngine.start();
@@ -90,6 +101,6 @@ const GameScreen = () => {
             )}
         </View>
     );
-}
+};
 
 export default GameScreen;

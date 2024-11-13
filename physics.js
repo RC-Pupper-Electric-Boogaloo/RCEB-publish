@@ -1,6 +1,7 @@
 import Matter from "matter-js";
 import { Dimensions } from "react-native";
 import { getRandom } from "./utils/random";
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Tuodaan AsyncStorage
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
@@ -9,6 +10,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
     let engine = entities.physics.engine;
     let world = engine.world;
     let points = 0;
+    let coinCount = entities.coinCount || 0; 
 
     touches.filter(t => t.type === "move").forEach(t => {
         const fingerPositionX = t.event.pageX;
@@ -20,7 +22,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
     });
 
     Matter.Engine.update(engine);
-    
+
     if (entities["Point"] && entities["Point"].body.bounds.min.y >= windowHeight) {
         Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Point"].body, {
@@ -28,20 +30,31 @@ const Physics = (entities, { time, touches, dispatch }) => {
             y: -50
         });
     }
+
+    if (entities["Coin"] && entities["Coin"].body.bounds.min.y >= windowHeight) {
+        Matter.Body.setVelocity(entities["Coin"].body, { x: 0, y: 0 });
+        Matter.Body.setPosition(entities["Coin"].body, {
+            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+            y: -50
+        });
+    }
+
     if (entities["Obstacle"] && entities["Obstacle"].body.bounds.min.y >= windowHeight) {
         Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Obstacle"].body, {
             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
-            y: -windowHeight*1.5
+            y: -windowHeight * 1.5
         });
     }
+
     if (entities["Choco"] && entities["Choco"].body.bounds.min.y >= windowHeight) {
         Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Choco"].body, {
             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
-            y: -windowHeight*2
+            y: -windowHeight * 2
         });
     }
+
     if (entities["Backdrop"] && entities["Backdrop"].body.bounds.max.y >= windowHeight + windowHeight) {
         Matter.Body.setPosition(entities["Backdrop"].body, {
             x: windowWidth / 2,
@@ -63,16 +76,30 @@ const Physics = (entities, { time, touches, dispatch }) => {
                         x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
                         y: -50
                     });
-                   
+
+                } else if (bodyA.label === "Char" && bodyB.label === "Coin") {
+                    // Kolikon kerääminen
+                    coinCount++;
+                    dispatch({ type: "coin_collected" });
+
+                    // Tallennetaan kolikon määrä AsyncStorageiin
+                    AsyncStorage.setItem('coinCount', JSON.stringify(coinCount));
+
+                    Matter.Body.setVelocity(entities["Coin"].body, { x: 0, y: 0 });
+                    Matter.Body.setPosition(bodyB, {
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+                        y: -50
+                    });
+
                 } else if (bodyA.label === "Point" && bodyB.label === "Obstacle") {
                     Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 });
                     Matter.Body.setPosition(bodyB, {
                         x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
-                        y: -windowHeight*3
+                        y: -windowHeight * 3
                     });
-                }else if (bodyA.label === "Char" && bodyB.label === "Choco") {
+                } else if (bodyA.label === "Char" && bodyB.label === "Choco") {
                     dispatch({ type: "miss" });
-                    if (world.gravity.y > 0.4){
+                    if (world.gravity.y > 0.4) {
                         world.gravity.y = world.gravity.y - 0.1;
                     }
                     Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 });
@@ -80,17 +107,19 @@ const Physics = (entities, { time, touches, dispatch }) => {
                         x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
                         y: -50
                     });
-                }else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
+                } else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
                     // Lähetä "game_over"-tapahtuma
                     dispatch({ type: "game_over" });
                 }
-
             });
         });
     }
 
-    
-    return entities;
+    // Lähetetään kolikkolaskuri takaisin entiteetteihin
+    return {
+        ...entities,
+        coinCount // Lähetetään coinCount entiteetiksi
+    };
 };
 
 export default Physics;
