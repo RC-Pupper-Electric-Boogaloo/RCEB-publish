@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import entities from '../entities';
 import Physics from '../physics';
 import BackgroundMusic, { usePlayCollisionSound, usePlayPointSound } from '../components/BackgroundMusic';
+import HighscoreScreen from './highscoreScreen';
 
 export default function GameScreen({ navigation }) {
     const [running, setRunning] = useState(false);
