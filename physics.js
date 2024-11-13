@@ -32,7 +32,14 @@ const Physics = (entities, { time, touches, dispatch }) => {
         Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Obstacle"].body, {
             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
-            y: -50
+            y: -windowHeight*1.5
+        });
+    }
+    if (entities["Choco"] && entities["Choco"].body.bounds.min.y >= windowHeight) {
+        Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 });
+        Matter.Body.setPosition(entities["Choco"].body, {
+            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+            y: -windowHeight*2
         });
     }
     if (entities["Backdrop"] && entities["Backdrop"].body.bounds.max.y >= windowHeight + windowHeight) {
@@ -47,8 +54,8 @@ const Physics = (entities, { time, touches, dispatch }) => {
             event.pairs.forEach(({ bodyA, bodyB }) => {
                 if (bodyA.label === "Char" && bodyB.label === "Point") {
                     points++;
-                    if (points % 10 === 0) {
-                        world.gravity.y = world.gravity.y*1.3;
+                    if (points % 5 === 0) {
+                        world.gravity.y = world.gravity.y + 0.1;
                     }
                     dispatch({ type: "new_point" });
                     Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 });
@@ -61,7 +68,15 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 });
                     Matter.Body.setPosition(bodyB, {
                         x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
-                        y: -150
+                        y: -windowHeight*3
+                    });
+                }else if (bodyA.label === "Char" && bodyB.label === "Choco") {
+                    dispatch({ type: "miss" });
+                    world.gravity.y = world.gravity.y - 0.1;
+                    Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 });
+                    Matter.Body.setPosition(bodyB, {
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+                        y: -50
                     });
                 }else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
                     // Lähetä "game_over"-tapahtuma
