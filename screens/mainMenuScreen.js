@@ -1,8 +1,12 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import DarkTheme from '../styles/theme';
+import { useTheme } from '../components/Theme';
 
 export default function MainMenuScreen({ navigation }) {
 
+    const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
+    const styles = DarkTheme(isDarkMode);
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.button}
@@ -20,14 +24,14 @@ export default function MainMenuScreen({ navigation }) {
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}
-                onPress={() => { }}
+                onPress={() => navigation.navigate('Options')} // 
             >
                 <Text style={styles.buttonText}>
                     OPTIONS
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}
-                onPress={() => { }}
+               onPress={() => navigation.navigate('Shop')}
             >
                 <Text style={styles.buttonText}>
                     SHOP
@@ -35,7 +39,7 @@ export default function MainMenuScreen({ navigation }) {
             </TouchableOpacity>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -56,4 +60,5 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center'
     }
-})
+});
+

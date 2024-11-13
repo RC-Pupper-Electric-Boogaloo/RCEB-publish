@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DarkTheme from '../styles/theme';
+import { useTheme } from '../components/Theme';
 
 export default function HighscoreScreen({ points, onReturn, navigation }) {
     const [highScores, setHighScores] = useState([]);
+    const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
+    const styles = DarkTheme(isDarkMode);
 
     // Lataa ja päivittää highscoret aluksi ja aina, kun points muuttuu
     useEffect(() => {
@@ -56,58 +60,7 @@ export default function HighscoreScreen({ points, onReturn, navigation }) {
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
             />
-            <TouchableOpacity style={styles.button}
-                onPress={() => { navigation.navigate('MainMenu') }}
-            >
-                <Text style={styles.buttonText}>
-                    RETURN
-                </Text>
-            </TouchableOpacity>
+             <Button title="Return"  onPress={() => navigation.navigate('MainMenu')} />
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginTop: Constants.statusBarHeight,
-        marginBottom: 20,
-    },
-    list: {
-        width: '100%',
-    },
-    item: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-    },
-    button: {
-        backgroundColor: 'black',
-        paddingHorizontal: 30,
-        paddingVertical: 10,
-        width: '70%',
-        marginBottom: 20
-    },
-    buttonText: {
-        fontWeight: 'bold',
-        color: 'white',
-        fontSize: 30,
-        textAlign: 'center'
-    },
-    name: {
-        fontSize: 18,
-    },
-    score: {
-        fontSize: 18,
-    },
-})
