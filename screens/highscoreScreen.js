@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput, Button } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DarkTheme from '../styles/theme';
@@ -60,7 +60,9 @@ export default function HighscoreScreen({ points, onReturn, navigation }) {
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
             />
-            <Button title="Return" onPress={() => navigation.goBack()} />
+            <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => navigation.goBack()}>
+                <Text style={styles.buttonTitle}>Return</Text>
+            </TouchableOpacity>
         </View>
     );
 };

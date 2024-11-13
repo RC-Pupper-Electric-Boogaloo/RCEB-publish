@@ -1,11 +1,13 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { ThemeProvider } from './components/Theme';
 import StartScreen from './screens/startScreen'
 import MainMenuScreen from './screens/mainMenuScreen'
 import GameScreen from './screens/gameScreen'
 import HighscoreScreen from './screens/highscoreScreen'
-import { ThemeProvider } from './components/Theme';
+import OptionScreen from './screens/optionScreen'
+import ShopScreen from './screens/shopScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -33,6 +35,16 @@ export default function App() {
                     <Stack.Screen
                         name='Highscore'
                         component={HighscoreScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='Options'
+                        component={OptionScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='Shop'
+                        component={ShopScreen}
                         options={{ headerShown: false }}
                     />
                 </Stack.Navigator>
