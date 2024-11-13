@@ -3,6 +3,7 @@ import Constants from 'expo-constants';
 import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 
+
 const OptionScreen = ({onReturn}) => {
 
   const [MusicOn, setIsMusicOn] = useState(false);

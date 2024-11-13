@@ -18,7 +18,10 @@
     "rceb": "file:",
     "react": "18.3.1",
     "react-native": "0.76.1",
-    "react-native-game-engine": "^1.2.0"
+    "react-native-fs": "^2.20.0",
+    "react-native-game-engine": "^1.2.0",
+    "react-native-paper": "^5.12.5",
+    "stream-browserify": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
