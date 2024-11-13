@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
 
-const HighscoreScreen = ({points, onReturn}) => {
+const HighscoreScreen = ({points, onReturn, navigation}) => {
     const [highScores, setHighScores] = useState([]);
     const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
     const styles = DarkTheme(isDarkMode);
@@ -60,7 +60,7 @@ const loadHighScores = async () => {
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
             />
-             <Button title="Return" onPress={onReturn} />
+             <Button title="Return"  onPress={() => navigation.navigate('MainMenu')} />
         </View>
     );
 };

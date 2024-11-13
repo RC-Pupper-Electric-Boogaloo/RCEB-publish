@@ -11,7 +11,7 @@ import S5 from '../assets/S5.png';
 import S6 from '../assets/S6.png';
 import S7 from '../assets/S7.png';
 import S8 from '../assets/S8.png';
-const ShopScreen = ({onReturn}) => {
+const ShopScreen = ({onReturn, navigation}) => {
 
   const Skins = [S1, S2, S3, S4, S5, S6, S7, S8];
   const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
@@ -51,7 +51,7 @@ const ShopScreen = ({onReturn}) => {
         <Text style={styles.buttonTitle}>Watch Ad for Coin</Text>
       </TouchableOpacity>
     */} 
-      <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={onReturn}>
+      <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() =>  navigation.navigate("MainMenu")}>
         <Text style={styles.buttonTitle}>Return</Text>
       </TouchableOpacity>
     </View>

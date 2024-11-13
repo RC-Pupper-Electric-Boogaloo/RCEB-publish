@@ -6,7 +6,7 @@ import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
 
 
-const OptionScreen = ({onReturn}) => {
+const OptionScreen = ({onReturn, navigation}) => {
 
   const [MusicOn, setIsMusicOn] = useState(false);
   const [SfxOn, setIsSfxOn] = useState(false);
@@ -37,6 +37,7 @@ const OptionScreen = ({onReturn}) => {
   const resetData = async () => {
     try {
       await AsyncStorage.removeItem('darkMode');
+      await AsyncStorage.removeItem('HIGHSCORES');
       setIsDarkMode(false);
       setIsMusicOn(false); 
       setIsSfxOn(false); 
@@ -82,7 +83,7 @@ return (
         <Text style={styles.buttonTitle}>RESET DATA</Text>
       </TouchableOpacity>
       
-       <TouchableOpacity style={[styles.button,styles.returnButton]} onPress={onReturn}>
+       <TouchableOpacity style={[styles.button,styles.returnButton]} onPress={() => navigation.navigate("MainMenu")}>
        <Text style={styles.buttonTitle}>Return</Text>
        </TouchableOpacity>
 

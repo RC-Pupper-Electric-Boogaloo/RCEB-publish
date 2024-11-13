@@ -15,7 +15,8 @@ import MainMenuScreen from './screens/mainMenuScreen';
 export default function App() {
  return(
     <ThemeProvider>
-    <OptionScreen/>
+    <GameScreen/>
   </ThemeProvider>
+  
     );
 }
