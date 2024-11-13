@@ -60,7 +60,7 @@ const loadHighScores = async () => {
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
             />
-             <Button title="Return"  onPress={() => navigation.navigate('MainMenu')} />
+             <Button title="Return" onPress={onReturn} />
         </View>
     );
 };
