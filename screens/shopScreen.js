@@ -51,7 +51,7 @@ const ShopScreen = ({onReturn}) => {
         <Text style={styles.buttonTitle}>Watch Ad for Coin</Text>
       </TouchableOpacity>
     */} 
-      <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={onReturn}>
+      <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => Navigation.goBack()}>
         <Text style={styles.buttonTitle}>Return</Text>
       </TouchableOpacity>
     </View>

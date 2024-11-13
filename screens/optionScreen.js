@@ -83,7 +83,7 @@ return (
         <Text style={styles.buttonTitle}>RESET DATA</Text>
       </TouchableOpacity>
       
-       <TouchableOpacity style={[styles.button,styles.returnButton]} onPress={onReturn}>
+       <TouchableOpacity style={[styles.button,styles.returnButton]} onPress={() => Navigation.goBack()}>
        <Text style={styles.buttonTitle}>Return</Text>
        </TouchableOpacity>
 
