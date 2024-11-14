@@ -8,6 +8,7 @@ import GameScreen from './screens/gameScreen'
 import HighscoreScreen from './screens/highscoreScreen'
 import OptionScreen from './screens/optionScreen'
 import ShopScreen from './screens/shopScreen'
+import StatsScreen from './screens/StatsScreen';
 
 const Stack = createNativeStackNavigator()
 
@@ -45,6 +46,11 @@ export default function App() {
                     <Stack.Screen
                         name='Shop'
                         component={ShopScreen}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name='Stats'
+                        component={StatsScreen}
                         options={{ headerShown: false }}
                     />
                 </Stack.Navigator>
