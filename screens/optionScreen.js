@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
@@ -7,9 +7,28 @@ import { useTheme } from '../components/Theme';
 const OptionScreen = ({ navigation }) => {
   const [MusicOn, setIsMusicOn] = useState(false);
   const [SfxOn, setIsSfxOn] = useState(false);
+  
 
   const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
   const styles = DarkTheme(isDarkMode);
+  const [isConfirm, setIsConfirm] = useState(false);
+
+  
+  const ResetData = () => {
+    Alert.alert(
+      "Are you sure?",
+      "Do you really want to reset all data?",
+      [
+          {
+              text: "Cancel",
+          },
+          {
+              text: "Yes", 
+              onPress: () => resetData()
+          }
+      ]
+  );
+};
 
   useEffect(() => {
     const loadSettings = async () => {
@@ -17,7 +36,7 @@ const OptionScreen = ({ navigation }) => {
         const savedTheme = await AsyncStorage.getItem('darkMode');
         const savedMusic = await AsyncStorage.getItem('MusicOn');
         const savedSfx = await AsyncStorage.getItem('SfxOn');
-
+        const savedSkins = await AsyncStorage.getItem('purchasedSkins');
         if (savedTheme !== null) {
           setIsDarkMode(savedTheme === 'true');
         }
@@ -28,6 +47,10 @@ const OptionScreen = ({ navigation }) => {
 
         if (savedSfx !== null) {
           setIsSfxOn(savedSfx === 'true');
+        }
+
+        if (savedSkins !== null) {
+          const purchasedSkins = JSON.parse(savedSkins);
         }
       } catch (error) {
         console.error("Error loading settings:", error);
@@ -62,10 +85,11 @@ const OptionScreen = ({ navigation }) => {
       await AsyncStorage.removeItem('HIGHSCORES');
       await AsyncStorage.removeItem('MusicOn');
       await AsyncStorage.removeItem('SfxOn');
+      await AsyncStorage.removeItem('purchasedSkins'); 
       setIsDarkMode(false);
       setIsMusicOn(false);
       setIsSfxOn(false);
-      alert('Data reset successfully!');
+      Alert.alert('Data reset successfully!', 'Good Luck & Have Fun!');
     } catch (error) {
       console.error("Error resetting data:", error);
     }
@@ -75,6 +99,7 @@ const OptionScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Options</Text>
       <View style={styles.optionsContainer}>
+        
         <View style={styles.Row}>
           <Text style={styles.Label}>Music</Text>
           <TouchableOpacity style={[styles.button, MusicOn && styles.activeButton]} onPress={toggleMusic}>
@@ -90,17 +115,17 @@ const OptionScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.Row}>
-          <Text style={styles.Label}>Dark Mode</Text>
-          <TouchableOpacity style={styles.button} onPress={toggleDarkMode}>
+          <Text style={styles.Label}>DarkMode</Text>
+          <TouchableOpacity style={[styles.button, isDarkMode && styles.activeButton]} onPress={toggleDarkMode}>
             <Text style={styles.buttonTitle}>{isDarkMode ? "On" : "Off"}</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <TouchableOpacity style={styles.resetButton} onPress={resetData}>
+      <TouchableOpacity style={[styles.button, styles.resetButton]} onPress={ResetData}>
         <Text style={styles.buttonTitle}>RESET DATA</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.returnButton} onPress={() => navigation.goBack()}>
+      <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => navigation.goBack()}>
         <Text style={styles.buttonTitle}>Return</Text>
       </TouchableOpacity>
     </View>

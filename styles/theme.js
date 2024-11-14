@@ -18,7 +18,6 @@ const DarkTheme = (isDarkMode) => {
     },
     list: {
       width: '100%',
-
     },
     item: {
       flexDirection: 'row',
@@ -89,18 +88,12 @@ const DarkTheme = (isDarkMode) => {
       fontSize: 30,
       textAlign: 'center'
     },
-
+ //Optionsview
     optionsContainer: {
       flex: 1,
       justifyContent: 'center',
     },
 
-    darkContainer: {
-      backgroundColor: 'black',
-    },
-    darkText: {
-      color: 'white',
-    },
     //SKINIT
     skinsContainer: {
       flexDirection: 'row',
@@ -116,6 +109,59 @@ const DarkTheme = (isDarkMode) => {
     skinImage: {
       width: '100%',
       height: '100%',
+    },
+    purchased: {
+      opacity: 0.5,
+    },
+    purchasedSkin: {
+      tintColor: 'gray'
+    },
+    selectedSkinBox: {
+      borderWidth: 3,
+      borderColor: 'gold',
+    },
+
+    //Mainmenu
+    background: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      height: '100%',
+    },
+    containerMainMenu: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'relative', 
+    },
+    ButtonMainMenu: {
+      backgroundColor: 'red',
+      paddingVertical: 15,
+      paddingHorizontal: 30,
+      borderRadius: 10,
+      marginBottom: 10
+    },
+    ButtonMainMenuText: {
+      color: '#fff',
+      fontSize: 24,
+      fontWeight: 'bold',
+    },
+
+    //StartScreen
+
+  startButton: {
+      backgroundColor: 'red',
+      paddingVertical: 15,
+      paddingHorizontal: 30,
+      borderRadius: 10,
+      position: 'absolute',  
+      bottom: '10%', 
+    },
+    startButtonText: {
+      color: '#fff',
+      fontSize: 24,
+      fontWeight: 'bold',
     },
   };
 };
