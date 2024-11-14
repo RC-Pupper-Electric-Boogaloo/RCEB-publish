@@ -45,6 +45,19 @@ export default function GameScreen({ navigation }) {
         setShowHighscores(true);
     };
 
+    const updateCoinCount = async () => {
+        try {
+            const storedCoinCount = await AsyncStorage.getItem('coinCount');
+            const parsedStoredCoinCount = storedCoinCount ? JSON.parse(storedCoinCount) : 0;
+    
+            const updatedCoinCount = parsedStoredCoinCount + coinCount;
+    
+            await AsyncStorage.setItem('coinCount', JSON.stringify(updatedCoinCount));
+        } catch (error) {
+            console.error('Error updating coin count:', error);
+        }
+    };
+
     return (
         <View style={{ flex: 1, backgroundColor: '#b4b4b4' }}>
             {showHighscores ? (
@@ -72,7 +85,7 @@ export default function GameScreen({ navigation }) {
                                     }
                                     setRunning(false);
                                     gameEngine.stop();
-                                    //lisää tänne coin_collected lisääminen storageen
+                                    updateCoinCount();
                                     handleShowHighScores();
                                     break;
                                 case 'new_point':
