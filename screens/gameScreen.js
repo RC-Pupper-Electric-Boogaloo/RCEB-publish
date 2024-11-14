@@ -29,12 +29,10 @@ export default function GameScreen({ navigation }) {
                 const savedSfx = await AsyncStorage.getItem('SfxOn');
                 const parsedSfx = savedSfx === 'true';
                 setSfxOn(parsedSfx);
-                console.log('SfxOn loaded:', parsedSfx);
     
                 const savedMusic = await AsyncStorage.getItem('MusicOn');
                 const parsedMusic = savedMusic === 'true';
                 setMusicOn(parsedMusic);
-                console.log('MusicOn loaded:', parsedMusic);
             } catch (error) {
                 console.error('Error loading settings:', error);
             }
