@@ -13,12 +13,12 @@ import Skin5 from '../assets/S5.png';
 import Skin6 from '../assets/S6.png';
 import Skin7 from '../assets/S7.png';
 import Skin8 from '../assets/S8.png';
-const ShopScreen = ({ onReturn, navigation }) => {
+const ShopScreen = ({ navigation }) => {
 
   const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8];
   const SkinNames = ['Sleeping Puppy', 'Angry Puppy', 'Give Me Puppy', 'Funny Puppy', 'No Cap Puppy', 'Gentle Puppy', 'Cow Puppy', 'Hoodie Puppy'
   ];
-  const SkinPrices = [1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500]; 
+  const SkinPrices = [10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000]; 
 
   const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
   const styles = DarkTheme(isDarkMode);
