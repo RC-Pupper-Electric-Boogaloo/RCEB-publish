@@ -110,6 +110,16 @@ const DarkTheme = (isDarkMode) => {
       width: '100%',
       height: '100%',
     },
+    purchased: {
+      opacity: 0.5,
+    },
+    purchasedSkin: {
+      tintColor: 'gray'
+    },
+    selectedSkinBox: {
+      borderWidth: 3,
+      borderColor: 'gold',
+    },
   };
 };
 

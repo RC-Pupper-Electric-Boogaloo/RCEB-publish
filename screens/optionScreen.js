@@ -11,7 +11,6 @@ const OptionScreen = ({ navigation }) => {
 
   const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
   const styles = DarkTheme(isDarkMode);
-
   const [isConfirm, setIsConfirm] = useState(false);
 
   
@@ -37,7 +36,7 @@ const OptionScreen = ({ navigation }) => {
         const savedTheme = await AsyncStorage.getItem('darkMode');
         const savedMusic = await AsyncStorage.getItem('MusicOn');
         const savedSfx = await AsyncStorage.getItem('SfxOn');
-
+        const savedSkins = await AsyncStorage.getItem('purchasedSkins');
         if (savedTheme !== null) {
           setIsDarkMode(savedTheme === 'true');
         }
@@ -48,6 +47,10 @@ const OptionScreen = ({ navigation }) => {
 
         if (savedSfx !== null) {
           setIsSfxOn(savedSfx === 'true');
+        }
+
+        if (savedSkins !== null) {
+          const purchasedSkins = JSON.parse(savedSkins);
         }
       } catch (error) {
         console.error("Error loading settings:", error);
@@ -82,6 +85,7 @@ const OptionScreen = ({ navigation }) => {
       await AsyncStorage.removeItem('HIGHSCORES');
       await AsyncStorage.removeItem('MusicOn');
       await AsyncStorage.removeItem('SfxOn');
+      await AsyncStorage.removeItem('purchasedSkins'); 
       setIsDarkMode(false);
       setIsMusicOn(false);
       setIsSfxOn(false);
