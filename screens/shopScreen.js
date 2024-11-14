@@ -5,18 +5,20 @@ import { useTheme } from '../components/Theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //Skinien importit 
-import S1 from '../assets/S1.png';
-import S2 from '../assets/S2.png';
-import S3 from '../assets/S3.png';
-import S4 from '../assets/S4.png';
-import S5 from '../assets/S5.png';
-import S6 from '../assets/S6.png';
-import S7 from '../assets/S7.png';
-import S8 from '../assets/S8.png';
-const ShopScreen = ({ onReturn, navigation }) => {
+import Skin1 from '../assets/S1.png';
+import Skin2 from '../assets/S2.png';
+import Skin3 from '../assets/S3.png';
+import Skin4 from '../assets/S4.png';
+import Skin5 from '../assets/S5.png';
+import Skin6 from '../assets/S6.png';
+import Skin7 from '../assets/S7.png';
+import Skin8 from '../assets/S8.png';
+const ShopScreen = ({ navigation }) => {
 
-  const Skins = [S1, S2, S3, S4, S5, S6, S7, S8];
-  const SkinPrices = [1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500]; 
+  const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8];
+  const SkinNames = ['Sleeping Puppy', 'Angry Puppy', 'Give Me Puppy', 'Funny Puppy', 'No Cap Puppy', 'Gentle Puppy', 'Cow Puppy', 'Hoodie Puppy'
+  ];
+  const SkinPrices = [10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000]; 
 
   const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
   const styles = DarkTheme(isDarkMode);
@@ -80,7 +82,7 @@ const handlePurchase = () => {
 
     {selectedSkin !== null && (
             <>
-              <Text style={styles.Label}>Name: Skin {selectedSkin + 1}</Text>
+              <Text style={styles.Label}>Name: {SkinNames[selectedSkin]}</Text>
               <Text style={styles.Label}>Price: {SkinPrices[selectedSkin]} Coins</Text>
             </>
           )}
