@@ -18,7 +18,6 @@ const DarkTheme = (isDarkMode) => {
     },
     list: {
       width: '100%',
-
     },
     item: {
       flexDirection: 'row',
@@ -89,18 +88,12 @@ const DarkTheme = (isDarkMode) => {
       fontSize: 30,
       textAlign: 'center'
     },
-
+ //Optionsview
     optionsContainer: {
       flex: 1,
       justifyContent: 'center',
     },
 
-    darkContainer: {
-      backgroundColor: 'black',
-    },
-    darkText: {
-      color: 'white',
-    },
     //SKINIT
     skinsContainer: {
       flexDirection: 'row',

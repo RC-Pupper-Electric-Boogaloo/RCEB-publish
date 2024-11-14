@@ -32,8 +32,8 @@ const ShopScreen = ({ onReturn, navigation }) => {
       </View>
 
 
-      <Text style={styles.label}>Name: </Text>
-      <Text style={styles.label}>Price: </Text>
+      <Text style={styles.Label}>Name: </Text>
+      <Text style={styles.Label}>Price: </Text>
 
       <TouchableOpacity style={[styles.button, styles.BButton]} onPress={() => alert('Osto nappi toimii')}>
         <Text style={styles.buttonTitle}>Buy</Text>

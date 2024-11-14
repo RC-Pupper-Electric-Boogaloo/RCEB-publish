@@ -36,7 +36,7 @@ export default function HighscoreScreen({ points, onReturn, navigation }) {
             const savedScores = await AsyncStorage.getItem('HIGHSCORES');// Haetaan tallennetut highscoret
             let scoresArray = savedScores ? JSON.parse(savedScores) : [];
             // Järjestetään tulokset laskevaan järjestykseen ja pidetään vain top 10
-            return scoresArray.sort((a, b) => b - a).slice(0, 10);
+            return scoresArray.sort((a, b) => b - a).slice(0 ,10);
         } catch (e) {
             console.error("Highscorejen lataaminen epäonnistui", e);
             return [];
