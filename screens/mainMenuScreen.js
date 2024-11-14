@@ -9,7 +9,7 @@ const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
 const styles = DarkTheme(isDarkMode);
     return (
     <ImageBackground
-      source={require('../assets/Taustakuva.jpg')} 
+      source={require('../assets/Taustakuva2.jpg')} 
       style={styles.background}
     >
       <View style={styles.containerMainMenu}>
