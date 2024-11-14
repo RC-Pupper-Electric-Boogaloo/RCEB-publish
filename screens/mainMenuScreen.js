@@ -25,8 +25,8 @@ const styles = DarkTheme(isDarkMode);
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Shop')}>
             <Text style={styles.ButtonMainMenuText}>SHOP</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.ButtonMainMenu}  onPress={() => navigation.goBack()}>
-            <Text style={styles.ButtonMainMenuText}>Return</Text>
+        <TouchableOpacity style={styles.ButtonMainMenu}  onPress={() => navigation.navigate()}>
+            <Text style={styles.ButtonMainMenuText}>STATS</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
