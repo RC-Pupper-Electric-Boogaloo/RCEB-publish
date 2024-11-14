@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
-import { useTheme } from '../components/Theme';  
-const GameOverScreen = ({ onRestart, onShowHighscores }) => {
-    const { isDarkMode } = useTheme();  
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
+import { useTheme } from '../components/Theme';
 
+const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores, navigation }) => {
+    const { isDarkMode } = useTheme();
 
     const backgroundImage = isDarkMode
-        ? require('../assets/GameOverDark.jpg')  
-        : require('../assets/GameOver.jpg');  
+        ? require('../assets/GameOverDark.jpg')
+        : require('../assets/GameOver.jpg');
 
     return (
         <ImageBackground 
@@ -15,13 +15,27 @@ const GameOverScreen = ({ onRestart, onShowHighscores }) => {
             style={styles.background}
         >
             <View style={styles.container}>
+                
+                <Text style={styles.pointsText}>Your Score: {currentPoints}</Text> 
+
+                <View style={styles.coinsContainer}>
+                    <Image source={require('../assets/Coin.png')} style={styles.coinImage} />
+                    <Text style={styles.coinsText}>x {coinCount}</Text>  
+                </View>
 
                 <TouchableOpacity style={styles.button} onPress={onRestart}>
                     <Text style={styles.buttonText}>Play Again</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={[styles.button, { marginTop: 10 }]} onPress={onShowHighscores}>
-                    <Text style={styles.buttonText}>View Highscores</Text>
+                    <Text style={styles.buttonText}>Highscores</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                    style={[styles.button, { marginTop: 10 }]} 
+                    onPress={() => navigation.goBack()} 
+                >
+                    <Text style={styles.buttonText}>Main Menu</Text>
                 </TouchableOpacity>
             </View>
         </ImageBackground>
@@ -46,6 +60,25 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20,
         color: 'red',
+    },
+    pointsText: {
+        fontSize: 30,
+        color: 'white',
+        marginBottom: 20,
+    },
+    coinsContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    coinImage: {
+        width: 30,  
+        height: 30, 
+        marginRight: 10,
+    },
+    coinsText: {
+        fontSize: 25,
+        color: 'white',
     },
     button: {
         backgroundColor: '#3498db',

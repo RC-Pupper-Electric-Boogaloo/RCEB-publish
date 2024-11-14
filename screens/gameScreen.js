@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function GameScreen({ navigation }) {
     const [running, setRunning] = useState(true); 
     const [currentPoints, setCurrentPoints] = useState(0);
-    const [coinCount, setCoinCount] = useState(0);
+    const [coinCount, setCoinCount] = useState(0);  
     const playCollisionSound = usePlayCollisionSound();
     const playPointSound = usePlayPointSound();
     const stopMusicRef = useRef();
@@ -60,6 +60,10 @@ export default function GameScreen({ navigation }) {
                         {currentPoints}
                     </Text>
 
+                    <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', position: 'absolute', top: 60, right: 20 }}>
+                        Coins: {coinCount}  
+                    </Text>
+
                     {musicOn && <BackgroundMusic stopRef={stopMusicRef} />}
                     <GameEngine
                         ref={gameEngine}
@@ -80,7 +84,7 @@ export default function GameScreen({ navigation }) {
                                     break;
                                 case 'coin_collected':
                                     if (sfxOn) playPointSound();
-                                    setCoinCount(coinCount + 1);
+                                    setCoinCount(coinCount + 1);  
                                     break;
                                 case 'miss':
                                     if (sfxOn) playCollisionSound();
@@ -95,8 +99,11 @@ export default function GameScreen({ navigation }) {
                 </>
             ) : (
                 <GameOverScreen
+                    currentPoints={currentPoints}  
+                    coinCount={coinCount}  
                     onRestart={handleRestart}
                     onShowHighscores={handleShowHighscores}
+                    navigation={navigation}
                 />
             )}
         </View>
