@@ -18,7 +18,7 @@ export default function GameScreen({ navigation }) {
     const [showHighscores, setShowHighscores] = useState(false);
     const stopMusicRef = useRef(); 
     const [sfxOn, setSfxOn] = useState(false);
-    const [musicOn, setMusicOn] = useState(false);
+    const [musicOn, setMusicOn] = useState(false); 
 
     useEffect(() => {
         setRunning(false);
