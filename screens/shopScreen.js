@@ -13,6 +13,20 @@ import Skin5 from '../assets/S5.png';
 import Skin6 from '../assets/S6.png';
 import Skin7 from '../assets/S7.png';
 import Skin8 from '../assets/S8.png';
+
+const updateCoinCount = async () => {
+  try {
+      const storedCoinCount = await AsyncStorage.getItem('coinCount');
+      const parsedStoredCoinCount = storedCoinCount ? JSON.parse(storedCoinCount) : 0;
+
+      const updatedCoinCount = parsedStoredCoinCount - coinCount;
+
+      await AsyncStorage.setItem('coinCount', JSON.stringify(updatedCoinCount));
+  } catch (error) {
+      console.error('Error updating coin count:', error);
+  }
+};
+
 const ShopScreen = ({ navigation }) => {
 
   const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8];
@@ -66,7 +80,7 @@ const handlePurchase = () => {
   return (
     <View style={styles.container}>
      <Text style={styles.title}>Shop</Text>
-     <Text style={styles.Label}>Your Coins: {}</Text>
+     <Text style={styles.Label}>Your Coins: {AsyncStorage.getItem('coinCount')}</Text>
 
     <View style={styles.skinsContainer}>
      {Skins.map((skin, index) => {
