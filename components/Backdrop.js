@@ -36,6 +36,7 @@ export default (world, label, color, pos, size, imageSource) => {
         {
             label,
             isSensor: true,
+            isStatic: true,
         }
     )
     Matter.World.add(world, initialBackdrop)
