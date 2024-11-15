@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ImageBackground } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
 import { StatusBar } from 'expo-status-bar';
 import entities from '../entities';
@@ -7,6 +7,8 @@ import Physics from '../physics';
 import BackgroundMusic, { usePlayCollisionSound, usePlayPointSound } from '../components/BackgroundMusic';
 import GameOverScreen from './gameOverScreen'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DarkTheme from '../styles/theme';
+import { useTheme } from '../components/Theme';
 
 export default function GameScreen({ navigation }) {
     const [running, setRunning] = useState(true); 
@@ -17,7 +19,15 @@ export default function GameScreen({ navigation }) {
     const stopMusicRef = useRef();
     const [sfxOn, setSfxOn] = useState(false);
     const [musicOn, setMusicOn] = useState(false);
+    const styles = DarkTheme(isDarkMode);
+    const { isDarkMode } = useTheme();
     const gameEngine = useRef(null);
+  
+    const backgroundImage = isDarkMode
+      ? require('../assets/Taustakuvatakatumma.jpg')
+      : require('../assets/Taustakuvatakavaalea.jpg');
+    
+    const backdropImage = require('../assets/Taustakuva3ala.png'); 
 
     useEffect(() => {
         const loadSettings = async () => {
@@ -53,9 +63,14 @@ export default function GameScreen({ navigation }) {
     };
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#b4b4b4' }}>
+        <View style={{ flex: 1}}>
+        
             {running ? (
                 <>
+                <ImageBackground
+                    source={backgroundImage} 
+                    style={{ flex: 1 }} 
+                >
                     <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20, zIndex: 100, position: 'absolute', right: 20 }}>
                         {currentPoints}
                     </Text>
@@ -68,7 +83,7 @@ export default function GameScreen({ navigation }) {
                     <GameEngine
                         ref={gameEngine}
                         systems={[Physics]}
-                        entities={entities()}
+                        entities={entities(null, backdropImage)}
                         running={running}
                         onEvent={(e) => {
                             switch (e.type) {
@@ -96,6 +111,7 @@ export default function GameScreen({ navigation }) {
                     >
                         <StatusBar style="auto" hidden={true} />
                     </GameEngine>
+                    </ImageBackground>
                 </>
             ) : (
                 <GameOverScreen
