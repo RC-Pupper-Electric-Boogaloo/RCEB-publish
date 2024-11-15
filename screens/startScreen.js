@@ -5,6 +5,9 @@ import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../entities/menuentities';
+import Physics from '../physics';
+
+
 
 
 export default function StartScreen({ navigation }) {
@@ -25,6 +28,7 @@ export default function StartScreen({ navigation }) {
     >        
     <GameEngine
       ref={gameEngine}
+      systems={[Physics]}
       entities={entities(null, backdropImage)}
       running={true}
       style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}

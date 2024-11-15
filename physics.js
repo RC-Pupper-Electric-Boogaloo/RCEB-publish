@@ -12,14 +12,16 @@ const Physics = (entities, { time, touches, dispatch }) => {
     let points = 0;
     let coinCount = entities.coinCount || 0; 
 
-    touches.filter(t => t.type === "move").forEach(t => {
+    if (entities["Char"]) {
+     touches.filter(t => t.type === "move").forEach(t => {
         const fingerPositionX = t.event.pageX;
 
         Matter.Body.setPosition(entities.Char.body, {
             x: fingerPositionX,
             y: entities.Char.body.position.y 
         });
-    });
+     });
+    }
 
     Matter.Engine.update(engine);
 
@@ -57,8 +59,25 @@ const Physics = (entities, { time, touches, dispatch }) => {
 
     if (entities["Backdrop"] && entities["Backdrop"].body.bounds.max.y >= windowHeight + windowHeight) {
         Matter.Body.setPosition(entities["Backdrop"].body, {
-            x: windowWidth / 2,
-            y: 0
+            x: windowWidth/3-windowWidth,
+            y: windowHeight / 2
+        });
+    }
+
+    if (entities["Cloud1"] && entities["Cloud1"].body.bounds.min.x + 160 < 0) {
+        Matter.Body.setVelocity(entities["Cloud1"].body, { x: 0, y: 0 });
+        Matter.Body.setPosition(entities["Cloud1"].body, {
+            x: windowWidth + 50,
+            y: getRandom(150, windowHeight / 1.1)
+        });
+    }
+
+    if (entities["Cloud2"] && entities["Cloud2"].body.bounds.min.x + 160 < 0) {
+        Matter.Body.setVelocity(entities["Cloud2"].body, { x: 0, y: 0 });
+        Matter.Body.setPosition(entities["Cloud2"].body, {
+            x: windowWidth + 20,
+            y: getRandom(150, windowHeight / 1.1)
+            
         });
     }
 
