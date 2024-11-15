@@ -25,7 +25,7 @@ export default (restart, imageSource) => {
         physics: { engine, world },
         Backdrop: Backdrop(world, 'Backdrop', 'black', { x: windowWidth / 2, y: (windowHeight / 2) *1.3 }, { height: windowHeight, width: windowWidth }, imageSource),
         Char: Char(world, 'Char', 'red', { x: initialCharPositionX, y: initialCharPositionY }, { height: charSize, width: charSize }, require('../assets/CharDog.png')),
-        Obstacle: Obstacle(world, 'Obstacle', 'black', { x: 60, y: -50 }, { height: 60, width: 60 }, require('../assets/Obstacle.png')),
+        Obstacle: Obstacle(world, 'Obstacle', 'black', { x: 60, y: -50 }, { height: 60, width: 60 }, require('../assets/Cat.png')),
         Choco: Obstacle(world, 'Choco', 'black', { x: 160, y: -150 }, { height: 80, width: 80 }, require('../assets/Choco.png')),
         Point: Point(world, 'orange', { x: 260, y: -50 }, { width: 100 }),
         Coin: Coin(world, 'gold', { x: 260, y: -5*windowHeight }, { width: 70 }),

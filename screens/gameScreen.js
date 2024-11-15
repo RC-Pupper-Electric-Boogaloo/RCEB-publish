@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, ImageBackground } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
 import { StatusBar } from 'expo-status-bar';
 import entities from '../entities';
@@ -19,8 +19,8 @@ export default function GameScreen({ navigation }) {
     const stopMusicRef = useRef();
     const [sfxOn, setSfxOn] = useState(false);
     const [musicOn, setMusicOn] = useState(false);
-    const styles = DarkTheme(isDarkMode);
     const { isDarkMode } = useTheme();
+    const styles = DarkTheme(isDarkMode);
     const gameEngine = useRef(null);
   
     const backgroundImage = isDarkMode
@@ -71,12 +71,12 @@ export default function GameScreen({ navigation }) {
                     source={backgroundImage} 
                     style={{ flex: 1 }} 
                 >
-                    <Text style={{ textAlign: 'center', fontSize: 40, fontWeight: 'bold', margin: 20, zIndex: 100, position: 'absolute', right: 20 }}>
+                    <Text style={styles.pointsText}>
                         {currentPoints}
                     </Text>
 
-                    <Text style={{ textAlign: 'center', fontSize: 20, fontWeight: 'bold', position: 'absolute', top: 60, right: 20 }}>
-                        Coins: {coinCount}  
+                    <Text style={styles.coinsText}>
+                            Coins: {coinCount}  
                     </Text>
 
                     {musicOn && <BackgroundMusic stopRef={stopMusicRef} />}
