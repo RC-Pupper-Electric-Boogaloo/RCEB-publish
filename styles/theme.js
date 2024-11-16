@@ -46,6 +46,25 @@ const DarkTheme = (isDarkMode) => {
       justifyContent: 'space-between',
       padding: 10,
     },
+    pointsText: {
+      textAlign: 'center',
+      color: isDarkMode ? '#FFFFFF' : '#000000',
+      fontSize: 40,
+      fontWeight: 'bold',
+      margin: 20,
+      zIndex: 100,
+      position: 'absolute',
+      right: 20,
+    },
+    coinsText: {
+      textAlign: 'center',
+      color: isDarkMode ? '#FFFFFF' : '#000000',
+      fontSize: 20,
+      fontWeight: 'bold',
+      position: 'absolute',
+      top: 60,
+      right: 20,
+    },
 
     //BUTTONIT
     button: {

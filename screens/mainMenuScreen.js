@@ -1,18 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
+import { GameEngine } from 'react-native-game-engine';
+import entities from '../entities/menuentities';
+
 
 
 export default function MainMenuScreen({ navigation }) {
-  const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
-  const styles = DarkTheme(isDarkMode);
-  return (
-    <ImageBackground
-      source={require('../assets/Taustakuva2.jpg')} 
-      style={styles.background}
+    const styles = DarkTheme(isDarkMode);
+    const { isDarkMode } = useTheme();
+    const gameEngine = useRef(null);
+    
+    const backgroundImage = isDarkMode
+        ? require('../assets/Taustakuvatakatumma.jpg')
+        : require('../assets/Taustakuvatakavaalea.jpg');
+    
+    const backdropImage = require('../assets/Taustakuva2ala.png'); 
+        return (
+        <ImageBackground
+          source={backgroundImage} 
+          style={styles.background}
     >
-      <View style={styles.containerMainMenu}>
+         <GameEngine
+            ref={gameEngine}
+            entities={entities(null, backdropImage)}
+            running={true}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+        >
+      <StatusBar style="auto" hidden={true} />
+    </GameEngine>
+    <View style={styles.containerMainMenu}>
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => { navigation.navigate('Game') }}>
           <Text style={styles.ButtonMainMenuText}>PLAY</Text>
         </TouchableOpacity>

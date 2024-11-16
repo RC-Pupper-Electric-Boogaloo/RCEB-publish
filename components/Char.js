@@ -11,7 +11,7 @@ const Char = (props) => {
 
     return (
         <Image
-            source={require('../assets/Char.png')}
+            source={props.imageSource}
             style={{
                 position: 'absolute',
                 left: xBody,
@@ -24,14 +24,14 @@ const Char = (props) => {
     )
 }
 
-export default (world, color, pos, size) => {
+export default (world, label, color, pos, size, imageSource) => {
     const initialChar = Matter.Bodies.rectangle(
         pos.x,
         pos.y,
         size.width,
         size.height,
         {
-            label: 'Char',
+            label: label,
             isStatic: true
         }
     );
@@ -41,6 +41,7 @@ export default (world, color, pos, size) => {
         body: initialChar,
         color,
         pos,
+        imageSource, 
         renderer: <Char />
     }
 }

@@ -14,7 +14,7 @@ const initialCharPositionX = windowWidth / 2;
 const initialCharPositionY = windowHeight - 50 
 const charSize = windowWidth / 4; 
 
-export default restart => {
+export default (restart, imageSource) => {
     let engine = Matter.Engine.create({ enableSleeping: false })
 
     let world = engine.world
@@ -23,14 +23,14 @@ export default restart => {
 
     return {
         physics: { engine, world },
-        Backdrop: Backdrop(world, 'Backdrop', 'black', { x: windowWidth / 2, y: windowHeight / 2 }, { height: windowHeight * 2, width: windowWidth }),
-        Char: Char(world, 'red', { x: initialCharPositionX, y: initialCharPositionY }, { height: 40, width: 40 }),
-        Obstacle: Obstacle(world, 'Obstacle', 'black', { x: 60, y: -50 }, { height: 60, width: 60 }, require('../assets/Obstacle.png')),
+        Backdrop: Backdrop(world, 'Backdrop', 'black', { x: windowWidth / 2, y: (windowHeight / 2) *1.3 }, { height: windowHeight, width: windowWidth }, imageSource),
+        Char: Char(world, 'Char', 'red', { x: initialCharPositionX, y: initialCharPositionY }, { height: charSize, width: charSize }, require('../assets/CharDog.png')),
+        Obstacle: Obstacle(world, 'Obstacle', 'black', { x: 60, y: -50 }, { height: 60, width: 60 }, require('../assets/Cat.png')),
         Choco: Obstacle(world, 'Choco', 'black', { x: 160, y: -150 }, { height: 80, width: 80 }, require('../assets/Choco.png')),
         Point: Point(world, 'orange', { x: 260, y: -50 }, { width: 100 }),
         Coin: Coin(world, 'gold', { x: 260, y: -5*windowHeight }, { width: 70 }),
-        RightWall: Wall(world, "black", { x: windowWidth - 10, y: windowHeight / 2 }, { height: windowHeight, width: 20 }),
-        LeftWall: Wall(world, "black", { x: 10, y: windowHeight / 2 }, { height: windowHeight, width: 20 }),
+        RightWall: Wall(world, "black", { x: windowWidth, y: windowHeight / 2 }, { height: windowHeight, width: 20 }),
+        LeftWall: Wall(world, "black", { x: 0, y: windowHeight / 2 }, { height: windowHeight, width: 20 }),
     }
     
 }

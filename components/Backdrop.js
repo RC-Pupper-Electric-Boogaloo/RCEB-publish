@@ -1,6 +1,6 @@
 import Matter from 'matter-js'
 import React from 'react'
-import { View, Image } from 'react-native'
+import { Image } from 'react-native'
 
 const Backdrop = (props) => {
     const widthBody = props.body.bounds.max.x - props.body.bounds.min.x
@@ -13,7 +13,7 @@ const Backdrop = (props) => {
 
     return (
         <Image
-            source={require('../assets/Backdrop.png')}
+            source={props.imageSource}
             style={{
                 position: 'absolute',
                 left: xBody,
@@ -27,7 +27,7 @@ const Backdrop = (props) => {
     );
 };
 
-export default (world, label, color, pos, size) => {
+export default (world, label, color, pos, size, imageSource) => {
     const initialBackdrop = Matter.Bodies.rectangle(
         pos.x,
         pos.y,
@@ -36,6 +36,7 @@ export default (world, label, color, pos, size) => {
         {
             label,
             isSensor: true,
+            isStatic: true,
         }
     )
     Matter.World.add(world, initialBackdrop)
@@ -44,6 +45,7 @@ export default (world, label, color, pos, size) => {
         body: initialBackdrop,
         color,
         pos,
+        imageSource, 
         renderer: <Backdrop />
     }
 }

@@ -17,7 +17,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
 
         Matter.Body.setPosition(entities.Char.body, {
             x: fingerPositionX,
-            y: windowHeight - 30
+            y: entities.Char.body.position.y 
         });
     });
 
