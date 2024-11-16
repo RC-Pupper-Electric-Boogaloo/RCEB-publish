@@ -103,7 +103,7 @@ export default function GameScreen({ navigation }) {
                                     break;
                                 case 'miss':
                                     if (sfxOn) playCollisionSound();
-                                    setCurrentPoints(Math.max(currentPoints - 5, 0));
+                                    setCurrentPoints(Math.max(currentPoints - 1, 0));
                                     break;
                             }
                         }}

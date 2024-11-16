@@ -119,7 +119,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                 } else if (bodyA.label === "Char" && bodyB.label === "Choco") {
                     dispatch({ type: "miss" });
                     if (world.gravity.y > 0.4) {
-                        world.gravity.y = world.gravity.y - 0.1;
+                        world.gravity.y = world.gravity.y - 0.02;
                     }
                     Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 });
                     Matter.Body.setPosition(bodyB, {

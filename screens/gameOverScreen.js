@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
+import Constants from 'expo-constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../components/Theme';
 
 const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores, navigation }) => {
     const { isDarkMode } = useTheme();
+    const [highScores, setHighScores] = useState([]);
 
     const backgroundImage = isDarkMode
         ? require('../assets/GameOverDark.jpg')
         : require('../assets/GameOver.jpg');
+
+        useEffect(() => {
+            const saveAndLoadScores = async () => {
+              if (currentPoints) await savePoints(currentPoints);
+              setHighScores(scores);
+            };
+            saveAndLoadScores();
+          }, [currentPoints]);
+    
+          const savePoints = async (currentPoints) => {
+            try {
+                const savedScores = await AsyncStorage.getItem('HIGHSCORES'); // Ladataan nykyiset highscoret AsyncStorageista
+                let scoresArray = savedScores ? JSON.parse(savedScores) : [];
+                scoresArray.push(currentPoints); // Lisää nykyiset pisteet listaan
+                await AsyncStorage.setItem('HIGHSCORES', JSON.stringify(scoresArray));  // Tallennetaan päivitetty lista takaisin AsyncStorageiin
+            } catch (e) {
+                console.error("Pisteiden tallennus epäonnistui", e);
+            }
+        };
 
     return (
         <ImageBackground 
