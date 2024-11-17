@@ -30,6 +30,27 @@ export default function GameScreen({ navigation }) {
     const backdropImage = require('../assets/Taustakuva3ala.png'); 
 
     useEffect(() => {
+        const saveStats = async () => {
+            try {
+                const savedStats = await AsyncStorage.getItem('GAME_STATS');
+                let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, gamesPlayed: 0 };
+    
+                stats.totalPoints += currentPoints;
+                stats.totalCoins += coinCount;
+                stats.gamesPlayed += 1;
+    
+                await AsyncStorage.setItem('GAME_STATS', JSON.stringify(stats));
+            } catch (error) {
+                console.error('Error saving game stats:', error);
+            }
+        };
+    
+        if (!running) {
+            saveStats();
+        }
+    }, [running]);
+
+    useEffect(() => {
         const loadSettings = async () => {
             try {
                 const savedSfx = await AsyncStorage.getItem('SfxOn');
