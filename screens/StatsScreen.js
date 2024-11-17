@@ -1,54 +1,88 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, Text,TouchableOpacity, ImageBackground } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import DarkTheme from '../styles/theme';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../components/Theme';
-import { GameEngine } from 'react-native-game-engine';
-import entities from '../entities/menuentities';
-import Physics from '../physics';
 
-const StatsScreen = ({navigation}) => {
+const StatsScreen = ({ navigation }) => {
+    const { isDarkMode } = useTheme();
+    const [stats, setStats] = useState({ totalPoints: 0, totalCoins: 0, gamesPlayed: 0 });
 
-  const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
-  const styles = DarkTheme(isDarkMode);
-  const gameEngine = useRef(null);
-    
-  const backgroundImage = isDarkMode
-      ? require('../assets/Taustakuvatakatumma.jpg')
-      : require('../assets/Taustakuvatakavaalea.jpg');
-  
-  const backdropImage = require('../assets/Taustakuva4ala.png'); 
+    const backgroundImage = isDarkMode
+        ? require('../assets/Taustakuvatakatumma.jpg')
+        : require('../assets/Taustakuvatakavaalea.jpg');
 
+    useEffect(() => {
+        const loadStats = async () => {
+            try {
+                const savedStats = await AsyncStorage.getItem('GAME_STATS');
+                if (savedStats) {
+                    setStats(JSON.parse(savedStats));
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        };
 
-  return (
-    <ImageBackground
-    source={backgroundImage} 
-    style={styles.background}
-    >
-      <GameEngine
-            ref={gameEngine}
-            systems={[Physics]}
-            entities={entities(null, backdropImage)}
-            running={true}
-            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+        loadStats();
+    }, []);
+
+    return (
+        <ImageBackground 
+            source={backgroundImage} 
+            style={styles.background}
         >
-      <StatusBar style="auto" hidden={true} />
-    </GameEngine>
-    <View style={styles.container}>
-        <Text style={styles.title}>AllTimeStats</Text>
-        <View style={styles.optionsContainer}>
-       <Text style={styles.Label}>Total Points: </Text>
-       <Text style={styles.Label}>Total Time Spent: </Text>
-       <Text style={styles.Label}>Total Coins: </Text>
-       <Text style={styles.Label}>Games Played: </Text>
-       </View>
-       <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => navigation.goBack()}>
-        <Text style={styles.buttonTitle}>Return</Text>
-      </TouchableOpacity>
-    </View>
-    </ImageBackground>
-  );
+            <View style={styles.container}>
+                <Text style={styles.title}>All-Time Stats</Text>
+                <Text style={styles.statsText}>Total Points: {stats.totalPoints}</Text>
+                <Text style={styles.statsText}>Total Coins: {stats.totalCoins}</Text>
+                <Text style={styles.statsText}>Games Played: {stats.gamesPlayed}</Text>
+
+                <TouchableOpacity 
+                    style={styles.button} 
+                    onPress={() => navigation.goBack()}
+                >
+                    <Text style={styles.buttonText}>Return</Text>
+                </TouchableOpacity>
+            </View>
+        </ImageBackground>
+    );
 };
 
-export default StatsScreen;
+const styles = StyleSheet.create({
+    background: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        padding: 20,
+        borderRadius: 10,
+    },
+    title: {
+        fontSize: 35,
+        fontWeight: 'bold',
+        color: 'white',
+        marginBottom: 20,
+    },
+    statsText: {
+        fontSize: 20,
+        color: 'white',
+        marginBottom: 10,
+    },
+    button: {
+        backgroundColor: '#3498db',
+        paddingVertical: 15,
+        paddingHorizontal: 40,
+        borderRadius: 10,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
+});
 
+export default StatsScreen;
