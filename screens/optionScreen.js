@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Alert} from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
+import BackgroundMusic from '../components/BackgroundMusic';
 
 const OptionScreen = ({ navigation }) => {
   const [MusicOn, setIsMusicOn] = useState(false);
   const [SfxOn, setIsSfxOn] = useState(false);
-  
-
+  const stopMusicRef = useRef();
   const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
   const styles = DarkTheme(isDarkMode);
   const [isConfirm, setIsConfirm] = useState(false);
+  const [musicOn, setMusicOn] = useState(false);
 
   
   const ResetData = () => {
@@ -30,11 +31,15 @@ const OptionScreen = ({ navigation }) => {
   );
 };
 
+
   useEffect(() => {
+    // Lataa musiikki-asetus
     const loadSettings = async () => {
       try {
         const savedTheme = await AsyncStorage.getItem('darkMode');
         const savedMusic = await AsyncStorage.getItem('MusicOn');
+        const parsedMusic = savedMusic === 'true';
+        setMusicOn(parsedMusic);
         const savedSfx = await AsyncStorage.getItem('SfxOn');
         const savedSkins = await AsyncStorage.getItem('purchasedSkins');
         if (savedTheme !== null) {
@@ -67,8 +72,14 @@ const OptionScreen = ({ navigation }) => {
     } catch (error) {
       console.error("Error saving MusicOn setting:", error);
     }
-  };
 
+    if (newMusicOn) {
+      if (stopMusicRef.current) stopMusicRef.current(); 
+      setTimeout(() => setIsMusicOn(true), 100); 
+    } else {
+      if (stopMusicRef.current) stopMusicRef.current();
+    }
+  };
   const toggleSfx = async () => {
     const newSfxOn = !SfxOn;
     setIsSfxOn(newSfxOn);
@@ -94,19 +105,19 @@ const OptionScreen = ({ navigation }) => {
       console.error("Error resetting data:", error);
     }
   };
-
   return (
     <View style={styles.container}>
+      {MusicOn && <BackgroundMusic stopRef={stopMusicRef} source={require('../assets/bgm2.mp3')} />}
+      
       <Text style={styles.title}>Options</Text>
       <View style={styles.optionsContainer}>
-        
         <View style={styles.Row}>
           <Text style={styles.Label}>Music</Text>
           <TouchableOpacity style={[styles.button, MusicOn && styles.activeButton]} onPress={toggleMusic}>
             <Text style={styles.buttonTitle}>{MusicOn ? "On" : "Off"}</Text>
           </TouchableOpacity>
         </View>
-
+        
         <View style={styles.Row}>
           <Text style={styles.Label}>SFX</Text>
           <TouchableOpacity style={[styles.button, SfxOn && styles.activeButton]} onPress={toggleSfx}>
@@ -124,7 +135,6 @@ const OptionScreen = ({ navigation }) => {
       <TouchableOpacity style={[styles.button, styles.resetButton]} onPress={ResetData}>
         <Text style={styles.buttonTitle}>RESET DATA</Text>
       </TouchableOpacity>
-
       <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => navigation.goBack()}>
         <Text style={styles.buttonTitle}>Return</Text>
       </TouchableOpacity>

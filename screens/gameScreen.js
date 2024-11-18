@@ -79,7 +79,7 @@ export default function GameScreen({ navigation }) {
                             Coins: {coinCount}  
                     </Text>
 
-                    {musicOn && <BackgroundMusic stopRef={stopMusicRef} />}
+                    {musicOn && <BackgroundMusic stopRef={stopMusicRef} source={require('../assets/bgm2.mp3')} />}
                     <GameEngine
                         ref={gameEngine}
                         systems={[Physics]}

@@ -6,6 +6,8 @@ import { useTheme } from '../components/Theme';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../entities/menuentities';
 import Physics from '../physics';
+import BackgroundMusic from '../components/BackgroundMusic';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -13,17 +15,36 @@ export default function MainMenuScreen({ navigation }) {
     const styles = DarkTheme(isDarkMode);
     const { isDarkMode } = useTheme();
     const gameEngine = useRef(null);
+    const stopMusicRef = useRef();
+    const [musicOn, setMusicOn] = useState(false);
     
     const backgroundImage = isDarkMode
         ? require('../assets/Taustakuvatakatumma.jpg')
         : require('../assets/Taustakuvatakavaalea.jpg');
     
     const backdropImage = require('../assets/Taustakuva2ala.png'); 
+
+    useEffect(() => {
+      const loadSettings = async () => {
+          try {
+              const savedMusic = await AsyncStorage.getItem('MusicOn');
+              const parsedMusic = savedMusic === 'true';
+              setMusicOn(parsedMusic);
+          } catch (error) {
+              console.error('Error loading settings:', error);
+          }
+      };
+  
+      loadSettings();
+  }, []);
+
         return (
         <ImageBackground
           source={backgroundImage} 
           style={styles.background}
-    >
+    >    
+    {musicOn && <BackgroundMusic stopRef={stopMusicRef} source={require('../assets/bgm2.mp3')} />}       
+   
          <GameEngine
             ref={gameEngine}
             systems={[Physics]}
@@ -34,13 +55,25 @@ export default function MainMenuScreen({ navigation }) {
       <StatusBar style="auto" hidden={true} />
     </GameEngine>
     <View style={styles.containerMainMenu}>
-        <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => { navigation.navigate('Game') }}>
+        <TouchableOpacity style={styles.ButtonMainMenu} 
+        onPress={() => {
+        if (stopMusicRef.current) {
+          stopMusicRef.current(); // Pysäytä musiikki
+        }
+        navigation.navigate('Game'); // Navigoi päävalikkoon
+      }}>
           <Text style={styles.ButtonMainMenuText}>PLAY</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => { navigation.navigate('Highscore') }}>
           <Text style={styles.ButtonMainMenuText}>HIGHSCORES</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Options')}>
+        </TouchableOpacity>    
+        <TouchableOpacity style={styles.ButtonMainMenu} 
+        onPress={() => {
+        if (stopMusicRef.current) {
+          stopMusicRef.current(); // Pysäytä musiikki
+        }
+        navigation.navigate('Options'); // Navigoi päävalikkoon
+      }}>
           <Text style={styles.ButtonMainMenuText}>OPTIONS</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Shop')}>

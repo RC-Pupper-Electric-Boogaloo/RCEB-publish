@@ -4,8 +4,10 @@ import { StatusBar } from 'expo-status-bar';
 import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
 import { GameEngine } from 'react-native-game-engine';
+import BackgroundMusic from '../components/BackgroundMusic';
 import entities from '../entities/menuentities';
 import Physics from '../physics';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -14,6 +16,8 @@ export default function StartScreen({ navigation }) {
   const styles = DarkTheme(isDarkMode);
   const { isDarkMode } = useTheme();
   const gameEngine = useRef(null);
+  const stopMusicRef = useRef();
+  const [musicOn, setMusicOn] = useState(false);
 
   const backgroundImage = isDarkMode
     ? require('../assets/Taustakuvatakatumma.jpg')
@@ -21,11 +25,26 @@ export default function StartScreen({ navigation }) {
 
   const backdropImage = require('../assets/Taustakuvaala.png'); 
 
+  useEffect(() => {
+    const loadSettings = async () => {
+        try {
+            const savedMusic = await AsyncStorage.getItem('MusicOn');
+            const parsedMusic = savedMusic === 'true';
+            setMusicOn(parsedMusic);
+        } catch (error) {
+            console.error('Error loading settings:', error);
+        }
+    };
+
+    loadSettings();
+}, []);
+
     return (
     <ImageBackground
       source={backgroundImage} 
       style={styles.background}
-    >        
+    > 
+    {musicOn && <BackgroundMusic stopRef={stopMusicRef} source={require('../assets/bgm2.mp3')} />}       
     <GameEngine
       ref={gameEngine}
       systems={[Physics]}
@@ -36,9 +55,17 @@ export default function StartScreen({ navigation }) {
       <StatusBar style="auto" hidden={true} />
     </GameEngine>
       <View style={styles.containerMainMenu}>
-        <TouchableOpacity style={styles.startButton} onPress={() => { navigation.navigate('MainMenu') }}>
-          <Text style={styles.startButtonText}>START</Text>
-        </TouchableOpacity>
+      <TouchableOpacity 
+  style={styles.startButton} 
+  onPress={() => {
+    if (stopMusicRef.current) {
+      stopMusicRef.current(); // Pysäytä musiikki
+    }
+    navigation.navigate('MainMenu'); // Navigoi päävalikkoon
+  }}
+>
+  <Text style={styles.startButtonText}>START</Text>
+</TouchableOpacity>
 
       </View>
     </ImageBackground>
