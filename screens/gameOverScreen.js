@@ -1,35 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground, Image } from 'react-native';
-import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../components/Theme';
+import { MusicContext } from '../contexts/MusicContext';
 
 const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores, navigation }) => {
     const { isDarkMode } = useTheme();
     const [highScores, setHighScores] = useState([]);
+    const { musicOn, toggleMusic, setMusic } = useContext(MusicContext);
 
     const backgroundImage = isDarkMode
         ? require('../assets/GameOverDark.jpg')
         : require('../assets/GameOver.jpg');
 
-        useEffect(() => {
-            const saveAndLoadScores = async () => {
-              if (currentPoints) await savePoints(currentPoints);
-              setHighScores(scores);
-            };
-            saveAndLoadScores();
-          }, [currentPoints]);
-    
-          const savePoints = async (currentPoints) => {
-            try {
-                const savedScores = await AsyncStorage.getItem('HIGHSCORES'); // Ladataan nykyiset highscoret AsyncStorageista
-                let scoresArray = savedScores ? JSON.parse(savedScores) : [];
-                scoresArray.push(currentPoints); // Lisää nykyiset pisteet listaan
-                await AsyncStorage.setItem('HIGHSCORES', JSON.stringify(scoresArray));  // Tallennetaan päivitetty lista takaisin AsyncStorageiin
-            } catch (e) {
-                console.error("Pisteiden tallennus epäonnistui", e);
-            }
+    // Set the background music for the game over screen
+    useEffect(() => {
+        setMusic(require('../assets/bgmenu.mp3'));  // Main menu music
+    }, [setMusic]);
+
+    useEffect(() => {
+        const saveAndLoadScores = async () => {
+            if (currentPoints) await savePoints(currentPoints);
+            setHighScores(scores);
         };
+        saveAndLoadScores();
+    }, [currentPoints]);
+
+    const savePoints = async (currentPoints) => {
+        try {
+            const savedScores = await AsyncStorage.getItem('HIGHSCORES');
+            let scoresArray = savedScores ? JSON.parse(savedScores) : [];
+            scoresArray.push(currentPoints);
+            await AsyncStorage.setItem('HIGHSCORES', JSON.stringify(scoresArray));
+        } catch (e) {
+            console.error("Failed to save points", e);
+        }
+    };
 
     return (
         <ImageBackground 
@@ -37,8 +43,7 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
             style={styles.background}
         >
             <View style={styles.container}>
-                
-                <Text style={styles.pointsText}>Your Score: {currentPoints}</Text> 
+                <Text style={styles.pointsText}>Your Score: {currentPoints}</Text>
 
                 <View style={styles.coinsContainer}>
                     <Image source={require('../assets/Coin.png')} style={styles.coinImage} />
@@ -76,12 +81,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',  
         padding: 20,
         borderRadius: 10,
-    },
-    gameOverText: {
-        fontSize: 50,
-        fontWeight: 'bold',
-        marginBottom: 20,
-        color: 'red',
     },
     pointsText: {
         fontSize: 30,

@@ -53,13 +53,13 @@ export const usePlayPointSound = () => {
     };
 };
 
-const BackgroundMusic = ({ stopRef }) => {
+const BackgroundMusic = ({ stopRef, source }) => {
     const backgroundSound = useRef(new Audio.Sound());
 
     useEffect(() => {
         const playBackgroundMusic = async () => {
             try {
-                await backgroundSound.current.loadAsync(require('../assets/bgm2.mp3'));
+                await backgroundSound.current.loadAsync(source);
                 await backgroundSound.current.setIsLoopingAsync(true);
                 await backgroundSound.current.playAsync();
 
@@ -80,7 +80,7 @@ const BackgroundMusic = ({ stopRef }) => {
         return () => {
             backgroundSound.current.unloadAsync();
         };
-    }, []);
+    }, [source]);
 
     return null;
 };

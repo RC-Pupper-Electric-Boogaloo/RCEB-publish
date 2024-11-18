@@ -42,9 +42,7 @@ export default function MainMenuScreen({ navigation }) {
         <ImageBackground
           source={backgroundImage} 
           style={styles.background}
-    >    
-    {musicOn && <BackgroundMusic stopRef={stopMusicRef} source={require('../assets/bgm2.mp3')} />}       
-   
+    >         
          <GameEngine
             ref={gameEngine}
             systems={[Physics]}
@@ -67,13 +65,7 @@ export default function MainMenuScreen({ navigation }) {
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => { navigation.navigate('Highscore') }}>
           <Text style={styles.ButtonMainMenuText}>HIGHSCORES</Text>
         </TouchableOpacity>    
-        <TouchableOpacity style={styles.ButtonMainMenu} 
-        onPress={() => {
-        if (stopMusicRef.current) {
-          stopMusicRef.current(); // Pysäytä musiikki
-        }
-        navigation.navigate('Options'); // Navigoi päävalikkoon
-      }}>
+        <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Options')}>
           <Text style={styles.ButtonMainMenuText}>OPTIONS</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Shop')}>
