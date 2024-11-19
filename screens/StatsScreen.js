@@ -6,9 +6,11 @@ import { GameEngine } from 'react-native-game-engine';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import entities from '../entities/menuentities';
 import Physics from '../physics';
+import DarkTheme from '../styles/theme';
 
 const StatsScreen = ({ navigation }) => {
     const { isDarkMode } = useTheme();
+    const styles = DarkTheme(isDarkMode);
     const [stats, setStats] = useState({ totalPoints: 0, totalCoins: 0, gamesPlayed: 0 });
     const gameEngine = useRef(null);
 
@@ -36,7 +38,7 @@ const StatsScreen = ({ navigation }) => {
     return (
         <ImageBackground 
             source={backgroundImage} 
-            style={styles.background}
+            style={styles.backgroundStats}
         >
            <GameEngine
               ref={gameEngine}
@@ -47,58 +49,22 @@ const StatsScreen = ({ navigation }) => {
             >
               <StatusBar style="auto" hidden={true} />
             </GameEngine>
-            <View style={styles.container}>
+            <View style={styles.containerStats}>
                 <Text style={styles.title}>All-Time Stats</Text>
                 <Text style={styles.statsText}>Total Points: {stats.totalPoints}</Text>
                 <Text style={styles.statsText}>Total Coins: {stats.totalCoins}</Text>
                 <Text style={styles.statsText}>Games Played: {stats.gamesPlayed}</Text>
 
                 <TouchableOpacity 
-                    style={styles.button} 
+                    style={styles.buttonStats} 
                     onPress={() => navigation.goBack()}
                 >
-                    <Text style={styles.buttonText}>Return</Text>
+                    <Text style={styles.buttonTextStats}>Return</Text>
                 </TouchableOpacity>
             </View>
         </ImageBackground>
     );
 };
 
-const styles = StyleSheet.create({
-    background: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    container: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        padding: 20,
-        borderRadius: 10,
-    },
-    title: {
-        fontSize: 35,
-        fontWeight: 'bold',
-        color: 'white',
-        marginBottom: 20,
-    },
-    statsText: {
-        fontSize: 20,
-        color: 'white',
-        marginBottom: 10,
-    },
-    button: {
-        backgroundColor: '#3498db',
-        paddingVertical: 15,
-        paddingHorizontal: 40,
-        borderRadius: 10,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-});
 
 export default StatsScreen;

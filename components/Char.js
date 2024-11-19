@@ -8,7 +8,6 @@ const Char = (props) => {
     const xBody = props.body.position.x - widthBody / 2
     const yBody = props.body.position.y - heightBody / 2
 
-
     return (
         <Image
             source={props.imageSource}
