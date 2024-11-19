@@ -7,8 +7,6 @@ const Char = (props) => {
     const heightBody = props.body.bounds.max.y - props.body.bounds.min.y
     const xBody = props.body.position.x - widthBody / 2
     const yBody = props.body.position.y - heightBody / 2
-    const charWidth = windowWidth * 0.07; 
-    const charHeight = windowHeight * 0.07; 
 
     return (
         <Image
@@ -27,8 +25,6 @@ const Char = (props) => {
 
 export default (world, label, color, pos, size, imageSource) => {
     const initialChar = Matter.Bodies.rectangle(
-        charWidth,
-        charHeight,
         pos.x,
         pos.y,
         size.width,

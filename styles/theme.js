@@ -18,14 +18,15 @@ const DarkTheme = (isDarkMode) => {
     },
     list: {
       width: '100%',
+      marginBottom: 20,
     },
     item: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      padding: 10,
-      borderBottomWidth: 1,
-      borderBottomColor: '#ccc',
-      color: isDarkMode ? '#FFFFFF' : '#000000',
+      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      padding: 15,
+      borderRadius: 10,
+      marginBottom: 10,
     },
     name: {
       fontSize: 18,
@@ -182,6 +183,131 @@ const DarkTheme = (isDarkMode) => {
       fontSize: 24,
       fontWeight: 'bold',
     },
+
+    // GameoverScreen
+    backgroundGameOver: {
+      flex: 1, 
+      justifyContent: 'center',
+      alignItems: 'center',
+  },
+  containerGameOver: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',  
+    padding: 20,
+    borderRadius: 10,
+},
+pointsTextGameOver: {
+  fontSize: 30,
+  color: 'white',
+  marginBottom: 20,
+},
+coinsContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginBottom: 20,
+},
+coinImage: {
+  width: 30,  
+  height: 30, 
+  marginRight: 10,
+},
+coinsTextGameOver: {
+  fontSize: 25,
+  color: 'white',
+},
+buttonGameover: {
+  backgroundColor: '#3498db',
+  paddingVertical: 15,
+  paddingHorizontal: 40,
+  borderRadius: 10,
+},
+buttonTextGameOver: {
+  color: 'white',
+  fontSize: 20,
+  fontWeight: 'bold',
+},
+
+// HIGHSCORESCREEN
+backgroundHighScore: {
+  flex: 1,
+  paddingTop: 50,
+  paddingBottom: 50,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+containerHS: {
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  padding: 10,
+  borderRadius: 10,
+  width: '90%',
+  paddingTop: 40, 
+  paddingBottom: 40, 
+},
+titleHS: {
+  fontSize: 35,
+  fontWeight: 'bold',
+  color: 'white',
+  marginBottom: 20,
+},
+rank: {
+  fontSize: 20,
+  color: '#FFD700',
+},
+scoreHS: {
+  fontSize: 20,
+  color: 'white',
+  fontWeight: 'bold',
+},
+buttonHS: {
+  backgroundColor: '#3498db',
+  paddingVertical: 15,
+  paddingHorizontal: 40,
+  borderRadius: 10,
+},
+buttonTextHS: {
+  color: 'white',
+  fontSize: 20,
+  fontWeight: 'bold',
+},
+
+//STATSSCREEN
+backgroundStats: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+containerStats: {
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  padding: 20,
+  borderRadius: 10,
+},
+titleStat: {
+  fontSize: 35,
+  fontWeight: 'bold',
+  color: 'white',
+  marginBottom: 20,
+},
+statsText: {
+  fontSize: 20,
+  color: 'white',
+  marginBottom: 10,
+},
+buttonStats: {
+  backgroundColor: '#3498db',
+  paddingVertical: 15,
+  paddingHorizontal: 40,
+  borderRadius: 10,
+},
+buttonTextStats: {
+  color: 'white',
+  fontSize: 20,
+  fontWeight: 'bold',
+},
   };
 };
 
