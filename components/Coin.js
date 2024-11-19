@@ -7,7 +7,6 @@ const Point = (props) => {
 
     const xBody = props.body.position.x - props.body.circleRadius;
     const yBody = props.body.position.y - props.body.circleRadius;
-
     const color = props.color;
 
     return (
