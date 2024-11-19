@@ -34,12 +34,17 @@ export default function GameScreen({ navigation }) {
         const saveStats = async () => {
             try {
                 const savedStats = await AsyncStorage.getItem('GAME_STATS');
+                const storedCoinCount = await AsyncStorage.getItem('coinCount');
                 let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, gamesPlayed: 0 };
+                let newCoinCount = storedCoinCount ? JSON.parse(storedCoinCount) : 0; 
     
                 stats.totalPoints += currentPoints;
                 stats.totalCoins += coinCount;
                 stats.gamesPlayed += 1;
-    
+                
+                newCoinCount += coinCount;
+
+                await AsyncStorage.setItem('coinCount', JSON.stringify(newCoinCount));
                 await AsyncStorage.setItem('GAME_STATS', JSON.stringify(stats));
             } catch (error) {
                 console.error('Error saving game stats:', error);

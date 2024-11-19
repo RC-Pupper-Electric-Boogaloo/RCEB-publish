@@ -67,7 +67,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
     if (entities["Cloud1"] && entities["Cloud1"].body.bounds.min.x + 160 < 0) {
         Matter.Body.setVelocity(entities["Cloud1"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Cloud1"].body, {
-            x: windowWidth + 50,
+            x: windowWidth + 150,
             y: getRandom(150, windowHeight / 1.1)
         });
     }
@@ -75,7 +75,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
     if (entities["Cloud2"] && entities["Cloud2"].body.bounds.min.x + 160 < 0) {
         Matter.Body.setVelocity(entities["Cloud2"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Cloud2"].body, {
-            x: windowWidth + 20,
+            x: windowWidth + 120,
             y: getRandom(150, windowHeight / 1.1)
             
         });

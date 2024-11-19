@@ -1,16 +1,31 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { View, Text, TouchableOpacity, ImageBackground, Alert } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
-import { MusicContext } from '../contexts/MusicContext.js'; // Import the MusicContext
+import { MusicContext } from '../contexts/MusicContext.js'; 
+import { GameEngine } from 'react-native-game-engine';
+import entities from '../entities/menuentities';
+import Physics from '../physics';
 
 const OptionScreen = ({ navigation }) => {
-  const { musicOn, toggleMusic } = useContext(MusicContext); // Use the MusicContext here
+  const { musicOn, toggleMusic, setMusic } = useContext(MusicContext); 
   const [SfxOn, setIsSfxOn] = useState(false);
 
   const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
   const styles = DarkTheme(isDarkMode);
+  const gameEngine = useRef(null);
+
+  const backgroundImage = isDarkMode
+  ? require('../assets/Taustakuvatakatumma.jpg')
+  : require('../assets/Taustakuvatakavaalea.jpg');
+
+  const backdropImage = require('../assets/Taustakuva5ala.png'); 
+
+  useEffect(() => {
+    setMusic(require('../assets/bgmenu.mp3')); 
+  }, [setMusic]);
 
   const ResetData = () => {
     Alert.alert(
@@ -63,9 +78,12 @@ const OptionScreen = ({ navigation }) => {
       await AsyncStorage.removeItem('HIGHSCORES');
       await AsyncStorage.removeItem('MusicOn');
       await AsyncStorage.removeItem('SfxOn');
-      await AsyncStorage.removeItem('purchasedSkins'); 
+      await AsyncStorage.removeItem('purchasedSkins');
+      await AsyncStorage.removeItem('GAME_STATS');  
+      await AsyncStorage.removeItem('coinCount');  
       setIsDarkMode(false);
       setIsSfxOn(false);
+      toggleMusic(false);
       Alert.alert('Data reset successfully!', 'Good Luck & Have Fun!');
     } catch (error) {
       console.error("Error resetting data:", error);
@@ -73,7 +91,20 @@ const OptionScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground
+    source={backgroundImage} 
+    style={styles.background}
+  >     
+  <GameEngine
+    ref={gameEngine}
+    systems={[Physics]}
+    entities={entities(null, backdropImage)}
+    running={true}
+    style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+  >
+    <StatusBar style="auto" hidden={true} />
+  </GameEngine>
+    <View style={styles.containerMainMenu}>
       <Text style={styles.title}>Options</Text>
       <View style={styles.optionsContainer}>
         <View style={styles.Row}>
@@ -106,6 +137,7 @@ const OptionScreen = ({ navigation }) => {
         <Text style={styles.buttonTitle}>Return</Text>
       </TouchableOpacity>
     </View>
+    </ImageBackground>
   );
 };
 

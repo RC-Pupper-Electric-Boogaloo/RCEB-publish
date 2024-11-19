@@ -1,15 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
+import { GameEngine } from 'react-native-game-engine';
+import entities from '../entities/menuentities';
+import Physics from '../physics';
 
 export default function HighscoreScreen({ navigation }) {
     const [highScores, setHighScores] = useState([]);
     const { isDarkMode } = useTheme();
-
+    const styles = DarkTheme(isDarkMode);
+    const gameEngine = useRef(null);
+  
     const backgroundImage = isDarkMode
-        ? require('../assets/Taustakuvatakatumma.jpg')
-        : require('../assets/Taustakuvatakavaalea.jpg');
+    ? require('../assets/Taustakuvatakatumma.jpg')
+    : require('../assets/Taustakuvatakavaalea.jpg');
+  
+    const backdropImage = require('../assets/Taustakuva2ala.png'); 
 
     useEffect(() => {
         const loadHighScores = async () => {
@@ -27,90 +36,45 @@ export default function HighscoreScreen({ navigation }) {
     }, []);
 
     const renderItem = ({ item, index }) => (
-        <View style={styles.item}>
-            <Text style={styles.rank}>{index + 1}.</Text>
-            <Text style={styles.score}>{item}</Text>
+        <View style={styles.Hitem}>
+            <Text style={styles.Hrank}>{index + 1}.</Text>
+            <Text style={styles.Hscore}>{item}</Text>
         </View>
     );
 
     return (
         <ImageBackground 
             source={backgroundImage} 
-            style={styles.background}
+            style={styles.Hbackground}
+        > 
+        <GameEngine
+          ref={gameEngine}
+          systems={[Physics]}
+          entities={entities(null, backdropImage)}
+          running={true}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
         >
-            <View style={styles.container}>
-                <Text style={styles.title}>Highscores</Text>
+          <StatusBar style="auto" hidden={true} />
+        </GameEngine>
+            <View style={styles.Hcontainer}>
+                
+                <Text style={styles.Htitle}>Highscores</Text>
                 <FlatList
                     data={highScores}
                     renderItem={renderItem}
                     keyExtractor={(item, index) => index.toString()}
-                    style={styles.list}
-                />
+                    style={styles.Hlist}
+                />       
                 <TouchableOpacity 
-                    style={styles.button} 
+                    style={styles.Hbutton} 
                     onPress={() => navigation.goBack()}
                 >
-                    <Text style={styles.buttonText}>Return</Text>
-                </TouchableOpacity>
+                    <Text style={styles.HbuttonText}>Return</Text>            
+                </TouchableOpacity> 
+                <Image 
+                source={require('../assets/WinWhippet.png')}
+            />
             </View>
         </ImageBackground>
     );
 };
-
-const styles = StyleSheet.create({
-    background: {
-        flex: 1,
-        paddingTop: 50,
-        paddingBottom: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    container: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        padding: 10,
-        borderRadius: 10,
-        width: '90%',
-        paddingTop: 40, 
-        paddingBottom: 40, 
-    },
-    title: {
-        fontSize: 35,
-        fontWeight: 'bold',
-        color: 'white',
-        marginBottom: 20,
-    },
-    list: {
-        width: '100%',
-        marginBottom: 20,
-    },
-    item: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        padding: 15,
-        borderRadius: 10,
-        marginBottom: 10,
-    },
-    rank: {
-        fontSize: 20,
-        color: '#FFD700',
-    },
-    score: {
-        fontSize: 20,
-        color: 'white',
-        fontWeight: 'bold',
-    },
-    button: {
-        backgroundColor: '#3498db',
-        paddingVertical: 15,
-        paddingHorizontal: 40,
-        borderRadius: 10,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-});
