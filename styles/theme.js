@@ -48,7 +48,7 @@ const DarkTheme = (isDarkMode) => {
     },
     pointsText: {
       textAlign: 'center',
-      color: isDarkMode ? '#FFFFFF' : '#000000',
+      color: isDarkMode ? '#FFF' : '#000',
       fontSize: 40,
       fontWeight: 'bold',
       margin: 20,
@@ -58,7 +58,7 @@ const DarkTheme = (isDarkMode) => {
     },
     coinsText: {
       textAlign: 'center',
-      color: isDarkMode ? '#FFFFFF' : '#000000',
+      color: isDarkMode ? '#FFF' : '#000',
       fontSize: 20,
       fontWeight: 'bold',
       position: 'absolute',

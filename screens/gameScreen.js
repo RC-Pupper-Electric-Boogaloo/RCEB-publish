@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
 import { StatusBar } from 'expo-status-bar';
 import entities from '../entities';
 import Physics from '../physics';
-import BackgroundMusic, { usePlayCollisionSound, usePlayPointSound } from '../components/BackgroundMusic';
+import { usePlayCollisionSound, usePlayPointSound } from '../components/BackgroundMusic';
 import GameOverScreen from './gameOverScreen'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
+import { MusicContext } from '../contexts/MusicContext';
 
 export default function GameScreen({ navigation }) {
     const [running, setRunning] = useState(true); 
@@ -18,7 +19,7 @@ export default function GameScreen({ navigation }) {
     const playPointSound = usePlayPointSound();
     const stopMusicRef = useRef();
     const [sfxOn, setSfxOn] = useState(false);
-    const [musicOn, setMusicOn] = useState(false);
+    const { musicOn, toggleMusic, setMusic } = useContext(MusicContext);
     const { isDarkMode } = useTheme();
     const styles = DarkTheme(isDarkMode);
     const gameEngine = useRef(null);
@@ -56,10 +57,6 @@ export default function GameScreen({ navigation }) {
                 const savedSfx = await AsyncStorage.getItem('SfxOn');
                 const parsedSfx = savedSfx === 'true';
                 setSfxOn(parsedSfx);
-
-                const savedMusic = await AsyncStorage.getItem('MusicOn');
-                const parsedMusic = savedMusic === 'true';
-                setMusicOn(parsedMusic);
             } catch (error) {
                 console.error('Error loading settings:', error);
             }
@@ -67,6 +64,13 @@ export default function GameScreen({ navigation }) {
 
         loadSettings();
     }, []);
+
+    // Varmistetaan, että peliin asetetaan oikea musiikki (bgm2.mp3) kun peli käynnistyy
+    useEffect(() => {
+        if (running) {
+            setMusic(require('../assets/bgm2.mp3'));  // Asetetaan pelimusiikki
+        }
+    }, [setMusic, running]);
 
     const handleRestart = () => {
         setCurrentPoints(0);
@@ -77,6 +81,9 @@ export default function GameScreen({ navigation }) {
             gameEngine.current.swap(entities());  
             gameEngine.current.start();  
         }
+
+        // Käynnistetään musiikki aina, kun peli aloitetaan uudelleen
+        setMusic(require('../assets/bgm2.mp3'));
     };
 
     const handleShowHighscores = () => {
@@ -84,54 +91,51 @@ export default function GameScreen({ navigation }) {
     };
 
     return (
-        <View style={{ flex: 1}}>
-        
+        <View style={{ flex: 1 }}>
             {running ? (
                 <>
-                <ImageBackground
-                    source={backgroundImage} 
-                    style={{ flex: 1 }} 
-                >
-                    <Text style={styles.pointsText}>
-                        {currentPoints}
-                    </Text>
-
-                    <Text style={styles.coinsText}>
-                            Coins: {coinCount}  
-                    </Text>
-
-                    {musicOn && <BackgroundMusic stopRef={stopMusicRef} />}
-                    <GameEngine
-                        ref={gameEngine}
-                        systems={[Physics]}
-                        entities={entities(null, backdropImage)}
-                        running={running}
-                        onEvent={(e) => {
-                            switch (e.type) {
-                                case 'game_over':
-                                    if (sfxOn) playCollisionSound();
-                                    if (stopMusicRef.current) stopMusicRef.current(); 
-                                    setRunning(false);
-                                    gameEngine.current.stop(); 
-                                    break;
-                                case 'new_point':
-                                    if (sfxOn) playPointSound();
-                                    setCurrentPoints(currentPoints + 1);
-                                    break;
-                                case 'coin_collected':
-                                    if (sfxOn) playPointSound();
-                                    setCoinCount(coinCount + 1);  
-                                    break;
-                                case 'miss':
-                                    if (sfxOn) playCollisionSound();
-                                    setCurrentPoints(Math.max(currentPoints - 1, 0));
-                                    break;
-                            }
-                        }}
-                        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+                    <ImageBackground
+                        source={backgroundImage} 
+                        style={{ flex: 1 }} 
                     >
-                        <StatusBar style="auto" hidden={true} />
-                    </GameEngine>
+                        <Text style={styles.pointsText}>
+                            {currentPoints}
+                        </Text>
+
+                        <Text style={styles.coinsText}>
+                            Coins: {coinCount}  
+                        </Text>
+                        <GameEngine
+                            ref={gameEngine}
+                            systems={[Physics]}
+                            entities={entities(null, backdropImage)}
+                            running={running}
+                            onEvent={(e) => {
+                                switch (e.type) {
+                                    case 'game_over':
+                                        if (sfxOn) playCollisionSound();
+                                        if (stopMusicRef.current) stopMusicRef.current(); 
+                                        setRunning(false);
+                                        gameEngine.current.stop(); 
+                                        break;
+                                    case 'new_point':
+                                        if (sfxOn) playPointSound();
+                                        setCurrentPoints(currentPoints + 1);
+                                        break;
+                                    case 'coin_collected':
+                                        if (sfxOn) playPointSound();
+                                        setCoinCount(coinCount + 1);  
+                                        break;
+                                    case 'miss':
+                                        if (sfxOn) playCollisionSound();
+                                        setCurrentPoints(Math.max(currentPoints - 1, 0));
+                                        break;
+                                }
+                            }}
+                            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+                        >
+                            <StatusBar style="auto" hidden={true} />
+                        </GameEngine>
                     </ImageBackground>
                 </>
             ) : (

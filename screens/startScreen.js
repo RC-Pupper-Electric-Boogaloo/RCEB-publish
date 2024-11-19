@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import DarkTheme from '../styles/theme';
@@ -6,6 +6,7 @@ import { useTheme } from '../components/Theme';
 import { GameEngine } from 'react-native-game-engine';
 import entities from '../entities/menuentities';
 import Physics from '../physics';
+import { MusicContext } from '../contexts/MusicContext';
 
 
 
@@ -14,6 +15,9 @@ export default function StartScreen({ navigation }) {
   const styles = DarkTheme(isDarkMode);
   const { isDarkMode } = useTheme();
   const gameEngine = useRef(null);
+  const stopMusicRef = useRef();
+  const { musicOn, toggleMusic, setMusic  } = useContext(MusicContext);
+
 
   const backgroundImage = isDarkMode
     ? require('../assets/Taustakuvatakatumma.jpg')
@@ -21,11 +25,15 @@ export default function StartScreen({ navigation }) {
 
   const backdropImage = require('../assets/Taustakuvaala.png'); 
 
+  useEffect(() => {
+    setMusic(require('../assets/bgmenu.mp3')); 
+  }, [setMusic]);
+
     return (
     <ImageBackground
       source={backgroundImage} 
       style={styles.background}
-    >        
+    >     
     <GameEngine
       ref={gameEngine}
       systems={[Physics]}
@@ -36,10 +44,9 @@ export default function StartScreen({ navigation }) {
       <StatusBar style="auto" hidden={true} />
     </GameEngine>
       <View style={styles.containerMainMenu}>
-        <TouchableOpacity style={styles.startButton} onPress={() => { navigation.navigate('MainMenu') }}>
+        <TouchableOpacity style={styles.startButton} onPress={() => { navigation.navigate('MainMenu');}}>
           <Text style={styles.startButtonText}>START</Text>
         </TouchableOpacity>
-
       </View>
     </ImageBackground>
   );
