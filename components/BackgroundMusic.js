@@ -53,29 +53,34 @@ export const usePlayPointSound = () => {
     };
 };
 
-const BackgroundMusic = ({ stopRef }) => {
+const BackgroundMusic = ({ stopRef, source }) => {
     const backgroundSound = useRef(new Audio.Sound());
 
     useEffect(() => {
         const playBackgroundMusic = async () => {
-            await backgroundSound.current.loadAsync(require('../assets/bgm.mp3'));
-            await backgroundSound.current.setIsLoopingAsync(true);
-            await backgroundSound.current.playAsync();
+            try {
+                await backgroundSound.current.loadAsync(source);
+                await backgroundSound.current.setIsLoopingAsync(true);
+                await backgroundSound.current.playAsync();
+
+                if (stopRef) {
+                    stopRef.current = async () => {
+                        if (backgroundSound.current) {
+                            await backgroundSound.current.stopAsync();
+                        }
+                    };
+                }
+            } catch (error) {
+                console.error("Error playing background music:", error);
+            }
         };
 
         playBackgroundMusic();
 
-        // Aseta pysäytysfunktio refiin, jotta App-komponentti voi käyttää sitä
-        stopRef.current = async () => {
-            if (backgroundSound.current) {
-                await backgroundSound.current.stopAsync();
-            }
-        };
-
         return () => {
             backgroundSound.current.unloadAsync();
         };
-    }, []);
+    }, [source]);
 
     return null;
 };
