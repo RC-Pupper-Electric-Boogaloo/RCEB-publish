@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useTheme } from '../components/Theme';
 import DarkTheme from '../styles/theme';
+import { useTheme } from '../components/Theme';
+import { GameEngine } from 'react-native-game-engine';
+import entities from '../entities/menuentities';
+import Physics from '../physics';
 
 export default function HighscoreScreen({ navigation }) {
     const [highScores, setHighScores] = useState([]);
     const { isDarkMode } = useTheme();
     const styles = DarkTheme(isDarkMode);
-
+    const gameEngine = useRef(null);
+  
     const backgroundImage = isDarkMode
-        ? require('../assets/Taustakuvatakatumma.jpg')
-        : require('../assets/Taustakuvatakavaalea.jpg');
+    ? require('../assets/Taustakuvatakatumma.jpg')
+    : require('../assets/Taustakuvatakavaalea.jpg');
+  
+    const backdropImage = require('../assets/Taustakuva2ala.png'); 
 
     useEffect(() => {
         const loadHighScores = async () => {
@@ -29,31 +36,44 @@ export default function HighscoreScreen({ navigation }) {
     }, []);
 
     const renderItem = ({ item, index }) => (
-        <View style={styles.item}>
-            <Text style={styles.rank}>{index + 1}.</Text>
-            <Text style={styles.scoreHS}>{item}</Text>
+        <View style={styles.Hitem}>
+            <Text style={styles.Hrank}>{index + 1}.</Text>
+            <Text style={styles.Hscore}>{item}</Text>
         </View>
     );
 
     return (
         <ImageBackground 
             source={backgroundImage} 
-            style={styles.backgroundHighScore}
+            style={styles.Hbackground}
+        > 
+        <GameEngine
+          ref={gameEngine}
+          systems={[Physics]}
+          entities={entities(null, backdropImage)}
+          running={true}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
         >
-            <View style={styles.containerHS}>
-                <Text style={styles.titleHS}>Highscores</Text>
+          <StatusBar style="auto" hidden={true} />
+        </GameEngine>
+            <View style={styles.Hcontainer}>
+                
+                <Text style={styles.Htitle}>Highscores</Text>
                 <FlatList
                     data={highScores}
                     renderItem={renderItem}
                     keyExtractor={(item, index) => index.toString()}
-                    style={styles.list}
-                />
+                    style={styles.Hlist}
+                />       
                 <TouchableOpacity 
-                    style={styles.buttonHS} 
+                    style={styles.Hbutton} 
                     onPress={() => navigation.goBack()}
                 >
-                    <Text style={styles.buttonTextHS}>Return</Text>
-                </TouchableOpacity>
+                    <Text style={styles.HbuttonText}>Return</Text>            
+                </TouchableOpacity> 
+                <Image 
+                source={require('../assets/WinWhippet.png')}
+            />
             </View>
         </ImageBackground>
     );
