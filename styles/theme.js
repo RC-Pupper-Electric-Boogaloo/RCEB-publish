@@ -167,7 +167,7 @@ const DarkTheme = (isDarkMode) => {
       paddingHorizontal: 30,
       borderRadius: 10,
       marginBottom: 10,
-      width: '55%',
+      width: '60%',
     },
     ButtonMainMenuText: {
       color: '#fff',
@@ -211,7 +211,7 @@ const DarkTheme = (isDarkMode) => {
       paddingBottom: 40, 
   },
   Htitle: {
-      fontSize: 35,
+      fontSize: 30,
       fontWeight: 'bold',
       color: 'white',
       marginBottom: 20,

@@ -18,7 +18,7 @@ export default function HighscoreScreen({ navigation }) {
     ? require('../assets/Taustakuvatakatumma.jpg')
     : require('../assets/Taustakuvatakavaalea.jpg');
   
-    const backdropImage = require('../assets/Taustakuva2ala.png'); 
+    const backdropImage = require('../assets/Taustakuva7ala.png'); 
 
     useEffect(() => {
         const loadHighScores = async () => {
@@ -71,9 +71,6 @@ export default function HighscoreScreen({ navigation }) {
                 >
                     <Text style={styles.HbuttonText}>Return</Text>            
                 </TouchableOpacity> 
-                <Image 
-                source={require('../assets/WinWhippet.png')}
-            />
             </View>
         </ImageBackground>
     );
