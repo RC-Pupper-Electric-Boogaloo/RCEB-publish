@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
@@ -43,10 +43,13 @@ export default function StartScreen({ navigation }) {
     >
       <StatusBar style="auto" hidden={true} />
     </GameEngine>
-      <View style={styles.containerMainMenu}>
+      <View style={styles.containerStart}>
         <TouchableOpacity style={styles.startButton} onPress={() => { navigation.navigate('MainMenu');}}>
           <Text style={styles.startButtonText}>START</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.startButton} onPress={() => navigation.navigate('Guide')}>
+        <Text style={styles.startButtonText}>GUIDE</Text>
+      </TouchableOpacity>
       </View>
     </ImageBackground>
   );

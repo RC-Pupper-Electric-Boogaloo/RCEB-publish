@@ -160,6 +160,7 @@ const DarkTheme = (isDarkMode) => {
       justifyContent: 'center',
       alignItems: 'center',
       position: 'relative',
+
     },
     ButtonMainMenu: {
       backgroundColor: 'red',
@@ -175,16 +176,20 @@ const DarkTheme = (isDarkMode) => {
       fontWeight: 'bold',
       textAlign: 'center',
     },
-
     //StartScreen
+    containerStart: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      paddingBottom: 50,
 
+    },
   startButton: {
       backgroundColor: 'red',
       paddingVertical: 15,
       paddingHorizontal: 30,
       borderRadius: 10,
-      position: 'absolute',  
-      bottom: '10%', 
+      marginBottom: 10
     },
     startButtonText: {
       color: '#fff',
@@ -331,6 +336,50 @@ buttonTextStats: {
   fontSize: 20,
   fontWeight: 'bold',
 },
+
+//GUIDESCREEN
+Guidecontainer: {
+  flexGrow: 1,
+  padding: 20,
+  backgroundColor: isDarkMode ? "#121212" : "#f5f5f5",
+},
+Guidetitle: {
+  fontSize: 28,
+  fontWeight: "bold",
+  color: isDarkMode ? "#ffffff" : "#333333",
+  marginBottom: 20,
+  textAlign: "center",
+},
+Guidesection: {
+  flexDirection: "row",
+  alignItems: "center",
+  marginBottom: 20,
+  backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff",
+  padding: 10,
+  borderRadius: 8,
+},
+Guideimage: {
+  width: 80,
+  height: 80,
+  marginRight: 15,
+  resizeMode: "contain",
+},
+GuideCenter: {
+  flex: 1,
+  justifyContent: "center",
+},
+sectionTitle: {
+  fontSize: 20,
+  fontWeight: "bold",
+  color: isDarkMode ? "#ffa500" : "#ff8c00",
+  marginBottom: 5,
+},
+Guidetext: {
+  fontSize: 16,
+  lineHeight: 22,
+  color: isDarkMode ? "#e0e0e0" : "#4a4a4a",
+},
+
   };
 };
 

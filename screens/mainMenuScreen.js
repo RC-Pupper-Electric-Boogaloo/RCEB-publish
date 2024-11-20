@@ -52,6 +52,7 @@ export default function MainMenuScreen({ navigation }) {
         >
       <StatusBar style="auto" hidden={true} />
     </GameEngine>
+
     <View style={styles.containerMainMenu}>
         <TouchableOpacity style={styles.ButtonMainMenu} 
         onPress={() => {
