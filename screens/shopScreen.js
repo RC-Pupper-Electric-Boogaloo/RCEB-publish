@@ -14,15 +14,15 @@ import Skin2 from '../assets/docDog.png';
 import Skin3 from '../assets/ShoDog.png';
 import Skin4 from '../assets/SilkEneer.png';
 import Skin5 from '../assets/WinWhippet.png';
-import Skin6 from '../assets/S6.png';
-import Skin7 from '../assets/S4.png';
+import Skin6 from '../assets/ProfPoodle.png';
+import Skin7 from '../assets/S6.png';
 import Skin8 from '../assets/S8.png';
 
 const ShopScreen = ({ navigation }) => {
   const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8];
   const SkinNames = [
     'RC Puppy', 'Doc Dog', 'ShopDog', 'Silken Engineer', 
-    'Win Whippet', 'Gentle Puppy', 'Happy Puppy', 'Hoodie Puppy'
+    'Win Whippet', 'Professor Poodle', 'Gentle Puppy', 'Hoodie Puppy'
   ];
   const SkinPrices = [1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500];
 
