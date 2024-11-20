@@ -23,6 +23,8 @@ export default function GameScreen({ navigation }) {
     const { isDarkMode } = useTheme();
     const styles = DarkTheme(isDarkMode);
     const gameEngine = useRef(null);
+    const [isSkinLoaded, setIsSkinLoaded] = useState(false);
+    const [activeSkin, setActiveSkin] = useState(null);
   
     const backgroundImage = isDarkMode
       ? require('../assets/Taustakuvatakatumma.jpg')
@@ -70,6 +72,56 @@ export default function GameScreen({ navigation }) {
         loadSettings();
     }, []);
 
+    useEffect(() => {
+        const loadActiveSkin = async () => {
+            try {
+                const storedActiveSkin = await AsyncStorage.getItem('activeSkin');
+    
+                if (storedActiveSkin) {
+                    const skinIndex = JSON.parse(storedActiveSkin);
+    
+                    switch (skinIndex) {
+                        case 0:
+                            setActiveSkin(require('../assets/CharDog.png'));
+                            break;
+                        case 1:
+                            setActiveSkin(require('../assets/docDog.png'));
+                            break;
+                        case 2:
+                            setActiveSkin(require('../assets/ShoDog.png'));
+                            break;
+                        case 3:
+                            setActiveSkin(require('../assets/SilkEneer.png'));
+                            break;
+                        case 4:
+                            setActiveSkin(require('../assets/WinWhippet.png'));
+                            break;
+                        case 5:
+                            setActiveSkin(require('../assets/ProfPoodle.png'));
+                            break;
+                        case 6:
+                            setActiveSkin(require('../assets/S6.png'));
+                            break;
+                        case 7:
+                            setActiveSkin(require('../assets/S8.png'));
+                            break;
+                        default:
+                            setActiveSkin(require('../assets/CharDog.png')); // Oletus-skini, jos arvo ei ole tunnistettu
+                            break;
+                    }
+                } else {
+                    setActiveSkin(require('../assets/CharDog.png')); // Asetetaan oletus-skini, jos ei ole tallennettua arvoa
+                }
+    
+                setIsSkinLoaded(true);  // Ladataan skini, ja asetetaan, että skini on ladattu
+            } catch (error) {
+                console.error('Error loading active skin:', error);
+            }
+        };
+    
+        loadActiveSkin();
+    }, []);
+    
     // Varmistetaan, että peliin asetetaan oikea musiikki (bgm2.mp3) kun peli käynnistyy
     useEffect(() => {
         if (running) {
@@ -97,7 +149,8 @@ export default function GameScreen({ navigation }) {
 
     return (
         <View style={{ flex: 1 }}>
-            {running ? (
+        {isSkinLoaded ? (
+            running ? (
                 <>
                     <ImageBackground
                         source={backgroundImage} 
@@ -113,7 +166,7 @@ export default function GameScreen({ navigation }) {
                         <GameEngine
                             ref={gameEngine}
                             systems={[Physics]}
-                            entities={entities(null, backdropImage)}
+                            entities={entities(null, backdropImage, activeSkin)}
                             running={running}
                             onEvent={(e) => {
                                 switch (e.type) {
@@ -151,6 +204,11 @@ export default function GameScreen({ navigation }) {
                     onShowHighscores={handleShowHighscores}
                     navigation={navigation}
                 />
+                )
+            ) : (
+                <Text style={{ flex: 1, justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontSize: 24 }}>
+                    Loading...
+                </Text>
             )}
         </View>
     );
