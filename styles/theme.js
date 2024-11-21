@@ -134,13 +134,14 @@ const DarkTheme = (isDarkMode) => {
     },
     skinImage: {
       width: '100%',
-      height: '100%',     
+      height: '100%',
+      opacity: 0.5,     
     },
     purchased: {
-      opacity: 0.5,
+      opacity: 1,
     },
     purchasedSkin: {
-      tintColor: 'gray'
+      opacity: 1,
     },
     selectedSkinBox: {
       borderWidth: 3,

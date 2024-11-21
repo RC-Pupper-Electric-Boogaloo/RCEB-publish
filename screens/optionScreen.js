@@ -80,7 +80,8 @@ const OptionScreen = ({ navigation }) => {
       await AsyncStorage.removeItem('SfxOn');
       await AsyncStorage.removeItem('purchasedSkins');
       await AsyncStorage.removeItem('GAME_STATS');  
-      await AsyncStorage.removeItem('coinCount');  
+      await AsyncStorage.removeItem('coinCount');
+      await AsyncStorage.setItem('activeSkin', JSON.stringify(0));  
       setIsDarkMode(false);
       setIsSfxOn(false);
       toggleMusic(false);

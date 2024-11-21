@@ -24,7 +24,7 @@ const ShopScreen = ({ navigation }) => {
     'RC Puppy', 'Doc Dog', 'ShopDog', 'Silken Engineer', 
     'Win Whippet', 'Professor Poodle', 'Gentle Puppy', 'Hoodie Puppy'
   ];
-  const SkinPrices = [1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500];
+  const SkinPrices = [0, 50, 100, 250, 500, 1000, 4000, 5000];
 
   const { isDarkMode } = useTheme();
   const styles = DarkTheme(isDarkMode);
@@ -40,6 +40,7 @@ const ShopScreen = ({ navigation }) => {
   const [selectedSkin, setSelectedSkin] = useState(null);
   const [purchasedSkins, setPurchasedSkins] = useState([]);
   const [coinCount, setCoinCount] = useState(0); // Track coin count from AsyncStorage
+  const [activeSkin, setActiveSkin] = useState(null);
 
   // Load purchased skins and coin count from AsyncStorage
   useEffect(() => {
@@ -54,6 +55,15 @@ const ShopScreen = ({ navigation }) => {
         if (storedCoinCount) {
           setCoinCount(JSON.parse(storedCoinCount)); // Set coin count from AsyncStorage
         }
+        const updatedSkins = await AsyncStorage.getItem('purchasedSkins');
+        let skinsArray = updatedSkins ? JSON.parse(updatedSkins) : [];
+  
+        if (!skinsArray.includes(0)) {
+          skinsArray.push(0); 
+          setPurchasedSkins(skinsArray);
+  
+          await AsyncStorage.setItem('purchasedSkins', JSON.stringify(skinsArray));
+        }
       } catch (error) {
         console.error("Error loading data from AsyncStorage", error);
       }
@@ -61,9 +71,35 @@ const ShopScreen = ({ navigation }) => {
     loadData();
   }, []); // Empty dependency array to run this only once when the component mounts
 
+  useEffect(() => {
+    const loadActiveSkin = async () => {
+      try {
+        const storedActiveSkin = await AsyncStorage.getItem('activeSkin');
+        if (storedActiveSkin) {
+          setActiveSkin(JSON.parse(storedActiveSkin));
+        }
+      } catch (error) {
+        console.error('Error loading active skin from AsyncStorage', error);
+      }
+    };
+  
+    loadActiveSkin();
+  }, []);
+
   const selectSkin = (index) => {
-    if (!purchasedSkins.includes(index)) {
-      setSelectedSkin(index);
+    setSelectedSkin(index); // Salli skini-indeksin asettaminen aina
+  };
+
+  const activateSkin = async () => {
+    if (purchasedSkins.includes(selectedSkin)) {
+      setActiveSkin(selectedSkin); // Päivitä aktiivinen skini
+      try {
+        await AsyncStorage.setItem('activeSkin', JSON.stringify(selectedSkin));
+      } catch (error) {
+        console.error('Error saving active skin to AsyncStorage', error);
+      }
+    } else {
+      alert('You must purchase the skin before using it!');
     }
   };
 
@@ -117,7 +153,7 @@ const ShopScreen = ({ navigation }) => {
               <TouchableOpacity 
                 key={index} 
                 style={[styles.skinBox, isSelected && styles.selectedSkinBox, isPurchased && styles.purchased]}
-                onPress={!isPurchased ? () => selectSkin(index) : null}
+                onPress={() => selectSkin(index)}
               >
                 <Image source={skin} style={[styles.skinImage, isPurchased && styles.purchasedSkin]} />
               </TouchableOpacity>
@@ -126,12 +162,14 @@ const ShopScreen = ({ navigation }) => {
           </View>
           
           <View style={styles.optionsContainer}>
-        {selectedSkin !== null && (
-        <>
-          <Text style={styles.Label}>Name: {SkinNames[selectedSkin]}</Text>
-          <Text style={styles.Label}>Price: {SkinPrices[selectedSkin]} Coins</Text>
-        </>
-        )}
+          {selectedSkin !== null && (
+            <>
+              <Text style={styles.Label}>Name: {SkinNames[selectedSkin]}</Text>
+              {!purchasedSkins.includes(selectedSkin) && (
+                <Text style={styles.Label}>Price: {SkinPrices[selectedSkin]} Coins</Text>
+              )}
+            </>
+          )}
          {/*  
        <TouchableOpacity style={[styles.button, styles.TLButton]} onPress={() => alert('Try Your Luck nappi toimii')}>
          <Text style={styles.buttonTitle}>Try Your Luck 20 Coins</Text>
@@ -146,9 +184,15 @@ const ShopScreen = ({ navigation }) => {
        </TouchableOpacity>
       */}
       </View>
+      {selectedSkin !== null && (purchasedSkins.includes(selectedSkin) ? (
+        <TouchableOpacity style={[styles.button, styles.BButton]} onPress={activateSkin}>
+          <Text style={styles.buttonTitle}>Use</Text>
+        </TouchableOpacity>
+      ) : (
         <TouchableOpacity style={[styles.button, styles.BButton]} onPress={handlePurchase}>
           <Text style={styles.buttonTitle}>Buy</Text>
         </TouchableOpacity>
+      ))}
 
         <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => navigation.goBack()}>
           <Text style={styles.buttonTitle}>Return</Text>
