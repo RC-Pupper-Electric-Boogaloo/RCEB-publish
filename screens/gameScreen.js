@@ -171,10 +171,12 @@ export default function GameScreen({ navigation }) {
                             onEvent={(e) => {
                                 switch (e.type) {
                                     case 'game_over':
-                                        if (sfxOn) playCollisionSound();
-                                        if (stopMusicRef.current) stopMusicRef.current(); 
+                                        if (stopMusicRef.current) stopMusicRef.current();
+                                        if (sfxOn) playCollisionSound(); 
+                                        if (gameEngine.current && running) {
+                                            gameEngine.current.stop();
+                                        }
                                         setRunning(false);
-                                        gameEngine.current.stop(); 
                                         break;
                                     case 'new_point':
                                         if (sfxOn) playPointSound();
