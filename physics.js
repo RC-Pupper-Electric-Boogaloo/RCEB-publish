@@ -34,15 +34,15 @@ const Physics = (entities, { time, touches, dispatch }) => {
     }
 
     if (entities["Coin"] && entities["Coin"].body.bounds.min.y >= windowHeight) {
-        Matter.Body.setVelocity(entities["Coin"].body, { x: 0, y: 0 });
+        Matter.Body.setVelocity(entities["Coin"].body, { x: -0.3, y: 0 });
         Matter.Body.setPosition(entities["Coin"].body, {
             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
-            y: getRandom(10, 20) * -windowHeight
+            y: getRandom(1, 3) * -windowHeight
         });
     }
 
     if (entities["Obstacle"] && entities["Obstacle"].body.bounds.min.y >= windowHeight) {
-        Matter.Body.setVelocity(entities["Obstacle"].body, { x: -0.3, y: 0 });
+        Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Obstacle"].body, {
             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
             y: -windowHeight -20
@@ -86,8 +86,8 @@ const Physics = (entities, { time, touches, dispatch }) => {
             event.pairs.forEach(({ bodyA, bodyB }) => {
                 if (bodyA.label === "Char" && bodyB.label === "Point") {
                     points++;
-                    if (points % 5 === 0) {
-                        world.gravity.y = world.gravity.y + 0.1;
+                    if (world.gravity.y <= 2) {
+                        world.gravity.y = world.gravity.y + 0.02;
                     }
                     dispatch({ type: "new_point" });
                     Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 });
@@ -101,13 +101,10 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     coinCount++;
                     dispatch({ type: "coin_collected" });
 
-                    // Tallennetaan kolikon määrä AsyncStorageiin
-                    //AsyncStorage.setItem('coinCount', JSON.stringify(coinCount)); // tää ei voi toimia näin, tuossa pitäisi ensin hakea kolikkojen määrä ja lisätä nämä siihen, tai viedä ne storageen vasta kun peli on ohi
-
                     Matter.Body.setVelocity(entities["Coin"].body, { x: 0, y: 0 });
                     Matter.Body.setPosition(entities["Coin"].body, {
                         x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
-                        y: getRandom(10, 20) * -windowHeight
+                        y: getRandom(1, 2) * -windowHeight
                     });
 
                 } else if (bodyA.label === "Point" && bodyB.label === "Obstacle") {
