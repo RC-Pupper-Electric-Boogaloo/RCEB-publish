@@ -37,6 +37,19 @@ const GuideScreen = ({navigation}) => {
 
             <View style={styles.Guidesection}>
                 <Image
+                    source={require('../assets/docDog.png')}
+                    style={styles.Guideimage}
+                    />
+                <View style={styles.GuideCenter}>
+                    <Text style={styles.sectionTitle}>Playing</Text>
+                    <Text style={styles.Guidetext}>
+                    Move skin with your finger
+                    </Text>
+                </View>
+            </View>
+            
+            <View style={styles.Guidesection}>
+                <Image
                     source={require('../assets/Point.png')}
                     style={styles.Guideimage}
                 />
