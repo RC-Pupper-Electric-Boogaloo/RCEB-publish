@@ -85,19 +85,19 @@ export default function GameScreen({ navigation }) {
                             setActiveSkin(require('../assets/CharDog.png'));
                             break;
                         case 1:
-                            setActiveSkin(require('../assets/docDog.png'));
+                            setActiveSkin(require('../assets/rcDocDog.png'));
                             break;
                         case 2:
-                            setActiveSkin(require('../assets/ShoDog.png'));
+                            setActiveSkin(require('../assets/rcShopDog.png'));
                             break;
                         case 3:
-                            setActiveSkin(require('../assets/SilkEneer.png'));
+                            setActiveSkin(require('../assets/rcSilkeneer.png'));
                             break;
                         case 4:
-                            setActiveSkin(require('../assets/WinWhippet.png'));
+                            setActiveSkin(require('../assets/rcWinWhippet.png'));
                             break;
                         case 5:
-                            setActiveSkin(require('../assets/ProfPoodle.png'));
+                            setActiveSkin(require('../assets/rcProfPoodle.png'));
                             break;
                         case 6:
                             setActiveSkin(require('../assets/S6.png'));
