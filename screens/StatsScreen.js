@@ -11,14 +11,26 @@ import DarkTheme from '../styles/theme';
 const StatsScreen = ({ navigation }) => {
     const { isDarkMode } = useTheme();
     const styles = DarkTheme(isDarkMode);
-    const [stats, setStats] = useState({ totalPoints: 0, totalCoins: 0, gamesPlayed: 0 });
+    const [stats, setStats] = useState({ totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 });
     const gameEngine = useRef(null);
 
     const backgroundImage = isDarkMode
         ? require('../assets/Taustakuvatakatumma.jpg')
         : require('../assets/Taustakuvatakavaalea.jpg');
 
-        const backdropImage = require('../assets/Taustakuva4ala.png'); 
+    const backdropImage = require('../assets/Taustakuva4ala.png'); 
+
+    const formatPlayTime = (seconds) => {
+
+        const hours = Math.floor(seconds / 3600); // Tunnit
+        const minutes = Math.floor((seconds % 3600) / 60); // Minuutit
+        const remainingSeconds = seconds % 60; // Sekunnit
+        if (isNaN(seconds) || seconds <= 0) {
+            return "0h 0m 0s";
+        }
+    
+        return `${hours}h ${minutes}m ${remainingSeconds}s`;
+    };
 
     useEffect(() => {
         const loadStats = async () => {
@@ -54,6 +66,7 @@ const StatsScreen = ({ navigation }) => {
                 <Text style={styles.statsText}>Total Points: {stats.totalPoints}</Text>
                 <Text style={styles.statsText}>Total Coins: {stats.totalCoins}</Text>
                 <Text style={styles.statsText}>Games Played: {stats.gamesPlayed}</Text>
+                <Text style={styles.statsText}>Total Play Time: {formatPlayTime(stats.totalPlayTime)}</Text>
 
                 <TouchableOpacity 
                     style={styles.buttonStats} 
