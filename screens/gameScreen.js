@@ -25,6 +25,8 @@ export default function GameScreen({ navigation }) {
     const gameEngine = useRef(null);
     const [isSkinLoaded, setIsSkinLoaded] = useState(false);
     const [activeSkin, setActiveSkin] = useState(null);
+    const [startTime, setStartTime] = useState(null);
+    const [elapsedTime, setElapsedTime] = useState(0);
   
     const backgroundImage = isDarkMode
       ? require('../assets/Taustakuvatakatumma.jpg')
@@ -37,12 +39,13 @@ export default function GameScreen({ navigation }) {
             try {
                 const savedStats = await AsyncStorage.getItem('GAME_STATS');
                 const storedCoinCount = await AsyncStorage.getItem('coinCount');
-                let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, gamesPlayed: 0 };
+                let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 };
                 let newCoinCount = storedCoinCount ? JSON.parse(storedCoinCount) : 0; 
     
                 stats.totalPoints += currentPoints;
                 stats.totalCoins += coinCount;
                 stats.gamesPlayed += 1;
+                stats.totalPlayTime += elapsedTime;
                 
                 newCoinCount += coinCount;
 
@@ -53,10 +56,10 @@ export default function GameScreen({ navigation }) {
             }
         };
     
-        if (!running) {
+        if (!running && elapsedTime > 0) {
             saveStats();
         }
-    }, [running]);
+    }, [running, elapsedTime]);
 
     useEffect(() => {
         const loadSettings = async () => {
@@ -126,8 +129,25 @@ export default function GameScreen({ navigation }) {
     useEffect(() => {
         if (running) {
             setMusic(require('../assets/bgm2.mp3'));  // Asetetaan pelimusiikki
+            const now = Date.now(); // Nykyinen aikaleima
+            setStartTime(now);      // Tallenna aloitusaika
         }
     }, [setMusic, running]);
+
+    const calculateElapsedTime = () => {
+        if (startTime) {
+            const now = Date.now(); // Nykyinen aikaleima
+            const duration = Math.floor((now - startTime) / 1000); // Sekunteina
+            setElapsedTime(duration); // Tallenna pelin kesto sekunteina
+        }
+    };
+    
+    useEffect(() => {
+        if (!running) {
+            calculateElapsedTime();
+        }
+    }, [running]);
+    
 
     const handleRestart = () => {
         setCurrentPoints(0);
@@ -177,6 +197,7 @@ export default function GameScreen({ navigation }) {
                                             gameEngine.current.stop();
                                         }
                                         setRunning(false);
+                                        calculateElapsedTime();
                                         break;
                                     case 'new_point':
                                         if (sfxOn) playPointSound();
