@@ -340,9 +340,13 @@ buttonTextStats: {
 
 //GUIDESCREEN
 Guidecontainer: {
-  flexGrow: 1,
-  padding: 20,
-  backgroundColor: isDarkMode ? "#121212" : "#f5f5f5",
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  padding: 10,
+  borderRadius: 10,
+  width: '90%',
+  paddingTop: 20, 
 },
 Guidetitle: {
   fontSize: 28,
@@ -378,6 +382,9 @@ Guidetext: {
   fontSize: 16,
   lineHeight: 22,
   color: isDarkMode ? "#e0e0e0" : "#4a4a4a",
+},
+GuidereturnButton: {
+  backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
 },
   };
 };

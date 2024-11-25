@@ -33,7 +33,7 @@ const GuideScreen = ({navigation}) => {
     </GameEngine>
 
      
-        <ScrollView contentContainerStyle={styles.Hcontainer}>
+        <ScrollView contentContainerStyle={styles.Guidecontainer}>
             <Text style={styles.Guidetitle}>Guide</Text>
 
             <View style={styles.Guidesection}>
@@ -100,11 +100,9 @@ const GuideScreen = ({navigation}) => {
                     </Text>
                 </View>
             </View>
-            <View style={styles.containerMainMenu}>
-            <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => navigation.goBack()}>
+            <TouchableOpacity style={[styles.button, styles.GuidereturnButton]} onPress={() => navigation.goBack()}>
         <Text style={styles.buttonTitle}>Return</Text>
       </TouchableOpacity>
-            </View>
         </ScrollView>
     </ImageBackground>
     )
