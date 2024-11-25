@@ -354,7 +354,7 @@ Guidetitle: {
 Guidesection: {
   flexDirection: "row",
   alignItems: "center",
-  marginBottom: 20,
+  marginBottom: 10,
   backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff",
   padding: 10,
   borderRadius: 8,
@@ -367,7 +367,6 @@ Guideimage: {
 },
 GuideCenter: {
   flex: 1,
-  justifyContent: "center",
 },
 sectionTitle: {
   fontSize: 20,
@@ -380,7 +379,6 @@ Guidetext: {
   lineHeight: 22,
   color: isDarkMode ? "#e0e0e0" : "#4a4a4a",
 },
-
   };
 };
 

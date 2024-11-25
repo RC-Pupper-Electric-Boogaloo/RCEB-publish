@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import { View, Text, ScrollView, TouchableOpacity, ImageBackground, Image } from "react-native"
+import { View, Text, ScrollView, TouchableOpacity, ImageBackground, Image} from "react-native"
 import { StatusBar } from 'expo-status-bar';
 import DarkTheme from '../styles/theme'
 import { useTheme } from '../components/Theme'
@@ -10,14 +10,13 @@ import Physics from '../physics';
 const GuideScreen = ({navigation}) => {
     const { isDarkMode } = useTheme()
     const styles = DarkTheme(isDarkMode)
-    const gameEngine = useRef(null);
+    const gameEngine = useRef(null)
   
     const backgroundImage = isDarkMode
     ? require('../assets/Taustakuvatakatumma.jpg')
-    : require('../assets/Taustakuvatakavaalea.jpg');
+    : require('../assets/Taustakuvatakavaalea.jpg')
   
-    const backdropImage = require('../assets/Taustakuva8ala.png'); 
-
+    const backdropImage = require('../assets/Taustakuva8ala.png');
     return (
     <ImageBackground 
         source={backgroundImage} 
@@ -32,6 +31,8 @@ const GuideScreen = ({navigation}) => {
     >
       <StatusBar style="auto" hidden={true} />
     </GameEngine>
+
+     
         <ScrollView contentContainerStyle={styles.Hcontainer}>
             <Text style={styles.Guidetitle}>Guide</Text>
 
