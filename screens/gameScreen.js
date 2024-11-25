@@ -103,10 +103,10 @@ export default function GameScreen({ navigation }) {
                             setActiveSkin(require('../assets/rcProfPoodle.png'));
                             break;
                         case 6:
-                            setActiveSkin(require('../assets/S6.png'));
+                            setActiveSkin(require('../assets/rcBusinessBorzoi.png'));
                             break;
                         case 7:
-                            setActiveSkin(require('../assets/S8.png'));
+                            setActiveSkin(require('../assets/rcPugLifePupper.png'));
                             break;
                         default:
                             setActiveSkin(require('../assets/CharDog.png')); // Oletus-skini, jos arvo ei ole tunnistettu
