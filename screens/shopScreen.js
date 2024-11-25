@@ -10,13 +10,13 @@ import Physics from '../physics';
 
 //Skinien importit
 import Skin1 from '../assets/CharDog.png';
-import Skin2 from '../assets/docDog.png';
-import Skin3 from '../assets/ShoDog.png';
-import Skin4 from '../assets/SilkEneer.png';
-import Skin5 from '../assets/WinWhippet.png';
-import Skin6 from '../assets/ProfPoodle.png';
-import Skin7 from '../assets/businessBorzoi.png';
-import Skin8 from '../assets/pugLifePupper.png';
+import Skin2 from '../assets/rcDocDog.png';
+import Skin3 from '../assets/rcShopDog.png';
+import Skin4 from '../assets/rcSilkeneer.png';
+import Skin5 from '../assets/rcWinWhippet.png';
+import Skin6 from '../assets/rcProfPoodle.png';
+import Skin7 from '../assets/rcBusinessBorzoi.png';
+import Skin8 from '../assets/rcPugLifePupper.png';
 
 const ShopScreen = ({ navigation }) => {
   const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8];
