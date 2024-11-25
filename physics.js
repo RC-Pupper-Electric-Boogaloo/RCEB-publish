@@ -2,6 +2,7 @@ import Matter from "matter-js";
 import { Dimensions } from "react-native";
 import { getRandom } from "./utils/random";
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Tuodaan AsyncStorage
+import { Accelerometer } from 'expo-sensors'; // Tuodaan kiihtyvyysanturi
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
@@ -10,17 +11,49 @@ const Physics = (entities, { time, touches, dispatch }) => {
     let engine = entities.physics.engine;
     let world = engine.world;
     let points = 0;
-    let coinCount = entities.coinCount || 0; 
+    let coinCount = entities.coinCount || 0;
+    let shakeThreshold = 1.5
+    let accelerometerSubscription = null
+    let isBonusActive = entities.isBonusActive || false;
+
+    const startAccelerometer = () => {
+        accelerometerSubscription = Accelerometer.addListener(({ x, y, z }) => {
+            const totalAcceleration = Math.sqrt(x * x + y * y + z * z); // Lasketaan kiihtyvyyden kokonaisarvo
+
+            if (totalAcceleration > shakeThreshold && coinCount >= 1 && !isBonusActive) {
+                isBonusActive = true;
+                dispatch({ type: "bonus_activated" });
+                console.log("Bonus activated");
+
+                setTimeout(() => {
+                    isBonusActive = false;
+                    dispatch({ type: "bonus_ended" });
+                    console.log("Bonus ended");
+                }, 10000);
+            }
+        });
+    };
+
+    const stopAccelerometer = () => {
+        if (accelerometerSubscription) {
+            accelerometerSubscription.remove();
+            accelerometerSubscription = null;
+        }
+    };
+
+    if (!accelerometerSubscription) {
+        startAccelerometer();
+    }
 
     if (entities["Char"]) {
-     touches.filter(t => t.type === "move").forEach(t => {
-        const fingerPositionX = t.event.pageX;
+        touches.filter(t => t.type === "move").forEach(t => {
+            const fingerPositionX = t.event.pageX;
 
-        Matter.Body.setPosition(entities.Char.body, {
-            x: fingerPositionX,
-            y: entities.Char.body.position.y 
+            Matter.Body.setPosition(entities.Char.body, {
+                x: fingerPositionX,
+                y: entities.Char.body.position.y
+            });
         });
-     });
     }
 
     Matter.Engine.update(engine);
@@ -28,7 +61,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
     if (entities["Point"] && entities["Point"].body.bounds.min.y >= windowHeight) {
         Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Point"].body, {
-            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
             y: -50
         });
     }
@@ -36,7 +69,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
     if (entities["Coin"] && entities["Coin"].body.bounds.min.y >= windowHeight) {
         Matter.Body.setVelocity(entities["Coin"].body, { x: -0.3, y: 0 });
         Matter.Body.setPosition(entities["Coin"].body, {
-            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
             y: getRandom(1, 3) * -windowHeight
         });
     }
@@ -44,22 +77,22 @@ const Physics = (entities, { time, touches, dispatch }) => {
     if (entities["Obstacle"] && entities["Obstacle"].body.bounds.min.y >= windowHeight) {
         Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Obstacle"].body, {
-            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
-            y: -windowHeight -20
+            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
+            y: -windowHeight - 20
         });
     }
 
     if (entities["Choco"] && entities["Choco"].body.bounds.min.y >= windowHeight) {
         Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 });
         Matter.Body.setPosition(entities["Choco"].body, {
-            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
             y: -windowHeight * 2
         });
     }
 
     if (entities["Backdrop"] && entities["Backdrop"].body.bounds.max.y >= windowHeight + windowHeight) {
         Matter.Body.setPosition(entities["Backdrop"].body, {
-            x: windowWidth/3-windowWidth,
+            x: windowWidth / 3 - windowWidth,
             y: windowHeight / 2
         });
     }
@@ -77,7 +110,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
         Matter.Body.setPosition(entities["Cloud2"].body, {
             x: windowWidth + 120,
             y: getRandom(150, windowHeight / 1.1)
-            
+
         });
     }
 
@@ -92,7 +125,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     dispatch({ type: "new_point" });
                     Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 });
                     Matter.Body.setPosition(bodyB, {
-                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
                         y: -50
                     });
 
@@ -103,14 +136,14 @@ const Physics = (entities, { time, touches, dispatch }) => {
 
                     Matter.Body.setVelocity(entities["Coin"].body, { x: 0, y: 0 });
                     Matter.Body.setPosition(entities["Coin"].body, {
-                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
                         y: getRandom(1, 2) * -windowHeight
                     });
 
                 } else if (bodyA.label === "Point" && bodyB.label === "Obstacle") {
                     Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 });
                     Matter.Body.setPosition(bodyB, {
-                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
                         y: -windowHeight * 3
                     });
                 } else if (bodyA.label === "Char" && bodyB.label === "Choco") {
@@ -120,7 +153,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     }
                     Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 });
                     Matter.Body.setPosition(bodyB, {
-                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2), 
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
                         y: -50
                     });
                 } else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
@@ -134,8 +167,13 @@ const Physics = (entities, { time, touches, dispatch }) => {
     // Lähetetään kolikkolaskuri takaisin entiteetteihin
     return {
         ...entities,
-        coinCount // Lähetetään coinCount entiteetiksi
+        coinCount, // Lähetetään coinCount entiteetiksi
+        isBonusActive, // Lähetetään isBonusActive
     };
 };
 
 export default Physics;
+
+export const cleanupPhysics = () => {
+    stopAccelerometer();
+};

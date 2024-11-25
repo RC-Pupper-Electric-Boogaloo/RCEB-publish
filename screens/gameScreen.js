@@ -5,16 +5,16 @@ import { StatusBar } from 'expo-status-bar';
 import entities from '../entities';
 import Physics from '../physics';
 import { usePlayCollisionSound, usePlayPointSound } from '../components/BackgroundMusic';
-import GameOverScreen from './gameOverScreen'; 
+import GameOverScreen from './gameOverScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DarkTheme from '../styles/theme';
 import { useTheme } from '../components/Theme';
 import { MusicContext } from '../contexts/MusicContext';
 
 export default function GameScreen({ navigation }) {
-    const [running, setRunning] = useState(true); 
+    const [running, setRunning] = useState(true);
     const [currentPoints, setCurrentPoints] = useState(0);
-    const [coinCount, setCoinCount] = useState(0);  
+    const [coinCount, setCoinCount] = useState(0);
     const playCollisionSound = usePlayCollisionSound();
     const playPointSound = usePlayPointSound();
     const stopMusicRef = useRef();
@@ -27,12 +27,12 @@ export default function GameScreen({ navigation }) {
     const [activeSkin, setActiveSkin] = useState(null);
     const [startTime, setStartTime] = useState(null);
     const [elapsedTime, setElapsedTime] = useState(0);
-  
+
     const backgroundImage = isDarkMode
-      ? require('../assets/Taustakuvatakatumma.jpg')
-      : require('../assets/Taustakuvatakavaalea.jpg');
-    
-    const backdropImage = require('../assets/Taustakuva3ala.png'); 
+        ? require('../assets/Taustakuvatakatumma.jpg')
+        : require('../assets/Taustakuvatakavaalea.jpg');
+
+    const backdropImage = require('../assets/Taustakuva3ala.png');
 
     useEffect(() => {
         const saveStats = async () => {
@@ -40,13 +40,13 @@ export default function GameScreen({ navigation }) {
                 const savedStats = await AsyncStorage.getItem('GAME_STATS');
                 const storedCoinCount = await AsyncStorage.getItem('coinCount');
                 let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 };
-                let newCoinCount = storedCoinCount ? JSON.parse(storedCoinCount) : 0; 
-    
+                let newCoinCount = storedCoinCount ? JSON.parse(storedCoinCount) : 0;
+
                 stats.totalPoints += currentPoints;
                 stats.totalCoins += coinCount;
                 stats.gamesPlayed += 1;
                 stats.totalPlayTime += elapsedTime;
-                
+
                 newCoinCount += coinCount;
 
                 await AsyncStorage.setItem('coinCount', JSON.stringify(newCoinCount));
@@ -55,7 +55,7 @@ export default function GameScreen({ navigation }) {
                 console.error('Error saving game stats:', error);
             }
         };
-    
+
         if (!running && elapsedTime > 0) {
             saveStats();
         }
@@ -79,10 +79,10 @@ export default function GameScreen({ navigation }) {
         const loadActiveSkin = async () => {
             try {
                 const storedActiveSkin = await AsyncStorage.getItem('activeSkin');
-    
+
                 if (storedActiveSkin) {
                     const skinIndex = JSON.parse(storedActiveSkin);
-    
+
                     switch (skinIndex) {
                         case 0:
                             setActiveSkin(require('../assets/CharDog.png'));
@@ -115,16 +115,16 @@ export default function GameScreen({ navigation }) {
                 } else {
                     setActiveSkin(require('../assets/CharDog.png')); // Asetetaan oletus-skini, jos ei ole tallennettua arvoa
                 }
-    
+
                 setIsSkinLoaded(true);  // Ladataan skini, ja asetetaan, että skini on ladattu
             } catch (error) {
                 console.error('Error loading active skin:', error);
             }
         };
-    
+
         loadActiveSkin();
     }, []);
-    
+
     // Varmistetaan, että peliin asetetaan oikea musiikki (bgm2.mp3) kun peli käynnistyy
     useEffect(() => {
         if (running) {
@@ -141,22 +141,22 @@ export default function GameScreen({ navigation }) {
             setElapsedTime(duration); // Tallenna pelin kesto sekunteina
         }
     };
-    
+
     useEffect(() => {
         if (!running) {
             calculateElapsedTime();
         }
     }, [running]);
-    
+
 
     const handleRestart = () => {
         setCurrentPoints(0);
-        setCoinCount(0);  
+        setCoinCount(0);
         setRunning(true);
 
         if (gameEngine.current) {
-            gameEngine.current.swap(entities());  
-            gameEngine.current.start();  
+            gameEngine.current.swap(entities());
+            gameEngine.current.start();
         }
 
         // Käynnistetään musiikki aina, kun peli aloitetaan uudelleen
@@ -169,64 +169,64 @@ export default function GameScreen({ navigation }) {
 
     return (
         <View style={{ flex: 1 }}>
-        {isSkinLoaded ? (
-            running ? (
-                <>
-                    <ImageBackground
-                        source={backgroundImage} 
-                        style={{ flex: 1 }} 
-                    >
-                        <Text style={styles.pointsText}>
-                            {currentPoints}
-                        </Text>
-
-                        <Text style={styles.coinsText}>
-                            Coins: {coinCount}  
-                        </Text>
-                        <GameEngine
-                            ref={gameEngine}
-                            systems={[Physics]}
-                            entities={entities(null, backdropImage, activeSkin)}
-                            running={running}
-                            onEvent={(e) => {
-                                switch (e.type) {
-                                    case 'game_over':
-                                        if (stopMusicRef.current) stopMusicRef.current();
-                                        if (sfxOn) playCollisionSound(); 
-                                        if (gameEngine.current && running) {
-                                            gameEngine.current.stop();
-                                        }
-                                        setRunning(false);
-                                        calculateElapsedTime();
-                                        break;
-                                    case 'new_point':
-                                        if (sfxOn) playPointSound();
-                                        setCurrentPoints(currentPoints + 1);
-                                        break;
-                                    case 'coin_collected':
-                                        if (sfxOn) playPointSound();
-                                        setCoinCount(coinCount + 1);  
-                                        break;
-                                    case 'miss':
-                                        if (sfxOn) playCollisionSound();
-                                        setCurrentPoints(Math.max(currentPoints - 1, 0));
-                                        break;
-                                }
-                            }}
-                            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+            {isSkinLoaded ? (
+                running ? (
+                    <>
+                        <ImageBackground
+                            source={backgroundImage}
+                            style={{ flex: 1 }}
                         >
-                            <StatusBar style="auto" hidden={true} />
-                        </GameEngine>
-                    </ImageBackground>
-                </>
-            ) : (
-                <GameOverScreen
-                    currentPoints={currentPoints}  
-                    coinCount={coinCount}  
-                    onRestart={handleRestart}
-                    onShowHighscores={handleShowHighscores}
-                    navigation={navigation}
-                />
+                            <Text style={styles.pointsText}>
+                                {currentPoints}
+                            </Text>
+
+                            <Text style={styles.coinsText}>
+                                Coins: {coinCount}
+                            </Text>
+                            <GameEngine
+                                ref={gameEngine}
+                                systems={[Physics]}
+                                entities={entities(null, backdropImage, activeSkin)}
+                                running={running}
+                                onEvent={(e) => {
+                                    switch (e.type) {
+                                        case 'game_over':
+                                            if (stopMusicRef.current) stopMusicRef.current();
+                                            if (sfxOn) playCollisionSound();
+                                            if (gameEngine.current && running) {
+                                                gameEngine.current.stop();
+                                            }
+                                            setRunning(false);
+                                            calculateElapsedTime();
+                                            break;
+                                        case 'new_point':
+                                            if (sfxOn) playPointSound();
+                                            setCurrentPoints(currentPoints + 1);
+                                            break;
+                                        case 'coin_collected':
+                                            if (sfxOn) playPointSound();
+                                            setCoinCount(coinCount + 1);
+                                            break;
+                                        case 'miss':
+                                            if (sfxOn) playCollisionSound();
+                                            setCurrentPoints(Math.max(currentPoints - 1, 0));
+                                            break;
+                                    }
+                                }}
+                                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+                            >
+                                <StatusBar style="auto" hidden={true} />
+                            </GameEngine>
+                        </ImageBackground>
+                    </>
+                ) : (
+                    <GameOverScreen
+                        currentPoints={currentPoints}
+                        coinCount={coinCount}
+                        onRestart={handleRestart}
+                        onShowHighscores={handleShowHighscores}
+                        navigation={navigation}
+                    />
                 )
             ) : (
                 <Text style={{ flex: 1, justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontSize: 24 }}>
