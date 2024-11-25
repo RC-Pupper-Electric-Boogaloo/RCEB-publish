@@ -11,7 +11,7 @@ const Point = (props) => {
 
     return (
         <Image
-            source={require('../assets/Coin.png')}
+            source={props.imageSource}
             style={{
                 position: 'absolute',
                 left: xBody,
@@ -24,7 +24,7 @@ const Point = (props) => {
     );
 }
 
-export default (world, color, pos, size) => {
+export default (world, color, pos, size, imageSource) => {
     const initialPoint = Matter.Bodies.circle(
         pos.x,
         pos.y,
@@ -37,6 +37,7 @@ export default (world, color, pos, size) => {
         body: initialPoint,
         color,
         pos,
+        imageSource,
         renderer: <Point />
     }
 }
