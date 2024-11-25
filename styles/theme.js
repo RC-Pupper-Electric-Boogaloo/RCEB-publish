@@ -379,40 +379,6 @@ Guidetext: {
   lineHeight: 22,
   color: isDarkMode ? "#e0e0e0" : "#4a4a4a",
 },
-description: {
-  fontSize: 16,
-  textAlign: "center",
-  color: isDarkMode ? "#e0e0e0" : "#4a4a4a",
-},
-navigationButtons: {
-  flexDirection: "row",
-  justifyContent: "space-between",
-  width: "100%",
-},
-GuidebuttonText: {
-  color: "#fff",
-  fontSize: 16,
-  fontWeight: "bold",
-},
-Guidebutton: {
-  backgroundColor: isDarkMode ? '#121212' : '#FFFFFF',
-  paddingVertical: 10,
-  paddingHorizontal: 20,
-  borderRadius: 8,
-},
-content: {
-  flex: 1,
-  justifyContent: "center",
-  alignItems: "center",
-  width: "100%",
-},
-Guidecontainer: {
-  flex: 1,
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: 20,
-  backgroundColor: "rgba(0, 0, 0, 0.7)",
-},
   };
 };
 
