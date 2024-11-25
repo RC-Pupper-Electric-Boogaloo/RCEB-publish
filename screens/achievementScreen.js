@@ -1,25 +1,24 @@
-import React, { useState, useEffect, useRef } from "react";
-import { View, Text, ScrollView, TouchableOpacity, ImageBackground, Image, Alert } from "react-native";
-import { StatusBar } from 'expo-status-bar';
-import DarkTheme from '../styles/theme';
-import { useTheme } from '../components/Theme';
-import { GameEngine } from 'react-native-game-engine';
-import entities from '../entities/menuentities';
-import Physics from '../physics';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useEffect, useRef } from "react"
+import { View, Text, ScrollView, TouchableOpacity, ImageBackground, Image, Alert } from "react-native"
+import { StatusBar } from 'expo-status-bar'
+import DarkTheme from '../styles/theme'
+import { useTheme } from '../components/Theme'
+import { GameEngine } from 'react-native-game-engine'
+import entities from '../entities/menuentities'
+import Physics from '../physics'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const AchievementScreen = ({ navigation }) => {
-    const { isDarkMode } = useTheme();
-    const styles = DarkTheme(isDarkMode);
-    const gameEngine = useRef(null);
-
-    const [achievements, setAchievements] = useState([]);
+    const { isDarkMode } = useTheme()
+    const styles = DarkTheme(isDarkMode)
+    const gameEngine = useRef(null)
+    const [achievements, setAchievements] = useState([])
 
     const backgroundImage = isDarkMode
         ? require('../assets/Taustakuvatakatumma.jpg')
-        : require('../assets/Taustakuvatakavaalea.jpg');
+        : require('../assets/Taustakuvatakavaalea.jpg')
 
-    const backdropImage = require('../assets/Taustakuva8ala.png');
+    const backdropImage = require('../assets/Taustakuva8ala.png')
 
     const defaultAchievements = [
         { id: 1, name: "Golden Retriever", requirement: "collect 10.000 gold coins", image: require('../assets/CharDog.png'), progress: 0, goal: 10000, unlocked: false },
@@ -28,45 +27,44 @@ const AchievementScreen = ({ navigation }) => {
         { id: 4, name: "Howling Success!", requirement: "Collect over 100 points in single game", image: require('../assets/Cat.png'), progress: 0, goal: 100, unlocked: false },
     ];
 
-    // Lataa saavutukset AsyncStoragesta tai aseta oletusarvot
     useEffect(() => {
         const loadAchievements = async () => {
             try {
-                const storedAchievements = await AsyncStorage.getItem('achievements');
+                const storedAchievements = await AsyncStorage.getItem('achievements')
                 if (storedAchievements) {
-                    setAchievements(JSON.parse(storedAchievements));
+                    setAchievements(JSON.parse(storedAchievements))
                 } else {
-                    setAchievements(defaultAchievements);
+                    setAchievements(defaultAchievements)
                 }
             } catch (error) {
-                console.error("Error loading achievements:", error);
-                setAchievements(defaultAchievements);
+                console.error("Error loading achievements:", error)
+                setAchievements(defaultAchievements)
             }
         };
 
-        loadAchievements();
+        loadAchievements()
     }, []);
 
     useEffect(() => {
         const saveAchievements = async () => {
             try {
-                await AsyncStorage.setItem('achievements', JSON.stringify(achievements));
+                await AsyncStorage.setItem('achievements', JSON.stringify(achievements))
             } catch (error) {
-                console.error("Error saving achievements:", error);
+                console.error("Error saving achievements:", error)
             }
         };
 
-        saveAchievements();
-    }, [achievements]);
+        saveAchievements()
+    }, [achievements])
 
     const handleAchievementClick = (achievement) => {
         if (!achievement.unlocked) {
             Alert.alert(
                 "Achievement Locked",
-                `Saavutus "${achievement.name}" on lukittu. ${achievement.requirement}\n`
+                `Achievement "${achievement.name}" is locked. ${achievement.requirement}`
             );
         } else {
-            Alert.alert("Achievement Unlocked", `Onnittelut! Olet avannut saavutuksen "${achievement.name}".`);
+            Alert.alert("Achievement Unlocked", `GZ you unlocked anchievement! "${achievement.name}".`)
         }
     };
 
@@ -74,14 +72,14 @@ const AchievementScreen = ({ navigation }) => {
         setAchievements((prevAchievements) =>
             prevAchievements.map((achievement) => {
                 if (achievement.id === achievementId && !achievement.unlocked) {
-                    const newProgress = achievement.progress + increment;
+                    const newProgress = achievement.progress + increment
                     return {
                         ...achievement,
                         progress: newProgress,
                         unlocked: newProgress >= achievement.goal,
                     };
                 }
-                return achievement;
+                return achievement
             })
         );
     };
