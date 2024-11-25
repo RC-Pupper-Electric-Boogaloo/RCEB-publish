@@ -15,16 +15,16 @@ import Skin3 from '../assets/ShoDog.png';
 import Skin4 from '../assets/SilkEneer.png';
 import Skin5 from '../assets/WinWhippet.png';
 import Skin6 from '../assets/ProfPoodle.png';
-import Skin7 from '../assets/S6.png';
-import Skin8 from '../assets/S8.png';
+import Skin7 from '../assets/businessBorzoi.png';
+import Skin8 from '../assets/pugLifePupper.png';
 
 const ShopScreen = ({ navigation }) => {
   const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8];
   const SkinNames = [
     'RC Puppy', 'Doc Dog', 'ShopDog', 'Silken Engineer', 
-    'Win Whippet', 'Professor Poodle', 'Gentle Puppy', 'Hoodie Puppy'
+    'Win Whippet', 'Professor Poodle', 'Business Borzoi', 'Maurice "PugLife" Pupper'
   ];
-  const SkinPrices = [0, 50, 100, 250, 500, 1000, 4000, 5000];
+  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000];
 
   const { isDarkMode } = useTheme();
   const styles = DarkTheme(isDarkMode);
