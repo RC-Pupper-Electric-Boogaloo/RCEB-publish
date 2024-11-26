@@ -25,12 +25,14 @@ const Point = (props) => {
     );
 }
 
-export default (world, color, pos, size, imageSource) => {
+export default (world, label, color, pos, size, imageSource) => {
     const initialPoint = Matter.Bodies.circle(
         pos.x,
         pos.y,
         size.width / 2,
-        { label: 'Point' }
+        {
+            label: label,
+        }
     )
     Matter.World.add(world, initialPoint)
 

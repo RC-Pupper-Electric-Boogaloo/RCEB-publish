@@ -192,7 +192,7 @@ export default function GameScreen({ navigation }) {
                                 position: 'absolute',
                                 top: 300,
                                 right: 10,
-                                width: 60,
+                                width: 20,
                                 height: 200,
                                 backgroundColor: 'rgba(255, 255, 255, 0.3)',  
                                 borderRadius: 10,
@@ -200,18 +200,18 @@ export default function GameScreen({ navigation }) {
                             }}
                         >
                             {[...Array(maxBatteries)].map((_, index) => (
-    <View
-        key={index}
-        style={{
-            position: 'absolute',
-            bottom: (index / maxBatteries) * 100 + '%',
-            width: '100%',
-            height: `${100 / maxBatteries}%`,
-            backgroundColor: index < collectedBatteries ? 'green' : 'gray', 
-            opacity: index < collectedBatteries ? 1 : 0.3, 
-        }}
-    />
-))}
+                        <View
+                            key={index}
+                            style={{
+                                position: 'absolute',
+                                bottom: (index / maxBatteries) * 100 + '%',
+                                width: '100%',
+                                height: `${100 / maxBatteries}%`,
+                                backgroundColor: index < collectedBatteries ? 'green' : 'gray', 
+                                opacity: index < collectedBatteries ? 1 : 0.3, 
+                            }}
+                        />
+                        ))}
 
                         </View>
 
@@ -248,20 +248,29 @@ export default function GameScreen({ navigation }) {
                                         break;
                                 }
                             }}
-                        />
+                            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+                            >
+                                <StatusBar style="auto" hidden={true} />
+                            </GameEngine>
                     </ImageBackground>
                 </>
             ) : (
                 <GameOverScreen
-                    points={currentPoints}
+                    currentPoints={currentPoints}  
+                    coinCount={coinCount}  
                     onRestart={handleRestart}
                     onShowHighscores={handleShowHighscores}
+                    navigation={navigation}
                     setMusic={setMusic}
                     musicOn={musicOn}
                     toggleMusic={toggleMusic}
                 />
             )
-        ) : null}
+        ) : (
+            <Text style={{ flex: 1, justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontSize: 24 }}>
+                Loading...
+            </Text>
+        )}
         </View>
     );
 }
