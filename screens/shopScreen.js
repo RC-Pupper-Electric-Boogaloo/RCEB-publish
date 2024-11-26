@@ -19,7 +19,7 @@ import Skin7 from '../assets/rcBusinessBorzoi.png';
 import Skin8 from '../assets/rcPugLifePupper.png';
 import Skin9 from '../assets/rcGentlePuppy.png';
 import Skin10 from '../assets/Char.png';
-import Skin11 from '../assets/Char.png';
+import Skin11 from '../assets/rcPiratePup.png';
 import Skin12 from '../assets/Char.png';
 
 const ShopScreen = ({ navigation }) => {
