@@ -53,14 +53,14 @@ export default function MainMenuScreen({ navigation }) {
       <StatusBar style="auto" hidden={true} />
     </GameEngine>
 
-    <View style={styles.containerMainMenu}>
-        <TouchableOpacity style={styles.ButtonMainMenu} 
-        onPress={() => {
-        if (stopMusicRef.current) {
-          stopMusicRef.current(); // Pysäytä musiikki
-        }
-        navigation.navigate('Game'); // Navigoi päävalikkoon
-      }}>
+        <View style={styles.containerMainMenu}>
+          <TouchableOpacity style={styles.ButtonMainMenu} 
+            onPress={() => {
+            if (stopMusicRef.current) {
+              stopMusicRef.current(); // Pysäytä musiikki
+            }
+              navigation.navigate('Game'); // Navigoi päävalikkoon
+            }}>
           <Text style={styles.ButtonMainMenuText}>PLAY</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => { navigation.navigate('Highscore') }}>
@@ -74,6 +74,9 @@ export default function MainMenuScreen({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Stats')}>
           <Text style={styles.ButtonMainMenuText}>STATS</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Achievement')}>
+          <Text style={styles.ButtonMainMenuText}>ACHIEVEMENTS</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>

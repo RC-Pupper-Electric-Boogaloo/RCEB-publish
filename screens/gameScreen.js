@@ -110,6 +110,18 @@ export default function GameScreen({ navigation }) {
                         case 7:
                             setActiveSkin(require('../assets/rcPugLifePupper.png'));
                             break;
+                        case 8:
+                            setActiveSkin(require('../assets/rcGentlePuppy.png'));
+                            break;
+                        case 9:
+                            setActiveSkin(require('../assets/Char.png'));
+                            break;
+                        case 10:
+                            setActiveSkin(require('../assets/Char.png'));
+                            break;
+                        case 11:
+                            setActiveSkin(require('../assets/Char.png'));
+                            break;
                         default:
                             setActiveSkin(require('../assets/CharDog.png')); // Default skin if value is unrecognized
                             break;
