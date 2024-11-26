@@ -12,6 +12,7 @@ import OptionScreen from './screens/optionScreen';
 import ShopScreen from './screens/shopScreen';
 import StatsScreen from './screens/StatsScreen';
 import GuideScreen from './screens/guideScreen';
+import AchievementScreen from './screens/achievementScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -64,6 +65,11 @@ export default function App() {
                         <Stack.Screen
                             name='Guide'
                             component={GuideScreen}
+                            options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                            name='Achievement'
+                            component={AchievementScreen}
                             options={{ headerShown: false }}
                         />
                     </Stack.Navigator>
