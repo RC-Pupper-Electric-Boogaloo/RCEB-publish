@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, Image } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
 import { StatusBar } from 'expo-status-bar';
 import entities from '../entities';
@@ -27,7 +27,9 @@ export default function GameScreen({ navigation }) {
     const [activeSkin, setActiveSkin] = useState(null);
     const [startTime, setStartTime] = useState(null);
     const [elapsedTime, setElapsedTime] = useState(0);
-  
+    const [collectedBatteries, setCollectedBatteries] = useState(0);
+    const maxBatteries = 10;  
+
     const backgroundImage = isDarkMode
       ? require('../assets/Taustakuvatakatumma.jpg')
       : require('../assets/Taustakuvatakavaalea.jpg');
@@ -41,7 +43,7 @@ export default function GameScreen({ navigation }) {
                 const storedCoinCount = await AsyncStorage.getItem('coinCount');
                 let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 };
                 let newCoinCount = storedCoinCount ? JSON.parse(storedCoinCount) : 0; 
-    
+                
                 stats.totalPoints += currentPoints;
                 stats.totalCoins += coinCount;
                 stats.gamesPlayed += 1;
@@ -109,14 +111,14 @@ export default function GameScreen({ navigation }) {
                             setActiveSkin(require('../assets/rcPugLifePupper.png'));
                             break;
                         default:
-                            setActiveSkin(require('../assets/CharDog.png')); // Oletus-skini, jos arvo ei ole tunnistettu
+                            setActiveSkin(require('../assets/CharDog.png')); // Default skin if value is unrecognized
                             break;
                     }
                 } else {
-                    setActiveSkin(require('../assets/CharDog.png')); // Asetetaan oletus-skini, jos ei ole tallennettua arvoa
+                    setActiveSkin(require('../assets/CharDog.png')); // Set default skin if no saved value
                 }
     
-                setIsSkinLoaded(true);  // Ladataan skini, ja asetetaan, että skini on ladattu
+                setIsSkinLoaded(true);  // Load skin, and set skin as loaded
             } catch (error) {
                 console.error('Error loading active skin:', error);
             }
@@ -125,20 +127,19 @@ export default function GameScreen({ navigation }) {
         loadActiveSkin();
     }, []);
     
-    // Varmistetaan, että peliin asetetaan oikea musiikki (bgm2.mp3) kun peli käynnistyy
     useEffect(() => {
         if (running) {
-            setMusic(require('../assets/bgm2.mp3'));  // Asetetaan pelimusiikki
-            const now = Date.now(); // Nykyinen aikaleima
-            setStartTime(now);      // Tallenna aloitusaika
+            setMusic(require('../assets/bgm2.mp3'));  // Set game music
+            const now = Date.now(); // Current timestamp
+            setStartTime(now);      // Save start time
         }
     }, [setMusic, running]);
 
     const calculateElapsedTime = () => {
         if (startTime) {
-            const now = Date.now(); // Nykyinen aikaleima
-            const duration = Math.floor((now - startTime) / 1000); // Sekunteina
-            setElapsedTime(duration); // Tallenna pelin kesto sekunteina
+            const now = Date.now(); // Current timestamp
+            const duration = Math.floor((now - startTime) / 1000); // Seconds
+            setElapsedTime(duration); // Save game duration in seconds
         }
     };
     
@@ -153,13 +154,14 @@ export default function GameScreen({ navigation }) {
         setCurrentPoints(0);
         setCoinCount(0);  
         setRunning(true);
+        setCollectedBatteries(0);
 
         if (gameEngine.current) {
             gameEngine.current.swap(entities());  
             gameEngine.current.start();  
         }
 
-        // Käynnistetään musiikki aina, kun peli aloitetaan uudelleen
+        // Restart music when game restarts
         setMusic(require('../assets/bgm2.mp3'));
     };
 
@@ -183,6 +185,36 @@ export default function GameScreen({ navigation }) {
                         <Text style={styles.coinsText}>
                             Coins: {coinCount}  
                         </Text>
+
+                        
+                        <View
+                            style={{
+                                position: 'absolute',
+                                top: 300,
+                                right: 10,
+                                width: 20,
+                                height: 200,
+                                backgroundColor: 'rgba(255, 255, 255, 0.3)',  
+                                borderRadius: 10,
+                                overflow: 'hidden',
+                            }}
+                        >
+                            {[...Array(maxBatteries)].map((_, index) => (
+                        <View
+                            key={index}
+                            style={{
+                                position: 'absolute',
+                                bottom: (index / maxBatteries) * 100 + '%',
+                                width: '100%',
+                                height: `${100 / maxBatteries}%`,
+                                backgroundColor: index < collectedBatteries ? 'green' : 'gray', 
+                                opacity: index < collectedBatteries ? 1 : 0.3, 
+                            }}
+                        />
+                        ))}
+
+                        </View>
+
                         <GameEngine
                             ref={gameEngine}
                             systems={[Physics]}
@@ -211,12 +243,15 @@ export default function GameScreen({ navigation }) {
                                         if (sfxOn) playCollisionSound();
                                         setCurrentPoints(Math.max(currentPoints - 1, 0));
                                         break;
+                                    case 'battery_collected':
+                                        setCollectedBatteries(prev => Math.min(prev + 1, maxBatteries));
+                                        break;
                                 }
                             }}
                             style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-                        >
-                            <StatusBar style="auto" hidden={true} />
-                        </GameEngine>
+                            >
+                                <StatusBar style="auto" hidden={true} />
+                            </GameEngine>
                     </ImageBackground>
                 </>
             ) : (
@@ -226,13 +261,16 @@ export default function GameScreen({ navigation }) {
                     onRestart={handleRestart}
                     onShowHighscores={handleShowHighscores}
                     navigation={navigation}
+                    setMusic={setMusic}
+                    musicOn={musicOn}
+                    toggleMusic={toggleMusic}
                 />
-                )
-            ) : (
-                <Text style={{ flex: 1, justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontSize: 24 }}>
-                    Loading...
-                </Text>
-            )}
+            )
+        ) : (
+            <Text style={{ flex: 1, justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontSize: 24 }}>
+                Loading...
+            </Text>
+        )}
         </View>
     );
 }
