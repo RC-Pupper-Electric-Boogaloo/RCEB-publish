@@ -10,6 +10,7 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
     const styles = DarkTheme(isDarkMode)
     const [highScores, setHighScores] = useState([])
     const { setMusic } = useContext(MusicContext)
+    const [isClassicMode, setIsClassicMode] = useState(false)
 
     const backgroundImage = isDarkMode
         ? require('../assets/GameOverDark.jpg')
@@ -22,18 +23,31 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
 
     useEffect(() => {
         const saveAndLoadScores = async () => {
-            if (currentPoints) await savePoints(currentPoints)
+            // Check if Classic Mode is enabled
+            const classicOnSetting = await AsyncStorage.getItem('ClassicOn')
+            const isClassic = classicOnSetting === 'true'
+            setIsClassicMode(isClassic)
+
+            // Save the current score to the appropriate key
+            if (currentPoints) {
+                await savePoints(currentPoints, isClassic)
+            }
+
+            // Load updated high scores
+            const scores = await loadHighScores(isClassic)
             setHighScores(scores)
         }
+
         saveAndLoadScores()
     }, [currentPoints])
 
-    const savePoints = async (currentPoints) => {
+    const savePoints = async (points, isClassic) => {
         try {
-            const savedScores = await AsyncStorage.getItem('HIGHSCORES')
+            const key = isClassic ? 'classicHIGHSCORES' : 'HIGHSCORES'
+            const savedScores = await AsyncStorage.getItem(key)
             let scoresArray = savedScores ? JSON.parse(savedScores) : []
-            scoresArray.push(currentPoints)
-            await AsyncStorage.setItem('HIGHSCORES', JSON.stringify(scoresArray))
+            scoresArray.push(points)
+            await AsyncStorage.setItem(key, JSON.stringify(scoresArray))
         } catch (e) {
             console.error("Failed to save points", e)
         }

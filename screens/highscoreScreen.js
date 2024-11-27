@@ -13,6 +13,7 @@ export default function HighscoreScreen({ navigation }) {
     const { isDarkMode } = useTheme()
     const styles = DarkTheme(isDarkMode)
     const gameEngine = useRef(null)
+    const [isClassicMode, setIsClassicMode] = useState(false)
   
     const backgroundImage = isDarkMode
     ? require('../assets/Taustakuvatakatumma.jpg')
@@ -22,7 +23,14 @@ export default function HighscoreScreen({ navigation }) {
     useEffect(() => {
         const loadHighScores = async () => {
             try {
-                const savedScores = await AsyncStorage.getItem('HIGHSCORES')
+                // Check ClassicOn setting
+                const classicOnSetting = await AsyncStorage.getItem('ClassicOn')
+                const isClassic = classicOnSetting === 'true'
+                setIsClassicMode(isClassic)
+
+                // Load the correct high scores
+                const key = isClassic ? 'classicHIGHSCORES' : 'HIGHSCORES'
+                const savedScores = await AsyncStorage.getItem(key)
                 let scoresArray = savedScores ? JSON.parse(savedScores) : []
                 scoresArray = scoresArray.sort((a, b) => b - a).slice(0, 10)
                 setHighScores(scoresArray)
