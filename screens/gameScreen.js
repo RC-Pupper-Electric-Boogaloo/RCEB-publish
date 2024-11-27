@@ -114,7 +114,7 @@ export default function GameScreen({ navigation }) {
                             setActiveSkin(require('../assets/rcGentlePuppy.png'));
                             break;
                         case 9:
-                            setActiveSkin(require('../assets/Char.png'));
+                            setActiveSkin(require('../assets/rcTimeKeeper.png'));
                             break;
                         case 10:
                             setActiveSkin(require('../assets/rcPiratePup.png'));

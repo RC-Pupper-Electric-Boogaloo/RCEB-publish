@@ -24,9 +24,9 @@ const AchievementScreen = ({ navigation }) => {
 
     const achievementList = [
         { id: 1, name: "Golden Retriever", requirement: "Collect 10,000 gold coins", image: require('../assets/rcGentlePuppy.png'), progress: 0, goal: 10000, unlocked: false },
-        { id: 2, name: "Eternity in Dog Years", requirement: "Play 5 hours", image: require('../assets/rcWinWhippet.png'), progress: 0, goal: 5, unlocked: false },
+        { id: 2, name: "Eternity in Dog Years", requirement: "Play 5 hours", image: require('../assets/rcTimeKeeper.png'), progress: 0, goal: 0, unlocked: false },
         { id: 3, name: "Boneyard", requirement: "Collect 10,000 points", image: require('../assets/rcPiratePup.png'), progress: 0, goal: 10000, unlocked: false },
-        { id: 4, name: "Howling Success!", requirement: "Score over 100 points in a single game", image: require('../assets/rcBusinessBorzoi.png'), progress: 0, goal: 100, unlocked: false },
+        { id: 4, name: "Howling Success!", requirement: "Score over 100 points in a single game", image: require('../assets/Char.png'), progress: 0, goal: 100, unlocked: false },
     ];
 
     useEffect(() => {
@@ -103,7 +103,7 @@ const AchievementScreen = ({ navigation }) => {
             if (achievement.id === 2) {
                 Alert.alert(
                     "Achievement Unlocked",
-                    `GZ! You unlocked the achievement: "${achievement.name}". Clockwork Dachshund can now be found at shop!`
+                    `GZ! You unlocked the achievement: "${achievement.name}". Timekeeper Dachshund can now be found at shop!`
                 );
                 try {
                     const currentSkins = await AsyncStorage.getItem('purchasedSkins');
