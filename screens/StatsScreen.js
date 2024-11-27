@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, Text, StyleSheet,TouchableOpacity, ImageBackground } from 'react-native'
+import { View, Text, TouchableOpacity, ImageBackground } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import { useTheme } from '../components/Theme'
 import { GameEngine } from 'react-native-game-engine'
