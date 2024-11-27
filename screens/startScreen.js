@@ -88,9 +88,6 @@ export default function StartScreen({ navigation }) {
         <TouchableOpacity style={styles.startButton} onPress={() => navigation.navigate('Guide')}>
         <Text style={styles.startButtonText}>GUIDE</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.startButton} onPress={() => navigation.navigate('Achievement')}>
-        <Text style={styles.startButtonText}>ACHIEVEMENT</Text>
-      </TouchableOpacity>
       </View>
     </ImageBackground>
   );

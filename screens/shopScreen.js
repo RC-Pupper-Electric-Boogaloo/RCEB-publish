@@ -17,14 +17,20 @@ import Skin5 from '../assets/rcWinWhippet.png';
 import Skin6 from '../assets/rcProfPoodle.png';
 import Skin7 from '../assets/rcBusinessBorzoi.png';
 import Skin8 from '../assets/rcPugLifePupper.png';
+import Skin9 from '../assets/rcGentlePuppy.png';
+import Skin10 from '../assets/Char.png';
+import Skin11 from '../assets/Char.png';
+import Skin12 from '../assets/Char.png';
 
 const ShopScreen = ({ navigation }) => {
-  const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8];
+  const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8, Skin9, Skin10, Skin11, Skin12];
   const SkinNames = [
     'RC Puppy', 'Doc Dog', 'ShopDog', 'Silken Engineer', 
-    'Win Whippet', 'Professor Poodle', 'Business Borzoi', 'Maurice "PugLife" Pupper'
+    'Win Whippet', 'Professor Poodle', 'Business Borzoi', 
+    'Maurice "PugLife" Pupper', 'Golden Puppy', 'Clockwork Dachshund',
+    'Pirate Corgi', 'OG RC Pupper'
   ];
-  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000];
+  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 0, 0, 0, 0 ];
 
   const { isDarkMode } = useTheme();
   const styles = DarkTheme(isDarkMode);
@@ -141,12 +147,24 @@ const ShopScreen = ({ navigation }) => {
   >
     <StatusBar style="auto" hidden={true} />
       </GameEngine>
-        <View style={styles.containerMainMenu}>
+        <View style={styles.containerStart}>
           <Text style={styles.title}>Shop</Text>
           <Text style={styles.Label}>Your Coins: {coinCount}</Text>
 
           <View style={styles.skinsContainer}>
             {Skins.map((skin, index) => {
+              if (index === 8 && !purchasedSkins.includes(index)) {
+                return null; 
+              }
+              if (index === 9 && !purchasedSkins.includes(index)) {
+                return null; 
+              }
+              if (index === 10 && !purchasedSkins.includes(index)) {
+                return null; 
+              }
+              if (index === 11 && !purchasedSkins.includes(index)) {
+                return null; 
+              }
               const isPurchased = purchasedSkins.includes(index);
               const isSelected = selectedSkin === index;
             return (

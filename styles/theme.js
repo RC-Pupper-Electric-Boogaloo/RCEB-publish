@@ -79,6 +79,7 @@ const DarkTheme = (isDarkMode) => {
       fontSize: 16,
       color: isDarkMode ? '#FFF' : '#000',
       fontWeight: 'bold',
+      textAlign: 'center',
     },
     activeButton: {
       backgroundColor: isDarkMode ? '#FF5722' : '#FF5722',
@@ -161,7 +162,7 @@ const DarkTheme = (isDarkMode) => {
       justifyContent: 'center',
       alignItems: 'center',
       position: 'relative',
-
+      paddingTop: 200,
     },
     ButtonMainMenu: {
       backgroundColor: 'red',
@@ -169,7 +170,7 @@ const DarkTheme = (isDarkMode) => {
       paddingHorizontal: 30,
       borderRadius: 10,
       marginBottom: 10,
-      width: '60%',
+      width: '65%',
     },
     ButtonMainMenuText: {
       color: '#fff',
@@ -185,7 +186,7 @@ const DarkTheme = (isDarkMode) => {
       paddingBottom: 50,
 
     },
-  startButton: {
+    startButton: {
       backgroundColor: 'red',
       paddingVertical: 15,
       paddingHorizontal: 30,
@@ -196,6 +197,7 @@ const DarkTheme = (isDarkMode) => {
       color: '#fff',
       fontSize: 24,
       fontWeight: 'bold',
+      textAlign: 'center',
     },
   
   //highscore
@@ -251,6 +253,7 @@ const DarkTheme = (isDarkMode) => {
       paddingVertical: 15,
       paddingHorizontal: 40,
       borderRadius: 10,
+      textAlign: 'center',
   },
   HbuttonText: {
       color: 'white',
@@ -300,6 +303,7 @@ buttonTextGameOver: {
   color: 'white',
   fontSize: 20,
   fontWeight: 'bold',
+  textAlign: 'center',
 },
 
 //STATSSCREEN
@@ -336,6 +340,7 @@ buttonTextStats: {
   color: 'white',
   fontSize: 20,
   fontWeight: 'bold',
+  textAlign: 'center',
 },
 
 //GUIDESCREEN
