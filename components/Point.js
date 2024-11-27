@@ -1,14 +1,12 @@
 import Matter from 'matter-js'
 import React from 'react'
-import { View, Image } from 'react-native'
+import { Image } from 'react-native'
 
 const Point = (props) => {
-    const diameter = props.body.circleRadius * 2;
-
-    const xBody = props.body.position.x - props.body.circleRadius;
-    const yBody = props.body.position.y - props.body.circleRadius;
-
-    const color = props.color;
+    const diameter = props.body.circleRadius * 2
+    const xBody = props.body.position.x - props.body.circleRadius
+    const yBody = props.body.position.y - props.body.circleRadius
+    const color = props.color
 
     return (
         <Image
@@ -19,10 +17,10 @@ const Point = (props) => {
                 top: yBody,
                 width: diameter,
                 height: diameter,
-                resizeMode: 'stretch',
+                resizeMode: 'stretch'
             }}
         />
-    );
+    )
 }
 
 export default (world, label, color, pos, size, imageSource) => {
@@ -31,7 +29,7 @@ export default (world, label, color, pos, size, imageSource) => {
         pos.y,
         size.width / 2,
         {
-            label: label,
+            label: label
         }
     )
     Matter.World.add(world, initialPoint)

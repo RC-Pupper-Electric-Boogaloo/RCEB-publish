@@ -1,89 +1,88 @@
-import { Audio } from 'expo-av';
-import { useEffect, useState, useRef } from 'react';
+import { Audio } from 'expo-av'
+import { useEffect, useState, useRef } from 'react'
 
 export const usePlayCollisionSound = () => {
-    const [sound, setSound] = useState(null);
+    const [sound, setSound] = useState(null)
 
     useEffect(() => {
         const loadSound = async () => {
-            const collisionSound = new Audio.Sound();
-            await collisionSound.loadAsync(require('../assets/end.wav'));
-            setSound(collisionSound);
-        };
+            const collisionSound = new Audio.Sound()
+            await collisionSound.loadAsync(require('../assets/end.wav'))
+            setSound(collisionSound)
+        }
 
-        loadSound();
+        loadSound()
 
-        return () => {
-            if (sound) {
-                sound.unloadAsync();
+    return () => {
+        if (sound) {
+            sound.unloadAsync()
             }
-        };
-    }, []);
+        }
+    }, [])
 
     return async () => {
         if (sound) {
-            await sound.replayAsync();
+            await sound.replayAsync()
         }
-    };
-};
+    }
+}
 
 export const usePlayPointSound = () => {
-    const [pointSound, setPointSound] = useState(null);
+    const [pointSound, setPointSound] = useState(null)
 
     useEffect(() => {
         const loadSound = async () => {
-            const pointSound = new Audio.Sound();
-            await pointSound.loadAsync(require('../assets/point.wav'));
-            setPointSound(pointSound);
-        };
+            const pointSound = new Audio.Sound()
+            await pointSound.loadAsync(require('../assets/point.wav'))
+            setPointSound(pointSound)
+        }
 
-        loadSound();
+    loadSound()
 
-        return () => {
-            if (pointSound) {
-                pointSound.unloadAsync();
+    return () => {
+        if (pointSound) {
+            pointSound.unloadAsync()
             }
-        };
-    }, []);
+        }
+    }, [])
 
     return async () => {
         if (pointSound) {
-            await pointSound.replayAsync();
+            await pointSound.replayAsync()
         }
-    };
-};
+    }
+}
 
 const BackgroundMusic = ({ stopRef, source }) => {
-    const backgroundSound = useRef(new Audio.Sound());
+    const backgroundSound = useRef(new Audio.Sound())
 
     useEffect(() => {
         const playBackgroundMusic = async () => {
             try {
-                await backgroundSound.current.loadAsync(source);
-                await backgroundSound.current.setIsLoopingAsync(true);
-                await backgroundSound.current.playAsync();
+                await backgroundSound.current.loadAsync(source)
+                await backgroundSound.current.setIsLoopingAsync(true)
+                await backgroundSound.current.playAsync()
 
                 if (stopRef) {
                     stopRef.current = async () => {
                         if (backgroundSound.current) {
-                            await backgroundSound.current.stopAsync();
+                            await backgroundSound.current.stopAsync()
                         }
-                    };
+                    }
                 }
             } catch (error) {
-                console.error("Error playing background music:", error);
+                console.error("Error playing background music:", error)
             }
-        };
+        }
 
-        playBackgroundMusic();
+        playBackgroundMusic()
 
         return () => {
-            backgroundSound.current.unloadAsync();
-        };
-    }, [source]);
+            backgroundSound.current.unloadAsync()
+        }
+    }, [source])
 
-    return null;
-};
+    return null
+}
 
-
-export default BackgroundMusic;
+export default BackgroundMusic
