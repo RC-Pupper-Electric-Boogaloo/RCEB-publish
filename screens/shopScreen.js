@@ -20,7 +20,7 @@ import Skin8 from '../assets/rcPugLifePupper.png';
 import Skin9 from '../assets/rcGentlePuppy.png';
 import Skin10 from '../assets/rcTimeKeeper.png';
 import Skin11 from '../assets/rcPiratePup.png';
-import Skin12 from '../assets/Char.png';
+import Skin12 from '../assets/rcPupperOg.png';
 
 const ShopScreen = ({ navigation }) => {
   const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8, Skin9, Skin10, Skin11, Skin12];
