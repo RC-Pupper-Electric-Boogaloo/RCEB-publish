@@ -9,7 +9,7 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
     const { isDarkMode } = useTheme()
     const styles = DarkTheme(isDarkMode)
     const [highScores, setHighScores] = useState([])
-    const { musicOn, toggleMusic, setMusic } = useContext(MusicContext)
+    const { setMusic } = useContext(MusicContext)
 
     const backgroundImage = isDarkMode
         ? require('../assets/GameOverDark.jpg')
