@@ -97,6 +97,7 @@ const OptionScreen = ({ navigation }) => {
     try {
       await AsyncStorage.removeItem('darkMode')
       await AsyncStorage.removeItem('HIGHSCORES')
+      await AsyncStorage.removeItem('classicHIGHSCORES')
       await AsyncStorage.removeItem('MusicOn')
       await AsyncStorage.removeItem('SfxOn')
       await AsyncStorage.removeItem('purchasedSkins')
