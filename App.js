@@ -6,6 +6,7 @@ import { MusicProvider } from './contexts/MusicContext'
 import StartScreen from './screens/startScreen'
 import MainMenuScreen from './screens/mainMenuScreen'
 import GameScreen from './screens/gameScreen'
+import GameScreenClassic from './screens/gameScreenClassic'
 import GameOverScreen from './screens/gameOverScreen'
 import HighscoreScreen from './screens/highscoreScreen'
 import OptionScreen from './screens/optionScreen'
@@ -35,6 +36,11 @@ export default function App() {
                         <Stack.Screen
                             name='Game'
                             component={GameScreen}
+                            options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                            name='GameClassic'
+                            component={GameScreenClassic}
                             options={{ headerShown: false }}
                         />
                         <Stack.Screen
