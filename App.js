@@ -1,19 +1,21 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ThemeProvider } from './components/Theme';
-import { MusicProvider } from './contexts/MusicContext';
-import StartScreen from './screens/startScreen';
-import MainMenuScreen from './screens/mainMenuScreen';
-import GameScreen from './screens/gameScreen';
-import GameOverScreen from './screens/gameOverScreen'; 
-import HighscoreScreen from './screens/highscoreScreen';
-import OptionScreen from './screens/optionScreen';
-import ShopScreen from './screens/shopScreen';
-import StatsScreen from './screens/StatsScreen';
-import GuideScreen from './screens/guideScreen';
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { ThemeProvider } from './components/Theme'
+import { MusicProvider } from './contexts/MusicContext'
+import StartScreen from './screens/startScreen'
+import MainMenuScreen from './screens/mainMenuScreen'
+import GameScreen from './screens/gameScreen'
+import GameScreenClassic from './screens/gameScreenClassic'
+import GameOverScreen from './screens/gameOverScreen'
+import HighscoreScreen from './screens/highscoreScreen'
+import OptionScreen from './screens/optionScreen'
+import ShopScreen from './screens/shopScreen'
+import StatsScreen from './screens/StatsScreen'
+import GuideScreen from './screens/guideScreen'
+import AchievementScreen from './screens/achievementScreen'
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
 export default function App() {
     return (
@@ -34,6 +36,11 @@ export default function App() {
                         <Stack.Screen
                             name='Game'
                             component={GameScreen}
+                            options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                            name='GameClassic'
+                            component={GameScreenClassic}
                             options={{ headerShown: false }}
                         />
                         <Stack.Screen
@@ -66,9 +73,14 @@ export default function App() {
                             component={GuideScreen}
                             options={{ headerShown: false }}
                         />
+                        <Stack.Screen
+                            name='Achievement'
+                            component={AchievementScreen}
+                            options={{ headerShown: false }}
+                        />
                     </Stack.Navigator>
                 </NavigationContainer>
             </MusicProvider>
         </ThemeProvider>
-    );
+    )
 }

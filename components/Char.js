@@ -1,6 +1,6 @@
 import React from "react"
 import Matter from 'matter-js'
-import { View, Image } from 'react-native'
+import { Image } from 'react-native'
 
 const Char = (props) => {
     const widthBody = props.body.bounds.max.x - props.body.bounds.min.x
@@ -17,7 +17,7 @@ const Char = (props) => {
                 top: yBody,
                 width: widthBody,
                 height: heightBody,
-                resizeMode: 'stretch',
+                resizeMode: 'stretch'
             }}
         />
     )
@@ -33,14 +33,14 @@ export default (world, label, color, pos, size, imageSource) => {
             label: label,
             isStatic: true
         }
-    );
-    Matter.World.add(world, initialChar);
+    )
+    Matter.World.add(world, initialChar)
 
     return {
         body: initialChar,
         color,
         pos,
-        imageSource, 
+        imageSource,
         renderer: <Char />
     }
 }
