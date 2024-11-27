@@ -1,77 +1,72 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import DarkTheme from '../styles/theme';
-import { useTheme } from '../components/Theme';
-import { GameEngine } from 'react-native-game-engine';
-import entities from '../entities/menuentities';
-import Physics from '../physics';
-import { MusicContext } from '../contexts/MusicContext';
-import * as Speech from 'expo-speech';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import { View, Text, TouchableOpacity, ImageBackground } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import DarkTheme from '../styles/theme'
+import { useTheme } from '../components/Theme'
+import { GameEngine } from 'react-native-game-engine'
+import entities from '../entities/menuentities'
+import Physics from '../physics'
+import { MusicContext } from '../contexts/MusicContext'
+import * as Speech from 'expo-speech'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 export default function StartScreen({ navigation }) {
-  const styles = DarkTheme(isDarkMode);
-  const { isDarkMode } = useTheme();
-  const gameEngine = useRef(null);
-  const stopMusicRef = useRef();
-  const [sfxOn, setSfxOn] = useState(false);
-  const { musicOn, toggleMusic, setMusic  } = useContext(MusicContext);
-
+  const styles = DarkTheme(isDarkMode)
+  const { isDarkMode } = useTheme()
+  const gameEngine = useRef(null)
+  const [sfxOn, setSfxOn] = useState(false)
+  const { setMusic  } = useContext(MusicContext)
 
   const backgroundImage = isDarkMode
     ? require('../assets/Taustakuvatakatumma.jpg')
-    : require('../assets/Taustakuvatakavaalea.jpg');
-
-  const backdropImage = require('../assets/Taustakuvaala.png'); 
+    : require('../assets/Taustakuvatakavaalea.jpg')
+  const backdropImage = require('../assets/Taustakuvaala.png')
 
   useEffect(() => {
-    setMusic(require('../assets/bgmenu.mp3')); 
-  }, [setMusic]);
+    setMusic(require('../assets/bgmenu.mp3'))
+  }, [setMusic])
 
   const handleStartPress = async () => {
     try {
       // Lataa SfxOn-asetuksen arvo
-      const savedSfx = await AsyncStorage.getItem('SfxOn');
-      const parsedSfx = savedSfx === 'true';
-  
+      const savedSfx = await AsyncStorage.getItem('SfxOn')
+      const parsedSfx = savedSfx === 'true'
+
       // Aseta tila manuaalisesti
-      setSfxOn(parsedSfx);
-  
+      setSfxOn(parsedSfx)
+
       // Jos SfxOn on päällä, puhe käynnistyy
       if (parsedSfx) {
         // Puhu kaksi tekstiosiota peräkkäin
-        const text = "R C Pupper";
-        const text2 = "Electric Boogalooooooo.";
-  
+        const text = "R C Pupper"
+        const text2 = "Electric Boogalooooooo."
+
         await Speech.speak(text, {
           language: 'en',
           pitch: 0.3,
-          rate: 0.5,
-        });
-  
+          rate: 0.5
+        })
+
         await Speech.speak(text2, {
           language: 'ru',
           pitch: 0.3,
-          rate: 1.5,
-        });
+          rate: 1.5
+        })
       }
-  
+
       // Siirrytään MainMenuun
-      navigation.navigate('MainMenu');
+      navigation.navigate('MainMenu')
     } catch (error) {
-      console.error('Error handling start press:', error);
+      console.error('Error handling start press:', error)
     }
-  };
+  }
 
     return (
     <ImageBackground
-      source={backgroundImage} 
+      source={backgroundImage}
       style={styles.background}
-    >     
+    >
     <GameEngine
       ref={gameEngine}
       systems={[Physics]}
@@ -90,5 +85,5 @@ export default function StartScreen({ navigation }) {
       </TouchableOpacity>
       </View>
     </ImageBackground>
-  );
-};
+  )
+}

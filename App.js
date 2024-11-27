@@ -1,20 +1,20 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ThemeProvider } from './components/Theme';
-import { MusicProvider } from './contexts/MusicContext';
-import StartScreen from './screens/startScreen';
-import MainMenuScreen from './screens/mainMenuScreen';
-import GameScreen from './screens/gameScreen';
-import GameOverScreen from './screens/gameOverScreen'; 
-import HighscoreScreen from './screens/highscoreScreen';
-import OptionScreen from './screens/optionScreen';
-import ShopScreen from './screens/shopScreen';
-import StatsScreen from './screens/StatsScreen';
-import GuideScreen from './screens/guideScreen';
-import AchievementScreen from './screens/achievementScreen';
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { ThemeProvider } from './components/Theme'
+import { MusicProvider } from './contexts/MusicContext'
+import StartScreen from './screens/startScreen'
+import MainMenuScreen from './screens/mainMenuScreen'
+import GameScreen from './screens/gameScreen'
+import GameOverScreen from './screens/gameOverScreen'
+import HighscoreScreen from './screens/highscoreScreen'
+import OptionScreen from './screens/optionScreen'
+import ShopScreen from './screens/shopScreen'
+import StatsScreen from './screens/StatsScreen'
+import GuideScreen from './screens/guideScreen'
+import AchievementScreen from './screens/achievementScreen'
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
 export default function App() {
     return (
@@ -76,5 +76,5 @@ export default function App() {
                 </NavigationContainer>
             </MusicProvider>
         </ThemeProvider>
-    );
+    )
 }
