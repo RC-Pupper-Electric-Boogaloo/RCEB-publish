@@ -18,7 +18,7 @@ import Skin6 from '../assets/rcProfPoodle.png';
 import Skin7 from '../assets/rcBusinessBorzoi.png';
 import Skin8 from '../assets/rcPugLifePupper.png';
 import Skin9 from '../assets/rcGentlePuppy.png';
-import Skin10 from '../assets/Char.png';
+import Skin10 from '../assets/rcTimeKeeper.png';
 import Skin11 from '../assets/rcPiratePup.png';
 import Skin12 from '../assets/Char.png';
 
@@ -27,7 +27,7 @@ const ShopScreen = ({ navigation }) => {
   const SkinNames = [
     'RC Puppy', 'Doc Dog', 'ShopDog', 'Silken Engineer', 
     'Win Whippet', 'Professor Poodle', 'Business Borzoi', 
-    'Maurice "PugLife" Pupper', 'Golden Puppy', 'Clockwork Dachshund',
+    'Maurice "PugLife" Pupper', 'Golden Puppy', 'Timekeeper Dachshund',
     'Pirate Corgi', 'OG RC Pupper'
   ];
   const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 0, 0, 0, 0 ];
