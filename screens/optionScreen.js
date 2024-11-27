@@ -1,31 +1,29 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, Alert } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import DarkTheme from '../styles/theme';
-import { useTheme } from '../components/Theme';
-import { MusicContext } from '../contexts/MusicContext.js'; 
-import { GameEngine } from 'react-native-game-engine';
-import entities from '../entities/menuentities';
-import Physics from '../physics';
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import { View, Text, TouchableOpacity, ImageBackground, Alert } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import DarkTheme from '../styles/theme'
+import { useTheme } from '../components/Theme'
+import { MusicContext } from '../contexts/MusicContext.js'
+import { GameEngine } from 'react-native-game-engine'
+import entities from '../entities/menuentities'
+import Physics from '../physics'
 
 const OptionScreen = ({ navigation }) => {
-  const { musicOn, toggleMusic, setMusic } = useContext(MusicContext); 
-  const [SfxOn, setIsSfxOn] = useState(false);
-
-  const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme();
-  const styles = DarkTheme(isDarkMode);
-  const gameEngine = useRef(null);
+  const { musicOn, toggleMusic, setMusic } = useContext(MusicContext)
+  const [SfxOn, setIsSfxOn] = useState(false)
+  const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme()
+  const styles = DarkTheme(isDarkMode)
+  const gameEngine = useRef(null)
 
   const backgroundImage = isDarkMode
   ? require('../assets/Taustakuvatakatumma.jpg')
-  : require('../assets/Taustakuvatakavaalea.jpg');
-
-  const backdropImage = require('../assets/Taustakuva5ala.png'); 
+  : require('../assets/Taustakuvatakavaalea.jpg')
+  const backdropImage = require('../assets/Taustakuva5ala.png')
 
   useEffect(() => {
-    setMusic(require('../assets/bgmenu.mp3')); 
-  }, [setMusic]);
+    setMusic(require('../assets/bgmenu.mp3'))
+  }, [setMusic])
 
   const ResetData = () => {
     Alert.alert(
@@ -36,66 +34,66 @@ const OptionScreen = ({ navigation }) => {
           text: "Cancel",
         },
         {
-          text: "Yes", 
+          text: "Yes",
           onPress: () => resetData()
         }
       ]
-    );
-  };
+    )
+  }
 
   useEffect(() => {
     const loadSettings = async () => {
       try {
-        const savedTheme = await AsyncStorage.getItem('darkMode');
-        const savedSfx = await AsyncStorage.getItem('SfxOn');
+        const savedTheme = await AsyncStorage.getItem('darkMode')
+        const savedSfx = await AsyncStorage.getItem('SfxOn')
         if (savedTheme !== null) {
-          setIsDarkMode(savedTheme === 'true');
+          setIsDarkMode(savedTheme === 'true')
         }
 
         if (savedSfx !== null) {
-          setIsSfxOn(savedSfx === 'true');
+          setIsSfxOn(savedSfx === 'true')
         }
       } catch (error) {
-        console.error("Error loading settings:", error);
+        console.error("Error loading settings:", error)
       }
-    };
-    loadSettings();
-  }, []);
+    }
+    loadSettings()
+  }, [])
 
   const toggleSfx = async () => {
-    const newSfxOn = !SfxOn;
-    setIsSfxOn(newSfxOn);
+    const newSfxOn = !SfxOn
+    setIsSfxOn(newSfxOn)
     try {
-      await AsyncStorage.setItem('SfxOn', JSON.stringify(newSfxOn));
+      await AsyncStorage.setItem('SfxOn', JSON.stringify(newSfxOn))
     } catch (error) {
-      console.error("Error saving SfxOn setting:", error);
+      console.error("Error saving SfxOn setting:", error)
     }
-  };
+  }
 
   const resetData = async () => {
     try {
-      await AsyncStorage.removeItem('darkMode');
-      await AsyncStorage.removeItem('HIGHSCORES');
-      await AsyncStorage.removeItem('MusicOn');
-      await AsyncStorage.removeItem('SfxOn');
-      await AsyncStorage.removeItem('purchasedSkins');
-      await AsyncStorage.removeItem('GAME_STATS');  
-      await AsyncStorage.removeItem('coinCount');
-      await AsyncStorage.setItem('activeSkin', JSON.stringify(0));  
-      setIsDarkMode(false);
-      setIsSfxOn(false);
-      toggleMusic(false);
-      Alert.alert('Data reset successfully!', 'Good Luck & Have Fun!');
+      await AsyncStorage.removeItem('darkMode')
+      await AsyncStorage.removeItem('HIGHSCORES')
+      await AsyncStorage.removeItem('MusicOn')
+      await AsyncStorage.removeItem('SfxOn')
+      await AsyncStorage.removeItem('purchasedSkins')
+      await AsyncStorage.removeItem('GAME_STATS')
+      await AsyncStorage.removeItem('coinCount')
+      await AsyncStorage.setItem('activeSkin', JSON.stringify(0))
+      setIsDarkMode(false)
+      setIsSfxOn(false)
+      toggleMusic(false)
+      Alert.alert('Data reset successfully!', 'Good Luck & Have Fun!')
     } catch (error) {
-      console.error("Error resetting data:", error);
+      console.error("Error resetting data:", error)
     }
-  };
+  }
 
   return (
     <ImageBackground
-    source={backgroundImage} 
+    source={backgroundImage}
     style={styles.background}
-  >     
+  >
   <GameEngine
     ref={gameEngine}
     systems={[Physics]}
@@ -139,7 +137,7 @@ const OptionScreen = ({ navigation }) => {
       </TouchableOpacity>
     </View>
     </ImageBackground>
-  );
-};
+  )
+}
 
-export default OptionScreen;
+export default OptionScreen
