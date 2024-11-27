@@ -1,33 +1,32 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { createContext, useContext, useState, useEffect } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const ThemeContext = createContext();
+const ThemeContext = createContext()
 
 export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
+  const [isDarkMode, setIsDarkMode] = useState(false)
 
   useEffect(() => {
     const loadTheme = async () => {
-      const savedTheme = await AsyncStorage.getItem('darkMode');
+      const savedTheme = await AsyncStorage.getItem('darkMode')
       if (savedTheme !== null) {
-        setIsDarkMode(savedTheme === 'true'); 
+        setIsDarkMode(savedTheme === 'true')
       }
-    };
-    loadTheme();
-  }, []);
+    }
+    loadTheme()
+  }, [])
 
   const toggleDarkMode = async () => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);  
-    await AsyncStorage.setItem('darkMode', JSON.stringify(newMode));  
-  };
+    const newMode = !isDarkMode
+    setIsDarkMode(newMode)
+    await AsyncStorage.setItem('darkMode', JSON.stringify(newMode))
+  }
 
   return (
     <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode, toggleDarkMode }}>
-      {children}  
+      {children}
     </ThemeContext.Provider>
-  );
-};
+  )
+}
 
-export const useTheme = () => useContext(ThemeContext);
+export const useTheme = () => useContext(ThemeContext)

@@ -5,10 +5,8 @@ import { Image } from 'react-native'
 const Backdrop = (props) => {
     const widthBody = props.body.bounds.max.x - props.body.bounds.min.x
     const heightBody = props.body.bounds.max.y - props.body.bounds.min.y
-
     const xBody = props.body.position.x - widthBody / 2
     const yBody = props.body.position.y - heightBody / 2
-
     const color = props.color
 
     return (
@@ -21,11 +19,11 @@ const Backdrop = (props) => {
                 width: widthBody,
                 height: heightBody,
                 resizeMode: 'stretch',
-                zIndex: -1,
+                zIndex: -1
             }}
         />
-    );
-};
+    )
+}
 
 export default (world, label, color, pos, size, imageSource) => {
     const initialBackdrop = Matter.Bodies.rectangle(
@@ -36,7 +34,7 @@ export default (world, label, color, pos, size, imageSource) => {
         {
             label,
             isSensor: true,
-            isStatic: true,
+            isStatic: true
         }
     )
     Matter.World.add(world, initialBackdrop)
@@ -45,7 +43,7 @@ export default (world, label, color, pos, size, imageSource) => {
         body: initialBackdrop,
         color,
         pos,
-        imageSource, 
+        imageSource,
         renderer: <Backdrop />
     }
 }

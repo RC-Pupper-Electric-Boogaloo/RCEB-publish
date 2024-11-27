@@ -1,13 +1,12 @@
-import Matter from 'matter-js';
-import React from 'react';
-import { Image } from 'react-native';
+import Matter from 'matter-js'
+import React from 'react'
+import { Image } from 'react-native'
 
 const Obstacle = (props) => {
-    const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
-    const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
-
-    const xBody = props.body.position.x - widthBody / 2;
-    const yBody = props.body.position.y - heightBody / 2;
+    const widthBody = props.body.bounds.max.x - props.body.bounds.min.x
+    const heightBody = props.body.bounds.max.y - props.body.bounds.min.y
+    const xBody = props.body.position.x - widthBody / 2
+    const yBody = props.body.position.y - heightBody / 2
 
     return (
         <Image
@@ -18,11 +17,11 @@ const Obstacle = (props) => {
                 top: yBody,
                 width: widthBody,
                 height: heightBody,
-                resizeMode: 'stretch',
+                resizeMode: 'stretch'
             }}
         />
-    );
-};
+    )
+}
 
 export default (world, label, color, pos, size, imageSource) => {
     const initialObstacle = Matter.Bodies.rectangle(
@@ -31,16 +30,16 @@ export default (world, label, color, pos, size, imageSource) => {
         size.width,
         size.height,
         {
-            label: label,
+            label: label
         }
-    );
-    Matter.World.add(world, initialObstacle);
+    )
+    Matter.World.add(world, initialObstacle)
 
     return {
         body: initialObstacle,
         color,
         pos,
-        imageSource, 
-        renderer: <Obstacle />,
-    };
-};
+        imageSource,
+        renderer: <Obstacle />
+    }
+}
