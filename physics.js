@@ -173,6 +173,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     dispatch({ type: "game_over" })
                     if (isBonusActive) {
                         dispatch({ type: "bonus_ended" })
+                        console.log("Bonus ended")
                     }
                     powerUp = 0
                     isBonusActive = false
