@@ -178,12 +178,6 @@ export default function GameScreen({ navigation }) {
         navigation.navigate('Highscore')
     }
 
-    if (bonusMode) {
-        setTimeout(() => {
-            setBonusMode(false)
-        }, 10000)
-    }
-
     return (
         <View style={{ flex: 1 }}>
             {isSkinLoaded ? (
@@ -264,6 +258,9 @@ export default function GameScreen({ navigation }) {
                                         case 'bonus_activated':
                                             setBonusMode(true)
                                             setCollectedBatteries(0)
+                                            break
+                                        case 'bonus_ended':
+                                            setBonusMode(false)
                                             break
                                     }
                                 }}

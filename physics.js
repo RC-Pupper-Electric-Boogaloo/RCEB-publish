@@ -173,6 +173,11 @@ const Physics = (entities, { time, touches, dispatch }) => {
                 } else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
 
                     dispatch({ type: "game_over" })
+                    if (isBonusActive) {
+                        dispatch({ type: "bonus_ended" })
+                    }
+                    powerUp = 0
+                    isBonusActive = false
                 } else if (bodyA.label === "Char" && bodyB.label === "Battery") {
 
                     batteryLevel = Math.min(batteryLevel + 20, 100)
