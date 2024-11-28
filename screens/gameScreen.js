@@ -196,7 +196,7 @@ export default function GameScreen({ navigation }) {
                             <Text style={styles.pointsText}>
                                 {currentPoints}
                             </Text>
-                            <Text>
+                            <Text style={{ margin: 20 }}>
                                 {bonusMode ? 'Bonus mode activated!' : ''}
                             </Text>
                             <Text style={styles.coinsText}>
