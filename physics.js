@@ -1,6 +1,7 @@
 import Matter from "matter-js"
 import { Dimensions } from "react-native"
 import { getRandom } from "./utils/random"
+import { Accelerometer } from 'expo-sensors'
 
 const windowHeight = Dimensions.get("window").height
 const windowWidth = Dimensions.get("window").width
@@ -11,16 +12,53 @@ const Physics = (entities, { time, touches, dispatch }) => {
     let points = 0
     let coinCount = entities.coinCount || 0
     let batteryLevel = entities.batteryLevel || 0
+    let accelerometerSubscription = null
+    let powerUp = 0
+    let isBonusActive = entities.isBonusActive || false
+
+    const startAccelerometer = () => {
+        if (!accelerometerSubscription) {
+            accelerometerSubscription = Accelerometer.addListener(({ x, y, z }) => {
+                const totalAcceleration = Math.sqrt(x * x + y * y + z * z)
+                if (totalAcceleration > 1.5 && !isBonusActive && powerUp >= 1) {
+                    powerUp = 0
+                    batteryLevel = 0
+                    isShaken = true
+                    console.log("Shaken")
+                    isBonusActive = true
+                    dispatch({ type: "bonus_activated" })
+                    world.gravity.y = world.gravity.y / 2
+                    console.log("Bonus activated")
+
+                    setTimeout(() => {
+                        isBonusActive = false
+                        dispatch({ type: "bonus_ended" })
+                        world.gravity.y = world.gravity.y * 2
+                        console.log("Bonus ended")
+                    }, 10000)
+                }
+            })
+        }
+    }
+
+    startAccelerometer()
+
+    const stopAccelerometer = () => {
+        if (accelerometerSubscription) {
+            accelerometerSubscription.remove()
+            accelerometerSubscription = null
+        }
+    }
 
     if (entities["Char"]) {
-     touches.filter(t => t.type === "move").forEach(t => {
-        const fingerPositionX = t.event.pageX
+        touches.filter(t => t.type === "move").forEach(t => {
+            const fingerPositionX = t.event.pageX;
 
-        Matter.Body.setPosition(entities.Char.body, {
-            x: fingerPositionX,
-            y: entities.Char.body.position.y
-        })
-     })
+            Matter.Body.setPosition(entities.Char.body, {
+                x: fingerPositionX,
+                y: entities.Char.body.position.y
+            });
+        });
     }
 
     Matter.Engine.update(engine)
@@ -45,8 +83,8 @@ const Physics = (entities, { time, touches, dispatch }) => {
         Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 })
         Matter.Body.setPosition(entities["Obstacle"].body, {
             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
-            y: -windowHeight -20
-        })
+            y: -windowHeight - 20
+        });
     }
 
     if (entities["Choco"] && entities["Choco"].body.bounds.min.y >= windowHeight) {
@@ -67,7 +105,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
 
     if (entities["Backdrop"] && entities["Backdrop"].body.bounds.max.y >= windowHeight + windowHeight) {
         Matter.Body.setPosition(entities["Backdrop"].body, {
-            x: windowWidth/3-windowWidth,
+            x: windowWidth / 3 - windowWidth,
             y: windowHeight / 2
         })
     }
@@ -85,7 +123,8 @@ const Physics = (entities, { time, touches, dispatch }) => {
         Matter.Body.setPosition(entities["Cloud2"].body, {
             x: windowWidth + 120,
             y: getRandom(150, windowHeight / 1.1)
-        })
+
+        });
     }
 
     if (!engine.collisionHandler) {
@@ -132,9 +171,17 @@ const Physics = (entities, { time, touches, dispatch }) => {
                 } else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
 
                     dispatch({ type: "game_over" })
+                    if (isBonusActive) {
+                        dispatch({ type: "bonus_ended" })
+                        console.log("Bonus ended")
+                    }
+                    powerUp = 0
+                    isBonusActive = false
                 } else if (bodyA.label === "Char" && bodyB.label === "Battery") {
 
                     batteryLevel = Math.min(batteryLevel + 20, 100)
+                    powerUp++
+                    console.log("PowerUp level", powerUp)
                     dispatch({ type: "battery_collected", level: batteryLevel })
 
                     Matter.Body.setVelocity(entities["Battery"].body, { x: 0, y: 0 })
@@ -150,8 +197,16 @@ const Physics = (entities, { time, touches, dispatch }) => {
     return {
         ...entities,
         coinCount,
-        batteryLevel
+        batteryLevel,
+        isBonusActive
     }
 }
 
 export default Physics
+
+/*
+Pystyykö tätä kutsumaan gameScreenistä?
+*/
+export const cleanupPhysics = () => {
+    stopAccelerometer()
+};
