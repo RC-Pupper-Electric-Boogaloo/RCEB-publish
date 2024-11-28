@@ -22,7 +22,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
         if (!accelerometerSubscription) {
             accelerometerSubscription = Accelerometer.addListener(({ x, y, z }) => {
                 const totalAcceleration = Math.sqrt(x * x + y * y + z * z)
-                if (totalAcceleration > 1.5 && !isBonusActive && powerUp == 10) {
+                if (totalAcceleration > 1.5 && !isBonusActive && powerUp >= 1) {
                     powerUp = 0
                     batteryLevel = 0
                     isShaken = true
@@ -37,7 +37,6 @@ const Physics = (entities, { time, touches, dispatch }) => {
                         dispatch({ type: "bonus_ended" })
                         world.gravity.y = world.gravity.y * 2
                         console.log("Bonus ended")
-                        console.log("isBonusActive", isBonusActive)
                     }, 10000)
                 }
             })
@@ -202,5 +201,5 @@ const Physics = (entities, { time, touches, dispatch }) => {
 export default Physics
 
 export const cleanupPhysics = () => {
-    stopAccelerometer();
+    stopAccelerometer()
 };

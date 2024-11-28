@@ -263,6 +263,7 @@ export default function GameScreen({ navigation }) {
                                             break
                                         case 'bonus_activated':
                                             setBonusMode(true)
+                                            setCollectedBatteries(0)
                                             break
                                     }
                                 }}
