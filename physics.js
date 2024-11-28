@@ -1,10 +1,10 @@
-import Matter from "matter-js";
-import { Dimensions } from "react-native";
-import { getRandom } from "./utils/random";
-import { Accelerometer } from 'expo-sensors';
+import Matter from "matter-js"
+import { Dimensions } from "react-native"
+import { getRandom } from "./utils/random"
+import { Accelerometer } from 'expo-sensors'
 
-const windowHeight = Dimensions.get("window").height;
-const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height
+const windowWidth = Dimensions.get("window").width
 
 
 
