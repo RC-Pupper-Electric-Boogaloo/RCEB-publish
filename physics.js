@@ -16,7 +16,7 @@ const startAccelerometer = () => {
             if (totalAcceleration > 1.5 && !isShaken) {
                 isShaken = true
                 console.log("Shaken")
-                setTimeout(() => { isShaken = false; }, 1000)
+                setTimeout(() => { isShaken = false; }, 3000)
             }
         })
     }

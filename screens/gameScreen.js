@@ -29,10 +29,11 @@ export default function GameScreen({ navigation }) {
     const [elapsedTime, setElapsedTime] = useState(0)
     const [collectedBatteries, setCollectedBatteries] = useState(0)
     const maxBatteries = 10
+    const [bonusMode, setBonusMode] = useState(false)
 
     const backgroundImage = isDarkMode
-      ? require('../assets/Taustakuvatakatumma.jpg')
-      : require('../assets/Taustakuvatakavaalea.jpg')
+        ? require('../assets/Taustakuvatakatumma.jpg')
+        : require('../assets/Taustakuvatakavaalea.jpg')
 
     const backdropImage = require('../assets/Taustakuva3ala.png')
 
@@ -177,106 +178,117 @@ export default function GameScreen({ navigation }) {
         navigation.navigate('Highscore')
     }
 
+    if (bonusMode) {
+        setTimeout(() => {
+            setBonusMode(false)
+        }, 10000)
+    }
+
     return (
         <View style={{ flex: 1 }}>
-        {isSkinLoaded ? (
-            running ? (
-                <>
-                <ImageBackground
-                    source={backgroundImage}
-                    style={{ flex: 1 }}
-                >
-                    <Text style={styles.pointsText}>
-                        {currentPoints}
-                    </Text>
-
-                    <Text style={styles.coinsText}>
-                        Coins: {coinCount}
-                    </Text>
-
-                    <View
-                        style={{
-                            position: 'absolute',
-                            top: 300,
-                            right: 10,
-                            width: 20,
-                            height: 200,
-                            backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                            borderRadius: 10,
-                            overflow: 'hidden'
-                        }}
-                    >
-                        {[...Array(maxBatteries)].map((_, index) => (
-                    <View
-                        key={index}
-                        style={{
-                            position: 'absolute',
-                            bottom: (index / maxBatteries) * 100 + '%',
-                            width: '100%',
-                            height: `${100 / maxBatteries}%`,
-                            backgroundColor: index < collectedBatteries ? 'green' : 'gray',
-                            opacity: index < collectedBatteries ? 1 : 0.3
-                        }}
-                    />
-                    ))}
-                    </View>
-
-                    <GameEngine
-                        ref={gameEngine}
-                        systems={[Physics]}
-                        entities={entities(null, backdropImage, activeSkin)}
-                        running={running}
-                        onEvent={(e) => {
-                            switch (e.type) {
-                                case 'game_over':
-                                    if (stopMusicRef.current) stopMusicRef.current()
-                                    if (sfxOn) playCollisionSound()
-                                    if (gameEngine.current && running) {
-                                        gameEngine.current.stop()
-                                    }
-                                    setRunning(false)
-                                    calculateElapsedTime()
-                                    break
-                                case 'new_point':
-                                    if (sfxOn) playPointSound()
-                                    setCurrentPoints(currentPoints + 1)
-                                    break
-                                case 'coin_collected':
-                                    if (sfxOn) playPointSound()
-                                    setCoinCount(coinCount + 1)
-                                    break
-                                case 'miss':
-                                    if (sfxOn) playCollisionSound()
-                                    setCurrentPoints(Math.max(currentPoints - 1, 0))
-                                    break
-                                case 'battery_collected':
-                                    setCollectedBatteries(prev => Math.min(prev + 1, maxBatteries))
-                                    break
-                            }
-                        }}
-                        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+            {isSkinLoaded ? (
+                running ? (
+                    <>
+                        <ImageBackground
+                            source={backgroundImage}
+                            style={{ flex: 1 }}
                         >
-                            <StatusBar style="auto" hidden={true} />
-                        </GameEngine>
-                </ImageBackground>
-            </>
-        ) : (
-            <GameOverScreen
-                currentPoints={currentPoints}
-                coinCount={coinCount}
-                onRestart={handleRestart}
-                onShowHighscores={handleShowHighscores}
-                navigation={navigation}
-                setMusic={setMusic}
-                musicOn={musicOn}
-                toggleMusic={toggleMusic}
-            />
-        )
-    ) : (
-        <Text style={{ flex: 1, justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontSize: 24 }}>
-            Loading...
-        </Text>
-    )}
-    </View>
-)
+                            <Text style={styles.pointsText}>
+                                {currentPoints}
+                            </Text>
+                            <Text>
+                                {bonusMode ? 'Bonus mode activated!' : ''}
+                            </Text>
+                            <Text style={styles.coinsText}>
+                                Coins: {coinCount}
+                            </Text>
+
+                            <View
+                                style={{
+                                    position: 'absolute',
+                                    top: 300,
+                                    right: 10,
+                                    width: 20,
+                                    height: 200,
+                                    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                                    borderRadius: 10,
+                                    overflow: 'hidden'
+                                }}
+                            >
+                                {[...Array(maxBatteries)].map((_, index) => (
+                                    <View
+                                        key={index}
+                                        style={{
+                                            position: 'absolute',
+                                            bottom: (index / maxBatteries) * 100 + '%',
+                                            width: '100%',
+                                            height: `${100 / maxBatteries}%`,
+                                            backgroundColor: index < collectedBatteries ? 'green' : 'gray',
+                                            opacity: index < collectedBatteries ? 1 : 0.3
+                                        }}
+                                    />
+                                ))}
+                            </View>
+
+                            <GameEngine
+                                ref={gameEngine}
+                                systems={[Physics]}
+                                entities={entities(null, backdropImage, activeSkin)}
+                                running={running}
+                                onEvent={(e) => {
+                                    switch (e.type) {
+                                        case 'game_over':
+                                            if (stopMusicRef.current) stopMusicRef.current()
+                                            if (sfxOn) playCollisionSound()
+                                            if (gameEngine.current && running) {
+                                                gameEngine.current.stop()
+                                            }
+                                            setRunning(false)
+                                            calculateElapsedTime()
+                                            break
+                                        case 'new_point':
+                                            if (sfxOn) playPointSound()
+                                            setCurrentPoints(currentPoints + 1)
+                                            break
+                                        case 'coin_collected':
+                                            if (sfxOn) playPointSound()
+                                            setCoinCount(coinCount + 1)
+                                            break
+                                        case 'miss':
+                                            if (sfxOn) playCollisionSound()
+                                            setCurrentPoints(Math.max(currentPoints - 1, 0))
+                                            break
+                                        case 'battery_collected':
+                                            setCollectedBatteries(prev => Math.min(prev + 1, maxBatteries))
+                                            break
+                                        case 'bonus_activated':
+                                            setBonusMode(true)
+                                            break
+                                    }
+                                }}
+                                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+                            >
+                                <StatusBar style="auto" hidden={true} />
+                            </GameEngine>
+                        </ImageBackground>
+                    </>
+                ) : (
+                    <GameOverScreen
+                        currentPoints={currentPoints}
+                        coinCount={coinCount}
+                        onRestart={handleRestart}
+                        onShowHighscores={handleShowHighscores}
+                        navigation={navigation}
+                        setMusic={setMusic}
+                        musicOn={musicOn}
+                        toggleMusic={toggleMusic}
+                    />
+                )
+            ) : (
+                <Text style={{ flex: 1, justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontSize: 24 }}>
+                    Loading...
+                </Text>
+            )}
+        </View>
+    )
 }
