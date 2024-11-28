@@ -1,48 +1,58 @@
-import Matter from "matter-js"
-import { Dimensions } from "react-native"
-import { getRandom } from "./utils/random"
-import { Accelerometer } from 'expo-sensors'; // Tuodaan kiihtyvyysanturi
+import Matter from "matter-js";
+import { Dimensions } from "react-native";
+import { getRandom } from "./utils/random";
+import { Accelerometer } from 'expo-sensors';
 
-const windowHeight = Dimensions.get("window").height
-const windowWidth = Dimensions.get("window").width
+const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get("window").width;
+
+let accelerometerSubscription = null
+let isShaken = false
+
+const startAccelerometer = () => {
+    if (!accelerometerSubscription) {
+        accelerometerSubscription = Accelerometer.addListener(({ x, y, z }) => {
+            const totalAcceleration = Math.sqrt(x * x + y * y + z * z)
+            if (totalAcceleration > 1.5 && !isShaken) {
+                isShaken = true
+                console.log("Shaken")
+                setTimeout(() => { isShaken = false; }, 1000)
+            }
+        })
+    }
+}
+
+const stopAccelerometer = () => {
+    if (accelerometerSubscription) {
+        accelerometerSubscription.remove()
+        accelerometerSubscription = null
+    }
+}
 
 const Physics = (entities, { time, touches, dispatch }) => {
-    let engine = entities.physics.engine;
-    let world = engine.world;
-    let points = 0;
+    let engine = entities.physics.engine
+    let world = engine.world
+    let points = 0
     let coinCount = entities.coinCount || 0
     let batteryLevel = entities.batteryLevel || 0
-    let shakeThreshold = 1.5
-    let accelerometerSubscription = null
+    let powerUp = entities.powerUp || 0
     let isBonusActive = entities.isBonusActive || false
 
-    const startAccelerometer = () => {
-        accelerometerSubscription = Accelerometer.addListener(({ x, y, z }) => {
-            const totalAcceleration = Math.sqrt(x * x + y * y + z * z); // Lasketaan kiihtyvyyden kokonaisarvo
+    startAccelerometer()
 
-            if (totalAcceleration > shakeThreshold && coinCount >= 1 && !isBonusActive) {
-                isBonusActive = true;
-                dispatch({ type: "bonus_activated" });
-                console.log("Bonus activated");
+    if (isShaken && !isBonusActive) {
+        isBonusActive = true
+        dispatch({ type: "bonus_activated" })
+        world.gravity.y = world.gravity.y * 0.5
+        console.log("Bonus activated")
 
-                setTimeout(() => {
-                    isBonusActive = false;
-                    dispatch({ type: "bonus_ended" });
-                    console.log("Bonus ended");
-                }, 10000);
-            }
-        });
-    };
-
-    const stopAccelerometer = () => {
-        if (accelerometerSubscription) {
-            accelerometerSubscription.remove();
-            accelerometerSubscription = null;
-        }
-    };
-
-    if (!accelerometerSubscription) {
-        startAccelerometer();
+        setTimeout(() => {
+            isBonusActive = false
+            dispatch({ type: "bonus_ended" })
+            world.gravity.y = world.gravity.y * 2
+            console.log("Bonus ended")
+            console.log("isBonusActive", isBonusActive)
+        }, 10000)
     }
 
     if (entities["Char"]) {
@@ -169,6 +179,8 @@ const Physics = (entities, { time, touches, dispatch }) => {
                 } else if (bodyA.label === "Char" && bodyB.label === "Battery") {
 
                     batteryLevel = Math.min(batteryLevel + 20, 100)
+                    powerUp++
+                    console.log("PowerUp level", powerUp)
                     dispatch({ type: "battery_collected", level: batteryLevel })
 
                     Matter.Body.setVelocity(entities["Battery"].body, { x: 0, y: 0 })
@@ -185,7 +197,8 @@ const Physics = (entities, { time, touches, dispatch }) => {
         ...entities,
         coinCount,
         batteryLevel,
-        isBonusActive
+        isBonusActive,
+        powerUp,
     }
 }
 
