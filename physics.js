@@ -6,28 +6,7 @@ import { Accelerometer } from 'expo-sensors';
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
 
-let accelerometerSubscription = null
-let isShaken = false
 
-const startAccelerometer = () => {
-    if (!accelerometerSubscription) {
-        accelerometerSubscription = Accelerometer.addListener(({ x, y, z }) => {
-            const totalAcceleration = Math.sqrt(x * x + y * y + z * z)
-            if (totalAcceleration > 1.5 && !isShaken) {
-                isShaken = true
-                console.log("Shaken")
-                setTimeout(() => { isShaken = false; }, 3000)
-            }
-        })
-    }
-}
-
-const stopAccelerometer = () => {
-    if (accelerometerSubscription) {
-        accelerometerSubscription.remove()
-        accelerometerSubscription = null
-    }
-}
 
 const Physics = (entities, { time, touches, dispatch }) => {
     let engine = entities.physics.engine
@@ -35,24 +14,43 @@ const Physics = (entities, { time, touches, dispatch }) => {
     let points = 0
     let coinCount = entities.coinCount || 0
     let batteryLevel = entities.batteryLevel || 0
-    let powerUp = entities.powerUp || 0
+    let accelerometerSubscription = null
+    let powerUp = 0
     let isBonusActive = entities.isBonusActive || false
+
+    const startAccelerometer = () => {
+        if (!accelerometerSubscription) {
+            accelerometerSubscription = Accelerometer.addListener(({ x, y, z }) => {
+                const totalAcceleration = Math.sqrt(x * x + y * y + z * z)
+                if (totalAcceleration > 1.5 && !isBonusActive && powerUp == 10) {
+                    powerUp = 0
+                    batteryLevel = 0
+                    isShaken = true
+                    console.log("Shaken")
+                    isBonusActive = true
+                    dispatch({ type: "bonus_activated" })
+                    world.gravity.y = world.gravity.y / 2
+                    console.log("Bonus activated")
+
+                    setTimeout(() => {
+                        isBonusActive = false
+                        dispatch({ type: "bonus_ended" })
+                        world.gravity.y = world.gravity.y * 2
+                        console.log("Bonus ended")
+                        console.log("isBonusActive", isBonusActive)
+                    }, 10000)
+                }
+            })
+        }
+    }
 
     startAccelerometer()
 
-    if (isShaken && !isBonusActive) {
-        isBonusActive = true
-        dispatch({ type: "bonus_activated" })
-        world.gravity.y = world.gravity.y * 0.5
-        console.log("Bonus activated")
-
-        setTimeout(() => {
-            isBonusActive = false
-            dispatch({ type: "bonus_ended" })
-            world.gravity.y = world.gravity.y * 2
-            console.log("Bonus ended")
-            console.log("isBonusActive", isBonusActive)
-        }, 10000)
+    const stopAccelerometer = () => {
+        if (accelerometerSubscription) {
+            accelerometerSubscription.remove()
+            accelerometerSubscription = null
+        }
     }
 
     if (entities["Char"]) {
@@ -197,8 +195,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
         ...entities,
         coinCount,
         batteryLevel,
-        isBonusActive,
-        powerUp,
+        isBonusActive
     }
 }
 
