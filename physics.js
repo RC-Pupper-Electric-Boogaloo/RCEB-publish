@@ -6,8 +6,6 @@ import { Accelerometer } from 'expo-sensors'
 const windowHeight = Dimensions.get("window").height
 const windowWidth = Dimensions.get("window").width
 
-
-
 const Physics = (entities, { time, touches, dispatch }) => {
     let engine = entities.physics.engine
     let world = engine.world
@@ -205,6 +203,9 @@ const Physics = (entities, { time, touches, dispatch }) => {
 
 export default Physics
 
+/*
+Pystyykö tätä kutsumaan gameScreenistä?
+*/
 export const cleanupPhysics = () => {
     stopAccelerometer()
 };
