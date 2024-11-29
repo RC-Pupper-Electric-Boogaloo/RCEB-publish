@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react'
 import { View, Text, ImageBackground } from 'react-native'
 import { GameEngine } from 'react-native-game-engine'
 import { StatusBar } from 'expo-status-bar'
+import { useFocusEffect } from '@react-navigation/native'
 import entities from '../entities'
 import Physics from '../physics'
 import { usePlayCollisionSound, usePlayPointSound } from '../components/BackgroundMusic'
@@ -10,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import DarkTheme from '../styles/theme'
 import { useTheme } from '../components/Theme'
 import { MusicContext } from '../contexts/MusicContext'
+import { getRandom } from '../utils/random'
 
 export default function GameScreen({ navigation }) {
     const [running, setRunning] = useState(true)
@@ -77,65 +79,82 @@ export default function GameScreen({ navigation }) {
         loadSettings()
     }, [])
 
-    useEffect(() => {
-        const loadActiveSkin = async () => {
-            try {
-                const storedActiveSkin = await AsyncStorage.getItem('activeSkin')
-                if (storedActiveSkin) {
-                    const skinIndex = JSON.parse(storedActiveSkin)
-
-                    switch (skinIndex) {
-                        case 0:
-                            setActiveSkin(require('../assets/CharDog.png'))
-                            break
-                        case 1:
-                            setActiveSkin(require('../assets/rcDocDog.png'))
-                            break
-                        case 2:
-                            setActiveSkin(require('../assets/rcShopDog.png'))
-                            break
-                        case 3:
-                            setActiveSkin(require('../assets/rcSilkeneer.png'))
-                            break
-                        case 4:
-                            setActiveSkin(require('../assets/rcWinWhippet.png'))
-                            break
-                        case 5:
-                            setActiveSkin(require('../assets/rcProfPoodle.png'))
-                            break
-                        case 6:
-                            setActiveSkin(require('../assets/rcBusinessBorzoi.png'))
-                            break
-                        case 7:
-                            setActiveSkin(require('../assets/rcPugLifePupper.png'))
-                            break
-                        case 8:
-                            setActiveSkin(require('../assets/rcGentlePuppy.png'))
-                            break
-                        case 9:
-                            setActiveSkin(require('../assets/rcTimeKeeper.png'))
-                            break
-                        case 10:
-                            setActiveSkin(require('../assets/rcPiratePup.png'))
-                            break
-                        case 11:
-                            setActiveSkin(require('../assets/rcPupperOg.png'));
-                            break;
-                        default:
-                            setActiveSkin(require('../assets/CharDog.png')) // Default skin if value is unrecognized
-                            break
-                    }
-                } else {
-                    setActiveSkin(require('../assets/CharDog.png')) // Set default skin if no saved value
+   
+    const loadActiveSkin = async () => {
+        try {
+            const storedActiveSkin = await AsyncStorage.getItem('activeSkin')
+            if (storedActiveSkin) {
+                let skinIndex = JSON.parse(storedActiveSkin)
+                let skin = skinIndex
+                if (skinIndex === 15) {
+                    skin = getRandom(0, 14)
                 }
-                setIsSkinLoaded(true) // Load skin, and set skin as loaded
-            } catch (error) {
-                console.error('Error loading active skin:', error)
-            }
-        }
 
-        loadActiveSkin()
-    }, [])
+                // Assign skin based on the index
+                switch (skin) {
+                    case 0:
+                        setActiveSkin(require('../assets/CharDog.png'))
+                        break;
+                    case 1:
+                        setActiveSkin(require('../assets/rcDocDog.png'))
+                        break;
+                    case 2:
+                        setActiveSkin(require('../assets/rcShopDog.png'))
+                        break;
+                    case 3:
+                        setActiveSkin(require('../assets/rcSilkeneer.png'))
+                        break;
+                    case 4:
+                        setActiveSkin(require('../assets/rcWinWhippet.png'))
+                        break;
+                    case 5:
+                        setActiveSkin(require('../assets/rcProfPoodle.png'))
+                        break;
+                    case 6:
+                        setActiveSkin(require('../assets/rcBusinessBorzoi.png'))
+                        break;
+                    case 7:
+                        setActiveSkin(require('../assets/rcPugLifePupper.png'))
+                        break;
+                    case 8:
+                        setActiveSkin(require('../assets/rcGentlePuppy.png'))
+                        break;
+                    case 9:
+                        setActiveSkin(require('../assets/rcTimeKeeper.png'))
+                        break;
+                    case 10:
+                        setActiveSkin(require('../assets/rcPiratePup.png'))
+                        break;
+                    case 11:
+                        setActiveSkin(require('../assets/rcBonusPuppy.png'))
+                        break;
+                    case 12:
+                        setActiveSkin(require('../assets/rcSgtWoofer.png'))
+                        break;
+                    case 13:
+                        setActiveSkin(require('../assets/rcMeclarBeagle.png'))
+                        break;
+                    case 14:
+                        setActiveSkin(require('../assets/rcPupperOg.png'))
+                        break;
+                    default:
+                        setActiveSkin(require('../assets/CharDog.png')) // Default skin
+                        break;
+                }
+            } else {
+                setActiveSkin(require('../assets/CharDog.png')) // Default skin if no saved value
+            }
+            setIsSkinLoaded(true);
+        } catch (error) {
+            console.error('Error loading active skin:', error)
+        }
+    };
+
+    useFocusEffect(
+        React.useCallback(() => {
+            loadActiveSkin()
+        }, [])
+    );
 
     useEffect(() => {
         if (running) {
