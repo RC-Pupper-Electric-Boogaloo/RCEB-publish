@@ -1,5 +1,5 @@
 import Matter from "matter-js"
-import { Dimensions } from "react-native"
+import { Dimensions, Alert } from "react-native"
 import { getRandom } from "./utils/random"
 import { Accelerometer } from 'expo-sensors'
 import AsyncStorage from "@react-native-async-storage/async-storage"
@@ -84,6 +84,8 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     await AsyncStorage.setItem("purchasedSkins", JSON.stringify(purchasedSkins))
                     dispatch({ type: "skin_unlocked", skinIndex })
                     console.log("Woofer skin unlocked!")
+                    Alert.alert("Woof!", "Sergeant Woofer unlocked! You can now find this puppy from the shop.");
+            
                 }
             }
         }

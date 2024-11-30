@@ -23,7 +23,7 @@ export default (restart, imageSource) => {
         Cloud1: Sprites(world, 'Cloud1', 'black',  { x: windowWidth +50, y: getRandom(150, windowHeight / 1.1)}, { height: 160, width: 160 }, require('../assets/cloudcouble.png')),
         Cloud2: Sprites(world, 'Cloud2', 'black',  { x: windowWidth -20, y: getRandom(150, windowHeight / 1.1)}, { height: 50, width: 100 }, require('../assets/cloudSingle.png')),
         ...(shouldAddWoofer && {
-            Woofer: Obstacle(world, 'Woofer', 'black', { x: windowWidth +50, y: getRandom(windowHeight / 2.5, windowHeight)}, { height: 160, width: 160 }, require('../assets/rcSgtWoofer.png'))
+            Woofer: Obstacle(world, 'Woofer', 'black', { x: windowWidth +50, y: getRandom(windowHeight / 3.5, windowHeight)}, { height: 160, width: 160 }, require('../assets/rcSgtWoofer.png'))
         })
     }
 }
