@@ -2,6 +2,7 @@ import Matter from "matter-js"
 import { Dimensions } from "react-native"
 import { getRandom } from "./utils/random"
 import { Accelerometer } from 'expo-sensors'
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const windowHeight = Dimensions.get("window").height
 const windowWidth = Dimensions.get("window").width
@@ -60,6 +61,33 @@ const Physics = (entities, { time, touches, dispatch }) => {
             });
         });
     }
+
+    touches.filter(t => t.type === "press").forEach(async t => {
+        const touchX = t.event.pageX
+        const touchY = t.event.pageY
+
+        // Tarkista osuuko kosketus Wooferin alueelle
+        if (entities["Woofer"]) {
+            const woofer = entities["Woofer"]
+            const { min, max } = woofer.body.bounds
+
+            if (
+                touchX >= min.x && touchX <= max.x &&
+                touchY >= min.y && touchY <= max.y
+            ) {
+                const skinIndex = 12
+                const currentSkins = await AsyncStorage.getItem("purchasedSkins")
+                const purchasedSkins = currentSkins ? JSON.parse(currentSkins) : []
+
+                if (!purchasedSkins.includes(skinIndex)) {
+                    purchasedSkins.push(skinIndex)
+                    await AsyncStorage.setItem("purchasedSkins", JSON.stringify(purchasedSkins))
+                    dispatch({ type: "skin_unlocked", skinIndex })
+                    console.log("Woofer skin unlocked!")
+                }
+            }
+        }
+    })
 
     Matter.Engine.update(engine)
 
