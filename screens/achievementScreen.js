@@ -23,7 +23,7 @@ const AchievementScreen = ({ navigation }) => {
         : require('../assets/Taustakuvatakavaalea.jpg')
 
     const achievementList = [
-        { id: 1, name: "Golden Retriever", requirement: "Collect 10,000 gold coins", image: require('../assets/rcGentlePuppy.png'), progress: 0, goal: 0 },
+        { id: 1, name: "Golden Retriever", requirement: "Collect 10,000 gold coins", image: require('../assets/rcGentlePuppy.png'), progress: 0, goal: 10000 },
         { id: 2, name: "Eternity in Dog Years", requirement: "Play 5 hours", image: require('../assets/rcTimeKeeper.png'), progress: 0, goal: 5 },
         { id: 3, name: "Boneyard", requirement: "Collect 10,000 points", image: require('../assets/rcPiratePup.png'), progress: 0, goal: 10000 },
         { id: 4, name: "Bonus Pupper!", requirement: "Get 10 puppies", image: require('../assets/rcBonusPuppy.png'), progress: 0, goal: 10 },
