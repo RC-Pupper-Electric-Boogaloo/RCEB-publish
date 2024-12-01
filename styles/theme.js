@@ -1,4 +1,8 @@
-import Constants from 'expo-constants';
+import Constants from 'expo-constants'
+import { Dimensions } from "react-native"
+
+const windowHeight = Dimensions.get('window').height
+const windowWidth = Dimensions.get('window').width
 
 const DarkTheme = (isDarkMode) => {
   return {
@@ -127,8 +131,8 @@ const DarkTheme = (isDarkMode) => {
 
     },
     skinBox: {
-      width: 75,
-      height: 75,
+      width: windowWidth/6,
+      height: windowWidth/6,
       margin: 2,
       borderRadius: 10,
       overflow: 'hidden',
