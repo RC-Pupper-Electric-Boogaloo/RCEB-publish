@@ -107,7 +107,7 @@ const DarkTheme = (isDarkMode) => {
     buttonText: {
       fontWeight: 'bold',
       color: 'white',
-      fontSize: 30,
+      fontSize: 20,
       textAlign: 'center'
     },
  //Optionsview
@@ -165,7 +165,7 @@ const DarkTheme = (isDarkMode) => {
       paddingTop: 200,
     },
     ButtonMainMenu: {
-      backgroundColor: 'red',
+      backgroundColor: '#FD8A0B',
       paddingVertical: 15,
       paddingHorizontal: 30,
       borderRadius: 10,
@@ -174,7 +174,7 @@ const DarkTheme = (isDarkMode) => {
     },
     ButtonMainMenuText: {
       color: '#fff',
-      fontSize: 24,
+      fontSize: 20,
       fontWeight: 'bold',
       textAlign: 'center',
     },
@@ -187,7 +187,7 @@ const DarkTheme = (isDarkMode) => {
 
     },
     startButton: {
-      backgroundColor: 'red',
+      backgroundColor: '#FD8A0B',
       paddingVertical: 15,
       paddingHorizontal: 30,
       borderRadius: 10,
@@ -195,7 +195,7 @@ const DarkTheme = (isDarkMode) => {
     },
     startButtonText: {
       color: '#fff',
-      fontSize: 24,
+      fontSize: 20,
       fontWeight: 'bold',
       textAlign: 'center',
     },
