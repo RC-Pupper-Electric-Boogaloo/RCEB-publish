@@ -40,6 +40,7 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
     }, [currentPoints])
 
     const saveHighScore = async () => {
+        setInitials(initials.toUpperCase())
         const key = isClassicMode ? 'classicHIGHSCORES' : 'HIGHSCORES'
         const savedScores = await AsyncStorage.getItem(key)
         const scoresArray = savedScores ? JSON.parse(savedScores) : []
@@ -75,9 +76,10 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
                             style={styles.initialsInput}
                             value={initials}
                             maxLength={3}
-                            onChangeText={setInitials}
+                            onChangeText={(text) => setInitials(text.toUpperCase())}
                             placeholder="ABC"
-                            placeholderTextColor={isDarkMode ? '#ccc' : '#333'}
+                            placeholderTextColor={'#FD8A0B'}
+                            autoCapitalize='characters'
                         />
                         <TouchableOpacity style={styles.saveButton} onPress={saveHighScore}>
                             <Text style={styles.buttonTextGameOver}>Save Score</Text>

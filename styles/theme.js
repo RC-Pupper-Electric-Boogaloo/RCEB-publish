@@ -114,7 +114,7 @@ const DarkTheme = (isDarkMode) => {
       fontSize: 20,
       textAlign: 'center'
     },
- //Optionsview
+    //Optionsview
     optionsContainer: {
       flex: 1,
       justifyContent: 'center',
@@ -123,7 +123,7 @@ const DarkTheme = (isDarkMode) => {
     //SKINIT
     skinsContainer: {
       flexDirection: 'row',
-      flexWrap: 'wrap',      
+      flexWrap: 'wrap',
       backgroundColor: isDarkMode ? '#121212' : '#FFFFFF',
       alignItems: 'center',
       padding: 20,
@@ -131,8 +131,8 @@ const DarkTheme = (isDarkMode) => {
 
     },
     skinBox: {
-      width: windowWidth/6,
-      height: windowWidth/6,
+      width: windowWidth / 6,
+      height: windowWidth / 6,
       margin: 2,
       borderRadius: 10,
       overflow: 'hidden',
@@ -140,7 +140,7 @@ const DarkTheme = (isDarkMode) => {
     skinImage: {
       width: '100%',
       height: '100%',
-      opacity: 0.5,     
+      opacity: 0.5,
     },
     purchased: {
       opacity: 1,
@@ -203,198 +203,211 @@ const DarkTheme = (isDarkMode) => {
       fontWeight: 'bold',
       textAlign: 'center',
     },
-  
-  //highscore
-  Hbackground: {
+
+    //highscore
+    Hbackground: {
       flex: 1,
       paddingTop: 50,
       paddingBottom: 50,
       justifyContent: 'center',
       alignItems: 'center',
-  },
-  Hcontainer: {
+    },
+    Hcontainer: {
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
       padding: 10,
       borderRadius: 10,
       width: '90%',
-      paddingTop: 40, 
-      paddingBottom: 40, 
-  },
-  Htitle: {
+      paddingTop: 40,
+      paddingBottom: 40,
+    },
+    Htitle: {
       fontSize: 30,
       fontWeight: 'bold',
       color: 'white',
       marginBottom: 20,
       marginTop: Constants.statusBarHeight,
-  },
-  Hlist: {
+    },
+    Hlist: {
       width: '100%',
       marginBottom: 20,
-  },
-  Hitem: {
+    },
+    Hitem: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       backgroundColor: 'rgba(255, 255, 255, 0.1)',
       padding: 15,
       borderRadius: 10,
       marginBottom: 10,
-  },
-  Hrank: {
+    },
+    Hrank: {
       fontSize: 20,
       color: '#FFD700',
       fontWeight: 'bold',
-  },
-  Hscore: {
+    },
+    Hscore: {
       fontSize: 20,
       color: 'white',
       fontWeight: 'bold',
       flexShrink: 1,
-  },
-  Hbutton: {
+    },
+    Hbutton: {
       backgroundColor: '#3498db',
       paddingVertical: 15,
       paddingHorizontal: 40,
       borderRadius: 10,
       textAlign: 'center',
-  },
-  HbuttonText: {
+    },
+    HbuttonText: {
       color: 'white',
       fontSize: 20,
       fontWeight: 'bold',
-  },
+    },
 
-  // GameoverScreen
-   backgroundGameOver: {
-      flex: 1, 
+    // GameoverScreen
+    backgroundGameOver: {
+      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-  },
-  containerGameOver: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',  
-    padding: 20,
-    borderRadius: 10,
-},
-pointsTextGameOver: {
-  fontSize: 30,
-  color: 'white',
-  marginBottom: 20,
-},
-coinsContainer: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  marginBottom: 20,
-},
-coinImage: {
-  width: 30,  
-  height: 30, 
-  marginRight: 10,
-},
-coinsTextGameOver: {
-  fontSize: 25,
-  color: 'white',
-},
-buttonGameover: {
-  backgroundColor: '#3498db',
-  paddingVertical: 15,
-  paddingHorizontal: 40,
-  borderRadius: 10,
-},
-buttonTextGameOver: {
-  color: 'white',
-  fontSize: 20,
-  fontWeight: 'bold',
-  textAlign: 'center',
-},
+    },
+    containerGameOver: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      padding: 20,
+      borderRadius: 10,
+    },
+    pointsTextGameOver: {
+      fontSize: 30,
+      color: 'white',
+      marginBottom: 20,
+    },
+    coinsContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 20,
+    },
+    coinImage: {
+      width: 30,
+      height: 30,
+      marginRight: 10,
+    },
+    coinsTextGameOver: {
+      fontSize: 25,
+      color: 'white',
+    },
+    buttonGameover: {
+      backgroundColor: '#3498db',
+      paddingVertical: 15,
+      paddingHorizontal: 40,
+      borderRadius: 10,
+    },
+    buttonTextGameOver: {
+      color: 'white',
+      fontSize: 20,
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    highScoreText: {
+      fontSize: 20,
+      color: 'white',
+      marginBottom: 10,
+    },
+    initialsInput: {
+      backgroundColor: isDarkMode ? '#3f3f40' : '#FFFFFF',
+      placeholderTextColor: '#FD8A0B',
+      color: '#FD8A0B',
+      textAlign: 'center',
+      marginTop: 10,
+      marginBottom: 20,
+    },
 
-//STATSSCREEN
-backgroundStats: {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-},
-containerStats: {
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  padding: 20,
-  borderRadius: 10,
-},
-titleStat: {
-  fontSize: 35,
-  fontWeight: 'bold',
-  color: 'white',
-  marginBottom: 20,
-},
-statsText: {
-  fontSize: 20,
-  color: 'white',
-  marginBottom: 10,
-},
-buttonStats: {
-  backgroundColor: '#3498db',
-  paddingVertical: 15,
-  paddingHorizontal: 40,
-  borderRadius: 10,
-},
-buttonTextStats: {
-  color: 'white',
-  fontSize: 20,
-  fontWeight: 'bold',
-  textAlign: 'center',
-},
+    //STATSSCREEN
+    backgroundStats: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    containerStats: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      padding: 20,
+      borderRadius: 10,
+    },
+    titleStat: {
+      fontSize: 35,
+      fontWeight: 'bold',
+      color: 'white',
+      marginBottom: 20,
+    },
+    statsText: {
+      fontSize: 20,
+      color: 'white',
+      marginBottom: 10,
+    },
+    buttonStats: {
+      backgroundColor: '#3498db',
+      paddingVertical: 15,
+      paddingHorizontal: 40,
+      borderRadius: 10,
+    },
+    buttonTextStats: {
+      color: 'white',
+      fontSize: 20,
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
 
-//GUIDESCREEN
-Guidecontainer: {
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  padding: 10,
-  borderRadius: 10,
-  width: '90%',
-  paddingTop: 20, 
-},
-Guidetitle: {
-  fontSize: 28,
-  fontWeight: "bold",
-  color: isDarkMode ? "#ffffff" : "#333333",
-  marginBottom: 20,
-  textAlign: "center",
-},
-Guidesection: {
-  flexDirection: "row",
-  alignItems: "center",
-  marginBottom: 10,
-  backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff",
-  padding: 10,
-  borderRadius: 8,
-},
-Guideimage: {
-  width: 80,
-  height: 80,
-  marginRight: 15,
-  resizeMode: "contain",
-},
-GuideCenter: {
-  flex: 1,
-},
-sectionTitle: {
-  fontSize: 20,
-  fontWeight: "bold",
-  color: isDarkMode ? "#ffa500" : "#ff8c00",
-  marginBottom: 5,
-},
-Guidetext: {
-  fontSize: 16,
-  lineHeight: 22,
-  color: isDarkMode ? "#e0e0e0" : "#4a4a4a",
-},
-GuidereturnButton: {
-  backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
-},
+    //GUIDESCREEN
+    Guidecontainer: {
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      padding: 10,
+      borderRadius: 10,
+      width: '90%',
+      paddingTop: 20,
+    },
+    Guidetitle: {
+      fontSize: 28,
+      fontWeight: "bold",
+      color: isDarkMode ? "#ffffff" : "#333333",
+      marginBottom: 20,
+      textAlign: "center",
+    },
+    Guidesection: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 10,
+      backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff",
+      padding: 10,
+      borderRadius: 8,
+    },
+    Guideimage: {
+      width: 80,
+      height: 80,
+      marginRight: 15,
+      resizeMode: "contain",
+    },
+    GuideCenter: {
+      flex: 1,
+    },
+    sectionTitle: {
+      fontSize: 20,
+      fontWeight: "bold",
+      color: isDarkMode ? "#ffa500" : "#ff8c00",
+      marginBottom: 5,
+    },
+    Guidetext: {
+      fontSize: 16,
+      lineHeight: 22,
+      color: isDarkMode ? "#e0e0e0" : "#4a4a4a",
+    },
+    GuidereturnButton: {
+      backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
+    },
   };
 };
 
