@@ -9,47 +9,54 @@ import entities from '../entities/menuentities'
 import Physics from '../physics'
 
 //Skinien importit
-import Skin1 from '../assets/CharDog.png';
-import Skin2 from '../assets/rcDocDog.png';
-import Skin3 from '../assets/rcShopDog.png';
-import Skin4 from '../assets/rcSilkeneer.png';
-import Skin5 from '../assets/rcWinWhippet.png';
-import Skin6 from '../assets/rcProfPoodle.png';
-import Skin7 from '../assets/rcBusinessBorzoi.png';
-import Skin8 from '../assets/rcPugLifePupper.png';
-import Skin9 from '../assets/rcGentlePuppy.png';
-import Skin10 from '../assets/rcTimeKeeper.png';
-import Skin11 from '../assets/rcPiratePup.png';
-import Skin12 from '../assets/rcPupperOg.png';
+import Skin1 from '../assets/CharDog.png'
+import Skin2 from '../assets/rcDocDog.png'
+import Skin3 from '../assets/rcShopDog.png'
+import Skin4 from '../assets/rcSilkeneer.png'
+import Skin5 from '../assets/rcWinWhippet.png'
+import Skin6 from '../assets/rcProfPoodle.png'
+import Skin7 from '../assets/rcBusinessBorzoi.png'
+import Skin8 from '../assets/rcPugLifePupper.png'
+import Skin9 from '../assets/rcGentlePuppy.png'
+import Skin10 from '../assets/rcTimeKeeper.png'
+import Skin11 from '../assets/rcPiratePup.png'
+import Skin12 from '../assets/rcBonusPuppy.png'
+import Skin13 from '../assets/rcSgtWoofer.png'
+import Skin14 from '../assets/rcMeclarBeagle.png'
+import Skin15 from '../assets/rcPupperOg.png'
+import Skin16 from '../assets/Random.png'
 
 const ShopScreen = ({ navigation }) => {
-  const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8, Skin9, Skin10, Skin11, Skin12]
+  const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8, Skin9, Skin10, Skin11, Skin12, Skin13, Skin14, Skin15, Skin16]
   const SkinNames = [
-    'RC Puppy', 'Doc Dog', 'ShopDog', 'Silken Engineer',
-    'Win Whippet', 'Professor Poodle', 'Business Borzoi',
+    'RC Puppy', 'Doc Dog', 'ShopDog', 'Silken Engineer', 
+    'Win Whippet', 'Professor Poodle', 'Business Borzoi', 
     'Maurice "PugLife" Pupper', 'Golden Puppy', 'Timekeeper Dachshund',
-    'Pirate Corgi', 'OG RC Pupper'
-  ]
-  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 0, 0, 0, 0 ]
+    'Pirate Corgi', 'Bonus Pupper', 'Sergeant Woofer', 'Merchant Beagle', 'OG RC Pupper', 'Random'
+  ];
+  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 0, 0, 0, 0, 0, 0, 0, 0 ]
 
   const { isDarkMode } = useTheme()
   const styles = DarkTheme(isDarkMode)
   const gameEngine = useRef(null)
+
+  const backgroundImage = isDarkMode
+  ? require('../assets/Taustakuvatakatumma.jpg')
+  : require('../assets/Taustakuvatakavaalea.jpg')
+
+  const backdropImage = require('../assets/Taustakuva6ala.png')
+
+
   const [selectedSkin, setSelectedSkin] = useState(null)
   const [purchasedSkins, setPurchasedSkins] = useState([])
   const [coinCount, setCoinCount] = useState(0) // Track coin count from AsyncStorage
   const [activeSkin, setActiveSkin] = useState(null)
 
-  const backgroundImage = isDarkMode
-  ? require('../assets/Taustakuvatakatumma.jpg')
-  : require('../assets/Taustakuvatakavaalea.jpg')
-  const backdropImage = require('../assets/Taustakuva6ala.png')
-
   // Load purchased skins and coin count from AsyncStorage
   useEffect(() => {
     const loadData = async () => {
       try {
-        const mySkins = await AsyncStorage.getItem('purchasedSkins')
+        const mySkins = await AsyncStorage.getItem('purchasedSkins');
         if (mySkins) {
           setPurchasedSkins(JSON.parse(mySkins))
         }
@@ -60,42 +67,42 @@ const ShopScreen = ({ navigation }) => {
         }
         const updatedSkins = await AsyncStorage.getItem('purchasedSkins')
         let skinsArray = updatedSkins ? JSON.parse(updatedSkins) : []
-
+  
         if (!skinsArray.includes(0)) {
-          skinsArray.push(0)
+          skinsArray.push(0); 
           setPurchasedSkins(skinsArray)
-
+  
           await AsyncStorage.setItem('purchasedSkins', JSON.stringify(skinsArray))
         }
       } catch (error) {
         console.error("Error loading data from AsyncStorage", error)
       }
-    }
-    loadData()
-  }, []) // Empty dependency array to run this only once when the component mounts
+    };
+    loadData();
+  }, []); // Empty dependency array to run this only once when the component mounts
 
   useEffect(() => {
     const loadActiveSkin = async () => {
       try {
         const storedActiveSkin = await AsyncStorage.getItem('activeSkin')
         if (storedActiveSkin) {
-          setActiveSkin(JSON.parse(storedActiveSkin))
+          setActiveSkin(JSON.parse(storedActiveSkin));
         }
       } catch (error) {
         console.error('Error loading active skin from AsyncStorage', error)
       }
-    }
-
-    loadActiveSkin()
-  }, [])
+    };
+  
+    loadActiveSkin();
+  }, []);
 
   const selectSkin = (index) => {
     setSelectedSkin(index) // Salli skini-indeksin asettaminen aina
-  }
+  };
 
   const activateSkin = async () => {
     if (purchasedSkins.includes(selectedSkin)) {
-      setActiveSkin(selectedSkin) // Päivitä aktiivinen skini
+      setActiveSkin(selectedSkin); // Päivitä aktiivinen skini
       try {
         await AsyncStorage.setItem('activeSkin', JSON.stringify(selectedSkin))
       } catch (error) {
@@ -104,14 +111,14 @@ const ShopScreen = ({ navigation }) => {
     } else {
       alert('You must purchase the skin before using it!')
     }
-  }
+  };
 
   const handlePurchase = async () => {
     if (selectedSkin === null) {
-      return
+      return;
     }
 
-    const skinPrice = SkinPrices[selectedSkin]
+    const skinPrice = SkinPrices[selectedSkin];
     if (coinCount >= skinPrice) {
       // Update purchased skins and coins after successful purchase
       const updatedSkins = [...purchasedSkins, selectedSkin]
@@ -126,15 +133,15 @@ const ShopScreen = ({ navigation }) => {
         console.error("Error saving data to AsyncStorage", error)
       }
     } else {
-      alert("You don't have enough coins!")
+      alert("You don't have enough coins!");
     }
-  }
+  };
 
   return (
     <ImageBackground
-    source={backgroundImage}
+    source={backgroundImage} 
     style={styles.background}
-  >
+  >     
   <GameEngine
     ref={gameEngine}
     systems={[Physics]}
@@ -162,20 +169,32 @@ const ShopScreen = ({ navigation }) => {
               if (index === 11 && !purchasedSkins.includes(index)) {
                 return null
               }
-              const isPurchased = purchasedSkins.includes(index)
-              const isSelected = selectedSkin === index
+              if (index === 12 && !purchasedSkins.includes(index)) {
+                return null
+              }
+              if (index === 13 && !purchasedSkins.includes(index)) {
+                return null
+              }
+              if (index === 14 && !purchasedSkins.includes(index)) {
+                return null
+              }
+              if (index === 15 && !purchasedSkins.includes(index)) {
+                return null
+              }
+              const isPurchased = purchasedSkins.includes(index);
+              const isSelected = selectedSkin === index;
             return (
-              <TouchableOpacity
-                key={index}
+              <TouchableOpacity 
+                key={index} 
                 style={[styles.skinBox, isSelected && styles.selectedSkinBox, isPurchased && styles.purchased]}
                 onPress={() => selectSkin(index)}
               >
                 <Image source={skin} style={[styles.skinImage, isPurchased && styles.purchasedSkin]} />
               </TouchableOpacity>
-              )
+              );
             })}
           </View>
-
+          
           <View style={styles.optionsContainer}>
           {selectedSkin !== null && (
             <>
@@ -185,15 +204,15 @@ const ShopScreen = ({ navigation }) => {
               )}
             </>
           )}
-         {/*
+         {/*  
        <TouchableOpacity style={[styles.button, styles.TLButton]} onPress={() => alert('Try Your Luck nappi toimii')}>
          <Text style={styles.buttonTitle}>Try Your Luck 20 Coins</Text>
        </TouchableOpacity>
-
+    
         <TouchableOpacity style={[styles.button, styles.RAdsButton]} onPress={() => alert('Remove Ads nappi toimii')}>
          <Text style={styles.buttonTitle}>Remove Ads 3€</Text>
         </TouchableOpacity>
-
+      
        <TouchableOpacity style={[styles.button, styles.WAdButton]} onPress={() => alert('Watch Ad nappi toimii')}>
           <Text style={styles.buttonTitle}>Watch Ad for Coin</Text>
        </TouchableOpacity>
@@ -207,15 +226,14 @@ const ShopScreen = ({ navigation }) => {
         <TouchableOpacity style={[styles.button, styles.BButton]} onPress={handlePurchase}>
           <Text style={styles.buttonTitle}>Buy</Text>
         </TouchableOpacity>
-      )
-    )
-  }
+      ))}
+
         <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => navigation.goBack()}>
           <Text style={styles.buttonTitle}>Return</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
-  )
-}
+  );
+};
 
-export default ShopScreen
+export default ShopScreen;

@@ -31,7 +31,8 @@ export default (world, label, color, pos, size, imageSource) => {
         size.width,
         size.height,
         {
-            label: label
+            label: label,
+            isSensor: true
         }
     )
     Matter.World.add(world, initialSprites)
