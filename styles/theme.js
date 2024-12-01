@@ -12,7 +12,6 @@ const DarkTheme = (isDarkMode) => {
       alignItems: 'center',
       padding: 20,
       justifyContent: 'center',
-
     },
     title: {
       fontSize: 24,
@@ -274,14 +273,15 @@ const DarkTheme = (isDarkMode) => {
     containerGameOver: {
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      width: '70%',
+      backgroundColor: isDarkMode ? 'rgba(201, 122, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)',
       padding: 20,
       borderRadius: 10,
     },
     pointsTextGameOver: {
       fontSize: 30,
       color: 'white',
-      marginBottom: 20,
+      marginBottom: 10,
     },
     coinsContainer: {
       flexDirection: 'row',
@@ -313,14 +313,21 @@ const DarkTheme = (isDarkMode) => {
       fontSize: 20,
       color: 'white',
       marginBottom: 10,
+      textAlign: 'center',
     },
     initialsInput: {
       backgroundColor: isDarkMode ? '#3f3f40' : '#FFFFFF',
       placeholderTextColor: '#FD8A0B',
       color: '#FD8A0B',
       textAlign: 'center',
-      marginTop: 10,
-      marginBottom: 20,
+      marginBottom: 10,
+      borderRadius: 10,
+    },
+    saveButton: {
+      backgroundColor: '#FD8A0B',
+      paddingVertical: 15,
+      paddingHorizontal: 40,
+      borderRadius: 10,
     },
 
     //STATSSCREEN

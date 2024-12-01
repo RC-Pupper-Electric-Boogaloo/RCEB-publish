@@ -71,7 +71,8 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
 
                 {isHighScore ? (
                     <View>
-                        <Text style={styles.highScoreText}>New High Score! Enter your initials:</Text>
+                        <Text style={styles.highScoreText}>New High Score!</Text>
+                        <Text style={styles.highScoreText}>Enter your initials:</Text>
                         <TextInput
                             style={styles.initialsInput}
                             value={initials}
@@ -81,7 +82,7 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
                             placeholderTextColor={'#FD8A0B'}
                             autoCapitalize='characters'
                         />
-                        <TouchableOpacity style={styles.saveButton} onPress={saveHighScore}>
+                        <TouchableOpacity style={styles.buttonGameover} onPress={saveHighScore}>
                             <Text style={styles.buttonTextGameOver}>Save Score</Text>
                         </TouchableOpacity>
                     </View>
