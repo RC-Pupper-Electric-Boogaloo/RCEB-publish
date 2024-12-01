@@ -27,7 +27,7 @@ export const usePlayCollisionSound = () => {
     }
 }
 export const usePlayPowerupSound = () => {
-    const [sound, setSound] = useState(null)
+    const [powerupSound, setSound] = useState(null)
 
     useEffect(() => {
         const loadSound = async () => {
@@ -46,8 +46,8 @@ export const usePlayPowerupSound = () => {
     }, [])
 
     return async () => {
-        if (sound) {
-            await sound.replayAsync()
+        if (powerupSound) {
+            await powerupSound.replayAsync()
         }
     }
 }
