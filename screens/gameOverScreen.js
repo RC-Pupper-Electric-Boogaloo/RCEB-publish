@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { View, Text, TouchableOpacity, ImageBackground, Image } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, Image } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useTheme } from '../components/Theme'
 import DarkTheme from '../styles/theme'
@@ -9,6 +9,8 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
     const { isDarkMode } = useTheme()
     const styles = DarkTheme(isDarkMode)
     const [highScores, setHighScores] = useState([])
+    const [initials, setInitials] = useState('')
+    const [isHighScore, setIsHighScore] = useState(false)
     const { setMusic } = useContext(MusicContext)
     const [isClassicMode, setIsClassicMode] = useState(false)
 
@@ -16,41 +18,40 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
         ? require('../assets/GameOverDark.jpg')
         : require('../assets/GameOver.jpg')
 
-    // Set the background music for the game over screen
     useEffect(() => {
-        setMusic(require('../assets/bgmenu.mp3'))  // Main menu music
-    }, [setMusic])
+        const checkHighScore = async () => {
+            const key = isClassicMode ? 'classicHIGHSCORES' : 'HIGHSCORES'
+            const savedScores = await AsyncStorage.getItem(key)
+            const scoresArray = savedScores ? JSON.parse(savedScores) : []
+            const isTopScore = scoresArray.length < 10 || currentPoints > Math.min(...scoresArray.map(s => s.points))
 
-    useEffect(() => {
-        const saveAndLoadScores = async () => {
-            // Check if Classic Mode is enabled
-            const classicOnSetting = await AsyncStorage.getItem('ClassicOn')
-            const isClassic = classicOnSetting === 'true'
-            setIsClassicMode(isClassic)
-
-            // Save the current score to the appropriate key
-            if (currentPoints) {
-                await savePoints(currentPoints, isClassic)
+            if (isTopScore) {
+                setIsHighScore(true)
             }
-
-            // Load updated high scores
-            const scores = await loadHighScores(isClassic)
-            setHighScores(scores)
         }
 
-        saveAndLoadScores()
+        const loadSettings = async () => {
+            const classicOnSetting = await AsyncStorage.getItem('ClassicOn')
+            setIsClassicMode(classicOnSetting === 'true')
+        }
+
+        loadSettings()
+        checkHighScore()
     }, [currentPoints])
 
-    const savePoints = async (points, isClassic) => {
-        try {
-            const key = isClassic ? 'classicHIGHSCORES' : 'HIGHSCORES'
-            const savedScores = await AsyncStorage.getItem(key)
-            let scoresArray = savedScores ? JSON.parse(savedScores) : []
-            scoresArray.push(points)
-            await AsyncStorage.setItem(key, JSON.stringify(scoresArray))
-        } catch (e) {
-            console.error("Failed to save points", e)
-        }
+    const saveHighScore = async () => {
+        const key = isClassicMode ? 'classicHIGHSCORES' : 'HIGHSCORES'
+        const savedScores = await AsyncStorage.getItem(key)
+        const scoresArray = savedScores ? JSON.parse(savedScores) : []
+
+        scoresArray.push({ initials, points: currentPoints })
+        const sortedScores = scoresArray
+            .sort((a, b) => b.points - a.points)
+            .slice(0, 10)
+
+        await AsyncStorage.setItem(key, JSON.stringify(sortedScores))
+        setHighScores(sortedScores)
+        setIsHighScore(false) // Hide input after saving
     }
 
     return (
@@ -61,25 +62,43 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
             <View style={styles.containerGameOver}>
                 <Text style={styles.pointsTextGameOver}>Your Score: {currentPoints}</Text>
                 {coinCount > 0 && (
-                <View style={styles.coinsContainer}>
-                    <Image source={require('../assets/Coin.png')} style={styles.coinImage} />
-                    <Text style={styles.coinsTextGameOver}>x {coinCount}</Text>
-                </View>
+                    <View style={styles.coinsContainer}>
+                        <Image source={require('../assets/Coin.png')} style={styles.coinImage} />
+                        <Text style={styles.coinsTextGameOver}>x {coinCount}</Text>
+                    </View>
                 )}
-                <TouchableOpacity style={styles.buttonGameover} onPress={onRestart}>
-                    <Text style={styles.buttonTextGameOver}>Play Again</Text>
-                </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.buttonGameover, { marginTop: 10 }]} onPress={onShowHighscores}>
-                    <Text style={styles.buttonTextGameOver}>Highscores</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={[styles.buttonGameover, { marginTop: 10 }]}
-                    onPress={() => navigation.goBack()}
-                >
-                    <Text style={styles.buttonTextGameOver}>Main Menu</Text>
-                </TouchableOpacity>
+                {isHighScore ? (
+                    <View>
+                        <Text style={styles.highScoreText}>New High Score! Enter your initials:</Text>
+                        <TextInput
+                            style={styles.initialsInput}
+                            value={initials}
+                            maxLength={3}
+                            onChangeText={setInitials}
+                            placeholder="ABC"
+                            placeholderTextColor={isDarkMode ? '#ccc' : '#333'}
+                        />
+                        <TouchableOpacity style={styles.saveButton} onPress={saveHighScore}>
+                            <Text style={styles.buttonTextGameOver}>Save Score</Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : (
+                    <>
+                        <TouchableOpacity style={styles.buttonGameover} onPress={onRestart}>
+                            <Text style={styles.buttonTextGameOver}>Play Again</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.buttonGameover, { marginTop: 10 }]} onPress={onShowHighscores}>
+                            <Text style={styles.buttonTextGameOver}>Highscores</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.buttonGameover, { marginTop: 10 }]}
+                            onPress={() => navigation.goBack()}
+                        >
+                            <Text style={styles.buttonTextGameOver}>Main Menu</Text>
+                        </TouchableOpacity>
+                    </>
+                )}
             </View>
         </ImageBackground>
     )
