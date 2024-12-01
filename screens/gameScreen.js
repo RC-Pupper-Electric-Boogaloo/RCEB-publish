@@ -30,7 +30,7 @@ export default function GameScreen({ navigation }) {
     const [startTime, setStartTime] = useState(null)
     const [elapsedTime, setElapsedTime] = useState(0)
     const [collectedBatteries, setCollectedBatteries] = useState(0)
-    const maxBatteries = 10
+    const maxBatteries = 5
     const [bonusMode, setBonusMode] = useState(false)
 
     const backgroundImage = isDarkMode
@@ -38,6 +38,21 @@ export default function GameScreen({ navigation }) {
         : require('../assets/Taustakuvatakavaalea.jpg')
 
     const backdropImage = require('../assets/Taustakuva3ala.png')
+    useFocusEffect(
+        React.useCallback(() => {
+            if (gameEngine.current) {
+                gameEngine.current.swap(entities()); // Lataa uudet entiteetit
+                gameEngine.current.start(); // Käynnistä uudelleen
+            }
+    
+            return () => {
+                if (gameEngine.current) {
+                    gameEngine.current.stop(); // Pysäytä pelimoottori
+                    gameEngine.current.swap({}); // Tyhjennä tila
+                }
+            }
+        }, [])
+    )
 
     useEffect(() => {
         const saveStats = async () => {
@@ -278,8 +293,12 @@ export default function GameScreen({ navigation }) {
                                             setBonusMode(true)
                                             setCollectedBatteries(0)
                                             break
+                                        case 'bonus_tick':
+                                            setCollectedBatteries(prev => Math.min(prev - 1, maxBatteries))
+                                            break
                                         case 'bonus_ended':
                                             setBonusMode(false)
+                                            setCollectedBatteries(0)
                                             break
                                     }
                                 }}

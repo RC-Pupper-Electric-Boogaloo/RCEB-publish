@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const windowHeight = Dimensions.get("window").height
 const windowWidth = Dimensions.get("window").width
+const coinSize = windowWidth / 7
 
 const Physics = (entities, { time, touches, dispatch }) => {
     let engine = entities.physics.engine
@@ -21,26 +22,76 @@ const Physics = (entities, { time, touches, dispatch }) => {
         if (!accelerometerSubscription) {
             accelerometerSubscription = Accelerometer.addListener(({ x, y, z }) => {
                 const totalAcceleration = Math.sqrt(x * x + y * y + z * z)
-                if (totalAcceleration > 1.5 && !isBonusActive && powerUp >= 1) {
-                    powerUp = 0
-                    batteryLevel = 0
-                    isShaken = true
+                if (totalAcceleration > 1.5 && !isBonusActive && powerUp >= 5) {
                     console.log("Shaken")
                     isBonusActive = true
                     dispatch({ type: "bonus_activated" })
-                    world.gravity.y = world.gravity.y / 2
+                    world.gravity.y = world.gravity.y * 0.6
+                    activateBonusCoins()
+                    activateRainbow()
                     console.log("Bonus activated")
-
-                    setTimeout(() => {
-                        isBonusActive = false
-                        dispatch({ type: "bonus_ended" })
-                        world.gravity.y = world.gravity.y * 2
-                        console.log("Bonus ended")
-                    }, 10000)
                 }
             })
         }
     }
+    const activateBonusCoins = () => {
+        Object.keys(entities).forEach((key) => {
+            if (key.startsWith("Coin")) {
+                const coin = entities[key];
+                if (coin.body) {
+                    Matter.Body.setPosition(coin.body, {
+                        x: getRandom(10 + coinSize / 2, windowWidth - 10 - coinSize / 2),
+                        y: getRandom(-windowHeight, -100)
+                    });
+                    Matter.Body.setStatic(coin.body, false); // Poista staattisuus, jotta painovoima vaikuttaa
+                }
+            }
+        });
+    };
+
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    const activateRainbow = async () => {
+        const rainbowEntity = entities.Rainbow;
+        console.log("Batterylevel");
+        console.log(entities.batteryLevel);
+        console.log(batteryLevel);
+        while (powerUp > 0) {
+            dispatch({ type: "bonus_tick" });
+            if (rainbowEntity && rainbowEntity.body) {
+                Matter.Body.setPosition(rainbowEntity.body, {
+                    x: windowWidth / 2,
+                    y: 0
+                });
+            }
+            await sleep(2500);
+            powerUp--
+        }
+        isBonusActive = false;
+        dispatch({ type: "bonus_ended" });
+        deactivateBonusCoins();
+        console.log("Bonus ended");
+    };
+    
+
+    const deactivateBonusCoins = () => {
+        Object.keys(entities).forEach((key) => {
+            if (key.startsWith("Coin")) {
+                const coin = entities[key];
+                if (coin.body) {
+                    // Siirrä kolikko kuvan ulkopuolelle ja tee siitä staattinen
+                    Matter.Body.setStatic(coin.body, true);
+                    Matter.Body.setPosition(coin.body, { x: -100, y: -100 }); // Pidä piilossa
+                }
+            }
+            Matter.Body.setStatic(entities["Coin"].body, false);
+            Matter.Body.setVelocity(entities["Coin"].body, { x: -0.3, y: 0 })
+            Matter.Body.setPosition(entities["Coin"].body, {
+                x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
+                y: getRandom(1, 3) * -windowHeight
+            })
+        });
+    };
 
     startAccelerometer()
 
@@ -140,6 +191,14 @@ const Physics = (entities, { time, touches, dispatch }) => {
         })
     }
 
+    if (isBonusActive && entities["Rainbow"] && entities["Rainbow"].body.bounds.min.y >= windowHeight) {
+        Matter.Body.setVelocity(entities["Rainbow"].body, { x: 0, y: 0 })
+        Matter.Body.setPosition(entities["Rainbow"].body, {
+            x: windowWidth / 2,
+            y: -50
+        })
+    }
+
     if (entities["Cloud1"] && entities["Cloud1"].body.bounds.min.x + 160 < 0) {
         Matter.Body.setVelocity(entities["Cloud1"].body, { x: 0, y: 0 })
         Matter.Body.setPosition(entities["Cloud1"].body, {
@@ -180,6 +239,46 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     Matter.Body.setPosition(entities["Coin"].body, {
                         x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
                         y: getRandom(1, 2) * -windowHeight
+                    })
+
+                } else if (bodyA.label === "Char" && bodyB.label === "Coin1") {
+                    coinCount++
+                    dispatch({ type: "coin_collected" })
+
+                    Matter.Body.setVelocity(entities["Coin1"].body, { x: 0, y: 0 })
+                    Matter.Body.setPosition(entities["Coin1"].body, {
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
+                        y: -20
+                    })
+
+                } else if (bodyA.label === "Char" && bodyB.label === "Coin2") {
+                    coinCount++
+                    dispatch({ type: "coin_collected" })
+
+                    Matter.Body.setVelocity(entities["Coin2"].body, { x: 0, y: 0 })
+                    Matter.Body.setPosition(entities["Coin2"].body, {
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
+                        y: -20
+                    })
+
+                } else if (bodyA.label === "Char" && bodyB.label === "Coin3") {
+                    coinCount++
+                    dispatch({ type: "coin_collected" })
+
+                    Matter.Body.setVelocity(entities["Coin3"].body, { x: 0, y: 0 })
+                    Matter.Body.setPosition(entities["Coin3"].body, {
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
+                        y: -20
+                    })
+
+                } else if (bodyA.label === "Char" && bodyB.label === "Coin4") {
+                    coinCount++
+                    dispatch({ type: "coin_collected" })
+
+                    Matter.Body.setVelocity(entities["Coin4"].body, { x: 0, y: 0 })
+                    Matter.Body.setPosition(entities["Coin4"].body, {
+                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
+                        y: -20
                     })
 
                 } else if (bodyA.label === "Point" && bodyB.label === "Obstacle") {
@@ -239,4 +338,4 @@ Pystyykö tätä kutsumaan gameScreenistä?
 */
 export const cleanupPhysics = () => {
     stopAccelerometer()
-};
+}
