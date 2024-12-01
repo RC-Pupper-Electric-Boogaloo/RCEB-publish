@@ -26,7 +26,31 @@ export const usePlayCollisionSound = () => {
         }
     }
 }
+export const usePlayPowerupSound = () => {
+    const [sound, setSound] = useState(null)
 
+    useEffect(() => {
+        const loadSound = async () => {
+            const powerupSound = new Audio.Sound()
+            await powerupSound.loadAsync(require('../assets/powerup.wav'))
+            setSound(powerupSound)
+        }
+
+        loadSound()
+
+    return () => {
+        if (powerupSound) {
+            powerupSound.unloadAsync()
+            }
+        }
+    }, [])
+
+    return async () => {
+        if (sound) {
+            await sound.replayAsync()
+        }
+    }
+}
 export const usePlayPointSound = () => {
     const [pointSound, setPointSound] = useState(null)
 

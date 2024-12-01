@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar'
 import { useFocusEffect } from '@react-navigation/native'
 import entities from '../entities'
 import Physics from '../physics'
-import { usePlayCollisionSound, usePlayPointSound } from '../components/BackgroundMusic'
+import { usePlayCollisionSound, usePlayPointSound, usePlayPowerupSound } from '../components/BackgroundMusic'
 import GameOverScreen from './gameOverScreen'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import DarkTheme from '../styles/theme'
@@ -20,6 +20,7 @@ export default function GameScreen({ navigation }) {
     const [coinCount, setCoinCount] = useState(0)
     const playCollisionSound = usePlayCollisionSound()
     const playPointSound = usePlayPointSound()
+    const playPowerupSound = usePlayPowerupSound()
     const stopMusicRef = useRef()
     const [sfxOn, setSfxOn] = useState(false)
     const { musicOn, toggleMusic, setMusic } = useContext(MusicContext)
@@ -314,6 +315,7 @@ export default function GameScreen({ navigation }) {
                                             setCurrentPoints(Math.max(currentPoints - 1, 0))
                                             break
                                         case 'battery_collected':
+                                            if (sfxOn) playPowerupSound()
                                             setCollectedBatteries(prev => Math.min(prev + 1, maxBatteries))
                                             break
                                         case 'bonus_activated':
