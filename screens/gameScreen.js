@@ -12,6 +12,7 @@ import DarkTheme from '../styles/theme'
 import { useTheme } from '../components/Theme'
 import { MusicContext } from '../contexts/MusicContext'
 import { getRandom } from '../utils/random'
+import * as Speech from 'expo-speech'
 
 export default function GameScreen({ navigation }) {
     const [running, setRunning] = useState(true)
@@ -30,7 +31,7 @@ export default function GameScreen({ navigation }) {
     const [startTime, setStartTime] = useState(null)
     const [elapsedTime, setElapsedTime] = useState(0)
     const [collectedBatteries, setCollectedBatteries] = useState(0)
-    const maxBatteries = 5
+    const maxBatteries = 7
     const [bonusMode, setBonusMode] = useState(false)
 
     const backgroundImage = isDarkMode
@@ -53,6 +54,31 @@ export default function GameScreen({ navigation }) {
             }
         }, [])
     )
+
+    const Bonus = async () => {
+        try {
+          // Lataa SfxOn-asetuksen arvo
+          const savedSfx = await AsyncStorage.getItem('SfxOn')
+          const parsedSfx = savedSfx === 'true'
+    
+          // Aseta tila manuaalisesti
+          setSfxOn(parsedSfx)
+    
+          // Jos SfxOn on päällä, puhe käynnistyy
+          if (parsedSfx) {
+            // Puhu kaksi tekstiosiota peräkkäin
+    
+            await Speech.speak("Bounus activate!", {
+              language: 'en',
+              pitch: 0.3,
+              rate: 0.5
+            })
+          }
+    
+        } catch (error) {
+          console.error('Error pronouncing Bonus:', error)
+        }
+      }
 
     useEffect(() => {
         const saveStats = async () => {
@@ -291,8 +317,8 @@ export default function GameScreen({ navigation }) {
                                             setCollectedBatteries(prev => Math.min(prev + 1, maxBatteries))
                                             break
                                         case 'bonus_activated':
+                                            Bonus()
                                             setBonusMode(true)
-                                            setCollectedBatteries(0)
                                             break
                                         case 'bonus_tick':
                                             setCollectedBatteries(prev => Math.min(prev - 1, maxBatteries))

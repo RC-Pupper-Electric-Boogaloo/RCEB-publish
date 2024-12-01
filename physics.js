@@ -22,7 +22,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
         if (!accelerometerSubscription) {
             accelerometerSubscription = Accelerometer.addListener(({ x, y, z }) => {
                 const totalAcceleration = Math.sqrt(x * x + y * y + z * z)
-                if (totalAcceleration > 1.5 && !isBonusActive && powerUp >= 5) {
+                if (totalAcceleration > 1.5 && !isBonusActive && powerUp >= 7) {
                     console.log("Shaken")
                     isBonusActive = true
                     dispatch({ type: "bonus_activated" })
@@ -33,7 +33,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                 }
             })
         }
-    }
+    }   
     const activateBonusCoins = () => {
         Object.keys(entities).forEach((key) => {
             if (key.startsWith("Coin")) {
@@ -41,7 +41,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                 if (coin.body) {
                     Matter.Body.setPosition(coin.body, {
                         x: getRandom(10 + coinSize / 2, windowWidth - 10 - coinSize / 2),
-                        y: getRandom(-windowHeight, -100)
+                        y: getRandom(-windowHeight, -50)
                     });
                     Matter.Body.setStatic(coin.body, false); // Poista staattisuus, jotta painovoima vaikuttaa
                 }
@@ -257,26 +257,6 @@ const Physics = (entities, { time, touches, dispatch }) => {
 
                     Matter.Body.setVelocity(entities["Coin2"].body, { x: 0, y: 0 })
                     Matter.Body.setPosition(entities["Coin2"].body, {
-                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
-                        y: -20
-                    })
-
-                } else if (bodyA.label === "Char" && bodyB.label === "Coin3") {
-                    coinCount++
-                    dispatch({ type: "coin_collected" })
-
-                    Matter.Body.setVelocity(entities["Coin3"].body, { x: 0, y: 0 })
-                    Matter.Body.setPosition(entities["Coin3"].body, {
-                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
-                        y: -20
-                    })
-
-                } else if (bodyA.label === "Char" && bodyB.label === "Coin4") {
-                    coinCount++
-                    dispatch({ type: "coin_collected" })
-
-                    Matter.Body.setVelocity(entities["Coin4"].body, { x: 0, y: 0 })
-                    Matter.Body.setPosition(entities["Coin4"].body, {
                         x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
                         y: -20
                     })

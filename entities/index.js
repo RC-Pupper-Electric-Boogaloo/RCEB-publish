@@ -35,8 +35,6 @@ export default (restart, imageSource, skin) => {
         Coin: Point(world, 'Coin', 'gold', { x: 260, y: -5 * windowHeight }, { width: coinSize }, require('../assets/Coin.png')),
         Coin1: Point(world, 'Coin1', 'gold', { x: -100, y: -1000 }, { width: coinSize }, require('../assets/Coin.png')),
         Coin2: Point(world, 'Coin2', 'gold', { x: -200, y: -1200 }, { width: coinSize }, require('../assets/Coin.png')),
-        Coin3: Point(world, 'Coin3', 'gold', { x: -300, y: -1400 }, { width: coinSize }, require('../assets/Coin.png')),
-        Coin4: Point(world, 'Coin4', 'gold', { x: -100, y: -1000 }, { width: coinSize }, require('../assets/Coin.png')),
   }
 
     return entities;
