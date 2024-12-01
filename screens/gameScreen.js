@@ -204,6 +204,7 @@ export default function GameScreen({ navigation }) {
             gameEngine.current.start()
         }
 
+        loadActiveSkin()
         // Restart music when game restarts
         setMusic(require('../assets/bgm2.mp3'))
     }
