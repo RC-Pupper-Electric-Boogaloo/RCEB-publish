@@ -41,11 +41,12 @@ const AchievementScreen = ({ navigation }) => {
                 setStats(parsedStats)
 
                 const savedScores = await AsyncStorage.getItem('HIGHSCORES')
-                const scoresArray = savedScores ? JSON.parse(savedScores) : []
-                setHighScore(scoresArray.length > 0 ? Math.max(...scoresArray) : 0)
+                let scoresArray = savedScores ? JSON.parse(savedScores) : []
+                const highestScore = scoresArray.length > 0 ? Math.max(...scoresArray) : 0
+                setHighScore(highestScore)
 
                 const savedSkins = await AsyncStorage.getItem('purchasedSkins')
-                updateAchievements(parsedStats, scoresArray, savedSkins)
+                updateAchievements(parsedStats, highestScore, savedSkins)
             } catch (error) {
                 console.error("Error loading stats or high scores:", error)
             }
@@ -54,9 +55,12 @@ const AchievementScreen = ({ navigation }) => {
         loadStatsAndScores()
     }, [])
 
-    const updateAchievements = (stats, scoresArray, savedSkins) => {
+    const updateAchievements = (stats, highestScore, savedSkins) => {
         const skinCount = savedSkins ? JSON.parse(savedSkins).length : 0
-
+        const wooferSkinIndex = 12;
+        const purchasedSkins = savedSkins ? JSON.parse(savedSkins) : [];
+        const requiredSkins = [1, 2, 3, 4, 5, 6, 7]; // Skinindexit, jotka pitää olla hankittu
+                
         const updatedAchievements = achievementList.map(achievement => {
             let progress = 0
 
@@ -66,12 +70,12 @@ const AchievementScreen = ({ navigation }) => {
                 case 3: progress = stats.totalPoints; break
                 case 4: progress = skinCount; break
                 case 5:         
-                    const wooferSkinIndex = 12;
-                    const purchasedSkins = savedSkins ? JSON.parse(savedSkins) : [];
                     progress = purchasedSkins.includes(wooferSkinIndex) ? 1 : 0; 
                 break;
-                case 6: progress = skinCount <= 7 ? skinCount : 7; break
-                case 7: progress = highScore; break
+                case 6: 
+                    progress = requiredSkins.filter(skin => purchasedSkins.includes(skin)).length; // Lasketaan, kuinka monta skiniä on hankittu
+                break;
+                case 7: progress = highestScore; break
                 case 8: progress = skinCount; break
                 default: break
             }
