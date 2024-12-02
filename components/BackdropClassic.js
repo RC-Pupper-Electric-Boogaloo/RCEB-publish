@@ -24,8 +24,8 @@ const BackdropC = (props) => {
                 zIndex: -1,
             }}
         />
-    );
-};
+    )
+}
 
 export default (world, label, color, pos, size) => {
     const initialBackdrop = Matter.Bodies.rectangle(

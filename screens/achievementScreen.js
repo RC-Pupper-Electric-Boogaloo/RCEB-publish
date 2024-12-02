@@ -10,12 +10,12 @@ import Physics from '../physics'
 import ProgressBar from 'react-native-progress/Bar'
 
 const AchievementScreen = ({ navigation }) => {
-    const { isDarkMode } = useTheme();
-    const styles = DarkTheme(isDarkMode);
-    const gameEngine = useRef(null);
-    const [achievements, setAchievements] = useState([]);
-    const [stats, setStats] = useState({ totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 });
-    const [highScore, setHighScore] = useState(0);
+    const { isDarkMode } = useTheme()
+    const styles = DarkTheme(isDarkMode)
+    const gameEngine = useRef(null)
+    const [achievements, setAchievements] = useState([])
+    const [stats, setStats] = useState({ totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 })
+    const [highScore, setHighScore] = useState(0)
 
     const backdropImage = require('../assets/Taustakuva9ala.png')
     const backgroundImage = isDarkMode
@@ -50,7 +50,7 @@ const AchievementScreen = ({ navigation }) => {
             } catch (error) {
                 console.error("Error loading stats or high scores:", error)
             }
-        };
+        }
 
         loadStatsAndScores()
     }, [])
@@ -58,8 +58,8 @@ const AchievementScreen = ({ navigation }) => {
     const updateAchievements = (stats, highestScore, savedSkins) => {
         const skinCount = savedSkins ? JSON.parse(savedSkins).length : 0
         const wooferSkinIndex = 12;
-        const purchasedSkins = savedSkins ? JSON.parse(savedSkins) : [];
-        const requiredSkins = [1, 2, 3, 4, 5, 6, 7]; // Skinindexit, jotka pitää olla hankittu
+        const purchasedSkins = savedSkins ? JSON.parse(savedSkins) : []
+        const requiredSkins = [1, 2, 3, 4, 5, 6, 7] // Skinindexit, jotka pitää olla hankittu
                 
         const updatedAchievements = achievementList.map(achievement => {
             let progress = 0
@@ -70,21 +70,21 @@ const AchievementScreen = ({ navigation }) => {
                 case 3: progress = stats.totalPoints; break
                 case 4: progress = skinCount; break
                 case 5:         
-                    progress = purchasedSkins.includes(wooferSkinIndex) ? 1 : 0; 
-                break;
-                case 6: 
-                    progress = requiredSkins.filter(skin => purchasedSkins.includes(skin)).length; // Lasketaan, kuinka monta skiniä on hankittu
-                break;
+                    progress = purchasedSkins.includes(wooferSkinIndex) ? 1 : 0
+                break
+                case 6:
+                    progress = requiredSkins.filter(skin => purchasedSkins.includes(skin)).length // Lasketaan, kuinka monta skiniä on hankittu
+                break
                 case 7: progress = highestScore; break
                 case 8: progress = skinCount; break
                 default: break
             }
 
             return { ...achievement, progress, unlocked: progress >= achievement.goal }
-        });
+        })
 
         setAchievements(updatedAchievements)
-    };
+    }
 
     const unlockSkin = async (skinIndex, customMessage) => {
         try {
@@ -99,63 +99,63 @@ const AchievementScreen = ({ navigation }) => {
         } catch (error) {
             console.error("Error unlocking skin:", error)
         }
-    };
+    }
     
     const handleAchievementClick = (achievement) => {
         if (!achievement.unlocked) {
             Alert.alert("Achievement Locked", `${achievement.requirement}`)
-            return;
+            return
         }
-    
+
         const reward = rewards[achievement.id]
         if (reward) unlockSkin(reward.skinIndex, reward.message)
-    };
+    }
     
     const rewards = {
-        1: { 
-            skinIndex: 8, 
-            name: "Golden Puppy", 
-            message: "You unlocked 'Golden Retriever'! Golden Puppy is now available in the shop." 
+        1: {
+            skinIndex: 8,
+            name: "Golden Puppy",
+            message: "You unlocked 'Golden Retriever'! Golden Puppy is now available in the shop."
         },
-        2: { 
-            skinIndex: 9, 
-            name: "Timekeeper Dachshund", 
-            message: "You unlocked 'Eternity in Dog Years'! Timekeeper Dachshund is now available in the shop." 
+        2: {
+            skinIndex: 9,
+            name: "Timekeeper Dachshund",
+            message: "You unlocked 'Eternity in Dog Years'! Timekeeper Dachshund is now available in the shop."
         },
-        3: { 
-            skinIndex: 10, 
-            name: "Pirate Corgi", 
-            message: "You unlocked 'Boneyard'! Pirate Corgi is now available in the shop." 
+        3: {
+            skinIndex: 10,
+            name: "Pirate Corgi",
+            message: "You unlocked 'Boneyard'! Pirate Corgi is now available in the shop."
         },
-        4: { 
-            skinIndex: 11, 
-            name: "Bonus Pupper", 
-            message: "You unlocked 'Bonus Pupper!' Bonus Pupper is now available in the shop." 
+        4: {
+            skinIndex: 11,
+            name: "Bonus Pupper",
+            message: "You unlocked 'Bonus Pupper!' Bonus Pupper is now available in the shop."
         },
-        5: { 
-            skinIndex: 12, 
-            name: "Sergeant Woofer", 
-            message: "You unlocked 'Hide and Seek!' Sergeant Woofer is now available in the shop." 
+        5: {
+            skinIndex: 12,
+            name: "Sergeant Woofer",
+            message: "You unlocked 'Hide and Seek!' Sergeant Woofer is now available in the shop."
         },
-        6: { 
-            skinIndex: 13, 
-            name: "Merchant Beagle", 
-            message: "You unlocked 'Puppies Sold Out!' Merchant Beagle is now available in the shop." 
+        6: {
+            skinIndex: 13,
+            name: "Merchant Beagle",
+            message: "You unlocked 'Puppies Sold Out!' Merchant Beagle is now available in the shop."
         },
-        7: { 
-            skinIndex: 14, 
-            name: "OG RC Pupper", 
-            message: "You unlocked 'Howling Success!' OG RC Pupper is now available in the shop. You can also toggle Classic mode from options" 
+        7: {
+            skinIndex: 14,
+            name: "OG RC Pupper",
+            message: "You unlocked 'Howling Success!' OG RC Pupper is now available in the shop. You can also toggle Classic mode from options"
         },
-        8: { 
-            skinIndex: 15, 
-            name: "Random Puppy", 
-            message: "You unlocked 'Everypuppy is here!' You can now randomise your puppy when entering game. Choose random from shop." 
+        8: {
+            skinIndex: 15,
+            name: "Random Puppy",
+            message: "You unlocked 'Everypuppy is here!' You can now randomise your puppy when entering game. Choose random from shop."
         },
-    };
+    }
 
     return (
-        <ImageBackground source={backgroundImage} style={styles.Hbackground}>
+        <ImageBackground source={backgroundImage} style={styles.background}>
             <GameEngine
                 ref={gameEngine}
                 systems={[Physics]}
@@ -167,7 +167,7 @@ const AchievementScreen = ({ navigation }) => {
             </GameEngine>
 
             <ScrollView contentContainerStyle={styles.Guidecontainer}>
-                <Text style={styles.Guidetitle}>Achievements</Text>
+                <Text style={styles.title}>Achievements</Text>
 
                 {achievements.map((achievement) => (
                     <TouchableOpacity
@@ -189,19 +189,19 @@ const AchievementScreen = ({ navigation }) => {
                             <Text style={styles.Guidetext}>
                                 {achievement.unlocked ? "Unlocked!" : `Progress: ${achievement.progress}/${achievement.goal}`}
                             </Text>
-                        </View>
+                            </View>
                     </TouchableOpacity>
                 ))}
 
                 <TouchableOpacity
-                    style={[styles.button, styles.GuidereturnButton]}
+                    style={ styles.returnButton}
                     onPress={() => navigation.goBack()}
                 >
                     <Text style={styles.buttonTitle}>Return</Text>
                 </TouchableOpacity>
             </ScrollView>
         </ImageBackground>
-    );
-};
+    )
+}
 
 export default AchievementScreen;

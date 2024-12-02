@@ -136,52 +136,52 @@ export default function GameScreen({ navigation }) {
                 switch (skin) {
                     case 0:
                         setActiveSkin(require('../assets/CharDog.png'))
-                        break;
+                        break
                     case 1:
                         setActiveSkin(require('../assets/rcDocDog.png'))
-                        break;
+                        break
                     case 2:
                         setActiveSkin(require('../assets/rcShopDog.png'))
-                        break;
+                        break
                     case 3:
                         setActiveSkin(require('../assets/rcSilkeneer.png'))
-                        break;
+                        break
                     case 4:
                         setActiveSkin(require('../assets/rcWinWhippet.png'))
-                        break;
+                        break
                     case 5:
                         setActiveSkin(require('../assets/rcProfPoodle.png'))
-                        break;
+                        break
                     case 6:
                         setActiveSkin(require('../assets/rcBusinessBorzoi.png'))
-                        break;
+                        break
                     case 7:
                         setActiveSkin(require('../assets/rcPugLifePupper.png'))
-                        break;
+                        break
                     case 8:
                         setActiveSkin(require('../assets/rcGentlePuppy.png'))
-                        break;
+                        break
                     case 9:
                         setActiveSkin(require('../assets/rcTimeKeeper.png'))
-                        break;
+                        break
                     case 10:
                         setActiveSkin(require('../assets/rcPiratePup.png'))
-                        break;
+                        break
                     case 11:
                         setActiveSkin(require('../assets/rcBonusPuppy.png'))
-                        break;
+                        break
                     case 12:
                         setActiveSkin(require('../assets/rcSgtWoofer.png'))
-                        break;
+                        break
                     case 13:
                         setActiveSkin(require('../assets/rcMeclarBeagle.png'))
-                        break;
+                        break
                     case 14:
                         setActiveSkin(require('../assets/rcPupperOg.png'))
-                        break;
+                        break
                     default:
                         setActiveSkin(require('../assets/CharDog.png')) // Default skin
-                        break;
+                        break
                 }
             } else {
                 setActiveSkin(require('../assets/CharDog.png')) // Default skin if no saved value
@@ -190,13 +190,13 @@ export default function GameScreen({ navigation }) {
         } catch (error) {
             console.error('Error loading active skin:', error)
         }
-    };
+    }
 
     useFocusEffect(
         React.useCallback(() => {
             loadActiveSkin()
         }, [])
-    );
+    )
 
     useEffect(() => {
         if (running) {

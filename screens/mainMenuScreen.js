@@ -7,7 +7,7 @@ import { GameEngine } from 'react-native-game-engine'
 import entities from '../entities/menuentities'
 import Physics from '../physics'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native'
 
 
 export default function MainMenuScreen({ navigation }) {
@@ -27,19 +27,19 @@ export default function MainMenuScreen({ navigation }) {
       React.useCallback(() => {
           const loadSettings = async () => {
               try {
-                  const savedMusic = await AsyncStorage.getItem('MusicOn');
-                  const savedClassic = await AsyncStorage.getItem('ClassicOn');
+                  const savedMusic = await AsyncStorage.getItem('MusicOn')
+                  const savedClassic = await AsyncStorage.getItem('ClassicOn')
 
-                  setMusicOn(savedMusic === 'true');
-                  setClassicOn(savedClassic === 'true'); // Boolean
+                  setMusicOn(savedMusic === 'true')
+                  setClassicOn(savedClassic === 'true') // Boolean
               } catch (error) {
-                  console.error('Error loading settings:', error);
+                  console.error('Error loading settings:', error)
               }
-          };
+          }
 
-          loadSettings();
+          loadSettings()
         }, [])
-      );
+      )
 
         return (
         <ImageBackground
@@ -64,7 +64,7 @@ export default function MainMenuScreen({ navigation }) {
                 navigation.navigate('Game');
             }}
         >
-            <Text style={styles.ButtonMainMenuText}>PLAY</Text>
+            <Text style={styles.buttonTitle}>PLAY</Text>
         </TouchableOpacity>
     ) : (
         <TouchableOpacity
@@ -74,23 +74,23 @@ export default function MainMenuScreen({ navigation }) {
                 navigation.navigate('GameClassic');
             }}
         >
-            <Text style={styles.ButtonMainMenuText}>PLAY Classic</Text>
+            <Text style={styles.buttonTitle}>PLAY Classic</Text>
         </TouchableOpacity>
     )}
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => { navigation.navigate('Highscore') }}>
-          <Text style={styles.ButtonMainMenuText}>HIGHSCORES</Text>
+          <Text style={styles.buttonTitle}>HIGHSCORES</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Options')}>
-          <Text style={styles.ButtonMainMenuText}>OPTIONS</Text>
+          <Text style={styles.buttonTitle}>OPTIONS</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Shop')}>
-          <Text style={styles.ButtonMainMenuText}>SHOP</Text>
+          <Text style={styles.buttonTitle}>SHOP</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Stats')}>
-          <Text style={styles.ButtonMainMenuText}>STATS</Text>
+          <Text style={styles.buttonTitle}>STATS</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Achievement')}>
-          <Text style={styles.ButtonMainMenuText}>ACHIEVEMENTS</Text>
+          <Text style={styles.buttonTitle}>ACHIEVEMENTS</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
