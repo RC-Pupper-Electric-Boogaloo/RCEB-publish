@@ -189,7 +189,7 @@ const AchievementScreen = ({ navigation }) => {
                             <Text style={styles.Guidetext}>
                                 {achievement.unlocked ? "Unlocked!" : `Progress: ${achievement.progress}/${achievement.goal}`}
                             </Text>
-                        </View>
+                            </View>
                     </TouchableOpacity>
                 ))}
 

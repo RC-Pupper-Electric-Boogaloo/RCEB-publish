@@ -1,4 +1,10 @@
 import Constants from 'expo-constants';
+import { Dimensions } from "react-native"
+
+
+const windowHeight = Dimensions.get('window').height
+const windowWidth = Dimensions.get('window').width
+
 
 const DarkTheme = (isDarkMode) => {
   return {
@@ -84,7 +90,7 @@ const DarkTheme = (isDarkMode) => {
       paddingVertical: 10,
       paddingHorizontal: 15,
       borderRadius: 5,
-      marginBottom: 5,
+      marginBottom: 50,
     },
     buttonTitle: {
       fontSize: 16,
@@ -114,15 +120,6 @@ const DarkTheme = (isDarkMode) => {
       justifyContent: 'center',
     },
 
-    shopLabel: {
-      backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff",
-      borderColor: isDarkMode ? "#ffffff" : "#1e1e1e",
-      borderWidth: 1,
-      fontSize: 18,
-      color: isDarkMode ? '#FFFFFF' : '#000000',
-      fontWeight: 'bold',
-    },
-
     //SKINIT
     skinsContainer: {
       flexDirection: 'row',
@@ -134,8 +131,8 @@ const DarkTheme = (isDarkMode) => {
 
     },
     skinBox: {
-      width: 75,
-      height: 75,
+      width: windowWidth/6,
+      height: windowWidth/6,
       margin: 2,
       borderRadius: 10,
       overflow: 'hidden',
@@ -154,7 +151,7 @@ const DarkTheme = (isDarkMode) => {
     },
 
     //Mainmenu
-    containerMainMenu: {
+    containerMainMenu: { // on myös optionScreenissä
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
@@ -162,7 +159,7 @@ const DarkTheme = (isDarkMode) => {
       paddingTop: 200,
     },
     ButtonMainMenu: {
-      backgroundColor: 'red',
+      backgroundColor: '#FD8A0B',
       paddingVertical: 15,
       paddingHorizontal: 30,
       borderRadius: 10,
@@ -170,7 +167,7 @@ const DarkTheme = (isDarkMode) => {
       width: '44%',
     },
     //StartScreen
-    containerStart: {
+    containerStart: { // on myös shopScreenissä
       flex: 1,
       justifyContent: 'flex-end',
       alignItems: 'center',
@@ -220,7 +217,7 @@ coinsTextGameOver: {
 },
 
 //GUIDESCREEN
-Guidecontainer: {
+Guidecontainer: { // On myös StatsSCreenissä, gameoverScreenissä, achievementScreenissä ja highscoreScreenissä
   justifyContent: 'flex-start',
   alignItems: 'center',
   backgroundColor: 'rgba(0, 0, 0, 0.5)',

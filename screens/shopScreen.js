@@ -198,9 +198,9 @@ const ShopScreen = ({ navigation }) => {
           <View style={styles.optionsContainer}>
           {selectedSkin !== null && (
             <>
-              <Text style={styles.shopLabel}>Name: {SkinNames[selectedSkin]}</Text>
+              <Text style={styles.Label}>Name: {SkinNames[selectedSkin]}</Text>
               {!purchasedSkins.includes(selectedSkin) && (
-                <Text style={styles.shopLabel}>Price: {SkinPrices[selectedSkin]} Coins</Text>
+                <Text style={styles.Label}>Price: {SkinPrices[selectedSkin]} Coins</Text>
               )}
             </>
           )}
