@@ -43,7 +43,7 @@ export default function HighscoreScreen({ navigation }) {
     }, [])
 
     const renderItem = ({ item, index }) => (
-        <View style={styles.Hitem}>
+        <View style={styles.item}>
             <Text style={styles.Hrank}>{index + 1}.</Text>
             <Text style={styles.Hscore}>{item}</Text>
         </View>

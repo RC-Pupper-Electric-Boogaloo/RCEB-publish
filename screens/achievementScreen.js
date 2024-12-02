@@ -194,7 +194,7 @@ const AchievementScreen = ({ navigation }) => {
                 ))}
 
                 <TouchableOpacity
-                    style={[styles.button, styles.returnButton]}
+                    style={ styles.returnButton}
                     onPress={() => navigation.goBack()}
                 >
                     <Text style={styles.buttonTitle}>Return</Text>

@@ -7,6 +7,7 @@ const windowWidth = Dimensions.get('window').width
 
 
 const DarkTheme = (isDarkMode) => {
+  
   return {
     background: {
       flex: 1,
@@ -32,7 +33,7 @@ const DarkTheme = (isDarkMode) => {
       width: '100%',
       marginBottom: 20,
     },
-    item: {
+    item: { 
       flexDirection: 'row',
       justifyContent: 'space-between',
       backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -90,7 +91,7 @@ const DarkTheme = (isDarkMode) => {
       paddingVertical: 10,
       paddingHorizontal: 15,
       borderRadius: 5,
-      marginBottom: 50,
+      marginBottom: 10,
     },
     buttonTitle: {
       fontSize: 16,
@@ -107,11 +108,12 @@ const DarkTheme = (isDarkMode) => {
     returnButton: {
       paddingVertical: 15,
       paddingHorizontal: 40,
+      marginBottom: 30,
       borderRadius: 10,
       textAlign: 'center',
       backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
     },
-    BButton: {
+    BButton: { // shopin napit.
       backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
     },
  //Optionsview
@@ -164,7 +166,7 @@ const DarkTheme = (isDarkMode) => {
       paddingHorizontal: 30,
       borderRadius: 10,
       marginBottom: 10,
-      width: '44%',
+      width: '44%', // muokattu pienemmäksi jotta startScreenissä on kivempi ja näkyy myös hyvin mainmenussa
     },
     //StartScreen
     containerStart: { // on myös shopScreenissä
@@ -175,14 +177,6 @@ const DarkTheme = (isDarkMode) => {
     },
   
   //highscore
-  Hitem: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-      padding: 15,
-      borderRadius: 10,
-      marginBottom: 10,
-  },
   Hrank: {
       fontSize: 20,
       color: '#FFD700',
@@ -196,6 +190,14 @@ const DarkTheme = (isDarkMode) => {
   },
 
   // GameoverScreen
+  containerGameOver: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',  
+    padding: 20,
+    borderRadius: 10,
+},
+
 pointsTextGameOver: {
   fontSize: 30,
   color: 'white',
@@ -217,7 +219,7 @@ coinsTextGameOver: {
 },
 
 //GUIDESCREEN
-Guidecontainer: { // On myös StatsSCreenissä, gameoverScreenissä, achievementScreenissä ja highscoreScreenissä
+Guidecontainer: { // On myös StatsSCreenissä, achievementScreenissä ja highscoreScreenissä
   justifyContent: 'flex-start',
   alignItems: 'center',
   backgroundColor: 'rgba(0, 0, 0, 0.5)',
