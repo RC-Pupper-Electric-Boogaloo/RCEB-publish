@@ -98,6 +98,54 @@ const GuideScreen = ({navigation}) => {
                 </Text>
             </View>
             </View>
+            <View style={styles.Guidesection}>
+                <Image
+                    source={require('../assets/rainbow.png')}
+                    style={styles.Guideimage}
+                    />
+            <View style={styles.GuideCenter}>
+                <Text style={styles.title}>Bonus activate</Text>
+                <Text style={styles.text}>
+                Shake your phone!
+                </Text>
+            </View>
+            </View>
+            <View style={styles.Guidesection}>
+                <Image
+                    source={require('../assets/Battery.png')}
+                    style={styles.Guideimage}
+                    />
+            <View style={styles.GuideCenter}>
+                <Text style={styles.title}>Bonus coin</Text>
+                <Text style={styles.text}>
+                Collect 7 battery to be able to enter bonus mode.
+                </Text>
+            </View>
+            </View>
+            <View style={styles.Guidesection}>
+                <Image
+                    source={require('../assets/Battery.png')}
+                    style={styles.Guideimage}
+                    />
+            <View style={styles.GuideCenter}>
+                <Text style={styles.title}>Bonus gauge</Text>
+                <Text style={styles.text}>
+                fill to be able to enter bonus mode
+                </Text>
+            </View>
+            </View>
+            <View style={styles.Guidesection}>
+                <Image
+                    source={require('../assets/Coin.png')}
+                    style={styles.Guideimage}
+                    />
+            <View style={styles.GuideCenter}>
+                <Text style={styles.title}>Bonus coin</Text>
+                <Text style={styles.text}>
+                keep collecting to keep them coming
+                </Text>
+            </View>
+            </View>
         <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => navigation.goBack()}>
             <Text style={styles.buttonTitle}>Return</Text>
         </TouchableOpacity>
