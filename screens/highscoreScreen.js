@@ -75,7 +75,7 @@ export default function HighscoreScreen({ navigation }) {
                     style={[styles.button, styles.returnButton]}
                     onPress={() => navigation.goBack()}
                 >
-                    <Text style={styles.buttonText}>Return</Text>
+                    <Text style={styles.buttonTitle}>Return</Text>
                 </TouchableOpacity>
             </View>
         </ImageBackground>

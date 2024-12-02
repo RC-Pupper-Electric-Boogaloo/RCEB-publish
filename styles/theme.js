@@ -95,7 +95,7 @@ const DarkTheme = (isDarkMode) => {
     },
     buttonTitle: {
       fontSize: 16,
-      color: isDarkMode ? '#FFFFFF' : '#000000',
+      color: 'white',
       fontWeight: 'bold',
       textAlign: 'center',
     },
