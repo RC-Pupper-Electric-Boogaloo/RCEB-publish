@@ -155,7 +155,7 @@ const AchievementScreen = ({ navigation }) => {
     };
 
     return (
-        <ImageBackground source={backgroundImage} style={styles.Hbackground}>
+        <ImageBackground source={backgroundImage} style={styles.background}>
             <GameEngine
                 ref={gameEngine}
                 systems={[Physics]}
@@ -167,7 +167,7 @@ const AchievementScreen = ({ navigation }) => {
             </GameEngine>
 
             <ScrollView contentContainerStyle={styles.Guidecontainer}>
-                <Text style={styles.Guidetitle}>Achievements</Text>
+                <Text style={styles.title}>Achievements</Text>
 
                 {achievements.map((achievement) => (
                     <TouchableOpacity
@@ -194,7 +194,7 @@ const AchievementScreen = ({ navigation }) => {
                 ))}
 
                 <TouchableOpacity
-                    style={[styles.button, styles.GuidereturnButton]}
+                    style={[styles.button, styles.returnButton]}
                     onPress={() => navigation.goBack()}
                 >
                     <Text style={styles.buttonTitle}>Return</Text>
