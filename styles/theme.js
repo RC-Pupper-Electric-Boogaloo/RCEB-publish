@@ -95,7 +95,7 @@ const DarkTheme = (isDarkMode) => {
     },
     buttonTitle: {
       fontSize: 16,
-      color: isDarkMode ? '#FFF' : '#000',
+      color: isDarkMode ? '#FFFFFF' : '#000000',
       fontWeight: 'bold',
       textAlign: 'center',
     },
@@ -166,7 +166,7 @@ const DarkTheme = (isDarkMode) => {
       paddingHorizontal: 30,
       borderRadius: 10,
       marginBottom: 10,
-      width: '44%', // muokattu pienemmäksi jotta startScreenissä on kivempi ja näkyy myös hyvin mainmenussa
+      width: '55%',
     },
     //StartScreen
     containerStart: { // on myös shopScreenissä
@@ -174,6 +174,14 @@ const DarkTheme = (isDarkMode) => {
       justifyContent: 'flex-end',
       alignItems: 'center',
       paddingBottom: 50,
+    },
+    ButtonStart: {
+      backgroundColor: '#FD8A0B',
+      paddingVertical: 15,
+      paddingHorizontal: 30,
+      borderRadius: 10,
+      marginBottom: 10,
+      width: '44%', 
     },
   
   //highscore

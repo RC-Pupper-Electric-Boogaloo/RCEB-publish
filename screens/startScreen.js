@@ -77,10 +77,10 @@ export default function StartScreen({ navigation }) {
       <StatusBar style="auto" hidden={true} />
     </GameEngine>
       <View style={styles.containerStart}>
-        <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => { handleStartPress() }}>
+        <TouchableOpacity style={styles.ButtonStart} onPress={() => { handleStartPress() }}>
           <Text style={styles.buttonTitle}>START</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Guide')}>
+        <TouchableOpacity style={styles.ButtonStart} onPress={() => navigation.navigate('Guide')}>
         <Text style={styles.buttonTitle}>GUIDE</Text>
       </TouchableOpacity>
       </View>
