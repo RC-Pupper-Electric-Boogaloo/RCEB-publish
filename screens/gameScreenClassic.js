@@ -1,10 +1,10 @@
-import React, { useRef, useState, useEffect, useContext } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { GameEngine } from 'react-native-game-engine';
-import { StatusBar } from 'expo-status-bar';
-import entities from '../entities/classicentities';
-import Physics from '../classicPhysics';
-import { usePlayCollisionSound, usePlayPointSound } from '../components/BackgroundMusic';
+import React, { useRef, useState, useEffect, useContext } from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { GameEngine } from 'react-native-game-engine'
+import { StatusBar } from 'expo-status-bar'
+import entities from '../entities/classicentities'
+import Physics from '../classicPhysics'
+import { usePlayCollisionSound, usePlayPointSound } from '../components/BackgroundMusic'
 import { MusicContext } from '../contexts/MusicContext'
 import GameOverScreen from './gameOverScreen'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -85,16 +85,16 @@ export default function GameScreenClassic({ navigation }) {
     }, [running])
 
     const handleRestart = () => {
-        setCurrentPoints(0);
-        setRunning(true);
+        setCurrentPoints(0)
+        setRunning(true)
     
         if (gameEngine.current) {
-            gameEngine.current.swap(entities());
-            gameEngine.current.start();
+            gameEngine.current.swap(entities())
+            gameEngine.current.start()
         }
     
-        setMusic(require('../assets/bgm3.mp3')); // Restart music
-    };
+        setMusic(require('../assets/bgm3.mp3')) // Restart music
+    }
 
     const handleShowHighscores = () => {
         navigation.navigate('Highscore')
@@ -147,5 +147,5 @@ export default function GameScreenClassic({ navigation }) {
                 />
                 )}
             </View>
-    );
+    )
 }

@@ -161,7 +161,6 @@ const OptionScreen = ({ navigation }) => {
               </TouchableOpacity>
             </View>
           )}
-        </View>
 
       <TouchableOpacity style={[styles.button, styles.resetButton]} onPress={ResetData}>
         <Text style={styles.buttonTitle}>RESET DATA</Text>
@@ -170,7 +169,7 @@ const OptionScreen = ({ navigation }) => {
       <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => navigation.goBack()}>
         <Text style={styles.buttonTitle}>Return</Text>
       </TouchableOpacity>
-    </View>
+    </View></View>
     </ImageBackground>
   )
 }

@@ -58,7 +58,7 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
     return (
         <ImageBackground
             source={backgroundImage}
-            style={styles.backgroundGameOver}
+            style={styles.background}
         >
             <View style={styles.containerGameOver}>
                 <Text style={styles.pointsTextGameOver}>Your Score: {currentPoints}</Text>
