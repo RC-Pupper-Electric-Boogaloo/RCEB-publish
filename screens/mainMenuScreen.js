@@ -7,7 +7,7 @@ import { GameEngine } from 'react-native-game-engine'
 import entities from '../entities/menuentities'
 import Physics from '../physics'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native'
 
 
 export default function MainMenuScreen({ navigation }) {
@@ -27,19 +27,19 @@ export default function MainMenuScreen({ navigation }) {
       React.useCallback(() => {
           const loadSettings = async () => {
               try {
-                  const savedMusic = await AsyncStorage.getItem('MusicOn');
-                  const savedClassic = await AsyncStorage.getItem('ClassicOn');
+                  const savedMusic = await AsyncStorage.getItem('MusicOn')
+                  const savedClassic = await AsyncStorage.getItem('ClassicOn')
 
-                  setMusicOn(savedMusic === 'true');
-                  setClassicOn(savedClassic === 'true'); // Boolean
+                  setMusicOn(savedMusic === 'true')
+                  setClassicOn(savedClassic === 'true') // Boolean
               } catch (error) {
-                  console.error('Error loading settings:', error);
+                  console.error('Error loading settings:', error)
               }
-          };
+          }
 
-          loadSettings();
+          loadSettings()
         }, [])
-      );
+      )
 
         return (
         <ImageBackground

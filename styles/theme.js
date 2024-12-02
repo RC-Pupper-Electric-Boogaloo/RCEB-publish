@@ -1,4 +1,4 @@
-import Constants from 'expo-constants';
+import Constants from 'expo-constants'
 import { Dimensions } from "react-native"
 
 
@@ -65,26 +65,26 @@ const DarkTheme = (isDarkMode) => {
       color: isDarkMode ? '#FFFFFF' : '#000000',
     },
 
-        //GAMESCREEN
-        pointsText: {
-          textAlign: 'center',
-          color: isDarkMode ? '#FFF' : '#000',
-          fontSize: 40,
-          fontWeight: 'bold',
-          margin: 20,
-          zIndex: 100,
-          position: 'absolute',
-          right: 20,
-        },
-        coinsText: {
-          textAlign: 'center',
-          color: isDarkMode ? '#FFF' : '#000',
-          fontSize: 20,
-          fontWeight: 'bold',
-          position: 'absolute',
-          top: 60,
-          right: 20,
-        },
+    //GAMESCREEN
+    pointsText: {
+      textAlign: 'center',
+      color: isDarkMode ? '#FFF' : '#000',
+      fontSize: 40,
+      fontWeight: 'bold',
+      margin: 20,
+      zIndex: 100,
+      position: 'absolute',
+      right: 20,
+    },
+    coinsText: {
+      textAlign: 'center',
+      color: isDarkMode ? '#FFF' : '#000',
+      fontSize: 20,
+      fontWeight: 'bold',
+      position: 'absolute',
+      top: 60,
+      right: 20,
+    },
     //BUTTONIT
     button: {
       backgroundColor: '#3498db',
@@ -245,7 +245,7 @@ Guideimage: {
 GuideCenter: {
   flex: 1,
 },
-  };
-};
+  }
+}
 
-export default DarkTheme;
+export default DarkTheme

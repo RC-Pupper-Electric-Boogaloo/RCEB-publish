@@ -18,10 +18,10 @@ const coinSize = windowWidth / 7
 const batterySize = windowWidth / 8
 
 export default (restart, imageSource, skin) => {
-    let engine = Matter.Engine.create({ enableSleeping: false });
-    let world = engine.world;
+    let engine = Matter.Engine.create({ enableSleeping: false })
+    let world = engine.world
 
-    world.gravity.y = 0.4;
+    world.gravity.y = 0.4
 
     let entities = {
         physics: { engine, world },
@@ -38,4 +38,4 @@ export default (restart, imageSource, skin) => {
   }
 
     return entities;
-};
+}

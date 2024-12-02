@@ -33,7 +33,7 @@ const ShopScreen = ({ navigation }) => {
     'Win Whippet', 'Professor Poodle', 'Business Borzoi', 
     'Maurice "PugLife" Pupper', 'Golden Puppy', 'Timekeeper Dachshund',
     'Pirate Corgi', 'Bonus Pupper', 'Sergeant Woofer', 'Merchant Beagle', 'OG RC Pupper', 'Random'
-  ];
+  ]
   const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 0, 0, 0, 0, 0, 0, 0, 0 ]
 
   const { isDarkMode } = useTheme()
@@ -77,7 +77,7 @@ const ShopScreen = ({ navigation }) => {
       } catch (error) {
         console.error("Error loading data from AsyncStorage", error)
       }
-    };
+    }
     loadData();
   }, []); // Empty dependency array to run this only once when the component mounts
 
@@ -86,19 +86,19 @@ const ShopScreen = ({ navigation }) => {
       try {
         const storedActiveSkin = await AsyncStorage.getItem('activeSkin')
         if (storedActiveSkin) {
-          setActiveSkin(JSON.parse(storedActiveSkin));
+          setActiveSkin(JSON.parse(storedActiveSkin))
         }
       } catch (error) {
         console.error('Error loading active skin from AsyncStorage', error)
       }
-    };
+    }
   
-    loadActiveSkin();
-  }, []);
+    loadActiveSkin()
+  }, [])
 
   const selectSkin = (index) => {
     setSelectedSkin(index) // Salli skini-indeksin asettaminen aina
-  };
+  }
 
   const activateSkin = async () => {
     if (purchasedSkins.includes(selectedSkin)) {
@@ -111,14 +111,14 @@ const ShopScreen = ({ navigation }) => {
     } else {
       alert('You must purchase the skin before using it!')
     }
-  };
+  }
 
   const handlePurchase = async () => {
     if (selectedSkin === null) {
-      return;
+      return
     }
 
-    const skinPrice = SkinPrices[selectedSkin];
+    const skinPrice = SkinPrices[selectedSkin]
     if (coinCount >= skinPrice) {
       // Update purchased skins and coins after successful purchase
       const updatedSkins = [...purchasedSkins, selectedSkin]
@@ -135,7 +135,7 @@ const ShopScreen = ({ navigation }) => {
     } else {
       alert("You don't have enough coins!");
     }
-  };
+  }
 
   return (
     <ImageBackground
@@ -191,7 +191,7 @@ const ShopScreen = ({ navigation }) => {
               >
                 <Image source={skin} style={[styles.skinImage, isPurchased && styles.purchased]} />
               </TouchableOpacity>
-              );
+              )
             })}
           </View>
           
@@ -233,7 +233,7 @@ const ShopScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
     </ImageBackground>
-  );
-};
+  )
+}
 
-export default ShopScreen;
+export default ShopScreen

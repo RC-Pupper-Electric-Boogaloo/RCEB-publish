@@ -37,61 +37,60 @@ const Physics = (entities, { time, touches, dispatch }) => {
     const activateBonusCoins = () => {
         Object.keys(entities).forEach((key) => {
             if (key.startsWith("Coin")) {
-                const coin = entities[key];
+                const coin = entities[key]
                 if (coin.body) {
                     Matter.Body.setPosition(coin.body, {
                         x: getRandom(10 + coinSize / 2, windowWidth - 10 - coinSize / 2),
                         y: getRandom(-windowHeight, -50)
-                    });
-                    Matter.Body.setStatic(coin.body, false); // Poista staattisuus, jotta painovoima vaikuttaa
+                    })
+                    Matter.Body.setStatic(coin.body, false) // Poista staattisuus, jotta painovoima vaikuttaa
                 }
             }
-        });
-    };
+        })
+    }
 
-    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
     const activateRainbow = async () => {
-        const rainbowEntity = entities.Rainbow;
-        console.log("Batterylevel");
-        console.log(entities.batteryLevel);
-        console.log(batteryLevel);
+        const rainbowEntity = entities.Rainbow
+        console.log("Batterylevel")
+        console.log(entities.batteryLevel)
+        console.log(batteryLevel)
         while (powerUp > 0) {
-            dispatch({ type: "bonus_tick" });
+            dispatch({ type: "bonus_tick" })
             if (rainbowEntity && rainbowEntity.body) {
                 Matter.Body.setPosition(rainbowEntity.body, {
                     x: windowWidth / 2,
                     y: 0
-                });
+                })
             }
-            await sleep(2500);
+            await sleep(2500)
             powerUp--
         }
-        isBonusActive = false;
-        dispatch({ type: "bonus_ended" });
-        deactivateBonusCoins();
-        console.log("Bonus ended");
-    };
-    
+        isBonusActive = false
+        dispatch({ type: "bonus_ended" })
+        deactivateBonusCoins()
+        console.log("Bonus ended")
+    }
 
     const deactivateBonusCoins = () => {
         Object.keys(entities).forEach((key) => {
             if (key.startsWith("Coin")) {
-                const coin = entities[key];
+                const coin = entities[key]
                 if (coin.body) {
                     // Siirrä kolikko kuvan ulkopuolelle ja tee siitä staattinen
-                    Matter.Body.setStatic(coin.body, true);
-                    Matter.Body.setPosition(coin.body, { x: -100, y: -100 }); // Pidä piilossa
+                    Matter.Body.setStatic(coin.body, true)
+                    Matter.Body.setPosition(coin.body, { x: -100, y: -100 }) // Pidä piilossa
                 }
             }
-            Matter.Body.setStatic(entities["Coin"].body, false);
+            Matter.Body.setStatic(entities["Coin"].body, false)
             Matter.Body.setVelocity(entities["Coin"].body, { x: -0.3, y: 0 })
             Matter.Body.setPosition(entities["Coin"].body, {
                 x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
                 y: getRandom(1, 3) * -windowHeight
             })
-        });
-    };
+        })
+    }
 
     startAccelerometer()
 
@@ -213,7 +212,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
             x: windowWidth + 120,
             y: getRandom(150, windowHeight / 1.1)
 
-        });
+        })
     }
 
     if (!engine.collisionHandler) {
