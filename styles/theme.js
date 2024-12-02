@@ -28,6 +28,7 @@ const DarkTheme = (isDarkMode) => {
       color: isDarkMode ? '#FFF' : '#000',
       fontWeight: 'bold',
       marginBottom: 5,
+      marginTop: Constants.statusBarHeight,
     },
     list: {
       width: '100%',
@@ -92,6 +93,7 @@ const DarkTheme = (isDarkMode) => {
       paddingHorizontal: 15,
       borderRadius: 5,
       marginBottom: 10,
+      padding: 8,
     },
     buttonTitle: {
       fontSize: 16,
@@ -184,7 +186,7 @@ const DarkTheme = (isDarkMode) => {
       width: '44%',
     },
 
-    //highscore
+    //Highscore
     Hrank: {
       fontSize: 20,
       color: '#FFD700',
@@ -197,12 +199,12 @@ const DarkTheme = (isDarkMode) => {
       flexShrink: 1,
     },
 
-    // GameoverScreen
+    //GameoverScreen
     containerGameOver: {
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: isDarkMode ? 'rgba(201, 122, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)',
-      width: '70%',
+      width: '60%',
       padding: 20,
       borderRadius: 10,
     },
@@ -230,37 +232,39 @@ const DarkTheme = (isDarkMode) => {
       placeholderTextColor: '#FD8A0B',
       color: '#FD8A0B',
       textAlign: 'center',
+      marginTop: 20,
       marginBottom: 10,
       borderRadius: 10,
     },
 
-//GUIDESCREEN
-Guidecontainer: { // On myös StatsScreenissä, achievementScreenissä ja highscoreScreenissä
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  padding: 10,
-  borderRadius: 10,
-  width: '90%',
-  paddingTop: 20, 
-},
-Guidesection: {
-  flexDirection: "row",
-  alignItems: "center",
-  marginBottom: 10,
-  backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff",
-  padding: 10,
-  borderRadius: 8,
-},
-Guideimage: {
-  width: 80,
-  height: 80,
-  marginRight: 15,
-  resizeMode: "contain",
-},
-GuideCenter: {
-  flex: 1,
-},
+    //GUIDESCREEN
+    Guidecontainer: { // On myös StatsScreenissä, achievementScreenissä ja highscoreScreenissä
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      padding: 10,
+      borderRadius: 10,
+      width: '90%',
+      paddingTop: 20,
+      marginTop: Constants.statusBarHeight,
+    },
+    Guidesection: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 10,
+      backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff",
+      padding: 10,
+      borderRadius: 8,
+    },
+    Guideimage: {
+      width: 80,
+      height: 80,
+      marginRight: 15,
+      resizeMode: "contain",
+    },
+    GuideCenter: {
+      flex: 1,
+    },
   }
 }
 

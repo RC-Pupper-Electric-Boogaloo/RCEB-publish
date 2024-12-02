@@ -61,7 +61,7 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
             style={styles.background}
         >
             <View style={styles.containerGameOver}>
-                <Text style={styles.pointsTextGameOver}>Your Score: {currentPoints}</Text>
+                <Text style={styles.pointsTextGameOver}>Points: {currentPoints}</Text>
                 {coinCount > 0 && (
                     <View style={styles.coinsContainer}>
                         <Image source={require('../assets/Coin.png')} style={styles.coinImage} />
@@ -71,8 +71,8 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
 
                 {isHighScore ? (
                     <View>
-                        <Text style={styles.highScoreText}>New High Score!</Text>
-                        <Text style={styles.highScoreText}>Enter your initials:</Text>
+                        <Text style={styles.text}>New High Score!</Text>
+                        <Text style={styles.text}>Enter your initials:</Text>
                         <TextInput
                             style={styles.initialsInput}
                             value={initials}
@@ -83,22 +83,19 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
                             autoCapitalize='characters'
                         />
                         <TouchableOpacity style={styles.button} onPress={saveHighScore}>
-                            <Text style={styles.title}>Save Score</Text>
+                            <Text style={styles.buttonTitle}>Save Score</Text>
                         </TouchableOpacity>
                     </View>
                 ) : (
                     <>
-                        <TouchableOpacity style={styles.buttonGameover} onPress={onRestart}>
-                            <Text style={styles.buttonTextGameOver}>Play Again</Text>
+                        <TouchableOpacity style={styles.button} onPress={onRestart}>
+                            <Text style={styles.buttonTitle}>Play Again</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.buttonGameover, { marginTop: 10 }]} onPress={onShowHighscores}>
-                            <Text style={styles.buttonTextGameOver}>Highscores</Text>
+                        <TouchableOpacity style={styles.button} onPress={onShowHighscores}>
+                            <Text style={styles.buttonTitle}>Highscores</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.buttonGameover, { marginTop: 10 }]}
-                            onPress={() => navigation.goBack()}
-                        >
-                            <Text style={styles.buttonTextGameOver}>Main Menu</Text>
+                        <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+                            <Text style={styles.buttonTitle}>Main Menu</Text>
                         </TouchableOpacity>
                     </>
                 )}
