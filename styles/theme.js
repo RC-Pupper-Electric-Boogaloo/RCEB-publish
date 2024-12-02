@@ -5,9 +5,10 @@ import { Dimensions } from "react-native"
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
-
 const DarkTheme = (isDarkMode) => {
-  
+
+  const containerBackgroundColor = isDarkMode ? 'rgba(r, 122, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
+
   return {
     background: {
       flex: 1,
@@ -27,13 +28,13 @@ const DarkTheme = (isDarkMode) => {
       fontSize: 24,
       color: isDarkMode ? '#FFF' : '#000',
       fontWeight: 'bold',
-      marginBottom: 5,
+      marginBottom: 10,
     },
     list: {
       width: '100%',
       marginBottom: 20,
     },
-    item: { 
+    item: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -116,7 +117,7 @@ const DarkTheme = (isDarkMode) => {
     BButton: { // shopin napit.
       backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
     },
- //Optionsview
+    //Optionsview
     optionsContainer: {
       flex: 1,
       justifyContent: 'center',
@@ -125,7 +126,7 @@ const DarkTheme = (isDarkMode) => {
     //SKINIT
     skinsContainer: {
       flexDirection: 'row',
-      flexWrap: 'wrap',      
+      flexWrap: 'wrap',
       backgroundColor: 'rgba(255, 255, 255, 0.1)',
       alignItems: 'center',
       padding: 40,
@@ -133,8 +134,8 @@ const DarkTheme = (isDarkMode) => {
 
     },
     skinBox: {
-      width: windowWidth/6,
-      height: windowWidth/6,
+      width: windowWidth / 6,
+      height: windowWidth / 6,
       margin: 2,
       borderRadius: 10,
       overflow: 'hidden',
@@ -142,7 +143,7 @@ const DarkTheme = (isDarkMode) => {
     skinImage: {
       width: '100%',
       height: '100%',
-      opacity: 0.5,     
+      opacity: 0.5,
     },
     purchased: {
       opacity: 1,
@@ -181,78 +182,102 @@ const DarkTheme = (isDarkMode) => {
       paddingHorizontal: 30,
       borderRadius: 10,
       marginBottom: 10,
-      width: '44%', 
+      width: '44%',
     },
-  
-  //highscore
-  Hrank: {
+
+    //Highscore
+    Hrank: {
       fontSize: 20,
       color: '#FFD700',
       fontWeight: 'bold',
-  },
-  Hscore: {
+    },
+    Hscore: {
       fontSize: 20,
       color: 'white',
       fontWeight: 'bold',
       flexShrink: 1,
-  },
+    },
 
-  // GameoverScreen
-  containerGameOver: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',  
-    padding: 20,
-    borderRadius: 10,
-},
+    //GameoverScreen
+    containerGameOver: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: containerBackgroundColor,
+      width: '60%',
+      padding: 20,
+      borderRadius: 10,
+    },
+    pointsTextGameOver: {
+      fontSize: 30,
+      color: 'white',
+      marginBottom: 10,
+    },
+    coinsContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 16,
+    },
+    coinImage: {
+      width: 30,
+      height: 30,
+      marginRight: 10,
+    },
+    coinsTextGameOver: {
+      fontSize: 25,
+      color: 'white',
+    },
+    gameOverText: {
+      fontSize: 16,
+      color: 'white',
+      marginBottom: 10,
+      textAlign: 'center',
+    },
+    initialsInput: {
+      backgroundColor: isDarkMode ? '#3f3f40' : '#FFFFFF',
+      placeholderTextColor: '#FD8A0B',
+      color: '#FD8A0B',
+      textAlign: 'center',
+      marginTop: 10,
+      marginBottom: 10,
+      borderRadius: 10,
+    },
+    gameOverButton: {
+      backgroundColor: '#3498db',
+      paddingVertical: 15,
+      paddingHorizontal: 40,
+      borderRadius: 10,
+      marginBottom: 10,
+    },
 
-pointsTextGameOver: {
-  fontSize: 30,
-  color: 'white',
-  marginBottom: 20,
-},
-coinsContainer: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  marginBottom: 20,
-},
-coinImage: {
-  width: 30,  
-  height: 30, 
-  marginRight: 10,
-},
-coinsTextGameOver: {
-  fontSize: 25,
-  color: 'white',
-},
 
-//GUIDESCREEN
-Guidecontainer: { // On myös StatsSCreenissä, achievementScreenissä ja highscoreScreenissä
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  padding: 10,
-  borderRadius: 10,
-  width: '90%',
-  paddingTop: 20, 
-},
-Guidesection: {
-  flexDirection: "row",
-  alignItems: "center",
-  marginBottom: 10,
-  backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff",
-  padding: 10,
-  borderRadius: 8,
-},
-Guideimage: {
-  width: 80,
-  height: 80,
-  marginRight: 15,
-  resizeMode: "contain",
-},
-GuideCenter: {
-  flex: 1,
-},
+    //GUIDESCREEN
+    Guidecontainer: { // On myös StatsScreenissä, achievementScreenissä ja highscoreScreenissä
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      backgroundColor: containerBackgroundColor,
+      padding: 10,
+      borderRadius: 10,
+      width: '90%',
+      marginTop: Constants.statusBarHeight,
+      marginBottom: 20,
+    },
+    Guidesection: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 10,
+      backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff",
+      padding: 10,
+      borderRadius: 8,
+    },
+    Guideimage: {
+      width: 80,
+      height: 80,
+      marginRight: 15,
+      resizeMode: "contain",
+    },
+    GuideCenter: {
+      flex: 1,
+    },
   }
 }
 

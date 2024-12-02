@@ -14,10 +14,10 @@ export default function HighscoreScreen({ navigation }) {
     const styles = DarkTheme(isDarkMode)
     const gameEngine = useRef(null)
     const [isClassicMode, setIsClassicMode] = useState(false)
-  
+
     const backgroundImage = isDarkMode
-    ? require('../assets/Taustakuvatakatumma.jpg')
-    : require('../assets/Taustakuvatakavaalea.jpg')
+        ? require('../assets/Taustakuvatakatumma.jpg')
+        : require('../assets/Taustakuvatakavaalea.jpg')
     const backdropImage = require('../assets/Taustakuva7ala.png')
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export default function HighscoreScreen({ navigation }) {
     const renderItem = ({ item, index }) => (
         <View style={styles.item}>
             <Text style={styles.Hrank}>{index + 1}.</Text>
-            <Text style={styles.Hscore}>{item}</Text>
+            <Text style={styles.Hscore}>{item.initials} - {item.points}</Text>
         </View>
     )
 
@@ -54,15 +54,15 @@ export default function HighscoreScreen({ navigation }) {
             source={backgroundImage}
             style={styles.background}
         >
-        <GameEngine
-          ref={gameEngine}
-          systems={[Physics]}
-          entities={entities(null, backdropImage)}
-          running={true}
-          style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-        >
-          <StatusBar style="auto" hidden={true} />
-        </GameEngine>
+            <GameEngine
+                ref={gameEngine}
+                systems={[Physics]}
+                entities={entities(null, backdropImage)}
+                running={true}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+            >
+                <StatusBar style="auto" hidden={true} />
+            </GameEngine>
             <View style={styles.Guidecontainer}>
                 <Text style={styles.title}>Highscores</Text>
                 <FlatList
