@@ -5,8 +5,9 @@ import { Dimensions } from "react-native"
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
-
 const DarkTheme = (isDarkMode) => {
+
+  const containerBackgroundColor = isDarkMode ? 'rgba(r, 122, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
 
   return {
     background: {
@@ -27,8 +28,7 @@ const DarkTheme = (isDarkMode) => {
       fontSize: 24,
       color: isDarkMode ? '#FFF' : '#000',
       fontWeight: 'bold',
-      marginBottom: 5,
-      marginTop: Constants.statusBarHeight,
+      marginBottom: 10,
     },
     list: {
       width: '100%',
@@ -93,7 +93,6 @@ const DarkTheme = (isDarkMode) => {
       paddingHorizontal: 15,
       borderRadius: 5,
       marginBottom: 10,
-      padding: 8,
     },
     buttonTitle: {
       fontSize: 16,
@@ -203,7 +202,7 @@ const DarkTheme = (isDarkMode) => {
     containerGameOver: {
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: isDarkMode ? 'rgba(201, 122, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)',
+      backgroundColor: containerBackgroundColor,
       width: '60%',
       padding: 20,
       borderRadius: 10,
@@ -211,12 +210,12 @@ const DarkTheme = (isDarkMode) => {
     pointsTextGameOver: {
       fontSize: 30,
       color: 'white',
-      marginBottom: 20,
+      marginBottom: 10,
     },
     coinsContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: 20,
+      marginBottom: 16,
     },
     coinImage: {
       width: 30,
@@ -227,26 +226,40 @@ const DarkTheme = (isDarkMode) => {
       fontSize: 25,
       color: 'white',
     },
+    gameOverText: {
+      fontSize: 16,
+      color: 'white',
+      marginBottom: 10,
+      textAlign: 'center',
+    },
     initialsInput: {
       backgroundColor: isDarkMode ? '#3f3f40' : '#FFFFFF',
       placeholderTextColor: '#FD8A0B',
       color: '#FD8A0B',
       textAlign: 'center',
-      marginTop: 20,
+      marginTop: 10,
       marginBottom: 10,
       borderRadius: 10,
     },
+    gameOverButton: {
+      backgroundColor: '#3498db',
+      paddingVertical: 15,
+      paddingHorizontal: 40,
+      borderRadius: 10,
+      marginBottom: 10,
+    },
+
 
     //GUIDESCREEN
     Guidecontainer: { // On myös StatsScreenissä, achievementScreenissä ja highscoreScreenissä
       justifyContent: 'flex-start',
       alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      backgroundColor: containerBackgroundColor,
       padding: 10,
       borderRadius: 10,
       width: '90%',
-      paddingTop: 20,
       marginTop: Constants.statusBarHeight,
+      marginBottom: 20,
     },
     Guidesection: {
       flexDirection: "row",
