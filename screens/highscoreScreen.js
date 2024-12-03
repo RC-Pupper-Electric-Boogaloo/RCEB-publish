@@ -67,9 +67,9 @@ export default function HighscoreScreen({ navigation }) {
                 <StatusBar style="auto" hidden={true} />
             </GameEngine>
 
-            <ScrollView style={styles.Guidecontainer}>
+            <ScrollView style={styles.colorContainer}>
                 <Text style={styles.title}>Highscores</Text>
-                <View style={styles.Guidesection}>
+                <View style={styles.guideSection}>
                     data={highScores}
                     renderItem={renderItem}
                     keyExtractor={(item, index) => index.toString()}

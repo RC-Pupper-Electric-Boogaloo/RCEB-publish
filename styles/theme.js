@@ -8,8 +8,10 @@ const windowWidth = Dimensions.get('window').width
 
 const DarkTheme = (isDarkMode) => {
 
-  const containerBackgroundColor = isDarkMode ? 'rgba(227, 137, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
   const insets = useSafeAreaInsets()
+  const textWhite = '#FFFDFA'
+  const buttonBlue = '#3498db'
+  const containerBackgroundColor = isDarkMode ? 'rgba(227, 137, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
 
   return {
     background: {
@@ -19,16 +21,9 @@ const DarkTheme = (isDarkMode) => {
       width: '100%',
       height: '100%',
     },
-    container: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: Constants.statusBarHeight,
-      marginBottom: insets.bottom,
-      paddingVertical: 20,
-    },
     title: {
       fontSize: 24,
-      color: isDarkMode ? '#FFF' : '#000',
+      color: isDarkMode ? textWhite : '#000',
       fontWeight: 'bold',
       marginBottom: 10,
     },
@@ -46,16 +41,16 @@ const DarkTheme = (isDarkMode) => {
     },
     name: {
       fontSize: 18,
-      color: isDarkMode ? '#FFFFFF' : '#000000',
+      color: isDarkMode ? textWhite : '#000000',
     },
     score: {
       fontSize: 18,
-      color: isDarkMode ? '#FFFFFF' : '#000000',
+      color: isDarkMode ? textWhite : '#000000',
     },
 
     Label: {
       fontSize: 18,
-      color: isDarkMode ? '#FFFFFF' : '#000000',
+      color: isDarkMode ? textWhite : '#000000',
       fontWeight: 'bold',
     },
     Row: {
@@ -65,13 +60,13 @@ const DarkTheme = (isDarkMode) => {
     text: {
       fontSize: 16,
       lineHeight: 22,
-      color: isDarkMode ? '#FFFFFF' : '#000000',
+      color: isDarkMode ? textWhite : '#000000',
     },
 
     //GAMESCREEN
     pointsText: {
       textAlign: 'center',
-      color: isDarkMode ? '#FFF' : '#000',
+      color: isDarkMode ? textWhite : '#000',
       fontSize: 40,
       fontWeight: 'bold',
       margin: 20,
@@ -81,33 +76,25 @@ const DarkTheme = (isDarkMode) => {
     },
     coinsText: {
       textAlign: 'center',
-      color: isDarkMode ? '#FFF' : '#000',
+      color: isDarkMode ? textWhite : '#000',
       fontSize: 20,
       fontWeight: 'bold',
       position: 'absolute',
       top: 60,
       right: 20,
     },
+
     //BUTTONIT
     button: {
-      backgroundColor: '#3498db',
+      backgroundColor: buttonBlue,
       paddingVertical: 10,
       paddingHorizontal: 15,
       borderRadius: 5,
       marginBottom: 10,
-    },
-    returnButton: {
-      backgroundColor: '#3498db',
-      paddingVertical: 10,
-      paddingHorizontal: 15,
-      borderRadius: 5,
-      marginBottom: 10,
-      position: 'absolute',
-      bottom: 20,
     },
     buttonTitle: {
       fontSize: 16,
-      color: 'white',
+      color: textWhite,
       fontWeight: 'bold',
       textAlign: 'center',
     },
@@ -118,15 +105,24 @@ const DarkTheme = (isDarkMode) => {
       backgroundColor: isDarkMode ? '#F44336' : '#F44336',
     },
     returnButton: {
-      paddingVertical: 15,
-      paddingHorizontal: 40,
-      marginBottom: 30,
+      paddingVertical: 10,
+      paddingHorizontal: 30,
+      marginTop: 10,
       borderRadius: 10,
       textAlign: 'center',
-      backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
+      backgroundColor: '#2196F3',
+      width: '44%',
     },
     BButton: { // shopin napit.
       backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
+    },
+    buttonStart: {
+      backgroundColor: '#FD8A0B',
+      paddingVertical: 15,
+      paddingHorizontal: 30,
+      borderRadius: 10,
+      marginBottom: 10,
+      width: '44%',
     },
 
     //Optionsview
@@ -188,14 +184,6 @@ const DarkTheme = (isDarkMode) => {
       alignItems: 'center',
       paddingBottom: 50,
     },
-    ButtonStart: {
-      backgroundColor: '#FD8A0B',
-      paddingVertical: 15,
-      paddingHorizontal: 30,
-      borderRadius: 10,
-      marginBottom: 10,
-      width: '44%',
-    },
 
     //Highscore
     Hrank: {
@@ -245,7 +233,7 @@ const DarkTheme = (isDarkMode) => {
       textAlign: 'center',
     },
     initialsInput: {
-      backgroundColor: isDarkMode ? '#3f3f40' : '#FFFFFF',
+      backgroundColor: isDarkMode ? '#3f3f40' : textWhite,
       placeholderTextColor: '#FD8A0B',
       color: '#FD8A0B',
       textAlign: 'center',
@@ -254,40 +242,59 @@ const DarkTheme = (isDarkMode) => {
       borderRadius: 10,
     },
     gameOverButton: {
-      backgroundColor: '#3498db',
+      backgroundColor: buttonBlue,
       paddingVertical: 15,
       paddingHorizontal: 40,
       borderRadius: 10,
       marginBottom: 10,
     },
 
-
-    //GUIDESCREEN
-    Guidecontainer: { // On myös StatsScreenissä, achievementScreenissä ja highscoreScreenissä
-      justifyContent: 'flex-start',
+    //guideScreen, statsScreen, achievementScreen ja highscoreScreen
+    container: {
+      flex: 1,
+      justifyContent: 'center',
       alignItems: 'center',
+      marginTop: Constants.statusBarHeight + 8,
+      marginBottom: insets.bottom + 8,
+    },
+    colorContainer: {
+      flex: 1,
       backgroundColor: containerBackgroundColor,
-      padding: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
       borderRadius: 10,
+      padding: 10,
+      marginBottom: 10,
+    },
+    screenHeader: {
+      fontSize: 32,
+      color: isDarkMode ? textWhite : '#000',
+      fontWeight: 'bold',
+      marginBottom: 10,
+    },
+    scrollViewContent: {
+      alignItems: 'center',
+      borderRadius: 10,
+      paddingRight: 8,
       width: '90%',
-      marginTop: Constants.statusBarHeight,
       marginBottom: 20,
     },
-    Guidesection: {
+    guideSection: {
       flexDirection: "row",
       alignItems: "center",
       marginBottom: 10,
-      backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff",
+      backgroundColor: isDarkMode ? "#1e1e1e" : "#FFF9F3",
       padding: 10,
       borderRadius: 8,
     },
-    Guideimage: {
+    guideImage: {
       width: 80,
       height: 80,
       marginRight: 15,
       resizeMode: "contain",
     },
-    GuideCenter: {
+    guideCenter: {
       flex: 1,
     },
   }
