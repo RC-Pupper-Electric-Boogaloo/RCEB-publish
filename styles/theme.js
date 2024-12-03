@@ -234,7 +234,7 @@ Guidecontainer: { // On myös StatsSCreenissä, achievementScreenissä ja highsc
   padding: 10,
   borderRadius: 10,
   width: '90%',
-  paddingTop: 20, 
+  paddingTop: 20,
 },
 Guidesection: {
   flexDirection: "row",
