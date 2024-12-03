@@ -19,14 +19,14 @@ const Physics = (entities, { time, touches, dispatch }) => {
     let isBonusActive = entities.isBonusActive || false
 
     const startAccelerometer = () => {
-        if (!accelerometerSubscription) {
+        if (!accelerometerSubscription && powerUp >= 7 && !isBonusActive) {
             accelerometerSubscription = Accelerometer.addListener(({ x, y, z }) => {
                 const totalAcceleration = Math.sqrt(x * x + y * y + z * z)
                 if (totalAcceleration > 1.5 && !isBonusActive && powerUp >= 7) {
                     console.log("Shaken")
                     isBonusActive = true
                     dispatch({ type: "bonus_activated" })
-                    world.gravity.y = world.gravity.y * 0.6
+                    world.gravity.y = world.gravity.y * 0.8
                     activateBonusCoins()
                     activateRainbow()
                     console.log("Bonus activated")
@@ -220,7 +220,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
             event.pairs.forEach(({ bodyA, bodyB }) => {
                 if (bodyA.label === "Char" && bodyB.label === "Point") {
                     points++
-                    if (world.gravity.y <= 2) {
+                    if (world.gravity.y <= 2.2) {
                         world.gravity.y = world.gravity.y + 0.02
                     }
                     dispatch({ type: "new_point" })
@@ -291,7 +291,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     powerUp++
                     console.log("PowerUp level", powerUp)
                     dispatch({ type: "battery_collected", level: batteryLevel })
-
+                    if(powerUp>=7){startAccelerometer()}
                     Matter.Body.setVelocity(entities["Battery"].body, { x: 0, y: 0 })
                     Matter.Body.setPosition(bodyB, {
                         x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
