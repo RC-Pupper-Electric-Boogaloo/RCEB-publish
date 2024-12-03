@@ -1,5 +1,6 @@
 import Constants from 'expo-constants'
 import { Dimensions } from "react-native"
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
 const windowHeight = Dimensions.get('window').height
@@ -7,7 +8,8 @@ const windowWidth = Dimensions.get('window').width
 
 const DarkTheme = (isDarkMode) => {
 
-  const containerBackgroundColor = isDarkMode ? 'rgba(r, 122, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
+  const containerBackgroundColor = isDarkMode ? 'rgba(227, 137, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
+  const insets = useSafeAreaInsets()
 
   return {
     background: {
@@ -18,11 +20,11 @@ const DarkTheme = (isDarkMode) => {
       height: '100%',
     },
     container: {
-      flex: 1,
-      backgroundColor: isDarkMode ? '#121212' : '#FFFFFF',
-      alignItems: 'center',
-      padding: 20,
       justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: Constants.statusBarHeight,
+      marginBottom: insets.bottom,
+      paddingVertical: 20,
     },
     title: {
       fontSize: 24,
@@ -94,6 +96,15 @@ const DarkTheme = (isDarkMode) => {
       borderRadius: 5,
       marginBottom: 10,
     },
+    returnButton: {
+      backgroundColor: '#3498db',
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      borderRadius: 5,
+      marginBottom: 10,
+      position: 'absolute',
+      bottom: 20,
+    },
     buttonTitle: {
       fontSize: 16,
       color: 'white',
@@ -117,6 +128,7 @@ const DarkTheme = (isDarkMode) => {
     BButton: { // shopin napit.
       backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
     },
+
     //Optionsview
     optionsContainer: {
       flex: 1,
