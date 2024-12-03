@@ -166,40 +166,44 @@ const AchievementScreen = ({ navigation }) => {
                 <StatusBar style="auto" hidden={true} />
             </GameEngine>
 
-            <ScrollView contentContainerStyle={styles.colorContainer}>
-                <Text style={styles.title}>Achievements</Text>
-
-                {achievements.map((achievement) => (
+            <View style={styles.container}>
+                <View style={styles.colorContainer}>
+                    <View style={styles.headerContainer}>
+                        <Text style={styles.screenHeader}>Achievements:</Text>
+                    </View>
+                    <ScrollView persistentScrollbar={true} contentContainerStyle={styles.scrollViewContent}>
+                        {achievements.map((achievement) => (
+                            <TouchableOpacity
+                                key={achievement.id}
+                                style={styles.guideSection}
+                                onPress={() => handleAchievementClick(achievement)}
+                                activeOpacity={achievement.unlocked ? 0.7 : 1}
+                            >
+                                <Image source={achievement.image} style={[styles.guideImage, { tintColor: achievement.unlocked ? 'none' : 'gray' }]} />
+                                <View style={styles.guideCenter}>
+                                    <Text style={styles.title}>{achievement.name}</Text>
+                                    <Text style={styles.text}>{achievement.requirement}</Text>
+                                    <ProgressBar
+                                        progress={achievement.progress / achievement.goal}
+                                        width={200}
+                                        color={achievement.unlocked ? "green" : "gray"}
+                                        style={{ marginVertical: 5 }}
+                                    />
+                                    <Text style={styles.text}>
+                                        {achievement.unlocked ? "Unlocked!" : `Progress: ${achievement.progress}/${achievement.goal}`}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
                     <TouchableOpacity
-                        key={achievement.id}
-                        style={styles.guideSection}
-                        onPress={() => handleAchievementClick(achievement)}
-                        activeOpacity={achievement.unlocked ? 0.7 : 1}
+                        style={styles.returnButton}
+                        onPress={() => navigation.goBack()}
                     >
-                        <Image source={achievement.image} style={[styles.guideImage, { tintColor: achievement.unlocked ? 'none' : 'gray' }]} />
-                        <View style={styles.guideCenter}>
-                            <Text style={styles.sectionTitle}>{achievement.name}</Text>
-                            <Text style={styles.Guidetext}>{achievement.requirement}</Text>
-                            <ProgressBar
-                                progress={achievement.progress / achievement.goal}
-                                width={200}
-                                color={achievement.unlocked ? "green" : "gray"}
-                                style={{ marginVertical: 5 }}
-                            />
-                            <Text style={styles.Guidetext}>
-                                {achievement.unlocked ? "Unlocked!" : `Progress: ${achievement.progress}/${achievement.goal}`}
-                            </Text>
-                        </View>
+                        <Text style={styles.buttonTitle}>RETURN</Text>
                     </TouchableOpacity>
-                ))}
-
-                <TouchableOpacity
-                    style={styles.returnButton}
-                    onPress={() => navigation.goBack()}
-                >
-                    <Text style={styles.buttonTitle}>Return</Text>
-                </TouchableOpacity>
-            </ScrollView>
+                </View>
+            </View>
         </ImageBackground>
     )
 }
