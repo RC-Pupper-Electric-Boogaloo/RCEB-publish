@@ -27,10 +27,6 @@ const DarkTheme = (isDarkMode) => {
       fontWeight: 'bold',
       marginBottom: 10,
     },
-    list: {
-      width: '100%',
-      marginBottom: 20,
-    },
     item: {
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -54,8 +50,15 @@ const DarkTheme = (isDarkMode) => {
       fontWeight: 'bold',
     },
     Row: {
+      flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%',
+      backgroundColor: isDarkMode ? '#1e1e1e' : '#FFF9F3',
+      borderRadius: 10,
+      padding: 10,
+      marginBottom: 10,
     },
     text: {
       fontSize: 16,
@@ -102,7 +105,8 @@ const DarkTheme = (isDarkMode) => {
       backgroundColor: isDarkMode ? '#FF5722' : '#FF5722',
     },
     resetButton: {
-      backgroundColor: isDarkMode ? '#F44336' : '#F44336',
+      backgroundColor: '#F44336',
+      marginBottom: -5,
     },
     returnButton: {
       paddingVertical: 10,
@@ -130,6 +134,33 @@ const DarkTheme = (isDarkMode) => {
     optionsContainer: {
       flex: 1,
       justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: Constants.statusBarHeight + 8,
+      marginBottom: insets.bottom + 8,
+      width: '100%',
+    },
+    optionsColorContainer: {
+      flex: 1,
+      backgroundColor: containerBackgroundColor,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '90%',
+      borderRadius: 10,
+      padding: 10,
+      marginBottom: '65%',
+    },
+    optionsBottomContainer: {
+      backgroundColor: containerBackgroundColor,
+      width: '90%',
+      borderRadius: 10,
+      alignItems: 'center',
+      padding: 5,
+    },
+    optionsRowContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
     },
 
     //SKINIT

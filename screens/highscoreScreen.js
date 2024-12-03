@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, Text, TouchableOpacity, ImageBackground, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, ImageBackground, ScrollView } from "react-native"
 import { StatusBar } from 'expo-status-bar'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import DarkTheme from '../styles/theme'
@@ -66,21 +66,26 @@ export default function HighscoreScreen({ navigation }) {
             >
                 <StatusBar style="auto" hidden={true} />
             </GameEngine>
-
-            <ScrollView style={styles.colorContainer}>
-                <Text style={styles.title}>Highscores</Text>
-                <View style={styles.guideSection}>
-                    data={highScores}
-                    renderItem={renderItem}
-                    keyExtractor={(item, index) => index.toString()}
-                    style={styles.list}
+            <View style={styles.container}>
+                <View style={styles.colorContainer}>
+                    <View style={styles.headerContainer}>
+                        <Text style={styles.screenHeader}>Highscores</Text>
+                    </View>
+                    <ScrollView persistentScrollbar={true} contentContainerStyle={styles.scrollViewContent}>
+                        {highScores.map((item, index) => (
+                            <View key={index} style={styles.guideSection}>
+                                <Text style={styles.title}>{index + 1}.</Text>
+                                <Text style={styles.title}>{item.initials} - {item.points}</Text>
+                            </View>
+                        ))}
+                    </ScrollView>
+                    <TouchableOpacity
+                        style={styles.returnButton}
+                        onPress={() => navigation.goBack()}>
+                        <Text style={styles.buttonTitle}>Return</Text>
+                    </TouchableOpacity>
                 </View>
-            </ScrollView>
-            <TouchableOpacity
-                style={styles.returnButton}
-                onPress={() => navigation.goBack()}>
-                <Text style={styles.buttonTitle}>Return</Text>
-            </TouchableOpacity>
+            </View>
         </ImageBackground>
     )
 }
