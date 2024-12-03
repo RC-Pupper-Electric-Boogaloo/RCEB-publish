@@ -107,11 +107,12 @@ const DarkTheme = (isDarkMode) => {
     returnButton: {
       paddingVertical: 10,
       paddingHorizontal: 30,
-      marginTop: 10,
+      marginTop: 16,
+      marginBottom: 6,
       borderRadius: 10,
       textAlign: 'center',
       backgroundColor: '#2196F3',
-      width: '44%',
+      width: '60%',
     },
     BButton: { // shopin napit.
       backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
@@ -255,7 +256,7 @@ const DarkTheme = (isDarkMode) => {
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: Constants.statusBarHeight + 8,
-      marginBottom: insets.bottom + 8,
+      marginBottom: insets.bottom,
     },
     colorContainer: {
       flex: 1,
@@ -279,6 +280,7 @@ const DarkTheme = (isDarkMode) => {
       paddingRight: 8,
       width: '90%',
       marginBottom: 20,
+      paddingBottom: 0,
     },
     guideSection: {
       flexDirection: "row",
@@ -286,7 +288,14 @@ const DarkTheme = (isDarkMode) => {
       marginBottom: 10,
       backgroundColor: isDarkMode ? "#1e1e1e" : "#FFF9F3",
       padding: 10,
-      borderRadius: 8,
+      borderRadius: 10,
+    },
+    guideSectionLast: {
+      flexDirection: "row",
+      alignItems: "center",
+      backgroundColor: isDarkMode ? "#1e1e1e" : "#FFF9F3",
+      padding: 10,
+      borderRadius: 10,
     },
     guideImage: {
       width: 80,

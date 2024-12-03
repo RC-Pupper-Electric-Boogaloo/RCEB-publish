@@ -33,7 +33,7 @@ const GuideScreen = ({ navigation }) => {
             <View style={styles.container}>
                 <View style={styles.colorContainer}>
                     <View style={styles.headerContainer}>
-                        <Text style={styles.screenHeader}>Guide</Text>
+                        <Text style={styles.screenHeader}>Guide:</Text>
                     </View>
                     <ScrollView persistentScrollbar={true} contentContainerStyle={styles.scrollViewContent}>
                         <View style={styles.guideSection}>
@@ -98,18 +98,6 @@ const GuideScreen = ({ navigation }) => {
                         </View>
                         <View style={styles.guideSection}>
                             <Image
-                                source={require('../assets/rainbow.png')}
-                                style={styles.guideImage}
-                            />
-                            <View style={styles.guideCenter}>
-                                <Text style={styles.title}>Bonus activate</Text>
-                                <Text style={styles.text}>
-                                    Shake your phone!
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={styles.guideSection}>
-                            <Image
                                 source={require('../assets/Battery.png')}
                                 style={styles.guideImage}
                             />
@@ -128,11 +116,23 @@ const GuideScreen = ({ navigation }) => {
                             <View style={styles.guideCenter}>
                                 <Text style={styles.title}>Bonus gauge</Text>
                                 <Text style={styles.text}>
-                                    fill to be able to enter bonus mode
+                                    Fill to be able to enter bonus mode
                                 </Text>
                             </View>
                         </View>
                         <View style={styles.guideSection}>
+                            <Image
+                                source={require('../assets/rainbow.png')}
+                                style={styles.guideImage}
+                            />
+                            <View style={styles.guideCenter}>
+                                <Text style={styles.title}>Bonus activate</Text>
+                                <Text style={styles.text}>
+                                    Shake your phone, when the gauge is full
+                                </Text>
+                            </View>
+                        </View>
+                        <View style={styles.guideSectionLast}>
                             <Image
                                 source={require('../assets/Coin.png')}
                                 style={styles.guideImage}
@@ -140,7 +140,7 @@ const GuideScreen = ({ navigation }) => {
                             <View style={styles.guideCenter}>
                                 <Text style={styles.title}>Bonus coin</Text>
                                 <Text style={styles.text}>
-                                    keep collecting to keep them coming
+                                    Keep collecting to keep them coming
                                 </Text>
                             </View>
                         </View>
