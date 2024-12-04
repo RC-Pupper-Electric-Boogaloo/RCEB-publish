@@ -23,17 +23,15 @@ const Physics = (entities, { time, touches, dispatch }) => {
             accelerometerSubscription = Accelerometer.addListener(({ x, y, z }) => {
                 const totalAcceleration = Math.sqrt(x * x + y * y + z * z)
                 if (totalAcceleration > 1.5 && !isBonusActive && powerUp >= 7) {
-                    console.log("Shaken")
                     isBonusActive = true
                     dispatch({ type: "bonus_activated" })
                     world.gravity.y = world.gravity.y * 0.75
                     activateBonusCoins()
                     activateRainbow()
-                    console.log("Bonus activated")
                 }
             })
         }
-    }   
+    }
     const activateBonusCoins = () => {
         Object.keys(entities).forEach((key) => {
             if (key === "Obstacle") {
@@ -48,9 +46,6 @@ const Physics = (entities, { time, touches, dispatch }) => {
 
     const activateRainbow = async () => {
         const rainbowEntity = entities.Rainbow
-        console.log("Batterylevel")
-        console.log(entities.batteryLevel)
-        console.log(batteryLevel)
         while (powerUp > 0) {
             dispatch({ type: "bonus_tick" })
             if (rainbowEntity && rainbowEntity.body) {
@@ -65,7 +60,6 @@ const Physics = (entities, { time, touches, dispatch }) => {
         isBonusActive = false
         dispatch({ type: "bonus_ended" })
         deactivateBonusCoins()
-        console.log("Bonus ended")
     }
 
     const deactivateBonusCoins = () => {
@@ -119,9 +113,8 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     purchasedSkins.push(skinIndex)
                     await AsyncStorage.setItem("purchasedSkins", JSON.stringify(purchasedSkins))
                     dispatch({ type: "skin_unlocked", skinIndex })
-                    console.log("Woofer skin unlocked!")
                     Alert.alert("Woof!", "Sergeant Woofer unlocked! You can now find this puppy from the shop.");
-            
+
                 }
             }
         }
@@ -233,7 +226,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                         y: -windowHeight * 3
                     })
                 } else if (bodyA.label === "Char" && bodyB.label === "Choco") {
-                    if(!isBonusActive){
+                    if (!isBonusActive) {
                         dispatch({ type: "miss" })
                         if (world.gravity.y > 0.4) {
                             world.gravity.y = world.gravity.y - 0.02
@@ -246,7 +239,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     } else {
                         coinCount++
                         dispatch({ type: "coin_collected" })
-    
+
                         Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 })
                         Matter.Body.setPosition(entities["Choco"].body, {
                             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
@@ -254,18 +247,17 @@ const Physics = (entities, { time, touches, dispatch }) => {
                         })
                     }
                 } else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
-                    if(!isBonusActive){
+                    if (!isBonusActive) {
                         dispatch({ type: "game_over" })
                         if (isBonusActive) {
                             dispatch({ type: "bonus_ended" })
-                            console.log("Bonus ended")
                         }
                         powerUp = 0
                         isBonusActive = false
                     } else {
                         coinCount++
                         dispatch({ type: "coin_collected" })
-    
+
                         Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 })
                         Matter.Body.setPosition(entities["Obstacle"].body, {
                             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
@@ -275,10 +267,9 @@ const Physics = (entities, { time, touches, dispatch }) => {
                 } else if (bodyA.label === "Char" && bodyB.label === "Battery") {
 
                     batteryLevel = Math.min(batteryLevel + 20, 100)
-                    if(powerUp<7){powerUp++}
-                    console.log("PowerUp level", powerUp)
+                    if (powerUp < 7) { powerUp++ }
                     dispatch({ type: "battery_collected", level: batteryLevel })
-                    if(powerUp>=7){startAccelerometer()}
+                    if (powerUp >= 7) { startAccelerometer() }
                     Matter.Body.setVelocity(entities["Battery"].body, { x: 0, y: 0 })
                     Matter.Body.setPosition(bodyB, {
                         x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
