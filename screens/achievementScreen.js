@@ -169,7 +169,7 @@ const AchievementScreen = ({ navigation }) => {
             <View style={styles.container}>
                 <View style={styles.colorContainer}>
                     <View style={styles.headerContainer}>
-                        <Text style={styles.screenHeader}>Achievements:</Text>
+                        <Text style={styles.screenHeader}>Achievements</Text>
                     </View>
                     <ScrollView persistentScrollbar={true} contentContainerStyle={styles.scrollViewContent}>
                         {achievements.map((achievement) => (

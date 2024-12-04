@@ -33,7 +33,7 @@ const GuideScreen = ({ navigation }) => {
             <View style={styles.container}>
                 <View style={styles.colorContainer}>
                     <View style={styles.headerContainer}>
-                        <Text style={styles.screenHeader}>Guide:</Text>
+                        <Text style={styles.screenHeader}>Guide</Text>
                     </View>
                     <ScrollView persistentScrollbar={true} contentContainerStyle={styles.scrollViewContent}>
                         <View style={styles.guideSection}>

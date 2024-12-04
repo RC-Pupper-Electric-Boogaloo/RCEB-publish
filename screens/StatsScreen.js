@@ -60,21 +60,42 @@ const StatsScreen = ({ navigation }) => {
             >
                 <StatusBar style="auto" hidden={true} />
             </GameEngine>
-            <View style={styles.colorContainer}>
-                <Text style={styles.title}>All-Time Stats</Text>
-                <Text style={styles.text}>Total Points: {stats.totalPoints}</Text>
-                <Text style={styles.text}>Total Coins: {stats.totalCoins}</Text>
-                <Text style={styles.text}>Games Played: {stats.gamesPlayed}</Text>
-                <Text style={styles.text}>Total Play Time: {formatPlayTime(stats.totalPlayTime)}</Text>
-
-                <TouchableOpacity
-                    style={[styles.button, styles.returnButton]}
-                    onPress={() => navigation.goBack()}
-                >
-                    <Text style={styles.buttonTitle}>Return</Text>
-                </TouchableOpacity>
+            <View style={styles.optionsContainer}>
+                <View style={styles.optionsColorContainer}>
+                    <View style={styles.headerContainer}>
+                        <Text style={styles.screenHeader}>Stats</Text>
+                    </View>
+                    <View style={styles.screenHeader}>
+                        <Text style={[styles.screenHeader, styles, { fontSize: 20 }]}>All-Time Stats</Text>
+                    </View>
+                    <View style={styles.Row}>
+                        <Text style={styles.Label}>Total Points:</Text>
+                        <Text style={styles.Label}>{stats.totalPoints}</Text>
+                    </View>
+                    <View style={styles.Row}>
+                        <Text style={styles.Label}>Total Coins:</Text>
+                        <Text style={styles.Label}>{stats.totalCoins}</Text>
+                    </View>
+                    <View style={styles.Row}>
+                        <Text style={styles.Label}>Games Played:</Text>
+                        <Text style={styles.Label}>{stats.gamesPlayed}</Text>
+                    </View>
+                    <View style={styles.Row}>
+                        <Text style={styles.Label}>Total Play Time:</Text>
+                        <Text style={styles.Label}>{formatPlayTime(stats.totalPlayTime)}</Text>
+                    </View>
+                </View>
+                <View style={styles.optionsBottomContainer}>
+                    <TouchableOpacity
+                        style={[styles.button, styles.returnButton]}
+                        onPress={() => navigation.goBack()}
+                    >
+                        <Text style={styles.buttonTitle}>RETURN</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </ImageBackground>
+
+        </ImageBackground >
     )
 }
 

@@ -11,72 +11,72 @@ import { useFocusEffect } from '@react-navigation/native'
 
 
 export default function MainMenuScreen({ navigation }) {
-    const styles = DarkTheme(isDarkMode)
-    const { isDarkMode } = useTheme()
-    const gameEngine = useRef(null)
-    const stopMusicRef = useRef()
-    const [musicOn, setMusicOn] = useState(false)
-    const [ClassicOn, setClassicOn] = useState(false)
+  const styles = DarkTheme(isDarkMode)
+  const { isDarkMode } = useTheme()
+  const gameEngine = useRef(null)
+  const stopMusicRef = useRef()
+  const [musicOn, setMusicOn] = useState(false)
+  const [ClassicOn, setClassicOn] = useState(false)
 
-    const backgroundImage = isDarkMode
-        ? require('../assets/Taustakuvatakatumma.jpg')
-        : require('../assets/Taustakuvatakavaalea.jpg')
-    const backdropImage = require('../assets/Taustakuva2ala.png')
+  const backgroundImage = isDarkMode
+    ? require('../assets/Taustakuvatakatumma.jpg')
+    : require('../assets/Taustakuvatakavaalea.jpg')
+  const backdropImage = require('../assets/Taustakuva2ala.png')
 
-    useFocusEffect(
-      React.useCallback(() => {
-          const loadSettings = async () => {
-              try {
-                  const savedMusic = await AsyncStorage.getItem('MusicOn')
-                  const savedClassic = await AsyncStorage.getItem('ClassicOn')
+  useFocusEffect(
+    React.useCallback(() => {
+      const loadSettings = async () => {
+        try {
+          const savedMusic = await AsyncStorage.getItem('MusicOn')
+          const savedClassic = await AsyncStorage.getItem('ClassicOn')
 
-                  setMusicOn(savedMusic === 'true')
-                  setClassicOn(savedClassic === 'true') // Boolean
-              } catch (error) {
-                  console.error('Error loading settings:', error)
-              }
-          }
+          setMusicOn(savedMusic === 'true')
+          setClassicOn(savedClassic === 'true') // Boolean
+        } catch (error) {
+          console.error('Error loading settings:', error)
+        }
+      }
 
-          loadSettings()
-        }, [])
-      )
+      loadSettings()
+    }, [])
+  )
 
-        return (
-        <ImageBackground
-          source={backgroundImage}
-          style={styles.background}
-        >
-         <GameEngine
-            ref={gameEngine}
-            systems={[Physics]}
-            entities={entities(null, backdropImage)}
-            running={true}
-            style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-         >
-      <StatusBar style="auto" hidden={true} />
-    </GameEngine>
-        <View style={styles.containerMainMenu}>
+  return (
+    <ImageBackground
+      source={backgroundImage}
+      style={styles.background}
+    >
+      <GameEngine
+        ref={gameEngine}
+        systems={[Physics]}
+        entities={entities(null, backdropImage)}
+        running={true}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+      >
+        <StatusBar style="auto" hidden={true} />
+      </GameEngine>
+      <View style={styles.containerMainMenu}>
         {!ClassicOn ? (
-        <TouchableOpacity
+          <TouchableOpacity
             style={styles.ButtonMainMenu}
             onPress={() => {
-                if (stopMusicRef.current) stopMusicRef.current();
-                navigation.navigate('Game');
+              if (stopMusicRef.current) stopMusicRef.current();
+              navigation.navigate('Game');
             }}
-        >
+          >
             <Text style={styles.buttonTitle}>PLAY</Text>
-        </TouchableOpacity>
-    ) : (
-        <TouchableOpacity
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
             style={styles.ButtonMainMenu}
             onPress={() => {
-                if (stopMusicRef.current) stopMusicRef.current();
-                navigation.navigate('GameClassic');
+              if (stopMusicRef.current) stopMusicRef.current();
+              navigation.navigate('GameClassic');
             }}
-        >
+          >
             <Text style={styles.buttonTitle}>PLAY Classic</Text>
-        </TouchableOpacity>
-    )}
+          </TouchableOpacity>
+        )}
         <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => { navigation.navigate('Highscore') }}>
           <Text style={styles.buttonTitle}>HIGHSCORES</Text>
         </TouchableOpacity>

@@ -73,16 +73,17 @@ export default function HighscoreScreen({ navigation }) {
                     </View>
                     <ScrollView persistentScrollbar={true} contentContainerStyle={styles.scrollViewContent}>
                         {highScores.map((item, index) => (
-                            <View key={index} style={styles.guideSection}>
-                                <Text style={styles.title}>{index + 1}.</Text>
-                                <Text style={styles.title}>{item.initials} - {item.points}</Text>
+                            <View key={index} style={styles.Row}>
+                                <Text style={styles.Label}>{index + 1}.</Text>
+                                <Text style={[styles.Label, styles, { fontSize: 20, color: isDarkMode ? 'rgba(227, 137, 17, 1)' : 'rgba(250, 165, 55, 1)' }]}>{item.initials}</Text>
+                                <Text style={styles.Label}>{item.points}</Text>
                             </View>
                         ))}
                     </ScrollView>
                     <TouchableOpacity
                         style={styles.returnButton}
                         onPress={() => navigation.goBack()}>
-                        <Text style={styles.buttonTitle}>Return</Text>
+                        <Text style={styles.buttonTitle}>RETURN</Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -10,7 +10,7 @@ const DarkTheme = (isDarkMode) => {
 
   const insets = useSafeAreaInsets()
   const textWhite = '#FFFDFA'
-  const buttonBlue = '#3498db'
+  const themeBlue = '#3498db'
   const containerBackgroundColor = isDarkMode ? 'rgba(227, 137, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
 
   return {
@@ -23,9 +23,8 @@ const DarkTheme = (isDarkMode) => {
     },
     title: {
       fontSize: 24,
-      color: isDarkMode ? textWhite : '#000',
+      color: themeBlue,
       fontWeight: 'bold',
-      marginBottom: 10,
     },
     item: {
       flexDirection: 'row',
@@ -46,7 +45,7 @@ const DarkTheme = (isDarkMode) => {
 
     Label: {
       fontSize: 18,
-      color: isDarkMode ? textWhite : '#000000',
+      color: themeBlue,
       fontWeight: 'bold',
     },
     Row: {
@@ -89,7 +88,7 @@ const DarkTheme = (isDarkMode) => {
 
     //BUTTONIT
     button: {
-      backgroundColor: buttonBlue,
+      backgroundColor: themeBlue,
       paddingVertical: 10,
       paddingHorizontal: 15,
       borderRadius: 5,
@@ -265,7 +264,7 @@ const DarkTheme = (isDarkMode) => {
       textAlign: 'center',
     },
     initialsInput: {
-      backgroundColor: isDarkMode ? '#3f3f40' : textWhite,
+      backgroundColor: isDarkMode ? '#1e1e1e' : textWhite,
       placeholderTextColor: '#FD8A0B',
       color: '#FD8A0B',
       textAlign: 'center',
@@ -274,7 +273,7 @@ const DarkTheme = (isDarkMode) => {
       borderRadius: 10,
     },
     gameOverButton: {
-      backgroundColor: buttonBlue,
+      backgroundColor: themeBlue,
       paddingVertical: 15,
       paddingHorizontal: 40,
       borderRadius: 10,
@@ -301,7 +300,7 @@ const DarkTheme = (isDarkMode) => {
     },
     screenHeader: {
       fontSize: 32,
-      color: isDarkMode ? textWhite : '#000',
+      color: textWhite,
       fontWeight: 'bold',
       marginBottom: 10,
     },
