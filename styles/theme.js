@@ -10,6 +10,7 @@ const DarkTheme = (isDarkMode) => {
 
   const insets = useSafeAreaInsets()
   const textWhite = '#FFFDFA'
+  const labelOrange = isDarkMode ? 'rgba(227, 137, 17, 1)' : 'rgba(250, 165, 55, 1)'
   const themeBlue = '#3498db'
   const containerBackgroundColor = isDarkMode ? 'rgba(227, 137, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
 
@@ -46,7 +47,11 @@ const DarkTheme = (isDarkMode) => {
       fontSize: 18,
       color: themeBlue,
       fontWeight: 'bold',
-      backgroundColor: 'red',
+    },
+    labelOrange: {
+      fontSize: 18,
+      color: labelOrange,
+      fontWeight: 'bold',
     },
     row: {
       flex: 1,

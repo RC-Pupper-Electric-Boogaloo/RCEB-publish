@@ -70,19 +70,19 @@ const StatsScreen = ({ navigation }) => {
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Total Points:</Text>
-                        <Text style={styles.label}>{stats.totalPoints}</Text>
+                        <Text style={styles.labelOrange}>{stats.totalPoints}</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Total Coins:</Text>
-                        <Text style={styles.label}>{stats.totalCoins}</Text>
+                        <Text style={styles.labelOrange}>{stats.totalCoins}</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Games Played:</Text>
-                        <Text style={styles.label}>{stats.gamesPlayed}</Text>
+                        <Text style={styles.labelOrange}>{stats.gamesPlayed}</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Total Play Time:</Text>
-                        <Text style={styles.label}>{formatPlayTime(stats.totalPlayTime)}</Text>
+                        <Text style={styles.labelOrange}>{formatPlayTime(stats.totalPlayTime)}</Text>
                     </View>
                 </View>
                 <View style={styles.optionsBottomContainer}>
