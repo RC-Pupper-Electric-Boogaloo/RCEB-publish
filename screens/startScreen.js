@@ -16,7 +16,7 @@ export default function StartScreen({ navigation }) {
   const { isDarkMode } = useTheme()
   const gameEngine = useRef(null)
   const [sfxOn, setSfxOn] = useState(false)
-  const { setMusic  } = useContext(MusicContext)
+  const { setMusic } = useContext(MusicContext)
 
   const backgroundImage = isDarkMode
     ? require('../assets/Taustakuvatakatumma.jpg')
@@ -62,27 +62,27 @@ export default function StartScreen({ navigation }) {
     }
   }
 
-    return (
+  return (
     <ImageBackground
       source={backgroundImage}
       style={styles.background}
     >
-    <GameEngine
-      ref={gameEngine}
-      systems={[Physics]}
-      entities={entities(null, backdropImage)}
-      running={true}
-      style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-    >
-      <StatusBar style="auto" hidden={true} />
-    </GameEngine>
+      <GameEngine
+        ref={gameEngine}
+        systems={[Physics]}
+        entities={entities(null, backdropImage)}
+        running={true}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+      >
+        <StatusBar style="auto" hidden={true} />
+      </GameEngine>
       <View style={styles.containerStart}>
-        <TouchableOpacity style={styles.ButtonStart} onPress={() => { handleStartPress() }}>
+        <TouchableOpacity style={styles.buttonStart} onPress={() => { handleStartPress() }}>
           <Text style={styles.buttonTitle}>START</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.ButtonStart} onPress={() => navigation.navigate('Guide')}>
-        <Text style={styles.buttonTitle}>GUIDE</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonStart} onPress={() => navigation.navigate('Guide')}>
+          <Text style={styles.buttonTitle}>GUIDE</Text>
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   )

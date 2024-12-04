@@ -19,8 +19,8 @@ const OptionScreen = ({ navigation }) => {
   const gameEngine = useRef(null)
 
   const backgroundImage = isDarkMode
-  ? require('../assets/Taustakuvatakatumma.jpg')
-  : require('../assets/Taustakuvatakavaalea.jpg')
+    ? require('../assets/Taustakuvatakatumma.jpg')
+    : require('../assets/Taustakuvatakavaalea.jpg')
   const backdropImage = require('../assets/Taustakuva5ala.png')
 
   useEffect(() => {
@@ -118,58 +118,64 @@ const OptionScreen = ({ navigation }) => {
 
   return (
     <ImageBackground
-    source={backgroundImage}
-    style={styles.background}
-  >
-  <GameEngine
-    ref={gameEngine}
-    systems={[Physics]}
-    entities={entities(null, backdropImage)}
-    running={true}
-    style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-  >
-    <StatusBar style="auto" hidden={true} />
-  </GameEngine>
-    <View style={styles.containerMainMenu}>
-      <Text style={styles.title}>Options</Text>
+      source={backgroundImage}
+      style={styles.background}
+    >
+      <GameEngine
+        ref={gameEngine}
+        systems={[Physics]}
+        entities={entities(null, backdropImage)}
+        running={true}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+      >
+        <StatusBar style="auto" hidden={true} />
+      </GameEngine>
       <View style={styles.optionsContainer}>
-        <View style={styles.Row}>
-          <Text style={styles.Label}>Music</Text>
-          <TouchableOpacity style={[styles.button, musicOn && styles.activeButton]} onPress={toggleMusic}>
-            <Text style={styles.buttonTitle}>{musicOn ? "On" : "Off"}</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.Row}>
-          <Text style={styles.Label}>SFX</Text>
-          <TouchableOpacity style={[styles.button, SfxOn && styles.activeButton]} onPress={toggleSfx}>
-            <Text style={styles.buttonTitle}>{SfxOn ? "On" : "Off"}</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.Row}>
-          <Text style={styles.Label}>DarkMode</Text>
-          <TouchableOpacity style={[styles.button, isDarkMode && styles.activeButton]} onPress={toggleDarkMode}>
-            <Text style={styles.buttonTitle}>{isDarkMode ? "On" : "Off"}</Text>
-          </TouchableOpacity>
+        <View style={styles.optionsColorContainer}>
+          <View style={styles.headerContainer}>
+            <Text style={styles.screenHeader}>Options</Text>
           </View>
-          {ShowClassic && (
-            <View style={styles.Row}>
-              <Text style={styles.Label}>ClassicMode</Text>
-              <TouchableOpacity style={[styles.button, ClassicOn && styles.activeButton]} onPress={toggleClassic}>
-                <Text style={styles.buttonTitle}>{ClassicOn ? "On" : "Off"}</Text>
+          <View style={styles.optionsRowContainer}>
+            <View style={styles.row}>
+              <Text style={styles.label}>Music</Text>
+              <TouchableOpacity style={[styles.button, musicOn && styles.activeButton]} onPress={toggleMusic}>
+                <Text style={styles.buttonTitle}>{musicOn ? "On" : "Off"}</Text>
               </TouchableOpacity>
             </View>
-          )}
 
-      <TouchableOpacity style={[styles.button, styles.resetButton]} onPress={ResetData}>
-        <Text style={styles.buttonTitle}>RESET DATA</Text>
-      </TouchableOpacity>
+            <View style={styles.row}>
+              <Text style={styles.label}>Sound FX</Text>
+              <TouchableOpacity style={[styles.button, SfxOn && styles.activeButton]} onPress={toggleSfx}>
+                <Text style={styles.buttonTitle}>{SfxOn ? "On" : "Off"}</Text>
+              </TouchableOpacity>
+            </View>
 
-      <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => navigation.goBack()}>
-        <Text style={styles.buttonTitle}>Return</Text>
-      </TouchableOpacity>
-    </View></View>
+            <View style={styles.row}>
+              <Text style={styles.label}>Dark Mode</Text>
+              <TouchableOpacity style={[styles.button, isDarkMode && styles.activeButton]} onPress={toggleDarkMode}>
+                <Text style={styles.buttonTitle}>{isDarkMode ? "On" : "Off"}</Text>
+              </TouchableOpacity>
+            </View>
+            {ShowClassic && (
+              <View style={styles.row}>
+                <Text style={styles.label}>ClassicMode</Text>
+                <TouchableOpacity style={[styles.button, ClassicOn && styles.activeButton]} onPress={toggleClassic}>
+                  <Text style={styles.buttonTitle}>{ClassicOn ? "On" : "Off"}</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
+        </View>
+        <View style={styles.optionsBottomContainer}>
+          <TouchableOpacity style={[styles.returnButton, styles.resetButton]} onPress={ResetData}>
+            <Text style={styles.buttonTitle}>RESET DATA</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.returnButton} onPress={() => navigation.goBack()}>
+            <Text style={styles.buttonTitle}>RETURN</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </ImageBackground>
   )
 }

@@ -1,5 +1,6 @@
 import Constants from 'expo-constants'
 import { Dimensions } from "react-native"
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
 const windowHeight = Dimensions.get('window').height
@@ -7,7 +8,11 @@ const windowWidth = Dimensions.get('window').width
 
 const DarkTheme = (isDarkMode) => {
 
-  const containerBackgroundColor = isDarkMode ? 'rgba(r, 122, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
+  const insets = useSafeAreaInsets()
+  const textWhite = '#FFFDFA'
+  const labelOrange = isDarkMode ? 'rgba(227, 137, 17, 1)' : 'rgba(250, 165, 55, 1)'
+  const themeBlue = '#3498db'
+  const containerBackgroundColor = isDarkMode ? 'rgba(227, 137, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
 
   return {
     background: {
@@ -17,32 +22,20 @@ const DarkTheme = (isDarkMode) => {
       width: '100%',
       height: '100%',
     },
-    container: {
-      flex: 1,
-      backgroundColor: isDarkMode ? '#121212' : '#FFFFFF',
-      alignItems: 'center',
-      padding: 20,
-      justifyContent: 'center',
-    },
     smallcontainer: {
       position: 'absolute',
       maxWidth: 450,
       right: 10,
       top: 10,
-      alignItems: 'right', 
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', 
-      padding: 10, 
-      borderRadius: 8, 
+      alignItems: 'right',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      padding: 10,
+      borderRadius: 8,
     },
     title: {
       fontSize: 24,
-      color: isDarkMode ? '#FFF' : '#000',
+      color: themeBlue,
       fontWeight: 'bold',
-      marginBottom: 10,
-    },
-    list: {
-      width: '100%',
-      marginBottom: 20,
     },
     item: {
       flexDirection: 'row',
@@ -54,26 +47,37 @@ const DarkTheme = (isDarkMode) => {
     },
     name: {
       fontSize: 18,
-      color: isDarkMode ? '#FFFFFF' : '#000000',
+      color: isDarkMode ? textWhite : '#000000',
     },
     score: {
       fontSize: 18,
-      color: isDarkMode ? '#FFFFFF' : '#000000',
+      color: isDarkMode ? textWhite : '#000000',
     },
-
-    Label: {
+    label: {
       fontSize: 18,
-      color: isDarkMode ? '#FFFFFF' : '#000000',
+      color: themeBlue,
       fontWeight: 'bold',
     },
-    Row: {
+    labelOrange: {
+      fontSize: 18,
+      color: labelOrange,
+      fontWeight: 'bold',
+    },
+    row: {
+      flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%',
+      backgroundColor: isDarkMode ? '#1e1e1e' : '#FFF9F3',
+      borderRadius: 10,
+      padding: 10,
+      marginBottom: 10,
     },
     text: {
       fontSize: 16,
       lineHeight: 22,
-      color: isDarkMode ? '#FFFFFF' : '#000000',
+      color: isDarkMode ? textWhite : '#000000',
     },
 
     //GAMESCREEN
@@ -90,16 +94,17 @@ const DarkTheme = (isDarkMode) => {
     },
     coinsText: {
       textAlign: 'center',
-      color: isDarkMode ? '#FFF' : '#000',
+      color: isDarkMode ? textWhite : '#000',
       fontSize: 20,
       fontWeight: 'bold',
       position: 'absolute',
       top: 60,
       right: 20,
     },
+
     //BUTTONIT
     button: {
-      backgroundColor: '#3498db',
+      backgroundColor: themeBlue,
       paddingVertical: 10,
       paddingHorizontal: 15,
       borderRadius: 5,
@@ -107,7 +112,7 @@ const DarkTheme = (isDarkMode) => {
     },
     buttonTitle: {
       fontSize: 16,
-      color: 'white',
+      color: textWhite,
       fontWeight: 'bold',
       textAlign: 'center',
     },
@@ -115,23 +120,62 @@ const DarkTheme = (isDarkMode) => {
       backgroundColor: isDarkMode ? '#FF5722' : '#FF5722',
     },
     resetButton: {
-      backgroundColor: isDarkMode ? '#F44336' : '#F44336',
+      backgroundColor: '#F44336',
+      marginBottom: -5,
     },
     returnButton: {
-      paddingVertical: 15,
-      paddingHorizontal: 40,
-      marginBottom: 30,
+      paddingVertical: 10,
+      paddingHorizontal: 30,
+      marginTop: 16,
+      marginBottom: 6,
       borderRadius: 10,
       textAlign: 'center',
+      backgroundColor: '#2196F3',
+      width: '60%',
+    },
+    bButton: { // shopin napit.
       backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
     },
-    BButton: { // shopin napit.
-      backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
+    buttonStart: {
+      backgroundColor: '#FD8A0B',
+      paddingVertical: 15,
+      paddingHorizontal: 30,
+      borderRadius: 10,
+      marginBottom: 10,
+      width: '44%',
     },
+
     //Optionsview
     optionsContainer: {
       flex: 1,
       justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: Constants.statusBarHeight + 8,
+      marginBottom: insets.bottom + 8,
+      width: '100%',
+    },
+    optionsColorContainer: {
+      flex: 1,
+      backgroundColor: containerBackgroundColor,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '90%',
+      borderRadius: 10,
+      padding: 10,
+      marginBottom: '65%',
+    },
+    optionsBottomContainer: {
+      backgroundColor: containerBackgroundColor,
+      width: '90%',
+      borderRadius: 10,
+      alignItems: 'center',
+      padding: 5,
+    },
+    optionsRowContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
     },
 
     //SKINIT
@@ -172,7 +216,7 @@ const DarkTheme = (isDarkMode) => {
       position: 'relative',
       paddingTop: 200,
     },
-    ButtonMainMenu: {
+    buttonMainMenu: {
       backgroundColor: '#FD8A0B',
       paddingVertical: 15,
       paddingHorizontal: 30,
@@ -180,33 +224,13 @@ const DarkTheme = (isDarkMode) => {
       marginBottom: 10,
       width: '55%',
     },
+
     //StartScreen
     containerStart: { // on myös shopScreenissä
       flex: 1,
       justifyContent: 'flex-end',
       alignItems: 'center',
       paddingBottom: 50,
-    },
-    ButtonStart: {
-      backgroundColor: '#FD8A0B',
-      paddingVertical: 15,
-      paddingHorizontal: 30,
-      borderRadius: 10,
-      marginBottom: 10,
-      width: '44%',
-    },
-
-    //Highscore
-    Hrank: {
-      fontSize: 20,
-      color: '#FFD700',
-      fontWeight: 'bold',
-    },
-    Hscore: {
-      fontSize: 20,
-      color: 'white',
-      fontWeight: 'bold',
-      flexShrink: 1,
     },
 
     //GameoverScreen
@@ -220,7 +244,7 @@ const DarkTheme = (isDarkMode) => {
     },
     pointsTextGameOver: {
       fontSize: 30,
-      color: 'white',
+      color: textWhite,
       marginBottom: 10,
     },
     coinsContainer: {
@@ -235,58 +259,86 @@ const DarkTheme = (isDarkMode) => {
     },
     coinsTextGameOver: {
       fontSize: 25,
-      color: 'white',
+      color: textWhite,
     },
     gameOverText: {
-      fontSize: 16,
-      color: 'white',
-      marginBottom: 10,
+      fontSize: 18,
+      color: textWhite,
+      marginBottom: 8,
       textAlign: 'center',
     },
     initialsInput: {
-      backgroundColor: isDarkMode ? '#3f3f40' : '#FFFFFF',
+      backgroundColor: isDarkMode ? '#1e1e1e' : textWhite,
       placeholderTextColor: '#FD8A0B',
       color: '#FD8A0B',
       textAlign: 'center',
-      marginTop: 10,
-      marginBottom: 10,
+      marginTop: 4,
+      marginBottom: 12,
       borderRadius: 10,
     },
     gameOverButton: {
-      backgroundColor: '#3498db',
+      backgroundColor: themeBlue,
       paddingVertical: 15,
       paddingHorizontal: 40,
       borderRadius: 10,
       marginBottom: 10,
+      width: '100%',
     },
 
-
-    //GUIDESCREEN
-    Guidecontainer: { // On myös StatsScreenissä, achievementScreenissä ja highscoreScreenissä
-      justifyContent: 'flex-start',
+    //guideScreen, statsScreen, achievementScreen ja highscoreScreen
+    container: {
+      flex: 1,
+      justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: containerBackgroundColor,
-      padding: 10,
-      borderRadius: 10,
-      width: '90%',
-      marginTop: Constants.statusBarHeight,
-      marginBottom: 20,
+      marginTop: Constants.statusBarHeight + 8,
+      marginBottom: insets.bottom,
     },
-    Guidesection: {
+    colorContainer: {
+      flex: 1,
+      backgroundColor: containerBackgroundColor,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      borderRadius: 10,
+      padding: 10,
+      marginBottom: 10,
+    },
+    screenHeader: {
+      fontSize: 32,
+      color: textWhite,
+      fontWeight: 'bold',
+      marginBottom: 10,
+    },
+    scrollViewContent: {
+      alignItems: 'center',
+      borderRadius: 10,
+      paddingRight: 8,
+      width: '90%',
+      marginBottom: 20,
+      paddingBottom: 0,
+    },
+    guideSection: {
       flexDirection: "row",
       alignItems: "center",
       marginBottom: 10,
-      backgroundColor: isDarkMode ? "#1e1e1e" : "#ffffff",
+      backgroundColor: isDarkMode ? "#1e1e1e" : "#FFF9F3",
       padding: 10,
-      borderRadius: 8,
+      borderRadius: 10,
     },
-    Guideimage: {
+    guideSectionLast: {
+      flexDirection: "row",
+      alignItems: "center",
+      backgroundColor: isDarkMode ? "#1e1e1e" : "#FFF9F3",
+      padding: 10,
+      borderRadius: 10,
+    },
+    guideImage: {
       width: 80,
       height: 80,
       marginRight: 15,
       resizeMode: "contain",
     },
-    GuideCenter: {
+    guideCenter: {
       flex: 1,
     },
   }

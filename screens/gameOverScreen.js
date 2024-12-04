@@ -17,7 +17,7 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
     const backgroundImage = isDarkMode
         ? require('../assets/GameOverDark.jpg')
         : require('../assets/GameOver.jpg')
-        
+
     useEffect(() => {
         setMusic(require('../assets/bgmenu.mp3'))
     }, [setMusic])
@@ -49,7 +49,9 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
         const savedScores = await AsyncStorage.getItem(key)
         const scoresArray = savedScores ? JSON.parse(savedScores) : []
 
-        scoresArray.push({ initials, points: currentPoints })
+        const playerInitials = initials.trim() === '' ? '-' : initials.toUpperCase()
+
+        scoresArray.push({ initials: playerInitials, points: currentPoints })
         const sortedScores = scoresArray
             .sort((a, b) => b.points - a.points)
             .slice(0, 10)
@@ -85,19 +87,19 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
                             autoCapitalize='characters'
                         />
                         <TouchableOpacity style={styles.gameOverButton} onPress={saveHighScore}>
-                            <Text style={styles.buttonTitle}>Save Score</Text>
+                            <Text style={styles.buttonTitle}>SAVE SCORE</Text>
                         </TouchableOpacity>
                     </View>
                 ) : (
                     <>
                         <TouchableOpacity style={styles.gameOverButton} onPress={onRestart}>
-                            <Text style={styles.buttonTitle}>Play Again</Text>
+                            <Text style={styles.buttonTitle}>PLAY AGAIN</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.gameOverButton} onPress={onShowHighscores}>
-                            <Text style={styles.buttonTitle}>Highscores</Text>
+                            <Text style={styles.buttonTitle}>HIGHSCORES</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.gameOverButton} onPress={() => navigation.goBack()}>
-                            <Text style={styles.buttonTitle}>Main Menu</Text>
+                            <Text style={styles.buttonTitle}>MAIN MENU</Text>
                         </TouchableOpacity>
                     </>
                 )}
