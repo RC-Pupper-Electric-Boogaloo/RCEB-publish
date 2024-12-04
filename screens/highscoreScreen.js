@@ -45,13 +45,6 @@ export default function HighscoreScreen({ navigation }) {
         loadHighScores()
     }, [])
 
-    const renderItem = ({ item, index }) => (
-        <View style={styles.item}>
-            <Text style={styles.hRank}>{index + 1}.</Text>
-            <Text style={styles.hScore}>{item.initials} - {item.points}</Text>
-        </View>
-    )
-
     return (
         <ImageBackground
             source={backgroundImage}

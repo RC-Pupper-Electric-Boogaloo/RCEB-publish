@@ -213,25 +213,13 @@ const DarkTheme = (isDarkMode) => {
       marginBottom: 10,
       width: '55%',
     },
+
     //StartScreen
     containerStart: { // on myös shopScreenissä
       flex: 1,
       justifyContent: 'flex-end',
       alignItems: 'center',
       paddingBottom: 50,
-    },
-
-    //Highscore
-    hRank: {
-      fontSize: 20,
-      color: '#FFD700',
-      fontWeight: 'bold',
-    },
-    hScore: {
-      fontSize: 20,
-      color: 'white',
-      fontWeight: 'bold',
-      flexShrink: 1,
     },
 
     //GameoverScreen
