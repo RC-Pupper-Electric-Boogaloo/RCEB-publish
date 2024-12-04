@@ -25,7 +25,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                 if (totalAcceleration > 1.5 && !isBonusActive && powerUp >= 7) {
                     isBonusActive = true
                     dispatch({ type: "bonus_activated" })
-                    world.gravity.y = world.gravity.y * 0.75
+                    world.gravity.y = world.gravity.y * 0.70
                     activateBonusCoins()
                     activateRainbow()
                 }
@@ -199,7 +199,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
             event.pairs.forEach(({ bodyA, bodyB }) => {
                 if (bodyA.label === "Char" && bodyB.label === "Point") {
                     points++
-                    if (world.gravity.y <= 2.1) {
+                    if (world.gravity.y <= 2) {
                         world.gravity.y = world.gravity.y + 0.02
                     }
                     dispatch({ type: "new_point" })

@@ -105,10 +105,10 @@ const DarkTheme = (isDarkMode) => {
     //BUTTONIT
     button: {
       backgroundColor: themeBlue,
-      paddingVertical: 10,
-      paddingHorizontal: 15,
+      paddingVertical: 5,
+      paddingHorizontal: 10,
       borderRadius: 5,
-      marginBottom: 10,
+      marginBottom: 5,
     },
     buttonTitle: {
       fontSize: 16,
@@ -125,7 +125,7 @@ const DarkTheme = (isDarkMode) => {
     },
     returnButton: {
       paddingVertical: 10,
-      paddingHorizontal: 30,
+      textAlign: 'center',
       marginTop: 16,
       marginBottom: 6,
       borderRadius: 10,
@@ -139,7 +139,7 @@ const DarkTheme = (isDarkMode) => {
     buttonStart: {
       backgroundColor: '#FD8A0B',
       paddingVertical: 15,
-      paddingHorizontal: 30,
+      textAlign: 'center',
       borderRadius: 10,
       marginBottom: 10,
       width: '44%',
@@ -219,7 +219,7 @@ const DarkTheme = (isDarkMode) => {
     buttonMainMenu: {
       backgroundColor: '#FD8A0B',
       paddingVertical: 15,
-      paddingHorizontal: 30,
+      textAlign: 'center',
       borderRadius: 10,
       marginBottom: 10,
       width: '55%',
@@ -279,9 +279,9 @@ const DarkTheme = (isDarkMode) => {
     gameOverButton: {
       backgroundColor: themeBlue,
       paddingVertical: 15,
-      paddingHorizontal: 40,
       borderRadius: 10,
       marginBottom: 10,
+      textAlign: 'center',
       width: '100%',
     },
 
