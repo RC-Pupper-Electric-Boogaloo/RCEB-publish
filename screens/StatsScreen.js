@@ -68,21 +68,21 @@ const StatsScreen = ({ navigation }) => {
                     <View style={styles.screenHeader}>
                         <Text style={[styles.screenHeader, styles, { fontSize: 20 }]}>All-Time Stats</Text>
                     </View>
-                    <View style={styles.Row}>
-                        <Text style={styles.Label}>Total Points:</Text>
-                        <Text style={styles.Label}>{stats.totalPoints}</Text>
+                    <View style={styles.row}>
+                        <Text style={styles.label}>Total Points:</Text>
+                        <Text style={styles.label}>{stats.totalPoints}</Text>
                     </View>
-                    <View style={styles.Row}>
-                        <Text style={styles.Label}>Total Coins:</Text>
-                        <Text style={styles.Label}>{stats.totalCoins}</Text>
+                    <View style={styles.row}>
+                        <Text style={styles.label}>Total Coins:</Text>
+                        <Text style={styles.label}>{stats.totalCoins}</Text>
                     </View>
-                    <View style={styles.Row}>
-                        <Text style={styles.Label}>Games Played:</Text>
-                        <Text style={styles.Label}>{stats.gamesPlayed}</Text>
+                    <View style={styles.row}>
+                        <Text style={styles.label}>Games Played:</Text>
+                        <Text style={styles.label}>{stats.gamesPlayed}</Text>
                     </View>
-                    <View style={styles.Row}>
-                        <Text style={styles.Label}>Total Play Time:</Text>
-                        <Text style={styles.Label}>{formatPlayTime(stats.totalPlayTime)}</Text>
+                    <View style={styles.row}>
+                        <Text style={styles.label}>Total Play Time:</Text>
+                        <Text style={styles.label}>{formatPlayTime(stats.totalPlayTime)}</Text>
                     </View>
                 </View>
                 <View style={styles.optionsBottomContainer}>

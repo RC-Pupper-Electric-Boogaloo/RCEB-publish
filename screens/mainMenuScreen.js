@@ -58,7 +58,7 @@ export default function MainMenuScreen({ navigation }) {
       <View style={styles.containerMainMenu}>
         {!ClassicOn ? (
           <TouchableOpacity
-            style={styles.ButtonMainMenu}
+            style={styles.buttonMainMenu}
             onPress={() => {
               if (stopMusicRef.current) stopMusicRef.current();
               navigation.navigate('Game');
@@ -68,7 +68,7 @@ export default function MainMenuScreen({ navigation }) {
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-            style={styles.ButtonMainMenu}
+            style={styles.buttonMainMenu}
             onPress={() => {
               if (stopMusicRef.current) stopMusicRef.current();
               navigation.navigate('GameClassic');
@@ -77,19 +77,19 @@ export default function MainMenuScreen({ navigation }) {
             <Text style={styles.buttonTitle}>PLAY Classic</Text>
           </TouchableOpacity>
         )}
-        <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => { navigation.navigate('Highscore') }}>
+        <TouchableOpacity style={styles.buttonMainMenu} onPress={() => { navigation.navigate('Highscore') }}>
           <Text style={styles.buttonTitle}>HIGHSCORES</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Options')}>
+        <TouchableOpacity style={styles.buttonMainMenu} onPress={() => navigation.navigate('Options')}>
           <Text style={styles.buttonTitle}>OPTIONS</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Shop')}>
+        <TouchableOpacity style={styles.buttonMainMenu} onPress={() => navigation.navigate('Shop')}>
           <Text style={styles.buttonTitle}>SHOP</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Stats')}>
+        <TouchableOpacity style={styles.buttonMainMenu} onPress={() => navigation.navigate('Stats')}>
           <Text style={styles.buttonTitle}>STATS</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.ButtonMainMenu} onPress={() => navigation.navigate('Achievement')}>
+        <TouchableOpacity style={styles.buttonMainMenu} onPress={() => navigation.navigate('Achievement')}>
           <Text style={styles.buttonTitle}>ACHIEVEMENTS</Text>
         </TouchableOpacity>
       </View>

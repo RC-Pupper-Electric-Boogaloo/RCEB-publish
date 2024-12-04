@@ -136,29 +136,29 @@ const OptionScreen = ({ navigation }) => {
             <Text style={styles.screenHeader}>Options</Text>
           </View>
           <View style={styles.optionsRowContainer}>
-            <View style={styles.Row}>
-              <Text style={styles.Label}>Music</Text>
+            <View style={styles.row}>
+              <Text style={styles.label}>Music</Text>
               <TouchableOpacity style={[styles.button, musicOn && styles.activeButton]} onPress={toggleMusic}>
                 <Text style={styles.buttonTitle}>{musicOn ? "On" : "Off"}</Text>
               </TouchableOpacity>
             </View>
 
-            <View style={styles.Row}>
-              <Text style={styles.Label}>Sound FX</Text>
+            <View style={styles.row}>
+              <Text style={styles.label}>Sound FX</Text>
               <TouchableOpacity style={[styles.button, SfxOn && styles.activeButton]} onPress={toggleSfx}>
                 <Text style={styles.buttonTitle}>{SfxOn ? "On" : "Off"}</Text>
               </TouchableOpacity>
             </View>
 
-            <View style={styles.Row}>
-              <Text style={styles.Label}>Dark Mode</Text>
+            <View style={styles.row}>
+              <Text style={styles.label}>Dark Mode</Text>
               <TouchableOpacity style={[styles.button, isDarkMode && styles.activeButton]} onPress={toggleDarkMode}>
                 <Text style={styles.buttonTitle}>{isDarkMode ? "On" : "Off"}</Text>
               </TouchableOpacity>
             </View>
             {ShowClassic && (
-              <View style={styles.Row}>
-                <Text style={styles.Label}>ClassicMode</Text>
+              <View style={styles.row}>
+                <Text style={styles.label}>ClassicMode</Text>
                 <TouchableOpacity style={[styles.button, ClassicOn && styles.activeButton]} onPress={toggleClassic}>
                   <Text style={styles.buttonTitle}>{ClassicOn ? "On" : "Off"}</Text>
                 </TouchableOpacity>

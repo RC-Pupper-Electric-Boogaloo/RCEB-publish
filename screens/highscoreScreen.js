@@ -47,8 +47,8 @@ export default function HighscoreScreen({ navigation }) {
 
     const renderItem = ({ item, index }) => (
         <View style={styles.item}>
-            <Text style={styles.Hrank}>{index + 1}.</Text>
-            <Text style={styles.Hscore}>{item.initials} - {item.points}</Text>
+            <Text style={styles.hRank}>{index + 1}.</Text>
+            <Text style={styles.hScore}>{item.initials} - {item.points}</Text>
         </View>
     )
 
@@ -73,10 +73,10 @@ export default function HighscoreScreen({ navigation }) {
                     </View>
                     <ScrollView persistentScrollbar={true} contentContainerStyle={styles.scrollViewContent}>
                         {highScores.map((item, index) => (
-                            <View key={index} style={styles.Row}>
-                                <Text style={styles.Label}>{index + 1}.</Text>
-                                <Text style={[styles.Label, styles, { fontSize: 20, color: isDarkMode ? 'rgba(227, 137, 17, 1)' : 'rgba(250, 165, 55, 1)' }]}>{item.initials}</Text>
-                                <Text style={styles.Label}>{item.points}</Text>
+                            <View key={index} style={styles.row}>
+                                <Text style={styles.label}>{index + 1}.</Text>
+                                <Text style={[styles.label, styles, { fontSize: 20, color: isDarkMode ? 'rgba(227, 137, 17, 1)' : 'rgba(250, 165, 55, 1)' }]}>{item.initials}</Text>
+                                <Text style={styles.label}>{item.points}</Text>
                             </View>
                         ))}
                     </ScrollView>

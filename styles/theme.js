@@ -42,13 +42,13 @@ const DarkTheme = (isDarkMode) => {
       fontSize: 18,
       color: isDarkMode ? textWhite : '#000000',
     },
-
-    Label: {
+    label: {
       fontSize: 18,
       color: themeBlue,
       fontWeight: 'bold',
+      backgroundColor: 'red',
     },
-    Row: {
+    row: {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -117,7 +117,7 @@ const DarkTheme = (isDarkMode) => {
       backgroundColor: '#2196F3',
       width: '60%',
     },
-    BButton: { // shopin napit.
+    bButton: { // shopin napit.
       backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
     },
     buttonStart: {
@@ -200,7 +200,7 @@ const DarkTheme = (isDarkMode) => {
       position: 'relative',
       paddingTop: 200,
     },
-    ButtonMainMenu: {
+    buttonMainMenu: {
       backgroundColor: '#FD8A0B',
       paddingVertical: 15,
       paddingHorizontal: 30,
@@ -217,12 +217,12 @@ const DarkTheme = (isDarkMode) => {
     },
 
     //Highscore
-    Hrank: {
+    hRank: {
       fontSize: 20,
       color: '#FFD700',
       fontWeight: 'bold',
     },
-    Hscore: {
+    hScore: {
       fontSize: 20,
       color: 'white',
       fontWeight: 'bold',
