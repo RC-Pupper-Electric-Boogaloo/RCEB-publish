@@ -17,6 +17,10 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
     const backgroundImage = isDarkMode
         ? require('../assets/GameOverDark.jpg')
         : require('../assets/GameOver.jpg')
+        
+    useEffect(() => {
+        setMusic(require('../assets/bgmenu.mp3'))
+    }, [setMusic])
 
     useEffect(() => {
         const checkHighScore = async () => {

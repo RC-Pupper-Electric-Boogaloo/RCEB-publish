@@ -26,7 +26,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     console.log("Shaken")
                     isBonusActive = true
                     dispatch({ type: "bonus_activated" })
-                    world.gravity.y = world.gravity.y * 0.8
+                    world.gravity.y = world.gravity.y * 0.75
                     activateBonusCoins()
                     activateRainbow()
                     console.log("Bonus activated")
@@ -36,15 +36,10 @@ const Physics = (entities, { time, touches, dispatch }) => {
     }   
     const activateBonusCoins = () => {
         Object.keys(entities).forEach((key) => {
-            if (key.startsWith("Coin")) {
-                const coin = entities[key]
-                if (coin.body) {
-                    Matter.Body.setPosition(coin.body, {
-                        x: getRandom(10 + coinSize / 2, windowWidth - 10 - coinSize / 2),
-                        y: getRandom(-windowHeight, -50)
-                    })
-                    Matter.Body.setStatic(coin.body, false) // Poista staattisuus, jotta painovoima vaikuttaa
-                }
+            if (key === "Obstacle") {
+                entities[key].imageSource = require('./assets/Coin.png');
+            } else if (key === "Choco") {
+                entities[key].imageSource = require('./assets/Coin.png');
             }
         })
     }
@@ -75,20 +70,11 @@ const Physics = (entities, { time, touches, dispatch }) => {
 
     const deactivateBonusCoins = () => {
         Object.keys(entities).forEach((key) => {
-            if (key.startsWith("Coin")) {
-                const coin = entities[key]
-                if (coin.body) {
-                    // Siirrä kolikko kuvan ulkopuolelle ja tee siitä staattinen
-                    Matter.Body.setStatic(coin.body, true)
-                    Matter.Body.setPosition(coin.body, { x: -100, y: -100 }) // Pidä piilossa
-                }
+            if (key === "Obstacle") {
+                entities[key].imageSource = require('./assets/Cat.png');
+            } else if (key === "Choco") {
+                entities[key].imageSource = require('./assets/Choco.png');
             }
-            Matter.Body.setStatic(entities["Coin"].body, false)
-            Matter.Body.setVelocity(entities["Coin"].body, { x: -0.3, y: 0 })
-            Matter.Body.setPosition(entities["Coin"].body, {
-                x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
-                y: getRandom(1, 3) * -windowHeight
-            })
         })
     }
 
@@ -220,7 +206,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
             event.pairs.forEach(({ bodyA, bodyB }) => {
                 if (bodyA.label === "Char" && bodyB.label === "Point") {
                     points++
-                    if (world.gravity.y <= 2.2) {
+                    if (world.gravity.y <= 2.1) {
                         world.gravity.y = world.gravity.y + 0.02
                     }
                     dispatch({ type: "new_point" })
@@ -240,26 +226,6 @@ const Physics = (entities, { time, touches, dispatch }) => {
                         y: getRandom(1, 2) * -windowHeight
                     })
 
-                } else if (bodyA.label === "Char" && bodyB.label === "Coin1") {
-                    coinCount++
-                    dispatch({ type: "coin_collected" })
-
-                    Matter.Body.setVelocity(entities["Coin1"].body, { x: 0, y: 0 })
-                    Matter.Body.setPosition(entities["Coin1"].body, {
-                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
-                        y: -20
-                    })
-
-                } else if (bodyA.label === "Char" && bodyB.label === "Coin2") {
-                    coinCount++
-                    dispatch({ type: "coin_collected" })
-
-                    Matter.Body.setVelocity(entities["Coin2"].body, { x: 0, y: 0 })
-                    Matter.Body.setPosition(entities["Coin2"].body, {
-                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
-                        y: -20
-                    })
-
                 } else if (bodyA.label === "Point" && bodyB.label === "Obstacle") {
                     Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 })
                     Matter.Body.setPosition(bodyB, {
@@ -267,28 +233,49 @@ const Physics = (entities, { time, touches, dispatch }) => {
                         y: -windowHeight * 3
                     })
                 } else if (bodyA.label === "Char" && bodyB.label === "Choco") {
-                    dispatch({ type: "miss" })
-                    if (world.gravity.y > 0.4) {
-                        world.gravity.y = world.gravity.y - 0.02
+                    if(!isBonusActive){
+                        dispatch({ type: "miss" })
+                        if (world.gravity.y > 0.4) {
+                            world.gravity.y = world.gravity.y - 0.02
+                        }
+                        Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 })
+                        Matter.Body.setPosition(bodyB, {
+                            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
+                            y: -50
+                        })
+                    } else {
+                        coinCount++
+                        dispatch({ type: "coin_collected" })
+    
+                        Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 })
+                        Matter.Body.setPosition(entities["Choco"].body, {
+                            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
+                            y: -20
+                        })
                     }
-                    Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 })
-                    Matter.Body.setPosition(bodyB, {
-                        x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
-                        y: -50
-                    })
                 } else if (bodyA.label === "Char" && bodyB.label === "Obstacle") {
-
-                    dispatch({ type: "game_over" })
-                    if (isBonusActive) {
-                        dispatch({ type: "bonus_ended" })
-                        console.log("Bonus ended")
+                    if(!isBonusActive){
+                        dispatch({ type: "game_over" })
+                        if (isBonusActive) {
+                            dispatch({ type: "bonus_ended" })
+                            console.log("Bonus ended")
+                        }
+                        powerUp = 0
+                        isBonusActive = false
+                    } else {
+                        coinCount++
+                        dispatch({ type: "coin_collected" })
+    
+                        Matter.Body.setVelocity(entities["Obstacle"].body, { x: 0, y: 0 })
+                        Matter.Body.setPosition(entities["Obstacle"].body, {
+                            x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
+                            y: -20
+                        })
                     }
-                    powerUp = 0
-                    isBonusActive = false
                 } else if (bodyA.label === "Char" && bodyB.label === "Battery") {
 
                     batteryLevel = Math.min(batteryLevel + 20, 100)
-                    powerUp++
+                    if(powerUp<7){powerUp++}
                     console.log("PowerUp level", powerUp)
                     dispatch({ type: "battery_collected", level: batteryLevel })
                     if(powerUp>=7){startAccelerometer()}
