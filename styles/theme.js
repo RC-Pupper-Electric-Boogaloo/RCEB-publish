@@ -22,6 +22,16 @@ const DarkTheme = (isDarkMode) => {
       width: '100%',
       height: '100%',
     },
+    smallcontainer: {
+      position: 'absolute',
+      maxWidth: 450,
+      right: 10,
+      top: 10,
+      alignItems: 'right', 
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+      padding: 10, 
+      borderRadius: 8, 
+    },
     title: {
       fontSize: 24,
       color: themeBlue,
@@ -73,13 +83,14 @@ const DarkTheme = (isDarkMode) => {
     //GAMESCREEN
     pointsText: {
       textAlign: 'center',
-      color: isDarkMode ? textWhite : '#000',
-      fontSize: 40,
+      color: isDarkMode ? '#FFF' : '#000',
+      fontSize: 24,
       fontWeight: 'bold',
       margin: 20,
+      marginBottom: 10,
       zIndex: 100,
       position: 'absolute',
-      right: 20,
+      right: 10,
     },
     coinsText: {
       textAlign: 'center',

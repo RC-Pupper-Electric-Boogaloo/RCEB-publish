@@ -33,8 +33,8 @@ export default (restart, imageSource, skin) => {
         Battery: Obstacle(world, 'Battery', 'blue', { x: 360, y: -5 * windowHeight }, { height: batterySize, width: batterySize }, require('../assets/Battery.png')),
         Point: Point(world, 'Point', 'orange', { x: 260, y: -50 }, { width: pointSize }, require('../assets/Point.png')),
         Coin: Point(world, 'Coin', 'gold', { x: 260, y: -5 * windowHeight }, { width: coinSize }, require('../assets/Coin.png')),
-        Coin1: Point(world, 'Coin1', 'gold', { x: -100, y: -1000 }, { width: coinSize }, require('../assets/Coin.png')),
-        Coin2: Point(world, 'Coin2', 'gold', { x: -200, y: -1200 }, { width: coinSize }, require('../assets/Coin.png')),
+       // Coin1: Point(world, 'Coin1', 'gold', { x: -100, y: -1000 }, { width: coinSize }, require('../assets/Coin.png')),
+       // Coin2: Point(world, 'Coin2', 'gold', { x: -200, y: -1200 }, { width: coinSize }, require('../assets/Coin.png')),
   }
 
     return entities;

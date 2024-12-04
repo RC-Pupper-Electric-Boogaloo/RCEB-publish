@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
-import { View, Text, ImageBackground } from 'react-native'
+import { View, Text, ImageBackground, Image } from 'react-native'
 import { GameEngine } from 'react-native-game-engine'
 import { StatusBar } from 'expo-status-bar'
 import { useFocusEffect } from '@react-navigation/native'
@@ -249,16 +249,25 @@ export default function GameScreen({ navigation }) {
                             source={backgroundImage}
                             style={{ flex: 1 }}
                         >
-                            <Text style={styles.pointsText}>
-                                {currentPoints}
-                            </Text>
-                            <Text style={{ margin: 20 }}>
-                                {bonusMode ? 'Bonus mode activated!' : ''}
-                            </Text>
-                            <Text style={styles.coinsText}>
-                                Coins: {coinCount}
-                            </Text>
 
+                            <View style={{ alignItems: 'left', margin: 20 }}>
+                                {bonusMode ? (
+                                <Image 
+                                    source={require('../assets/bonus.png')} 
+                                    style={{
+                                    width: 160, // Aseta haluamasi leveys
+                                    height: 100, // Aseta haluamasi korkeus
+                                    resizeMode: 'contain', // Säilyttää kuvan mittasuhteet
+                                }} 
+                            />
+                            ) : (
+                                <Text> </Text>
+                            )}
+                            </View>
+                            <Text style={styles.pointsText}>
+                                <Image source={require('../assets/Point.png')} style={styles.coinImage} /> x {currentPoints}{"\n"} 
+                                <Image source={require('../assets/Coin.png')} style={styles.coinImage} /> x {coinCount}
+                            </Text>
                             <View
                                 style={{
                                     position: 'absolute',
