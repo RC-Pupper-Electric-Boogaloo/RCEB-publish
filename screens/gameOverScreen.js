@@ -68,10 +68,12 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
         >
             <View style={styles.containerGameOver}>
                 <Text style={styles.pointsTextGameOver}>Points: {currentPoints}</Text>
-                <View style={styles.coinsContainer}>
-                    <Image source={require('../assets/Coin.png')} style={styles.coinImage} />
-                    <Text style={styles.coinsTextGameOver}>x {coinCount}</Text>
-                </View>
+                {!isClassicMode && (
+                    <View style={styles.coinsContainer}>
+                        <Image source={require('../assets/Coin.png')} style={styles.coinImage} />
+                        <Text style={styles.coinsTextGameOver}>x {coinCount}</Text>
+                    </View>
+                )}
 
                 {isHighScore ? (
                     <View>

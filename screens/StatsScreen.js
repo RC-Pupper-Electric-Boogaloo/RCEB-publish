@@ -63,10 +63,7 @@ const StatsScreen = ({ navigation }) => {
             <View style={styles.optionsContainer}>
                 <View style={styles.optionsColorContainer}>
                     <View style={styles.headerContainer}>
-                        <Text style={styles.screenHeader}>Stats</Text>
-                    </View>
-                    <View style={styles.screenHeader}>
-                        <Text style={[styles.screenHeader, styles, { fontSize: 20 }]}>All-Time Stats</Text>
+                        <Text style={styles.screenHeader}>All-Time Stats</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Total Points:</Text>

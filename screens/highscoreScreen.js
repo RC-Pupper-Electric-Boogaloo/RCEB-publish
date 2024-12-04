@@ -63,6 +63,9 @@ export default function HighscoreScreen({ navigation }) {
                 <View style={styles.colorContainer}>
                     <View style={styles.headerContainer}>
                         <Text style={styles.screenHeader}>Highscores</Text>
+                        {isClassicMode && (
+                            <Text style={styles.gameOverText}>classic</Text>
+                        )}
                     </View>
                     <ScrollView persistentScrollbar={true} contentContainerStyle={styles.scrollViewContent}>
                         {highScores.map((item, index) => (
