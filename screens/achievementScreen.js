@@ -42,7 +42,7 @@ const AchievementScreen = ({ navigation }) => {
 
                 const savedScores = await AsyncStorage.getItem('HIGHSCORES')
                 let scoresArray = savedScores ? JSON.parse(savedScores) : []
-                const highestScore = scoresArray.length > 0 ? Math.max(...scoresArray) : 0
+                const highestScore = scoresArray.length > 0 ? Math.max(...scoresArray.map(score => score.points)) : 0
                 setHighScore(highestScore)
 
                 const savedSkins = await AsyncStorage.getItem('purchasedSkins')
@@ -185,7 +185,7 @@ const AchievementScreen = ({ navigation }) => {
                                     <Text style={styles.text}>{achievement.requirement}</Text>
                                     <ProgressBar
                                         progress={achievement.progress / achievement.goal}
-                                        width={200}
+                                        width={150}
                                         color={achievement.unlocked ? "green" : "gray"}
                                         style={{ marginVertical: 5 }}
                                     />
