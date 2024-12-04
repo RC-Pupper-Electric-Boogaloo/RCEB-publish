@@ -283,6 +283,7 @@ const DarkTheme = (isDarkMode) => {
       paddingHorizontal: 40,
       borderRadius: 10,
       marginBottom: 10,
+      width: '100%',
     },
 
     //guideScreen, statsScreen, achievementScreen ja highscoreScreen
