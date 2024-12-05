@@ -2,7 +2,6 @@ import Constants from 'expo-constants'
 import { Dimensions } from "react-native"
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
@@ -135,9 +134,6 @@ const DarkTheme = (isDarkMode) => {
       backgroundColor: '#2196F3',
       width: '60%',
     },
-    bButton: { // shopin napit.
-      backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
-    },
     buttonStart: {
       backgroundColor: '#FD8A0B',
       paddingVertical: 15,
@@ -178,36 +174,6 @@ const DarkTheme = (isDarkMode) => {
       justifyContent: 'center',
       alignItems: 'center',
       width: '100%',
-    },
-
-    //SKINIT
-    skinsContainer: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-      alignItems: 'center',
-      padding: 40,
-      justifyContent: 'center',
-
-    },
-    skinBox: {
-      width: windowWidth / 6,
-      height: windowWidth / 6,
-      margin: 2,
-      borderRadius: 10,
-      overflow: 'hidden',
-    },
-    skinImage: {
-      width: '100%',
-      height: '100%',
-      opacity: 0.5,
-    },
-    purchased: {
-      opacity: 1,
-    },
-    selectedSkinBox: {
-      borderWidth: 3,
-      borderColor: 'gold',
     },
 
     //Mainmenu
@@ -310,6 +276,7 @@ const DarkTheme = (isDarkMode) => {
       color: textWhite,
       fontWeight: 'bold',
       marginBottom: 10,
+      textAlign: 'center',
     },
     scrollViewContent: {
       alignItems: 'center',
@@ -347,6 +314,48 @@ const DarkTheme = (isDarkMode) => {
       flex: 1,
       backgroundColor: sectionBackgroundColor,
       borderRadius: 10,
+    },
+
+    //ShopScreen
+    skinsContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      marginTop: 10,
+      paddingBottom: 20,
+      width: '100%',
+    },
+    skinBox: {
+      width: '45%',
+      backgroundColor: sectionBackgroundColor,
+      borderRadius: 10,
+      alignItems: 'center',
+      padding: 10,
+      marginBottom: 15,
+    },
+    selectedSkinBox: {
+      borderWidth: 4,
+      borderColor: themeBlue,
+    },
+    purchased: {
+      backgroundColor: isDarkMode ? textWhite : '#1e1e1e',
+    },
+    skinImage: {
+      width: 80,
+      height: 80,
+      marginBottom: 10,
+    },
+    skinName: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: labelOrange,
+    },
+    skinPrice: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: themeBlue,
     },
   }
 }
