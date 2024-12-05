@@ -19,11 +19,14 @@ Hankkeesta vastanneet tekijät ovat yllämainitut Matti Nieminen, Jimi Jakola, H
 
 ## Mobiilipelin kuvaus
 
-Mobiilipeli on kokonaisvaltainen peli käyttäjälle, joka haluaa ajan kulumaan koukuttavalla kutkutuksella RC-Pupperin maailmassa.
+Woof woof! Seikkailua ja hauskuutta luvassa! Ole nopea kuin salama, väistele esteitä ja kerää luut ja kolikot samalla kun kiidät koiran supervoimilla.
 
+Seuraa reaaliajassa tilastot, kuten kerätyt kolikot, pisteet, peliajan ja pelikerrat.
 
 ## Teknologiat
-
+React
+AsyncStorage
+Game Engine
 
 ### Ohjelmistoarkkitehtuuri
 Käyttöliittymäkomponenttien sisältö on jaettu loogisiin, modulaarisiin kokonaisuuksiin, jotta niitä on helppo käyttää ja ylläpitää. 
