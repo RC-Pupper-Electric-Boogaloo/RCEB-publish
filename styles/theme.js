@@ -13,6 +13,7 @@ const DarkTheme = (isDarkMode) => {
   const labelOrange = isDarkMode ? 'rgba(227, 137, 17, 1)' : 'rgba(250, 165, 55, 1)'
   const themeBlue = '#3498db'
   const containerBackgroundColor = isDarkMode ? 'rgba(227, 137, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
+  const sectionBackgroundColor = isDarkMode ? '#1e1e1e' : '#FFF9F3'
 
   return {
     background: {
@@ -59,7 +60,7 @@ const DarkTheme = (isDarkMode) => {
       fontWeight: 'bold',
     },
     labelOrange: {
-      fontSize: 18,
+      fontSize: 20,
       color: labelOrange,
       fontWeight: 'bold',
       textAlign: 'right',
@@ -70,7 +71,7 @@ const DarkTheme = (isDarkMode) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
-      backgroundColor: isDarkMode ? '#1e1e1e' : '#FFF9F3',
+      backgroundColor: sectionBackgroundColor,
       borderRadius: 10,
       padding: 10,
       marginBottom: 10,
@@ -84,7 +85,7 @@ const DarkTheme = (isDarkMode) => {
     //GAMESCREEN
     pointsText: {
       textAlign: 'center',
-      color: isDarkMode ? '#FFF' : '#000',
+      color: isDarkMode ? textWhite : '#000',
       fontSize: 24,
       fontWeight: 'bold',
       margin: 20,
@@ -322,14 +323,14 @@ const DarkTheme = (isDarkMode) => {
       flexDirection: "row",
       alignItems: "center",
       marginBottom: 10,
-      backgroundColor: isDarkMode ? "#1e1e1e" : "#FFF9F3",
+      backgroundColor: sectionBackgroundColor,
       padding: 10,
       borderRadius: 10,
     },
     guideSectionLast: {
       flexDirection: "row",
       alignItems: "center",
-      backgroundColor: isDarkMode ? "#1e1e1e" : "#FFF9F3",
+      backgroundColor: sectionBackgroundColor,
       padding: 10,
       borderRadius: 10,
     },
@@ -341,6 +342,11 @@ const DarkTheme = (isDarkMode) => {
     },
     guideCenter: {
       flex: 1,
+    },
+    statBox: {
+      flex: 1,
+      backgroundColor: sectionBackgroundColor,
+      borderRadius: 10,
     },
   }
 }
