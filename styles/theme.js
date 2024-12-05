@@ -62,6 +62,7 @@ const DarkTheme = (isDarkMode) => {
       fontSize: 18,
       color: labelOrange,
       fontWeight: 'bold',
+      textAlign: 'right',
     },
     row: {
       flex: 1,
