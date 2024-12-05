@@ -67,11 +67,11 @@ const StatsScreen = ({ navigation }) => {
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Total Points:</Text>
-                        <Text style={styles.labelOrange}>{stats.totalPoints}</Text>
+                        <Text style={styles.labelOrange}>{stats.totalPoints}{"\n"} Avg. ({Math.round(stats.totalPoints/stats.gamesPlayed)})</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Total Coins:</Text>
-                        <Text style={styles.labelOrange}>{stats.totalCoins}</Text>
+                        <Text style={styles.labelOrange}>{stats.totalCoins}{"\n"} Avg. ({Math.round(stats.totalCoins/stats.gamesPlayed)})</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Games Played:</Text>
@@ -79,7 +79,7 @@ const StatsScreen = ({ navigation }) => {
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Total Play Time:</Text>
-                        <Text style={styles.labelOrange}>{formatPlayTime(stats.totalPlayTime)}</Text>
+                        <Text style={styles.labelOrange}>{formatPlayTime(stats.totalPlayTime)}{"\n"} Avg. ({formatPlayTime(Math.round(stats.totalPlayTime / stats.gamesPlayed))})</Text>
                     </View>
                 </View>
                 <View style={styles.optionsBottomContainer}>

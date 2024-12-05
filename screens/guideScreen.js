@@ -132,7 +132,7 @@ const GuideScreen = ({ navigation }) => {
                                 </Text>
                             </View>
                         </View>
-                        <View style={styles.guideSectionLast}>
+                        <View style={styles.guideSection}>
                             <Image
                                 source={require('../assets/Coin.png')}
                                 style={styles.guideImage}
@@ -143,6 +143,11 @@ const GuideScreen = ({ navigation }) => {
                                     Keep collecting to keep them coming
                                 </Text>
                             </View>
+                        </View>
+                    <View style={styles.containerStart}>
+                                <TouchableOpacity style={styles.buttonStart} onPress={() => navigation.navigate('Credits')}>
+                                    <Text style={styles.buttonTitle}>CREDITS</Text>
+                                </TouchableOpacity>
                         </View>
                     </ScrollView>
                     <TouchableOpacity style={styles.returnButton} onPress={() => navigation.goBack()}>
