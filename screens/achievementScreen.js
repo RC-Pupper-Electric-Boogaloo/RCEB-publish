@@ -193,13 +193,13 @@ const AchievementScreen = ({ navigation }) => {
                     </TouchableOpacity>
                 ))}
 
-                <TouchableOpacity
+            </ScrollView>
+            <TouchableOpacity
                     style={ styles.returnButton}
                     onPress={() => navigation.goBack()}
                 >
                     <Text style={styles.buttonTitle}>Return</Text>
                 </TouchableOpacity>
-            </ScrollView>
         </ImageBackground>
     )
 }

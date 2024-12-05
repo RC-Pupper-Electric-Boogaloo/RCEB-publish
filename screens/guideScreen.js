@@ -116,15 +116,15 @@ const GuideScreen = ({navigation}) => {
                     style={styles.Guideimage}
                     />
             <View style={styles.GuideCenter}>
-                <Text style={styles.title}>Bonus coin</Text>
+                <Text style={styles.title}>Battery</Text>
                 <Text style={styles.text}>
-                Collect 7 battery to be able to enter bonus mode.
+                Collect 7 batteries to fill gauge.
                 </Text>
             </View>
             </View>
             <View style={styles.Guidesection}>
                 <Image
-                    source={require('../assets/Battery.png')}
+                    source={require('../assets/gauge.png')}
                     style={styles.Guideimage}
                     />
             <View style={styles.GuideCenter}>
@@ -146,10 +146,10 @@ const GuideScreen = ({navigation}) => {
                 </Text>
             </View>
             </View>
+        </ScrollView>
         <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => navigation.goBack()}>
             <Text style={styles.buttonTitle}>Return</Text>
         </TouchableOpacity>
-        </ScrollView>
     </ImageBackground>
     )
 }
