@@ -55,18 +55,16 @@ export default function CreditsScreen({ navigation }) {
       </GameEngine>
       <View style={styles.optionsBottomContainer}>
         <Text style={styles.title}>RC Pupper Racing team</Text>
-        <Text style={styles.text}>
-            Hannu Karjalainen{"\n"}Matti Nieminen{"\n"}Tapio Kylmämaa{"\n"}Jimi Jakola
+        <Text style={[styles.text, styles, { color: '#FFFDFA' }]}>
+          Hannu Karjalainen{"\n"}Matti Nieminen{"\n"}Tapio Kylmämaa{"\n"}Jimi Jakola
         </Text>
-        
-            <TouchableOpacity
-                style={[styles.button, styles.returnButton]}
-                onPress={() => navigation.goBack()}
-            >
-                <Text style={styles.buttonTitle}>RETURN</Text>
-            </TouchableOpacity>
-        
+        <TouchableOpacity
+          style={styles.returnButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.buttonTitle}>RETURN</Text>
+        </TouchableOpacity>
       </View>
-    </ImageBackground>
+    </ImageBackground >
   )
 }
