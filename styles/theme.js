@@ -368,6 +368,7 @@ const DarkTheme = (isDarkMode) => {
       paddingHorizontal: 5,
       borderRadius: borderRadius,
       marginTop: 10,
+      marginBottom: 10,
       width: '100%',
     },
     shopButton: {
