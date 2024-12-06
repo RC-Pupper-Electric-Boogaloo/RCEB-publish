@@ -9,10 +9,12 @@ const DarkTheme = (isDarkMode) => {
 
   const insets = useSafeAreaInsets()
   const textWhite = '#FFFDFA'
+  const textBlack = '#190C00'
+  const textColor = isDarkMode ? textWhite : textBlack
   const labelOrange = isDarkMode ? 'rgba(227, 137, 17, 1)' : 'rgba(250, 165, 55, 1)'
   const themeBlue = '#2196F3'
   const containerBackgroundColor = isDarkMode ? 'rgba(227, 137, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
-  const sectionBackgroundColor = isDarkMode ? '#1e1e1e' : '#FFF9F3'
+  const sectionBackgroundColor = isDarkMode ? '#190C00' : '#FFF5EB'
   const borderRadius = 10
 
   return {
@@ -53,13 +55,13 @@ const DarkTheme = (isDarkMode) => {
     text: {
       fontSize: 16,
       lineHeight: 22,
-      color: isDarkMode ? textWhite : '#000000',
+      color: textColor,
     },
 
     //gameScreen
     pointsText: {
       textAlign: 'center',
-      color: isDarkMode ? textWhite : '#000',
+      color: textColor,
       fontSize: 24,
       fontWeight: 'bold',
       margin: 20,
@@ -70,7 +72,7 @@ const DarkTheme = (isDarkMode) => {
     },
     coinsText: {
       textAlign: 'center',
-      color: isDarkMode ? textWhite : '#000',
+      color: textColor,
       fontSize: 20,
       fontWeight: 'bold',
       position: 'absolute',
@@ -212,7 +214,7 @@ const DarkTheme = (isDarkMode) => {
       textAlign: 'center',
     },
     initialsInput: {
-      backgroundColor: isDarkMode ? '#1e1e1e' : textWhite,
+      backgroundColor: isDarkMode ? textBlack : textWhite,
       placeholderTextColor: '#FD8A0B',
       color: '#FD8A0B',
       textAlign: 'center',
@@ -304,7 +306,7 @@ const DarkTheme = (isDarkMode) => {
     },
     skinBox: {
       width: '45%',
-      backgroundColor: '#1e1e1e',
+      backgroundColor: '#190C00',
       borderRadius: borderRadius,
       alignItems: 'center',
       padding: 8,
@@ -316,7 +318,7 @@ const DarkTheme = (isDarkMode) => {
       borderColor: themeBlue,
     },
     purchased: {
-      backgroundColor: '#FFF9F3',
+      backgroundColor: '#FFF5EB',
     },
     skinImage: {
       width: 80,
@@ -361,7 +363,7 @@ const DarkTheme = (isDarkMode) => {
       width: '100%',
     },
     shopButton: {
-      backgroundColor: isDarkMode ? '#1e1e1e' : '#FFF9F3',
+      backgroundColor: isDarkMode ? '#190C00' : '#FFF5EB',
       paddingVertical: 3,
       paddingHorizontal: 3,
       borderRadius: borderRadius,
