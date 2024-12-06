@@ -204,7 +204,7 @@ const ShopScreen = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity style={[styles.shopButton]} onPress={() => alert('Remove Ads nappi toimii')}>
               <Text style={styles.shopButtonTitleOrange}>REMOVE ADS{'\n'}</Text>
-              <Text style={styles.shopButtonTitle}>3€</Text>
+              <Text style={styles.shopButtonTitle}>3 €</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.shopButton]} onPress={() => alert('Watch Ad nappi toimii')}>
               <Text style={styles.shopButtonTitleOrange}>WATCH AD{'\n'}</Text>
