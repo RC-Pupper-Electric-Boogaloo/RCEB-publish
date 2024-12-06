@@ -97,7 +97,7 @@ const StatsScreen = ({ navigation }) => {
                     >
                         <Text style={styles.buttonTitle}>RETURN</Text>
                     </TouchableOpacity>
-                    
+
                 </View>
             </View>
 

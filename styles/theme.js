@@ -363,7 +363,7 @@ const DarkTheme = (isDarkMode) => {
       width: '100%',
     },
     shopButton: {
-      backgroundColor: isDarkMode ? '#190C00' : '#FFF5EB',
+      backgroundColor: sectionBackgroundColor,
       paddingVertical: 3,
       paddingHorizontal: 3,
       borderRadius: borderRadius,
