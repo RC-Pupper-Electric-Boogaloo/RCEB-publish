@@ -285,6 +285,7 @@ const DarkTheme = (isDarkMode) => {
       alignItems: "center",
       backgroundColor: sectionBackgroundColor,
       padding: 10,
+      marginBottom: 0,
       borderRadius: borderRadius,
     },
     guideImage: {
@@ -300,6 +301,7 @@ const DarkTheme = (isDarkMode) => {
       flex: 1,
       backgroundColor: sectionBackgroundColor,
       borderRadius: borderRadius,
+      paddingBottom: 5,
     },
 
     //shopScreen

@@ -54,7 +54,7 @@ export default function CreditsScreen({ navigation }) {
         <StatusBar style="auto" hidden={true} />
       </GameEngine>
       <View style={styles.optionButtonContainer}>
-        <Text style={styles.title}>RC Pupper Racing team</Text>
+        <Text style={styles.title}>RC Pupper Racing Team</Text>
         <Text style={styles.creditsText}>
           Hannu Karjalainen{"\n"}Tapio Kylmämaa{"\n"}Matti Nieminen{"\n"}Jimi Jakola
         </Text>

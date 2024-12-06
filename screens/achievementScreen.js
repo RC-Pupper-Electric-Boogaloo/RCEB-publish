@@ -172,10 +172,13 @@ const AchievementScreen = ({ navigation }) => {
                         <Text style={styles.screenHeader}>Achievements</Text>
                     </View>
                     <ScrollView persistentScrollbar={true} contentContainerStyle={styles.scrollViewContent}>
-                        {achievements.map((achievement) => (
+                        {achievements.map((achievement, index) => (
                             <TouchableOpacity
                                 key={achievement.id}
-                                style={styles.guideSection}
+                                style={[
+                                    styles.guideSection,
+                                    index === achievements.length - 1 && styles.guideSectionLast
+                                ]}
                                 onPress={() => handleAchievementClick(achievement)}
                                 activeOpacity={achievement.unlocked ? 0.7 : 1}
                             >
@@ -196,10 +199,7 @@ const AchievementScreen = ({ navigation }) => {
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
-                    <TouchableOpacity
-                        style={styles.returnButton}
-                        onPress={() => navigation.goBack()}
-                    >
+                    <TouchableOpacity style={[styles.returnButton, styles, { marginTop: 16 }]} onPress={() => navigation.goBack()}>
                         <Text style={styles.buttonTitle}>RETURN</Text>
                     </TouchableOpacity>
                 </View>
