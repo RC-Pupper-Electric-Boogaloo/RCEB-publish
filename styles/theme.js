@@ -57,6 +57,14 @@ const DarkTheme = (isDarkMode) => {
       lineHeight: 22,
       color: textColor,
     },
+    creditsText: {
+      marginVertical: 10,
+      fontSize: 16,
+      lineHeight: 22,
+      color: textColor,
+      textAlign: 'center',
+      color: textWhite,
+    },
 
     //gameScreen
     pointsText: {
