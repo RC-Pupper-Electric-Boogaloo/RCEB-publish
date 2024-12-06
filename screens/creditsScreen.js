@@ -53,7 +53,7 @@ export default function CreditsScreen({ navigation }) {
       >
         <StatusBar style="auto" hidden={true} />
       </GameEngine>
-      <View style={styles.optionsBottomContainer}>
+      <View style={styles.optionButtonContainer}>
         <Text style={styles.title}>RC Pupper Racing team</Text>
         <Text style={[styles.text, styles, { color: '#FFFDFA' }]}>
           Hannu Karjalainen{"\n"}Matti Nieminen{"\n"}Tapio Kylmämaa{"\n"}Jimi Jakola

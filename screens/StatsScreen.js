@@ -91,7 +91,7 @@ const StatsScreen = ({ navigation }) => {
                         </View>
                     </View>
                 </View>
-                <View style={styles.optionsBottomContainer}>
+                <View style={styles.optionButtonContainer}>
                     <TouchableOpacity
                         style={[styles.button, styles.returnButton]}
                         onPress={() => navigation.goBack()}

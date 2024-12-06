@@ -10,7 +10,7 @@ const DarkTheme = (isDarkMode) => {
   const insets = useSafeAreaInsets()
   const textWhite = '#FFFDFA'
   const labelOrange = isDarkMode ? 'rgba(227, 137, 17, 1)' : 'rgba(250, 165, 55, 1)'
-  const themeBlue = '#3498db'
+  const themeBlue = '#2196F3'
   const containerBackgroundColor = isDarkMode ? 'rgba(227, 137, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
   const sectionBackgroundColor = isDarkMode ? '#1e1e1e' : '#FFF9F3'
 
@@ -81,7 +81,7 @@ const DarkTheme = (isDarkMode) => {
       color: isDarkMode ? textWhite : '#000000',
     },
 
-    //GAMESCREEN
+    //gameScreen
     pointsText: {
       textAlign: 'center',
       color: isDarkMode ? textWhite : '#000',
@@ -143,7 +143,7 @@ const DarkTheme = (isDarkMode) => {
       width: '44%',
     },
 
-    //Optionsview
+    //optionsScreen
     optionsContainer: {
       flex: 1,
       justifyContent: 'center',
@@ -162,9 +162,9 @@ const DarkTheme = (isDarkMode) => {
       padding: 10,
       marginBottom: '65%',
     },
-    optionsBottomContainer: {
-      backgroundColor: containerBackgroundColor,
+    optionButtonContainer: {
       width: '90%',
+      backgroundColor: containerBackgroundColor,
       borderRadius: 10,
       alignItems: 'center',
       padding: 5,
@@ -176,7 +176,7 @@ const DarkTheme = (isDarkMode) => {
       width: '100%',
     },
 
-    //Mainmenu
+    //mainMenuScreen
     containerMainMenu: { // on myös optionScreenissä
       flex: 1,
       justifyContent: 'center',
@@ -193,7 +193,7 @@ const DarkTheme = (isDarkMode) => {
       width: '55%',
     },
 
-    //StartScreen
+    //startScreen
     containerStart: { // on myös shopScreenissä
       flex: 1,
       justifyContent: 'flex-end',
@@ -201,7 +201,7 @@ const DarkTheme = (isDarkMode) => {
       paddingBottom: 50,
     },
 
-    //GameoverScreen
+    //gameOverScreen
     containerGameOver: {
       justifyContent: 'center',
       alignItems: 'center',
@@ -256,7 +256,7 @@ const DarkTheme = (isDarkMode) => {
     //guideScreen, statsScreen, achievementScreen ja highscoreScreen
     container: {
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'space-between',
       alignItems: 'center',
       marginTop: Constants.statusBarHeight + 8,
       marginBottom: insets.bottom,
@@ -266,7 +266,7 @@ const DarkTheme = (isDarkMode) => {
       backgroundColor: containerBackgroundColor,
       justifyContent: 'center',
       alignItems: 'center',
-      width: '100%',
+      width: '90%',
       borderRadius: 10,
       padding: 10,
       marginBottom: 10,
@@ -282,7 +282,7 @@ const DarkTheme = (isDarkMode) => {
       alignItems: 'center',
       borderRadius: 10,
       paddingRight: 8,
-      width: '90%',
+      width: '100%',
       marginBottom: 20,
       paddingBottom: 0,
     },
@@ -316,29 +316,31 @@ const DarkTheme = (isDarkMode) => {
       borderRadius: 10,
     },
 
-    //ShopScreen
+    //shopScreen
     skinsContainer: {
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'space-between',
-      marginTop: 10,
-      paddingBottom: 20,
       width: '100%',
+      borderRadius: 10,
+      padding: 5,
     },
     skinBox: {
       width: '45%',
-      backgroundColor: sectionBackgroundColor,
+      backgroundColor: '#1e1e1e',
       borderRadius: 10,
       alignItems: 'center',
-      padding: 10,
+      padding: 8,
+      margin: 5,
       marginBottom: 15,
     },
     selectedSkinBox: {
-      borderWidth: 4,
+      borderWidth: 3,
       borderColor: themeBlue,
     },
     purchased: {
-      backgroundColor: isDarkMode ? textWhite : '#1e1e1e',
+      backgroundColor: '#FFF9F3',
     },
     skinImage: {
       width: 80,
@@ -346,7 +348,7 @@ const DarkTheme = (isDarkMode) => {
       marginBottom: 10,
     },
     skinName: {
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: 'bold',
       textAlign: 'center',
       color: labelOrange,
@@ -356,6 +358,51 @@ const DarkTheme = (isDarkMode) => {
       fontWeight: 'bold',
       textAlign: 'center',
       color: themeBlue,
+    },
+    buyButtonContainer: {
+      backgroundColor: themeBlue,
+      paddingVertical: 10,
+      paddingHorizontal: 5,
+      borderRadius: 10,
+      marginTop: 10,
+      width: '100%',
+    },
+    buyButton: {
+      backgroundColor: themeBlue,
+      borderRadius: 10,
+      justifyContent: 'center',
+      width: '100%',
+    },
+    shopButtonContainer: {
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      paddingVertical: 10,
+      paddingHorizontal: 5,
+      borderRadius: 10,
+      marginTop: 10,
+      width: '100%',
+    },
+    shopButton: {
+      backgroundColor: isDarkMode ? '#1e1e1e' : '#FFF9F3',
+      paddingVertical: 3,
+      paddingHorizontal: 3,
+      borderRadius: 10,
+      width: '30%',
+      justifyContent: 'center',
+    },
+    shopButtonTitleOrange: {
+      fontSize: 14,
+      color: labelOrange,
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    shopButtonTitle: {
+      fontSize: 14,
+      color: themeBlue,
+      fontWeight: 'bold',
+      textAlign: 'center',
     },
   }
 }
