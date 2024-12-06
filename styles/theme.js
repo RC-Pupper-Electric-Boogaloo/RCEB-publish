@@ -122,7 +122,7 @@ const DarkTheme = (isDarkMode) => {
     //optionsScreen
     optionsContainer: {
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'space-between',
       alignItems: 'center',
       marginTop: Constants.statusBarHeight + 8,
       marginBottom: insets.bottom + 8,
@@ -136,7 +136,7 @@ const DarkTheme = (isDarkMode) => {
       width: '90%',
       borderRadius: borderRadius,
       padding: 10,
-      marginBottom: '65%',
+      maxHeight: windowHeight / 2,
     },
     optionButtonContainer: {
       width: '90%',
