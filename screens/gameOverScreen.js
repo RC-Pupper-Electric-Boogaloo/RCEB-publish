@@ -74,7 +74,6 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
                         <Text style={styles.coinsTextGameOver}>x {coinCount}</Text>
                     </View>
                 )}
-
                 {isHighScore ? (
                     <View>
                         <Text style={styles.gameOverText}>New High Score!</Text>

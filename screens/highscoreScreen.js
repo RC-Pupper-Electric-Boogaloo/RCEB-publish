@@ -71,7 +71,7 @@ export default function HighscoreScreen({ navigation }) {
                         {highScores.map((item, index) => (
                             <View key={index} style={styles.row}>
                                 <Text style={styles.label}>{index + 1}.</Text>
-                                <Text style={[styles.labelOrange, styles, { fontSize: 20 }]}>{item.initials}</Text>
+                                <Text style={styles.labelOrange}>{item.initials}</Text>
                                 <Text style={styles.label}>{item.points}</Text>
                             </View>
                         ))}
