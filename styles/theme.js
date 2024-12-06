@@ -371,13 +371,13 @@ const DarkTheme = (isDarkMode) => {
       justifyContent: 'center',
     },
     shopButtonTitleOrange: {
-      fontSize: 14,
+      fontSize: 13,
       color: labelOrange,
       fontWeight: 'bold',
       textAlign: 'center',
     },
     shopButtonTitle: {
-      fontSize: 14,
+      fontSize: 13,
       color: themeBlue,
       fontWeight: 'bold',
       textAlign: 'center',
