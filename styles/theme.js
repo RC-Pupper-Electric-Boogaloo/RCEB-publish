@@ -118,7 +118,7 @@ const DarkTheme = (isDarkMode) => {
       textAlign: 'center',
     },
     activeButton: {
-      backgroundColor: isDarkMode ? '#FF5722' : '#FF5722',
+      backgroundColor: '#FD8A0B',
     },
     resetButton: {
       backgroundColor: '#F44336',
@@ -131,7 +131,7 @@ const DarkTheme = (isDarkMode) => {
       marginBottom: 6,
       borderRadius: 10,
       textAlign: 'center',
-      backgroundColor: '#2196F3',
+      backgroundColor: themeBlue,
       width: '60%',
     },
     buttonStart: {
@@ -167,6 +167,7 @@ const DarkTheme = (isDarkMode) => {
       backgroundColor: containerBackgroundColor,
       borderRadius: 10,
       alignItems: 'center',
+      justifyContent: 'center',
       padding: 5,
     },
     optionsRowContainer: {

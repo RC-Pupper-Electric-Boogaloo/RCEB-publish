@@ -27,7 +27,6 @@ const StatsScreen = ({ navigation }) => {
         if (isNaN(seconds) || seconds <= 0) {
             return "0h 0m 0s"
         }
-
         return `${hours}h ${minutes}m ${remainingSeconds}s`
     }
 
@@ -73,21 +72,21 @@ const StatsScreen = ({ navigation }) => {
                         <Text style={styles.label}>Total Points:</Text>
                         <View style={styles.statBox}>
                             <Text style={styles.labelOrange}>{stats.totalPoints}</Text>
-                            <Text style={[styles.labelOrange, styles, { fontSize: 14, color: '#3498db' }]}>Avg. ({Math.round(stats.totalPoints / stats.gamesPlayed)})</Text>
+                            <Text style={[styles.labelOrange, styles, { fontSize: 14, color: '#2196F3' }]}>Avg. ({Math.round(stats.totalPoints / stats.gamesPlayed)})</Text>
                         </View>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Total Coins:</Text>
                         <View style={styles.statBox}>
                             <Text style={styles.labelOrange}>{stats.totalCoins}</Text>
-                            <Text style={[styles.labelOrange, styles, { fontSize: 14, color: '#3498db' }]}>Avg. ({Math.round(stats.totalCoins / stats.gamesPlayed)})</Text>
+                            <Text style={[styles.labelOrange, styles, { fontSize: 14, color: '#2196F3' }]}>Avg. ({Math.round(stats.totalCoins / stats.gamesPlayed)})</Text>
                         </View>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Total Play Time:</Text>
                         <View style={styles.statBox}>
                             <Text style={styles.labelOrange}>{formatPlayTime(stats.totalPlayTime)}</Text>
-                            <Text style={[styles.labelOrange, styles, { fontSize: 14, color: '#3498db' }]}>Avg. ({formatPlayTime(Math.round(stats.totalPlayTime / stats.gamesPlayed))})</Text>
+                            <Text style={[styles.labelOrange, styles, { fontSize: 14, color: '#2196F3' }]}>Avg. ({formatPlayTime(Math.round(stats.totalPlayTime / stats.gamesPlayed))})</Text>
                         </View>
                     </View>
                 </View>
