@@ -145,7 +145,7 @@ const GuideScreen = ({ navigation }) => {
                             </View>
                         </View>
                     </ScrollView>
-                    <TouchableOpacity style={[styles.returnButton, styles, { marginBottom: -5 }]} onPress={() => navigation.navigate('Credits')}>
+                    <TouchableOpacity style={[styles.returnButton, styles, { marginTop: 16 }]} onPress={() => navigation.navigate('Credits')}>
                         <Text style={styles.buttonTitle}>CREDITS</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.returnButton} onPress={() => navigation.goBack()}>

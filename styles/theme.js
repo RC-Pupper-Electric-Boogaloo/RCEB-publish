@@ -99,12 +99,11 @@ const DarkTheme = (isDarkMode) => {
     },
     resetButton: {
       backgroundColor: '#F44336',
-      marginBottom: -5,
     },
     returnButton: {
       paddingVertical: 10,
       textAlign: 'center',
-      marginTop: 16,
+      marginTop: 6,
       marginBottom: 6,
       borderRadius: borderRadius,
       textAlign: 'center',
@@ -238,6 +237,7 @@ const DarkTheme = (isDarkMode) => {
       alignItems: 'center',
       marginTop: Constants.statusBarHeight + 8,
       marginBottom: insets.bottom,
+      width: '100%',
     },
     colorContainer: {
       flex: 1,
