@@ -152,11 +152,11 @@ const ShopScreen = ({ navigation }) => {
         <StatusBar style="auto" hidden={true} />
       </GameEngine>
       <View style={styles.container}>
+        <Text style={[styles.pointsText, styles, { color: '#FFFDFA', marginBottom: 16, backgroundColor: 'rgba(0, 0, 0, 0.2)', borderRadius: 10, padding: 5, }]}>{coinCount > 9999 ? 9999 : coinCount} <Image source={require('../assets/Coin.png')} style={styles.coinImage} /></Text> 
         <View style={styles.colorContainer}>
           <View style={styles.headerContainer}>
-            <Text style={styles.screenHeader}>Shop</Text>
-            <Text style={[styles.label, styles, { color: '#FFFDFA', marginBottom: 16, backgroundColor: 'rgba(0, 0, 0, 0.2)', borderRadius: 10, padding: 5 }]}>Your Coins: {coinCount}</Text>
-          </View>
+            <Text style={styles.screenHeader}><Image source={require('../assets/sign.png')} style={styles.signImage} /></Text>
+            </View>
           <ScrollView contentContainerStyle={styles.skinsContainer}>
             {Skins.map((skin, index) => {
               if (index >= 8 && !purchasedSkins.includes(index)) {
@@ -164,6 +164,7 @@ const ShopScreen = ({ navigation }) => {
               }
               const isPurchased = purchasedSkins.includes(index)
               const isSelected = selectedSkin === index
+              const isActive = activeSkin === index 
 
               return (
                 <TouchableOpacity
@@ -171,32 +172,51 @@ const ShopScreen = ({ navigation }) => {
                   style={[
                     styles.skinBox,
                     isSelected && styles.selectedSkinBox,
+                    isActive && styles.activeSkinBox, 
                     isPurchased && styles.purchased,
                   ]}
                   onPress={() => selectSkin(index)}
                 >
-                  <Image source={skin} style={styles.skinImage} />
-                  <Text style={styles.skinName}>{SkinNames[index]}</Text>
-                  <Text style={styles.skinPrice}>
-                    {isPurchased ? 'Owned' : `${SkinPrices[index]} Coins`}
+                    <Image source={skin} style={styles.skinImage} />
+                    <Text style={styles.skinName}>{SkinNames[index]}</Text>
+                    <Text style={styles.skinPrice}>
+                    {isPurchased ? (
+                      isActive ? 'Chosen' : 'Purchased'
+                    ) : (
+                    <>
+                      {`${SkinPrices[index]} `}
+                      <Image source={require('../assets/Coin.png')} style={styles.coinImageSmall} />
+                    </>
+                    )}
                   </Text>
                 </TouchableOpacity>
               )
             })}
           </ScrollView>
-          {selectedSkin !== null && (purchasedSkins.includes(selectedSkin) ? (
-            <View style={styles.buyButtonContainer}>
-              <TouchableOpacity style={styles.buyButton} onPress={activateSkin}>
-                <Text style={styles.buttonTitle}>USE</Text>
-              </TouchableOpacity>
-            </View>
+          {selectedSkin === null ? (
+          <View style={styles.buyButtonContainer}>
+            <TouchableOpacity 
+              style={[styles.buyButton, { opacity: selectedSkin === null || purchasedSkins.includes(selectedSkin) ? 0.5 : 1 }]}
+              onPress={handlePurchase} 
+              disabled={selectedSkin === null || purchasedSkins.includes(selectedSkin)}
+            >
+              <Text style={styles.buttonTitle}>BUY</Text>
+            </TouchableOpacity>
+          </View>
+          ) : purchasedSkins.includes(selectedSkin) ? (
+          <View style={styles.buyButtonContainer}>
+            <TouchableOpacity style={[styles.buyButton, { opacity: activeSkin === selectedSkin ? 0.5 : 1 }]} onPress={activateSkin} disabled={activeSkin === selectedSkin}>
+              <Text style={styles.buttonTitle}>USE</Text>
+            </TouchableOpacity>
+          </View>
           ) : (
-            <View style={styles.buyButtonContainer}>
-              <TouchableOpacity style={styles.buyButton} onPress={handlePurchase}>
-                <Text style={styles.buttonTitle}>BUY</Text>
-              </TouchableOpacity>
-            </View>
-          ))}
+          <View style={styles.buyButtonContainer}>
+            <TouchableOpacity style={styles.buyButton} onPress={handlePurchase}>
+              <Text style={styles.buttonTitle}>BUY</Text>
+            </TouchableOpacity>
+          </View>
+          )}
+          {/*
           <View style={styles.shopButtonContainer}>
             <TouchableOpacity style={[styles.shopButton]} onPress={() => alert('Try Your Luck nappi toimii')}>
               <Text style={styles.shopButtonTitleOrange}>LUCKY SKIN{'\n'}</Text>
@@ -205,12 +225,13 @@ const ShopScreen = ({ navigation }) => {
             <TouchableOpacity style={[styles.shopButton]} onPress={() => alert('Remove Ads nappi toimii')}>
               <Text style={styles.shopButtonTitleOrange}>REMOVE ADS{'\n'}</Text>
               <Text style={styles.shopButtonTitle}>3 €</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>            
             <TouchableOpacity style={[styles.shopButton]} onPress={() => alert('Watch Ad nappi toimii')}>
               <Text style={styles.shopButtonTitleOrange}>WATCH AD{'\n'}</Text>
-              <Text style={styles.shopButtonTitle}>FOR A COIN</Text>
-            </TouchableOpacity>
+              <Text style={styles.shopButtonTitle}>FOR 50 <Image source={require('../assets/Coin.png')} style={styles.coinImageSmall} /></Text>
+            </TouchableOpacity>            
           </View>
+          */}
           <TouchableOpacity style={styles.returnButton} onPress={() => navigation.goBack()}>
             <Text style={styles.buttonTitle}>RETURN</Text>
           </TouchableOpacity>

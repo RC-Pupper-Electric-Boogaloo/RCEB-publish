@@ -209,6 +209,7 @@ const DarkTheme = (isDarkMode) => {
       width: 30,
       height: 30,
       marginRight: 10,
+      zIndex: 10,
     },
     coinsTextGameOver: {
       fontSize: 25,
@@ -314,6 +315,15 @@ const DarkTheme = (isDarkMode) => {
       borderRadius: borderRadius,
       padding: 5,
     },
+    signImage: {
+      width: windowWidth / 4,
+      height: windowWidth / 4,
+    },
+    coinImageSmall: {
+      width: 10,
+      height: 10,
+      marginLeft: 10,
+    },
     skinBox: {
       width: '45%',
       backgroundColor: '#190C00',
@@ -326,6 +336,10 @@ const DarkTheme = (isDarkMode) => {
     selectedSkinBox: {
       borderWidth: 3,
       borderColor: themeBlue,
+    },
+    activeSkinBox: {
+      borderWidth: 3,
+      borderColor: labelOrange,
     },
     purchased: {
       backgroundColor: '#FFF5EB',
