@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, Text, FlatList, TouchableOpacity, ImageBackground } from 'react-native'
+import { View, Text, TouchableOpacity, ImageBackground, ScrollView } from "react-native"
 import { StatusBar } from 'expo-status-bar'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import DarkTheme from '../styles/theme'
@@ -7,6 +7,8 @@ import { useTheme } from '../components/Theme'
 import { GameEngine } from 'react-native-game-engine'
 import entities from '../entities/menuentities'
 import Physics from '../physics'
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 
 export default function HighscoreScreen({ navigation }) {
     const [highScores, setHighScores] = useState([])
@@ -14,6 +16,7 @@ export default function HighscoreScreen({ navigation }) {
     const styles = DarkTheme(isDarkMode)
     const gameEngine = useRef(null)
     const [isClassicMode, setIsClassicMode] = useState(false)
+    const insets = useSafeAreaInsets()
 
     const backgroundImage = isDarkMode
         ? require('../assets/Taustakuvatakatumma.jpg')
@@ -42,13 +45,6 @@ export default function HighscoreScreen({ navigation }) {
         loadHighScores()
     }, [])
 
-    const renderItem = ({ item, index }) => (
-        <View style={styles.item}>
-            <Text style={styles.Hrank}>{index + 1}.</Text>
-            <Text style={styles.Hscore}>{item.initials} - {item.points}</Text>
-        </View>
-    )
-
     return (
         <ImageBackground
             source={backgroundImage}
@@ -63,20 +59,29 @@ export default function HighscoreScreen({ navigation }) {
             >
                 <StatusBar style="auto" hidden={true} />
             </GameEngine>
-            <View style={styles.Guidecontainer}>
-                <Text style={styles.title}>Highscores</Text>
-                <FlatList
-                    data={highScores}
-                    renderItem={renderItem}
-                    keyExtractor={(item, index) => index.toString()}
-                    style={styles.list}
-                />
-                                <TouchableOpacity
-                    style={[styles.button, styles.returnButton]}
-                    onPress={() => navigation.goBack()}
-                >
-                    <Text style={styles.buttonTitle}>Return</Text>
-                </TouchableOpacity>
+            <View style={styles.container}>
+                <View style={styles.colorContainer}>
+                    <View style={styles.headerContainer}>
+                        <Text style={styles.screenHeader}>Highscores</Text>
+                        {isClassicMode && (
+                            <Text style={styles.gameOverText}>classic</Text>
+                        )}
+                    </View>
+                    <ScrollView persistentScrollbar={true} contentContainerStyle={styles.scrollViewContent}>
+                        {highScores.map((item, index) => (
+                            <View key={index} style={styles.row}>
+                                <Text style={styles.label}>{index + 1}.</Text>
+                                <Text style={[styles.labelOrange, styles, { fontSize: 20 }]}>{item.initials}</Text>
+                                <Text style={styles.label}>{item.points}</Text>
+                            </View>
+                        ))}
+                    </ScrollView>
+                    <TouchableOpacity
+                        style={styles.returnButton}
+                        onPress={() => navigation.goBack()}>
+                        <Text style={styles.buttonTitle}>RETURN</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             
         </ImageBackground>

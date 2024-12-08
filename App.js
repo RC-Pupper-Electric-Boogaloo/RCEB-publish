@@ -14,6 +14,7 @@ import ShopScreen from './screens/shopScreen'
 import StatsScreen from './screens/StatsScreen'
 import GuideScreen from './screens/guideScreen'
 import AchievementScreen from './screens/achievementScreen'
+import CreditsScreen from './screens/creditsScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -76,6 +77,11 @@ export default function App() {
                         <Stack.Screen
                             name='Achievement'
                             component={AchievementScreen}
+                            options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                            name='Credits'
+                            component={CreditsScreen}
                             options={{ headerShown: false }}
                         />
                     </Stack.Navigator>

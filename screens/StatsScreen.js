@@ -51,30 +51,48 @@ const StatsScreen = ({ navigation }) => {
             source={backgroundImage}
             style={styles.background}
         >
-           <GameEngine
-              ref={gameEngine}
-              systems={[Physics]}
-              entities={entities(null, backdropImage)}
-              running={true}
-              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+            <GameEngine
+                ref={gameEngine}
+                systems={[Physics]}
+                entities={entities(null, backdropImage)}
+                running={true}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
             >
-              <StatusBar style="auto" hidden={true} />
+                <StatusBar style="auto" hidden={true} />
             </GameEngine>
-            <View style={styles.Guidecontainer}>
-                <Text style={styles.title}>All-Time Stats</Text>
-                <Text style={styles.text}>Total Points: {stats.totalPoints}</Text>
-                <Text style={styles.text}>Total Coins: {stats.totalCoins}</Text>
-                <Text style={styles.text}>Games Played: {stats.gamesPlayed}</Text>
-                <Text style={styles.text}>Total Play Time: {formatPlayTime(stats.totalPlayTime)}</Text>
-
-                <TouchableOpacity
-                    style={[styles.button, styles. returnButton]}
-                    onPress={() => navigation.goBack()}
-                >
-                    <Text style={styles.buttonTitle}>Return</Text>
-                </TouchableOpacity>
+            <View style={styles.optionsContainer}>
+                <View style={styles.optionsColorContainer}>
+                    <View style={styles.headerContainer}>
+                        <Text style={styles.screenHeader}>All-Time Stats</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.label}>Total Points:</Text>
+                        <Text style={styles.labelOrange}>{stats.totalPoints}{"\n"} Avg. ({Math.round(stats.totalPoints/stats.gamesPlayed)})</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.label}>Total Coins:</Text>
+                        <Text style={styles.labelOrange}>{stats.totalCoins}{"\n"} Avg. ({Math.round(stats.totalCoins/stats.gamesPlayed)})</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.label}>Games Played:</Text>
+                        <Text style={styles.labelOrange}>{stats.gamesPlayed}</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <Text style={styles.label}>Total Play Time:</Text>
+                        <Text style={styles.labelOrange}>{formatPlayTime(stats.totalPlayTime)}{"\n"} Avg. ({formatPlayTime(Math.round(stats.totalPlayTime / stats.gamesPlayed))})</Text>
+                    </View>
+                </View>
+                <View style={styles.optionsBottomContainer}>
+                    <TouchableOpacity
+                        style={[styles.button, styles.returnButton]}
+                        onPress={() => navigation.goBack()}
+                    >
+                        <Text style={styles.buttonTitle}>RETURN</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </ImageBackground>
+
+        </ImageBackground >
     )
 }
 

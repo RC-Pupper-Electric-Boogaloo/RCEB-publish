@@ -42,7 +42,7 @@ const AchievementScreen = ({ navigation }) => {
 
                 const savedScores = await AsyncStorage.getItem('HIGHSCORES')
                 let scoresArray = savedScores ? JSON.parse(savedScores) : []
-                const highestScore = scoresArray.length > 0 ? Math.max(...scoresArray) : 0
+                const highestScore = scoresArray.length > 0 ? Math.max(...scoresArray.map(score => score.points)) : 0
                 setHighScore(highestScore)
 
                 const savedSkins = await AsyncStorage.getItem('purchasedSkins')
@@ -60,7 +60,7 @@ const AchievementScreen = ({ navigation }) => {
         const wooferSkinIndex = 12;
         const purchasedSkins = savedSkins ? JSON.parse(savedSkins) : []
         const requiredSkins = [1, 2, 3, 4, 5, 6, 7] // Skinindexit, jotka pitää olla hankittu
-                
+
         const updatedAchievements = achievementList.map(achievement => {
             let progress = 0
 
@@ -69,12 +69,12 @@ const AchievementScreen = ({ navigation }) => {
                 case 2: progress = Math.floor(stats.totalPlayTime / 3600); break
                 case 3: progress = stats.totalPoints; break
                 case 4: progress = skinCount; break
-                case 5:         
+                case 5:
                     progress = purchasedSkins.includes(wooferSkinIndex) ? 1 : 0
-                break
+                    break
                 case 6:
                     progress = requiredSkins.filter(skin => purchasedSkins.includes(skin)).length // Lasketaan, kuinka monta skiniä on hankittu
-                break
+                    break
                 case 7: progress = highestScore; break
                 case 8: progress = skinCount; break
                 default: break
@@ -94,13 +94,13 @@ const AchievementScreen = ({ navigation }) => {
                 purchasedSkins.push(skinIndex)
                 await AsyncStorage.setItem('purchasedSkins', JSON.stringify(purchasedSkins))
             }
-    
+
             Alert.alert("Achievement Unlocked", customMessage)
         } catch (error) {
             console.error("Error unlocking skin:", error)
         }
     }
-    
+
     const handleAchievementClick = (achievement) => {
         if (!achievement.unlocked) {
             Alert.alert("Achievement Locked", `${achievement.requirement}`)
@@ -110,7 +110,7 @@ const AchievementScreen = ({ navigation }) => {
         const reward = rewards[achievement.id]
         if (reward) unlockSkin(reward.skinIndex, reward.message)
     }
-    
+
     const rewards = {
         1: {
             skinIndex: 8,
@@ -166,40 +166,44 @@ const AchievementScreen = ({ navigation }) => {
                 <StatusBar style="auto" hidden={true} />
             </GameEngine>
 
-            <ScrollView contentContainerStyle={styles.Guidecontainer}>
-                <Text style={styles.title}>Achievements</Text>
-
-                {achievements.map((achievement) => (
+            <View style={styles.container}>
+                <View style={styles.colorContainer}>
+                    <View style={styles.headerContainer}>
+                        <Text style={styles.screenHeader}>Achievements</Text>
+                    </View>
+                    <ScrollView persistentScrollbar={true} contentContainerStyle={styles.scrollViewContent}>
+                        {achievements.map((achievement) => (
+                            <TouchableOpacity
+                                key={achievement.id}
+                                style={styles.guideSection}
+                                onPress={() => handleAchievementClick(achievement)}
+                                activeOpacity={achievement.unlocked ? 0.7 : 1}
+                            >
+                                <Image source={achievement.image} style={[styles.guideImage, { tintColor: achievement.unlocked ? 'none' : 'gray' }]} />
+                                <View style={styles.guideCenter}>
+                                    <Text style={styles.title}>{achievement.name}</Text>
+                                    <Text style={styles.text}>{achievement.requirement}</Text>
+                                    <ProgressBar
+                                        progress={achievement.progress / achievement.goal}
+                                        width={150}
+                                        color={achievement.unlocked ? "green" : "gray"}
+                                        style={{ marginVertical: 5 }}
+                                    />
+                                    <Text style={styles.text}>
+                                        {achievement.unlocked ? "Unlocked!" : `Progress: ${achievement.progress}/${achievement.goal}`}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
                     <TouchableOpacity
-                        key={achievement.id}
-                        style={styles.Guidesection}
-                        onPress={() => handleAchievementClick(achievement)}
-                        activeOpacity={achievement.unlocked ? 0.7 : 1}
+                        style={styles.returnButton}
+                        onPress={() => navigation.goBack()}
                     >
-                        <Image source={achievement.image} style={[styles.Guideimage, { tintColor: achievement.unlocked ? 'none' : 'gray' }]} />
-                        <View style={styles.GuideCenter}>
-                            <Text style={styles.sectionTitle}>{achievement.name}</Text>
-                            <Text style={styles.Guidetext}>{achievement.requirement}</Text>
-                            <ProgressBar 
-                                progress={achievement.progress / achievement.goal}
-                                width={200}
-                                color={achievement.unlocked ? "green" : "gray"}
-                                style={{ marginVertical: 5 }}
-                            />
-                            <Text style={styles.Guidetext}>
-                                {achievement.unlocked ? "Unlocked!" : `Progress: ${achievement.progress}/${achievement.goal}`}
-                            </Text>
-                            </View>
+                        <Text style={styles.buttonTitle}>RETURN</Text>
                     </TouchableOpacity>
-                ))}
-
-            </ScrollView>
-            <TouchableOpacity
-                    style={ styles.returnButton}
-                    onPress={() => navigation.goBack()}
-                >
-                    <Text style={styles.buttonTitle}>Return</Text>
-                </TouchableOpacity>
+                </View>
+            </View>
         </ImageBackground>
     )
 }

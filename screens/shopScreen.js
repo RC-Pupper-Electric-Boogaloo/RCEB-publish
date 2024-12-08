@@ -29,20 +29,20 @@ import Skin16 from '../assets/Random.png'
 const ShopScreen = ({ navigation }) => {
   const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8, Skin9, Skin10, Skin11, Skin12, Skin13, Skin14, Skin15, Skin16]
   const SkinNames = [
-    'RC Puppy', 'Doc Dog', 'ShopDog', 'Silken Engineer', 
-    'Win Whippet', 'Professor Poodle', 'Business Borzoi', 
+    'RC Puppy', 'Doc Dog', 'ShopDog', 'Silken Engineer',
+    'Win Whippet', 'Professor Poodle', 'Business Borzoi',
     'Maurice "PugLife" Pupper', 'Golden Puppy', 'Timekeeper Dachshund',
     'Pirate Corgi', 'Bonus Pupper', 'Sergeant Woofer', 'Merchant Beagle', 'OG RC Pupper', 'Random'
   ]
-  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 0, 0, 0, 0, 0, 0, 0, 0 ]
+  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 0, 0, 0, 0, 0, 0, 0, 0]
 
   const { isDarkMode } = useTheme()
   const styles = DarkTheme(isDarkMode)
   const gameEngine = useRef(null)
 
   const backgroundImage = isDarkMode
-  ? require('../assets/Taustakuvatakatumma.jpg')
-  : require('../assets/Taustakuvatakavaalea.jpg')
+    ? require('../assets/Taustakuvatakatumma.jpg')
+    : require('../assets/Taustakuvatakavaalea.jpg')
 
   const backdropImage = require('../assets/Taustakuva6ala.png')
 
@@ -67,11 +67,11 @@ const ShopScreen = ({ navigation }) => {
         }
         const updatedSkins = await AsyncStorage.getItem('purchasedSkins')
         let skinsArray = updatedSkins ? JSON.parse(updatedSkins) : []
-  
+
         if (!skinsArray.includes(0)) {
-          skinsArray.push(0); 
+          skinsArray.push(0);
           setPurchasedSkins(skinsArray)
-  
+
           await AsyncStorage.setItem('purchasedSkins', JSON.stringify(skinsArray))
         }
       } catch (error) {
@@ -92,7 +92,7 @@ const ShopScreen = ({ navigation }) => {
         console.error('Error loading active skin from AsyncStorage', error)
       }
     }
-  
+
     loadActiveSkin()
   }, [])
 
@@ -139,72 +139,72 @@ const ShopScreen = ({ navigation }) => {
 
   return (
     <ImageBackground
-    source={backgroundImage} 
-    style={styles.background}
-  >     
-  <GameEngine
-    ref={gameEngine}
-    systems={[Physics]}
-    entities={entities(null, backdropImage)}
-    running={true}
-    style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
-  >
-    <StatusBar style="auto" hidden={true} />
+      source={backgroundImage}
+      style={styles.background}
+    >
+      <GameEngine
+        ref={gameEngine}
+        systems={[Physics]}
+        entities={entities(null, backdropImage)}
+        running={true}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+      >
+        <StatusBar style="auto" hidden={true} />
       </GameEngine>
-        <View style={styles.containerStart}>
-          <Text style={styles.title}>Shop</Text>
-          <Text style={styles.Label}>Your Coins: {coinCount}</Text>
+      <View style={styles.containerStart}>
+        <Text style={styles.title}>Shop</Text>
+        <Text style={styles.label}>Your Coins: {coinCount}</Text>
 
-          <View style={styles.skinsContainer}>
-            {Skins.map((skin, index) => {
-              if (index === 8 && !purchasedSkins.includes(index)) {
-                return null
-              }
-              if (index === 9 && !purchasedSkins.includes(index)) {
-                return null
-              }
-              if (index === 10 && !purchasedSkins.includes(index)) {
-                return null
-              }
-              if (index === 11 && !purchasedSkins.includes(index)) {
-                return null
-              }
-              if (index === 12 && !purchasedSkins.includes(index)) {
-                return null
-              }
-              if (index === 13 && !purchasedSkins.includes(index)) {
-                return null
-              }
-              if (index === 14 && !purchasedSkins.includes(index)) {
-                return null
-              }
-              if (index === 15 && !purchasedSkins.includes(index)) {
-                return null
-              }
-              const isPurchased = purchasedSkins.includes(index);
-              const isSelected = selectedSkin === index;
+        <View style={styles.skinsContainer}>
+          {Skins.map((skin, index) => {
+            if (index === 8 && !purchasedSkins.includes(index)) {
+              return null
+            }
+            if (index === 9 && !purchasedSkins.includes(index)) {
+              return null
+            }
+            if (index === 10 && !purchasedSkins.includes(index)) {
+              return null
+            }
+            if (index === 11 && !purchasedSkins.includes(index)) {
+              return null
+            }
+            if (index === 12 && !purchasedSkins.includes(index)) {
+              return null
+            }
+            if (index === 13 && !purchasedSkins.includes(index)) {
+              return null
+            }
+            if (index === 14 && !purchasedSkins.includes(index)) {
+              return null
+            }
+            if (index === 15 && !purchasedSkins.includes(index)) {
+              return null
+            }
+            const isPurchased = purchasedSkins.includes(index);
+            const isSelected = selectedSkin === index;
             return (
-              <TouchableOpacity 
-                key={index} 
+              <TouchableOpacity
+                key={index}
                 style={[styles.skinBox, isSelected && styles.selectedSkinBox, isPurchased && styles.purchased]}
                 onPress={() => selectSkin(index)}
               >
                 <Image source={skin} style={[styles.skinImage, isPurchased && styles.purchased]} />
               </TouchableOpacity>
-              )
-            })}
-          </View>
-          
-          <View style={styles.optionsContainer}>
+            )
+          })}
+        </View>
+
+        <View style={styles.optionsContainer}>
           {selectedSkin !== null && (
             <>
-              <Text style={styles.Label}>Name: {SkinNames[selectedSkin]}</Text>
+              <Text style={styles.label}>Name: {SkinNames[selectedSkin]}</Text>
               {!purchasedSkins.includes(selectedSkin) && (
-                <Text style={styles.Label}>Price: {SkinPrices[selectedSkin]} Coins</Text>
+                <Text style={styles.label}>Price: {SkinPrices[selectedSkin]} Coins</Text>
               )}
             </>
           )}
-         {/*  
+          {/*  
        <TouchableOpacity style={[styles.button, styles.BButton]} onPress={() => alert('Try Your Luck nappi toimii')}>
          <Text style={styles.buttonTitle}>Try Your Luck 20 Coins</Text>
        </TouchableOpacity>
@@ -217,16 +217,16 @@ const ShopScreen = ({ navigation }) => {
           <Text style={styles.buttonTitle}>Watch Ad for Coin</Text>
        </TouchableOpacity>
       */}
-      </View>
-      {selectedSkin !== null && (purchasedSkins.includes(selectedSkin) ? (
-        <TouchableOpacity style={[styles.button, styles.BButton]} onPress={activateSkin}>
-          <Text style={styles.buttonTitle}>Use</Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity style={[styles.button, styles.BButton]} onPress={handlePurchase}>
-          <Text style={styles.buttonTitle}>Buy</Text>
-        </TouchableOpacity>
-      ))}
+        </View>
+        {selectedSkin !== null && (purchasedSkins.includes(selectedSkin) ? (
+          <TouchableOpacity style={[styles.button, styles.bButton]} onPress={activateSkin}>
+            <Text style={styles.buttonTitle}>Use</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={[styles.button, styles.bButton]} onPress={handlePurchase}>
+            <Text style={styles.buttonTitle}>Buy</Text>
+          </TouchableOpacity>
+        ))}
 
         <TouchableOpacity style={[styles.button, styles.returnButton]} onPress={() => navigation.goBack()}>
           <Text style={styles.buttonTitle}>Return</Text>

@@ -19,6 +19,10 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
         : require('../assets/GameOver.jpg')
 
     useEffect(() => {
+        setMusic(require('../assets/bgmenu.mp3'))
+    }, [setMusic])
+
+    useEffect(() => {
         const checkHighScore = async () => {
             const key = isClassicMode ? 'classicHIGHSCORES' : 'HIGHSCORES'
             const savedScores = await AsyncStorage.getItem(key)
@@ -45,7 +49,9 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
         const savedScores = await AsyncStorage.getItem(key)
         const scoresArray = savedScores ? JSON.parse(savedScores) : []
 
-        scoresArray.push({ initials, points: currentPoints })
+        const playerInitials = initials.trim() === '' ? '-' : initials.toUpperCase()
+
+        scoresArray.push({ initials: playerInitials, points: currentPoints })
         const sortedScores = scoresArray
             .sort((a, b) => b.points - a.points)
             .slice(0, 10)
@@ -62,10 +68,12 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
         >
             <View style={styles.containerGameOver}>
                 <Text style={styles.pointsTextGameOver}>Points: {currentPoints}</Text>
-                <View style={styles.coinsContainer}>
-                    <Image source={require('../assets/Coin.png')} style={styles.coinImage} />
-                    <Text style={styles.coinsTextGameOver}>x {coinCount}</Text>
-                </View>
+                {!isClassicMode && (
+                    <View style={styles.coinsContainer}>
+                        <Image source={require('../assets/Coin.png')} style={styles.coinImage} />
+                        <Text style={styles.coinsTextGameOver}>x {coinCount}</Text>
+                    </View>
+                )}
 
                 {isHighScore ? (
                     <View>
@@ -81,19 +89,19 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
                             autoCapitalize='characters'
                         />
                         <TouchableOpacity style={styles.gameOverButton} onPress={saveHighScore}>
-                            <Text style={styles.buttonTitle}>Save Score</Text>
+                            <Text style={styles.buttonTitle}>SAVE SCORE</Text>
                         </TouchableOpacity>
                     </View>
                 ) : (
                     <>
                         <TouchableOpacity style={styles.gameOverButton} onPress={onRestart}>
-                            <Text style={styles.buttonTitle}>Play Again</Text>
+                            <Text style={styles.buttonTitle}>PLAY AGAIN</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.gameOverButton} onPress={onShowHighscores}>
-                            <Text style={styles.buttonTitle}>Highscores</Text>
+                            <Text style={styles.buttonTitle}>HIGHSCORES</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.gameOverButton} onPress={() => navigation.goBack()}>
-                            <Text style={styles.buttonTitle}>Main Menu</Text>
+                            <Text style={styles.buttonTitle}>MAIN MENU</Text>
                         </TouchableOpacity>
                     </>
                 )}
