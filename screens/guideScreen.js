@@ -132,7 +132,7 @@ const GuideScreen = ({ navigation }) => {
                                 </Text>
                             </View>
                         </View>
-                        <View style={styles.guideSection}>
+                        <View style={styles.guideSectionLast}>
                             <Image
                                 source={require('../assets/Coin.png')}
                                 style={styles.guideImage}
@@ -144,12 +144,10 @@ const GuideScreen = ({ navigation }) => {
                                 </Text>
                             </View>
                         </View>
-                    <View style={styles.containerStart}>
-                                <TouchableOpacity style={styles.buttonStart} onPress={() => navigation.navigate('Credits')}>
-                                    <Text style={styles.buttonTitle}>CREDITS</Text>
-                                </TouchableOpacity>
-                        </View>
                     </ScrollView>
+                    <TouchableOpacity style={[styles.returnButton, styles, { marginTop: 16 }]} onPress={() => navigation.navigate('Credits')}>
+                        <Text style={styles.buttonTitle}>CREDITS</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.returnButton} onPress={() => navigation.goBack()}>
                         <Text style={styles.buttonTitle}>RETURN</Text>
                     </TouchableOpacity>

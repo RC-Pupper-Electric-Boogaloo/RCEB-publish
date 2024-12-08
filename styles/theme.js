@@ -2,7 +2,6 @@ import Constants from 'expo-constants'
 import { Dimensions } from "react-native"
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-
 const windowHeight = Dimensions.get('window').height
 const windowWidth = Dimensions.get('window').width
 
@@ -10,9 +9,13 @@ const DarkTheme = (isDarkMode) => {
 
   const insets = useSafeAreaInsets()
   const textWhite = '#FFFDFA'
+  const textBlack = '#190C00'
+  const textColor = isDarkMode ? textWhite : textBlack
   const labelOrange = isDarkMode ? 'rgba(227, 137, 17, 1)' : 'rgba(250, 165, 55, 1)'
-  const themeBlue = '#3498db'
+  const themeBlue = '#2196F3'
   const containerBackgroundColor = isDarkMode ? 'rgba(227, 137, 17, 0.9)' : 'rgba(250, 165, 55, 0.9)'
+  const sectionBackgroundColor = isDarkMode ? '#190C00' : '#FFF5EB'
+  const borderRadius = 10
 
   return {
     background: {
@@ -22,36 +25,10 @@ const DarkTheme = (isDarkMode) => {
       width: '100%',
       height: '100%',
     },
-    smallcontainer: {
-      position: 'absolute',
-      maxWidth: 450,
-      right: 10,
-      top: 10,
-      alignItems: 'right',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      padding: 10,
-      borderRadius: 8,
-    },
     title: {
       fontSize: 24,
       color: themeBlue,
       fontWeight: 'bold',
-    },
-    item: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-      padding: 15,
-      borderRadius: 10,
-      marginBottom: 10,
-    },
-    name: {
-      fontSize: 18,
-      color: isDarkMode ? textWhite : '#000000',
-    },
-    score: {
-      fontSize: 18,
-      color: isDarkMode ? textWhite : '#000000',
     },
     label: {
       fontSize: 18,
@@ -59,7 +36,7 @@ const DarkTheme = (isDarkMode) => {
       fontWeight: 'bold',
     },
     labelOrange: {
-      fontSize: 18,
+      fontSize: 20,
       color: labelOrange,
       fontWeight: 'bold',
       textAlign: 'right',
@@ -70,21 +47,29 @@ const DarkTheme = (isDarkMode) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       width: '100%',
-      backgroundColor: isDarkMode ? '#1e1e1e' : '#FFF9F3',
-      borderRadius: 10,
+      backgroundColor: sectionBackgroundColor,
+      borderRadius: borderRadius,
       padding: 10,
       marginBottom: 10,
     },
     text: {
       fontSize: 16,
       lineHeight: 22,
-      color: isDarkMode ? textWhite : '#000000',
+      color: textColor,
+    },
+    creditsText: {
+      marginVertical: 10,
+      fontSize: 16,
+      lineHeight: 22,
+      color: textColor,
+      textAlign: 'center',
+      color: textWhite,
     },
 
-    //GAMESCREEN
+    //gameScreen
     pointsText: {
       textAlign: 'center',
-      color: isDarkMode ? '#FFF' : '#000',
+      color: textColor,
       fontSize: 24,
       fontWeight: 'bold',
       margin: 20,
@@ -95,7 +80,7 @@ const DarkTheme = (isDarkMode) => {
     },
     coinsText: {
       textAlign: 'center',
-      color: isDarkMode ? textWhite : '#000',
+      color: textColor,
       fontSize: 20,
       fontWeight: 'bold',
       position: 'absolute',
@@ -108,7 +93,7 @@ const DarkTheme = (isDarkMode) => {
       backgroundColor: themeBlue,
       paddingVertical: 5,
       paddingHorizontal: 10,
-      borderRadius: 5,
+      borderRadius: borderRadius,
       marginBottom: 5,
     },
     buttonTitle: {
@@ -118,38 +103,34 @@ const DarkTheme = (isDarkMode) => {
       textAlign: 'center',
     },
     activeButton: {
-      backgroundColor: isDarkMode ? '#FF5722' : '#FF5722',
+      backgroundColor: '#FD8A0B',
     },
     resetButton: {
       backgroundColor: '#F44336',
-      marginBottom: -5,
     },
     returnButton: {
       paddingVertical: 10,
       textAlign: 'center',
-      marginTop: 16,
+      marginTop: 6,
       marginBottom: 6,
-      borderRadius: 10,
+      borderRadius: borderRadius,
       textAlign: 'center',
-      backgroundColor: '#2196F3',
+      backgroundColor: themeBlue,
       width: '60%',
-    },
-    bButton: { // shopin napit.
-      backgroundColor: isDarkMode ? '#2196F3' : '#2196F3',
     },
     buttonStart: {
       backgroundColor: '#FD8A0B',
       paddingVertical: 15,
       textAlign: 'center',
-      borderRadius: 10,
+      borderRadius: borderRadius,
       marginBottom: 10,
       width: '44%',
     },
 
-    //Optionsview
+    //optionsScreen
     optionsContainer: {
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'space-between',
       alignItems: 'center',
       marginTop: Constants.statusBarHeight + 8,
       marginBottom: insets.bottom + 8,
@@ -161,15 +142,16 @@ const DarkTheme = (isDarkMode) => {
       justifyContent: 'center',
       alignItems: 'center',
       width: '90%',
-      borderRadius: 10,
+      borderRadius: borderRadius,
       padding: 10,
-      marginBottom: '65%',
+      maxHeight: windowHeight / 2,
     },
-    optionsBottomContainer: {
-      backgroundColor: containerBackgroundColor,
+    optionButtonContainer: {
       width: '90%',
-      borderRadius: 10,
+      backgroundColor: containerBackgroundColor,
+      borderRadius: borderRadius,
       alignItems: 'center',
+      justifyContent: 'center',
       padding: 5,
     },
     optionsRowContainer: {
@@ -179,37 +161,7 @@ const DarkTheme = (isDarkMode) => {
       width: '100%',
     },
 
-    //SKINIT
-    skinsContainer: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      backgroundColor: 'rgba(255, 255, 255, 0.1)',
-      alignItems: 'center',
-      padding: 40,
-      justifyContent: 'center',
-
-    },
-    skinBox: {
-      width: windowWidth / 6,
-      height: windowWidth / 6,
-      margin: 2,
-      borderRadius: 10,
-      overflow: 'hidden',
-    },
-    skinImage: {
-      width: '100%',
-      height: '100%',
-      opacity: 0.5,
-    },
-    purchased: {
-      opacity: 1,
-    },
-    selectedSkinBox: {
-      borderWidth: 3,
-      borderColor: 'gold',
-    },
-
-    //Mainmenu
+    //mainMenuScreen
     containerMainMenu: { // on myös optionScreenissä
       flex: 1,
       justifyContent: 'center',
@@ -221,12 +173,12 @@ const DarkTheme = (isDarkMode) => {
       backgroundColor: '#FD8A0B',
       paddingVertical: 15,
       textAlign: 'center',
-      borderRadius: 10,
+      borderRadius: borderRadius,
       marginBottom: 10,
       width: '55%',
     },
 
-    //StartScreen
+    //startScreen
     containerStart: { // on myös shopScreenissä
       flex: 1,
       justifyContent: 'flex-end',
@@ -234,14 +186,14 @@ const DarkTheme = (isDarkMode) => {
       paddingBottom: 50,
     },
 
-    //GameoverScreen
+    //gameOverScreen
     containerGameOver: {
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: containerBackgroundColor,
       width: '60%',
       padding: 20,
-      borderRadius: 10,
+      borderRadius: borderRadius,
     },
     pointsTextGameOver: {
       fontSize: 30,
@@ -257,6 +209,7 @@ const DarkTheme = (isDarkMode) => {
       width: 30,
       height: 30,
       marginRight: 10,
+      zIndex: 10,
     },
     coinsTextGameOver: {
       fontSize: 25,
@@ -269,18 +222,18 @@ const DarkTheme = (isDarkMode) => {
       textAlign: 'center',
     },
     initialsInput: {
-      backgroundColor: isDarkMode ? '#1e1e1e' : textWhite,
+      backgroundColor: isDarkMode ? textBlack : textWhite,
       placeholderTextColor: '#FD8A0B',
       color: '#FD8A0B',
       textAlign: 'center',
       marginTop: 4,
       marginBottom: 12,
-      borderRadius: 10,
+      borderRadius: borderRadius,
     },
     gameOverButton: {
       backgroundColor: themeBlue,
       paddingVertical: 15,
-      borderRadius: 10,
+      borderRadius: borderRadius,
       marginBottom: 10,
       textAlign: 'center',
       width: '100%',
@@ -289,18 +242,19 @@ const DarkTheme = (isDarkMode) => {
     //guideScreen, statsScreen, achievementScreen ja highscoreScreen
     container: {
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: 'space-between',
       alignItems: 'center',
       marginTop: Constants.statusBarHeight + 8,
       marginBottom: insets.bottom,
+      width: '100%',
     },
     colorContainer: {
       flex: 1,
       backgroundColor: containerBackgroundColor,
       justifyContent: 'center',
       alignItems: 'center',
-      width: '100%',
-      borderRadius: 10,
+      width: '90%',
+      borderRadius: borderRadius,
       padding: 10,
       marginBottom: 10,
     },
@@ -309,12 +263,13 @@ const DarkTheme = (isDarkMode) => {
       color: textWhite,
       fontWeight: 'bold',
       marginBottom: 10,
+      textAlign: 'center',
     },
     scrollViewContent: {
       alignItems: 'center',
-      borderRadius: 10,
+      borderRadius: borderRadius,
       paddingRight: 8,
-      width: '90%',
+      width: '100%',
       marginBottom: 20,
       paddingBottom: 0,
     },
@@ -322,16 +277,17 @@ const DarkTheme = (isDarkMode) => {
       flexDirection: "row",
       alignItems: "center",
       marginBottom: 10,
-      backgroundColor: isDarkMode ? "#1e1e1e" : "#FFF9F3",
+      backgroundColor: sectionBackgroundColor,
       padding: 10,
-      borderRadius: 10,
+      borderRadius: borderRadius,
     },
     guideSectionLast: {
       flexDirection: "row",
       alignItems: "center",
-      backgroundColor: isDarkMode ? "#1e1e1e" : "#FFF9F3",
+      backgroundColor: sectionBackgroundColor,
       padding: 10,
-      borderRadius: 10,
+      marginBottom: 0,
+      borderRadius: borderRadius,
     },
     guideImage: {
       width: 80,
@@ -341,6 +297,115 @@ const DarkTheme = (isDarkMode) => {
     },
     guideCenter: {
       flex: 1,
+    },
+    statBox: {
+      flex: 1,
+      backgroundColor: sectionBackgroundColor,
+      borderRadius: borderRadius,
+      paddingBottom: 5,
+    },
+
+    //shopScreen
+    skinsContainer: {
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      width: '100%',
+      borderRadius: borderRadius,
+      padding: 5,
+    },
+    signImage: {
+      width: windowWidth / 4,
+      height: windowWidth / 4,
+    },
+    coinImageSmall: {
+      width: 10,
+      height: 10,
+      marginLeft: 10,
+    },
+    skinBox: {
+      width: '45%',
+      backgroundColor: '#190C00',
+      borderRadius: borderRadius,
+      alignItems: 'center',
+      padding: 8,
+      margin: 5,
+      marginBottom: 15,
+    },
+    selectedSkinBox: {
+      borderWidth: 3,
+      borderColor: themeBlue,
+    },
+    activeSkinBox: {
+      borderWidth: 3,
+      borderColor: labelOrange,
+    },
+    purchased: {
+      backgroundColor: '#FFF5EB',
+    },
+    skinImage: {
+      width: 80,
+      height: 80,
+      marginBottom: 10,
+    },
+    skinName: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: labelOrange,
+    },
+    skinPrice: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      color: themeBlue,
+    },
+    buyButtonContainer: {
+      backgroundColor: themeBlue,
+      paddingVertical: 10,
+      paddingHorizontal: 5,
+      borderRadius: borderRadius,
+      marginTop: 10,
+      width: '100%',
+    },
+    buyButton: {
+      backgroundColor: themeBlue,
+      borderRadius: borderRadius,
+      justifyContent: 'center',
+      width: '100%',
+    },
+    shopButtonContainer: {
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      paddingVertical: 10,
+      paddingHorizontal: 5,
+      borderRadius: borderRadius,
+      marginTop: 10,
+      marginBottom: 10,
+      width: '100%',
+    },
+    shopButton: {
+      backgroundColor: sectionBackgroundColor,
+      paddingVertical: 3,
+      paddingHorizontal: 3,
+      borderRadius: borderRadius,
+      width: '30%',
+      justifyContent: 'center',
+    },
+    shopButtonTitleOrange: {
+      fontSize: 13,
+      color: labelOrange,
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    shopButtonTitle: {
+      fontSize: 13,
+      color: themeBlue,
+      fontWeight: 'bold',
+      textAlign: 'center',
     },
   }
 }
