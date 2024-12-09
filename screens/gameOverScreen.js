@@ -23,12 +23,31 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
     }, [setMusic])
 
     useEffect(() => {
+        const initialize = async () => {
+            const classicOnSetting = await AsyncStorage.getItem('ClassicOn')
+            setIsClassicMode(classicOnSetting === 'true')
+    
+            const key = classicOnSetting === 'true' ? 'classicHIGHSCORES' : 'HIGHSCORES'
+            const savedScores = await AsyncStorage.getItem(key)
+            const scoresArray = savedScores ? JSON.parse(savedScores) : []
+    
+            const isTopScore = scoresArray.length < 10 || currentPoints > Math.min(...scoresArray.map(s => s.points))
+    
+            if (isTopScore) {
+                setIsHighScore(true)
+            }
+        }
+    
+        initialize()
+    }, [currentPoints])
+    
+    useEffect(() => {
         const checkHighScore = async () => {
             const key = isClassicMode ? 'classicHIGHSCORES' : 'HIGHSCORES'
             const savedScores = await AsyncStorage.getItem(key)
             const scoresArray = savedScores ? JSON.parse(savedScores) : []
             const isTopScore = scoresArray.length < 10 || currentPoints > Math.min(...scoresArray.map(s => s.points))
-
+        
             if (isTopScore) {
                 setIsHighScore(true)
             }
