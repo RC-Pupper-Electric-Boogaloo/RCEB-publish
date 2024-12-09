@@ -34,6 +34,7 @@ export default function GameScreen({ navigation }) {
     const [collectedBatteries, setCollectedBatteries] = useState(0)
     const maxBatteries = 7
     const [bonusMode, setBonusMode] = useState(false)
+    const [gravity, setGravity] = useState(0.3)
 
     const backgroundImage = isDarkMode
         ? require('../assets/Taustakuvatakatumma.jpg')
@@ -55,6 +56,23 @@ export default function GameScreen({ navigation }) {
             }
         }, [])
     )
+
+    useEffect(() => {
+        const fetchFastMode = async () => {
+            try {
+                const fastMode = await AsyncStorage.getItem('FastmodeOn');
+                if (fastMode === 'true') {
+                    setGravity(0.6); // Jos FastmodeOn on true, aseta gravity 0.5
+                } else {
+                    setGravity(0.25); // Muuten aseta gravity 0.3
+                }
+            } catch (error) {
+                console.error("Error reading FastmodeOn value from AsyncStorage", error);
+            }
+        };
+
+        fetchFastMode();
+    }, []);
 
     const Bonus = async () => {
         try {
@@ -128,8 +146,8 @@ export default function GameScreen({ navigation }) {
             if (storedActiveSkin) {
                 let skinIndex = JSON.parse(storedActiveSkin)
                 let skin = skinIndex
-                if (skinIndex === 15) {
-                    skin = getRandom(0, 14)
+                if (skinIndex === 19) {
+                    skin = getRandom(0, 18)
                 }
 
                 // Assign skin based on the index
@@ -147,7 +165,7 @@ export default function GameScreen({ navigation }) {
                         setActiveSkin(require('../assets/rcSilkeneer.png'))
                         break
                     case 4:
-                        setActiveSkin(require('../assets/rcWinWhippet.png'))
+                        setActiveSkin(require('../assets/rcBreakBernard.png'))
                         break
                     case 5:
                         setActiveSkin(require('../assets/rcProfPoodle.png'))
@@ -177,6 +195,18 @@ export default function GameScreen({ navigation }) {
                         setActiveSkin(require('../assets/rcMeclarBeagle.png'))
                         break
                     case 14:
+                        setActiveSkin(require('../assets/rcPowerPuppy.png'))
+                        break
+                    case 15:
+                        setActiveSkin(require('../assets/rcWinWhippet.png'))
+                        break
+                    case 16:
+                        setActiveSkin(require('../assets/rcFluffers.png'))
+                        break
+                    case 17:
+                        setActiveSkin(require('../assets/rcCrashBuldog.png'))
+                        break
+                    case 18:
                         setActiveSkin(require('../assets/rcPupperOg.png'))
                         break
                     default:
@@ -298,7 +328,7 @@ export default function GameScreen({ navigation }) {
                             <GameEngine
                                 ref={gameEngine}
                                 systems={[Physics]}
-                                entities={entities(null, backdropImage, activeSkin)}
+                                entities={entities(null, backdropImage, activeSkin, gravity)}
                                 running={running}
                                 onEvent={(e) => {
                                     switch (e.type) {

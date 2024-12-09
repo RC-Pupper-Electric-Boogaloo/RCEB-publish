@@ -13,7 +13,7 @@ import Skin1 from '../assets/CharDog.png'
 import Skin2 from '../assets/rcDocDog.png'
 import Skin3 from '../assets/rcShopDog.png'
 import Skin4 from '../assets/rcSilkeneer.png'
-import Skin5 from '../assets/rcWinWhippet.png'
+import Skin5 from '../assets/rcBreakBernard.png'
 import Skin6 from '../assets/rcProfPoodle.png'
 import Skin7 from '../assets/rcBusinessBorzoi.png'
 import Skin8 from '../assets/rcPugLifePupper.png'
@@ -23,18 +23,24 @@ import Skin11 from '../assets/rcPiratePup.png'
 import Skin12 from '../assets/rcBonusPuppy.png'
 import Skin13 from '../assets/rcSgtWoofer.png'
 import Skin14 from '../assets/rcMeclarBeagle.png'
-import Skin15 from '../assets/rcPupperOg.png'
-import Skin16 from '../assets/Random.png'
+import Skin15 from '../assets/rcPowerPuppy.png'
+import Skin16 from '../assets/rcWinWhippet.png'
+import Skin17 from '../assets/rcFluffers.png'
+import Skin18 from '../assets/rcCrashBuldog.png'
+import Skin19 from '../assets/rcPupperOg.png'
+import Skin20 from '../assets/Random.png'
 
 const ShopScreen = ({ navigation }) => {
-  const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8, Skin9, Skin10, Skin11, Skin12, Skin13, Skin14, Skin15, Skin16]
+  const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8, Skin9, Skin10, Skin11, Skin12, Skin13, Skin14, Skin15, Skin16, Skin17, Skin18, Skin19, Skin20]
   const SkinNames = [
     'RC Puppy', 'Doc Dog', 'ShopDog', 'Silken Engineer',
-    'Win Whippet', 'Professor Poodle', 'Business Borzoi',
+    'Saint Bernard', 'Professor Poodle', 'Business Borzoi',
     'Maurice "PugLife" Pupper', 'Golden Puppy', 'Timekeeper Dachshund',
-    'Pirate Corgi', 'Bonus Pupper', 'Sergeant Woofer', 'Merchant Beagle', 'OG RC Pupper', 'Random'
+    'Pirate Corgi', 'Bonus Pupper', 'Sergeant Woofer', 'Merchant Beagle',
+    'Power Puppy Pampai', 'Win Whippet', 'Precious', 'Crash Buldog',  
+    'OG RC Pupper', 'Random'
   ]
-  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 0, 0, 0, 0, 0, 0, 0, 0]
+  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
   const { isDarkMode } = useTheme()
   const styles = DarkTheme(isDarkMode)
@@ -181,7 +187,7 @@ const ShopScreen = ({ navigation }) => {
                     <Text style={styles.skinName}>{SkinNames[index]}</Text>
                     <Text style={styles.skinPrice}>
                     {isPurchased ? (
-                      isActive ? 'Chosen' : 'Purchased'
+                      isActive ? 'Chosen' : 'Adopted'
                     ) : (
                     <>
                       {`${SkinPrices[index]} `}
