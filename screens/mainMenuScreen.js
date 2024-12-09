@@ -92,6 +92,9 @@ export default function MainMenuScreen({ navigation }) {
         <TouchableOpacity style={styles.buttonMainMenu} onPress={() => navigation.navigate('Achievement')}>
           <Text style={styles.buttonTitle}>ACHIEVEMENTS</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonMainMenu} onPress={() => navigation.navigate('Guide')}>
+          <Text style={styles.buttonTitle}>GUIDE</Text>
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   )

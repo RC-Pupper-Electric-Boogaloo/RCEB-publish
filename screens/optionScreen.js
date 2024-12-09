@@ -14,6 +14,8 @@ const OptionScreen = ({ navigation }) => {
   const [SfxOn, setIsSfxOn] = useState(false)
   const [ShowClassic, setShowClassic] = useState(false)
   const [ClassicOn, setClassicOn] = useState(false)
+  const [ShowFastmode, setShowFastmode] = useState(false)
+  const [FastModeOn, setFastModeOn] = useState(false)
   const { isDarkMode, toggleDarkMode, setIsDarkMode } = useTheme()
   const styles = DarkTheme(isDarkMode)
   const gameEngine = useRef(null)
@@ -49,6 +51,7 @@ const OptionScreen = ({ navigation }) => {
         const savedTheme = await AsyncStorage.getItem('darkMode')
         const savedSfx = await AsyncStorage.getItem('SfxOn')
         const savedClassic = await AsyncStorage.getItem('ClassicOn')
+        const savedFastmode = await AsyncStorage.getItem('FastmodeOn')
         const mySkins = await AsyncStorage.getItem('purchasedSkins')
         if (savedTheme !== null) {
           setIsDarkMode(savedTheme === 'true')
@@ -60,10 +63,16 @@ const OptionScreen = ({ navigation }) => {
         if (savedClassic !== null) {
           setClassicOn(savedClassic === 'true')
         }
+        if (savedFastmode !== null) {
+          setFastModeOn(savedFastmode === 'true')
+        }
         if (mySkins) {
           const parsedSkins = JSON.parse(mySkins)
-          if (Array.isArray(parsedSkins) && parsedSkins.includes(14)) {
+          if (Array.isArray(parsedSkins) && parsedSkins.includes(18)) {
             setShowClassic(true)
+          }
+          if (Array.isArray(parsedSkins) && parsedSkins.includes(14)) {
+            setShowFastmode(true)
           }
         }
       } catch (error) {
@@ -93,6 +102,16 @@ const OptionScreen = ({ navigation }) => {
     }
   }
 
+  const toggleFast = async () => {
+    const newFastmodeOn = !FastModeOn
+    setFastModeOn(newFastmodeOn)
+    try {
+      await AsyncStorage.setItem('FastmodeOn', JSON.stringify(newFastmodeOn))
+    } catch (error) {
+      console.error("Error saving Fast Mode setting:", error)
+    }
+  }
+
   const resetData = async () => {
     try {
       await AsyncStorage.removeItem('darkMode')
@@ -104,12 +123,15 @@ const OptionScreen = ({ navigation }) => {
       await AsyncStorage.removeItem('GAME_STATS')
       await AsyncStorage.removeItem('coinCount')
       await AsyncStorage.removeItem('ClassicOn')
+      await AsyncStorage.removeItem('FastmodeOn')
       await AsyncStorage.setItem('activeSkin', JSON.stringify(0))
       setIsDarkMode(false)
       setIsSfxOn(false)
       toggleMusic(false)
       setClassicOn(false)
       setShowClassic(false)
+      setFastModeOn(false)
+      setShowFastmode(false)
       Alert.alert('Data reset successfully!', 'Good Luck & Have Fun!')
     } catch (error) {
       console.error("Error resetting data:", error)
@@ -161,6 +183,14 @@ const OptionScreen = ({ navigation }) => {
                 <Text style={styles.label}>ClassicMode</Text>
                 <TouchableOpacity style={[styles.button, ClassicOn && styles.activeButton]} onPress={toggleClassic}>
                   <Text style={styles.buttonTitle}>{ClassicOn ? "On" : "Off"}</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+            {ShowFastmode && (
+              <View style={styles.row}>
+                <Text style={styles.label}>FastMode</Text>
+                <TouchableOpacity style={[styles.button, FastModeOn && styles.activeButton]} onPress={toggleFast}>
+                  <Text style={styles.buttonTitle}>{FastModeOn ? "On" : "Off"}</Text>
                 </TouchableOpacity>
               </View>
             )}

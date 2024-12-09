@@ -81,11 +81,6 @@ const Physics = (entities, { time, touches, dispatch }) => {
             accelerometerSubscription = null
         }
     }
-    const updateFrequency = 16; // 16ms = 60 FPS
-
-    // Tarkista, onko aika päivittää
-    if (time.current - lastUpdate > updateFrequency) {
-        lastUpdate = time.current; // Päivitä viimeisin päivitysaika
 
     if (entities["Char"]) {
         touches.filter(t => t.type === "move").forEach(t => {
@@ -285,7 +280,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
         })
     }
     Matter.Engine.update(engine)
-    }
+    
     return {
         ...entities,
         coinCount,

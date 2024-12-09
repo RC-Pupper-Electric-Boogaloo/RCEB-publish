@@ -27,8 +27,31 @@ export default function StartScreen({ navigation }) {
     setMusic(require('../assets/bgmenu.mp3'))
   }, [setMusic])
 
+  const saveTodayIfNotAlreadySaved = async () => {
+    const today = new Date().toISOString().split('T')[0]; // Päivämäärä muodossa "YYYY-MM-DD"
+    try {
+        // Hae tallennetut päivämäärät
+        const storedDates = await AsyncStorage.getItem('DaysPlayed');
+        let daysPlayed = storedDates ? JSON.parse(storedDates) : [];
+
+        // Lisää tämän päivän päivämäärä vain, jos sitä ei ole jo listassa
+        if (!daysPlayed.includes(today)) {
+            daysPlayed.push(today);
+            await AsyncStorage.setItem('DaysPlayed', JSON.stringify(daysPlayed));
+        }
+        console.log('DaysPlayed:', daysPlayed);  // Tämä näyttää koko listan konsolissa
+
+        return daysPlayed.length;
+    } catch (error) {
+        console.error('Error saving the date:', error);
+        return 0;
+    }
+  };
+  
   const handleStartPress = async () => {
     try {
+      const daysPlayed = await saveTodayIfNotAlreadySaved();
+      console.log(`Days played so far: ${daysPlayed}`);
       // Lataa SfxOn-asetuksen arvo
       const savedSfx = await AsyncStorage.getItem('SfxOn')
       const parsedSfx = savedSfx === 'true'
@@ -79,9 +102,6 @@ export default function StartScreen({ navigation }) {
       <View style={styles.containerStart}>
         <TouchableOpacity style={styles.buttonStart} onPress={() => { handleStartPress() }}>
           <Text style={styles.buttonTitle}>START</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonStart} onPress={() => navigation.navigate('Guide')}>
-          <Text style={styles.buttonTitle}>GUIDE</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
