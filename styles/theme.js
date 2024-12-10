@@ -327,7 +327,7 @@ const DarkTheme = (isDarkMode) => {
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: borderRadius,
-      padding: 5,
+      padding: 1,
     },
     coinsTextShop: {
       textAlign: 'center',
@@ -354,9 +354,9 @@ const DarkTheme = (isDarkMode) => {
       marginLeft: -(windowWidth / 8), // Korjaa, jotta kuva on täysin keskitetty
     },
     coinImageSmall: {
-      width: 10,
-      height: 10,
-      marginLeft: 10,
+      width: 15,
+      height: 15,
+      marginLeft: 5,
     },
     skinBox: {
       width: '45%',
