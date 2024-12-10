@@ -68,10 +68,10 @@ const OptionScreen = ({ navigation }) => {
         }
         if (mySkins) {
           const parsedSkins = JSON.parse(mySkins)
-          if (Array.isArray(parsedSkins) && parsedSkins.includes(18)) {
+          if (Array.isArray(parsedSkins) && parsedSkins.includes(19)) {
             setShowClassic(true)
           }
-          if (Array.isArray(parsedSkins) && parsedSkins.includes(15)) {
+          if (Array.isArray(parsedSkins) && parsedSkins.includes(16)) {
             setShowFastmode(true)
           }
         }
