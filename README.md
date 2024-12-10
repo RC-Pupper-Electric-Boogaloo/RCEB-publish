@@ -42,9 +42,7 @@ Peli testattiin eri laitteilla joilla varmistettiin yhteensopivuus ja suoritusky
 
 ## Sovelluksen käyttöönottaminen
 
-Sovelluksen voi halutessaan ladata itselleen paikallisesti käytettäväksi seuraavilla ohjeilla. 
-
-1.	Mene play kauppaan
-2.	etsi RC-pupper
-3.	Lataa
-4.	nauti! :)
+1.	Avaa Google Play -kauppa
+2.	Etsi peli nimellä RC-Pupper: Electric Boogaloo
+3.	Asenna sovellus
+4.	Aloita pelaaminen
