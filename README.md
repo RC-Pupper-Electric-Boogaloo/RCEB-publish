@@ -17,9 +17,11 @@ Kaikki tiimin jäsenet osallistuivat aktiivisesti pelin suunnitteluun ja toteutu
 
 ## Mobiilipelin kuvaus
 
-Woof woof! Seikkailua ja hauskuutta luvassa! Ole nopea kuin salama, väistele esteitä ja kerää luut ja kolikot samalla kun kiidät koiran supervoimilla.
+Seikkailua ja hauskuutta luvassa! Ole nopea kuin salama, väistele esteitä ja kerää luut ja kolikot.
 
 Seuraa reaaliajassa tilastot, kuten kerätyt kolikot, pisteet, peliajan ja pelikerrat.
+
+---------------------------------
 
 ## Teknologiat
 React: Käyttöliittymän rakentamiseen
@@ -27,16 +29,17 @@ AsyncStorage: Tietojen tallentamiseen
 Game Engine: Pelimekaniikan toteutukseen
 Matter.js: Fysiikan toteutukseen
 
+---------------------------------
+
 ### Ohjelmistoarkkitehtuuri
 Käyttöliittymäkomponenttien sisältö on jaettu loogisiin, modulaarisiin kokonaisuuksiin, jotta niitä on helppo käyttää ja ylläpitää. 
 
-
-### Käyttöliittymä
-
-
+---------------------------------
 
 ### Testaaminen 
 Peli testattiin eri laitteilla joilla varmistettiin yhteensopivuus ja suorituskyky.
+
+---------------------------------
 
 ## Pelin käyttöönottaminen
 
