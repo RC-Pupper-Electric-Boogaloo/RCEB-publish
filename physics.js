@@ -106,7 +106,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                 touchX >= min.x && touchX <= max.x &&
                 touchY >= min.y && touchY <= max.y
             ) {
-                const skinIndex = 12
+                const skinIndex = 13
                 const currentSkins = await AsyncStorage.getItem("purchasedSkins")
                 const purchasedSkins = currentSkins ? JSON.parse(currentSkins) : []
 
