@@ -2,6 +2,8 @@
 ## RC-Pupper-Electric-Boogaloo
 ---------------------------------
 
+Tämä mobiilipeli on Oulun ammattikorkeakoulun tieto- ja viestintätekniikan opiskelijoiden tekemä joka kuuluu toteutukseen **Mobiilikehitysprojekti** (6 op). 
+
 ### Tekijät
 
 - Hannu Karjalainen ([HannuKarjalainen](https://github.com/HannuKarjalainen))
@@ -9,11 +11,7 @@
 - Jimi Jakola ([jimijakola](https://github.com/jimijakola))
 - Matti Nieminen ([Majuniemi](https://github.com/Majuniemi))
 
----------------------------------
-
-Tämä arkisto esittelee Oulun ammattikorkeakoulun 2. vuoden tieto- ja viestintätekniikan opiskelijoiden tekemää mobiilipeliä, joka kuuluu toteutukseen **Mobiilikehitysprojekti** (6 op). 
-
-Hankkeesta vastanneet tekijät ovat yllämainitut Matti Nieminen, Jimi Jakola, Hannu Karjalainen ja Tapio Kylmämaa. Ryhmästä kaikki ovat osallistuneet jokaisen osa-alueen toteuttamiseen.
+Kaikki tiimin jäsenet osallistuivat aktiivisesti pelin suunnitteluun ja toteutukseen, mukaan lukien koodaus, käyttöliittymän suunnittelu ja testaaminen.
 
 ---------------------------------
 
@@ -40,7 +38,7 @@ Käyttöliittymäkomponenttien sisältö on jaettu loogisiin, modulaarisiin koko
 ### Testaaminen 
 Peli testattiin eri laitteilla joilla varmistettiin yhteensopivuus ja suorituskyky.
 
-## Sovelluksen käyttöönottaminen
+## Pelin käyttöönottaminen
 
 1.	Avaa Google Play -kauppa
 2.	Etsi peli nimellä RC-Pupper: Electric Boogaloo
