@@ -38,7 +38,7 @@ Käyttöliittymäkomponenttien sisältö on jaettu loogisiin, modulaarisiin koko
 
 
 ### Testaaminen 
-
+Peli testattiin eri laitteilla joilla varmistettiin yhteensopivuus ja suorituskyky.
 
 ## Sovelluksen käyttöönottaminen
 
