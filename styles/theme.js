@@ -307,6 +307,35 @@ const DarkTheme = (isDarkMode) => {
     },
 
     //shopScreen
+    shopHeaderContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%',
+      marginBottom: 8,
+    },
+    shopHeader: {
+      width: '32%',
+      paddingHorizontal: 6,
+      borderRadius: borderRadius,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    coinCountContainer: {
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: borderRadius,
+      padding: 5,
+    },
+    coinsTextShop: {
+      textAlign: 'center',
+      color: textWhite,
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginHorizontal: 10, // Asetetaan marginaali oikealle
+    },
     skinsContainer: {
       backgroundColor: 'rgba(0, 0, 0, 0.2)',
       flexDirection: 'row',
