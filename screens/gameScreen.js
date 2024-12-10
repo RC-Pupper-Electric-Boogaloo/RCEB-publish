@@ -146,8 +146,8 @@ export default function GameScreen({ navigation }) {
             if (storedActiveSkin) {
                 let skinIndex = JSON.parse(storedActiveSkin)
                 let skin = skinIndex
-                if (skinIndex === 19) {
-                    skin = getRandom(0, 18)
+                if (skinIndex === 20) {
+                    skin = getRandom(0, 19)
                 }
 
                 // Assign skin based on the index
@@ -177,36 +177,39 @@ export default function GameScreen({ navigation }) {
                         setActiveSkin(require('../assets/rcPugLifePupper.png'))
                         break
                     case 8:
-                        setActiveSkin(require('../assets/rcGentlePuppy.png'))
+                        setActiveSkin(require('../assets/rcRoyalAfgan.png'))
                         break
                     case 9:
-                        setActiveSkin(require('../assets/rcTimeKeeper.png'))
+                        setActiveSkin(require('../assets/rcGentlePuppy.png'))
                         break
                     case 10:
-                        setActiveSkin(require('../assets/rcPiratePup.png'))
+                        setActiveSkin(require('../assets/rcTimeKeeper.png'))
                         break
                     case 11:
-                        setActiveSkin(require('../assets/rcBonusPuppy.png'))
+                        setActiveSkin(require('../assets/rcPiratePup.png'))
                         break
                     case 12:
-                        setActiveSkin(require('../assets/rcSgtWoofer.png'))
+                        setActiveSkin(require('../assets/rcBonusPuppy.png'))
                         break
                     case 13:
-                        setActiveSkin(require('../assets/rcMeclarBeagle.png'))
+                        setActiveSkin(require('../assets/rcSgtWoofer.png'))
                         break
                     case 14:
-                        setActiveSkin(require('../assets/rcPowerPuppy.png'))
+                        setActiveSkin(require('../assets/rcMeclarBeagle.png'))
                         break
                     case 15:
-                        setActiveSkin(require('../assets/rcWinWhippet.png'))
+                        setActiveSkin(require('../assets/rcPowerPuppy.png'))
                         break
                     case 16:
-                        setActiveSkin(require('../assets/rcFluffers.png'))
+                        setActiveSkin(require('../assets/rcWinWhippet.png'))
                         break
                     case 17:
-                        setActiveSkin(require('../assets/rcCrashBuldog.png'))
+                        setActiveSkin(require('../assets/rcFluffers.png'))
                         break
                     case 18:
+                        setActiveSkin(require('../assets/rcCrashBuldog.png'))
+                        break
+                    case 19:
                         setActiveSkin(require('../assets/rcPupperOg.png'))
                         break
                     default:

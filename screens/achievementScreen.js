@@ -35,7 +35,7 @@ const AchievementScreen = ({ navigation }) => {
         { id: 9, name: "My Precious", requirement: "Collect 50,000 total from points and coins", image: require('../assets/rcFluffers.png'), progress: 0, goal: 50000 },
         { id: 10, name: "Test Drive!", requirement: "Play during 14 different days", image: require('../assets/rcCrashBuldog.png'), progress: 0, goal: 14 },
         { id: 11, name: "Howling Success!", requirement: "Score 250 points in one game", image: require('../assets/rcPupperOg.png'), progress: 0, goal: 250 },
-        { id: 12, name: "Everypuppy is here!", requirement: "Adopt all 19 puppies", image: require('../assets/Random.png'), progress: 0, goal: 19 },
+        { id: 12, name: "Everypuppy is here!", requirement: "Adopt all 19 puppies", image: require('../assets/Random.png'), progress: 0, goal: 20 },
     ]
 
     useEffect(() => {
@@ -137,62 +137,62 @@ const AchievementScreen = ({ navigation }) => {
 
     const rewards = {
         1: {
-            skinIndex: 8,
+            skinIndex: 9,
             name: "Golden Puppy",
             message: "You unlocked 'Golden Retriever'! Golden Puppy is now available in the shop."
         },
         2: {
-            skinIndex: 9,
+            skinIndex: 10,
             name: "Timekeeper Dachshund",
             message: "You unlocked 'Eternity in Dog Years'! Timekeeper Dachshund is now available in the shop."
         },
         3: {
-            skinIndex: 10,
+            skinIndex: 11,
             name: "Pirate Corgi",
             message: "You unlocked 'Boneyard'! Pirate Corgi is now available in the shop."
         },
         4: {
-            skinIndex: 11,
+            skinIndex: 12,
             name: "Bonus Pupper",
             message: "You unlocked 'Bonus Pupper!' Bonus Pupper is now available in the shop."
         },
         5: {
-            skinIndex: 12,
+            skinIndex: 13,
             name: "Sergeant Woofer",
             message: "You unlocked 'Hide and Seek!' Sergeant Woofer is now available in the shop."
         },
         6: {
-            skinIndex: 13,
+            skinIndex: 14,
             name: "Merchant Beagle",
-            message: "You unlocked 'Puppies Sold Out!' Merchant Beagle is now available in the shop."
+            message: "You unlocked 'Puppies Sold Out!' Merchant Beagle is now available in the shop. There is now also one additional puppy for sale!"
         },
         7: {
-            skinIndex: 14,
+            skinIndex: 15,
             name: "Power Puppy Pampai",
             message: "You unlocked 'Power Trip!' Power Puppy Pampai is now available in the shop."
         },
         8: {
-            skinIndex: 15,
+            skinIndex: 16,
             name: "Win Whippet",
             message: "You unlocked 'Fast and furryous!' Win Whippet is now available in the shop. You can also toggle fast start from options"
         },
         9: {
-            skinIndex: 16,
+            skinIndex: 17,
             name: "Fluffers",
             message: "You unlocked 'My Precious' Fluffers is now available in the shop."
         },
         10: {
-            skinIndex: 17,
+            skinIndex: 18,
             name: "Crash Buldog",
             message: "You unlocked 'Test Drive!' Crash Buldog is now available in the shop. Thank you for your persistence."
         },
         11: {
-            skinIndex: 18,
+            skinIndex: 19,
             name: "OG RC Pupper",
             message: "You unlocked 'Howling Success!' OG RC Pupper is now available in the shop. You can also toggle Classic mode from options"
         },
         12: {
-            skinIndex: 19,
+            skinIndex: 20,
             name: "Random Puppy",
             message: "You unlocked 'Everypuppy is here!' You can now randomise your puppy when entering game. Choose random from shop."
         },
