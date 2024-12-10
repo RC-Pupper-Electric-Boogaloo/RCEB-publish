@@ -24,9 +24,10 @@ Woof woof! Seikkailua ja hauskuutta luvassa! Ole nopea kuin salama, väistele es
 Seuraa reaaliajassa tilastot, kuten kerätyt kolikot, pisteet, peliajan ja pelikerrat.
 
 ## Teknologiat
-React
-AsyncStorage
-Game Engine
+React: Käyttöliittymän rakentamiseen
+AsyncStorage: Tietojen tallentamiseen
+Game Engine: Pelimekaniikan toteutukseen
+Matter.js: Fysiikan toteutukseen
 
 ### Ohjelmistoarkkitehtuuri
 Käyttöliittymäkomponenttien sisältö on jaettu loogisiin, modulaarisiin kokonaisuuksiin, jotta niitä on helppo käyttää ja ylläpitää. 
