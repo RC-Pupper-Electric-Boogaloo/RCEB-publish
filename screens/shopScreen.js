@@ -37,7 +37,7 @@ const ShopScreen = ({ navigation }) => {
     'Saint Bernard', 'Professor Poodle', 'Business Borzoi',
     'Maurice "PugLife" Pupper', 'Golden Puppy', 'Timekeeper Dachshund',
     'Pirate Corgi', 'Bonus Pupper', 'Sergeant Woofer', 'Merchant Beagle',
-    'Power Puppy Pampai', 'Win Whippet', 'Precious', 'Crash Buldog',
+    'Power Puppy Pampai', 'Win Whippet', 'Fluffers', 'Crash Buldog',
     'OG RC Pupper', 'Random'
   ]
   const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -111,7 +111,7 @@ const ShopScreen = ({ navigation }) => {
       setActiveSkin(selectedSkin); // Päivitä aktiivinen skini
       try {
         await AsyncStorage.setItem('activeSkin', JSON.stringify(selectedSkin))
-        alert('Skin activated!')
+
       } catch (error) {
         console.error('Error saving active skin to AsyncStorage', error)
       }
@@ -167,9 +167,9 @@ const ShopScreen = ({ navigation }) => {
             <View style={styles.shopHeader}>
               <View style={styles.coinCountContainer}>
                 <Text style={styles.coinsTextShop}>
-                  {coinCount > 9999 ? 9999 : coinCount}
+                {'\u00A0'}{coinCount > 9999 ? 9999 : coinCount}
                 </Text>
-                <Image source={require('../assets/Coin.png')} style={styles.coinImage} />
+                <Image source={require('../assets/Coin.png')} style={styles.coinImageSmall} />
               </View>
             </View>
           </View>
