@@ -83,6 +83,7 @@ export default function HighscoreScreen({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </View>
+            
         </ImageBackground>
     )
 }
