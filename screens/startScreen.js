@@ -54,6 +54,10 @@ export default function StartScreen({ navigation }) {
       console.log(`Days played so far: ${daysPlayed}`);
       // Lataa SfxOn-asetuksen arvo
       const savedSfx = await AsyncStorage.getItem('SfxOn')
+      if (savedSfx === null) {
+        // Jos arvoa ei ole, asetetaan oletus true ja tallennetaan se
+        await AsyncStorage.setItem('SfxOn', 'true');
+      }
       const parsedSfx = savedSfx === 'true'
 
       // Aseta tila manuaalisesti

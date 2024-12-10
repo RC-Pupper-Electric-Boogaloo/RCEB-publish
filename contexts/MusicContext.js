@@ -15,6 +15,9 @@ export const MusicProvider = ({ children }) => {
         const savedMusic = await AsyncStorage.getItem('MusicOn')
         if (savedMusic !== null) {
           setMusicOn(savedMusic === 'true')
+        } else {
+          setMusicOn(true); // Oletusarvoksi true
+          await AsyncStorage.setItem('MusicOn', 'true'); // Tallennetaan oletusarvo
         }
       } catch (error) {
         console.error('Error loading music setting:', error)
