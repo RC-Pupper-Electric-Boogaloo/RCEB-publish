@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 const windowHeight = Dimensions.get("window").height
 const windowWidth = Dimensions.get("window").width
 const coinSize = windowWidth / 7
+let lastUpdate = 0;
 
 const Physics = (entities, { time, touches, dispatch }) => {
     let engine = entities.physics.engine
@@ -25,7 +26,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                 if (totalAcceleration > 1.5 && !isBonusActive && powerUp >= 7) {
                     isBonusActive = true
                     dispatch({ type: "bonus_activated" })
-                    world.gravity.y = world.gravity.y * 0.70
+                    world.gravity.y = world.gravity.y * 0.8
                     activateBonusCoins()
                     activateRainbow()
                 }
@@ -120,7 +121,6 @@ const Physics = (entities, { time, touches, dispatch }) => {
         }
     })
 
-    Matter.Engine.update(engine)
 
     if (entities["Point"] && entities["Point"].body.bounds.min.y >= windowHeight) {
         Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 })
@@ -200,7 +200,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                 if (bodyA.label === "Char" && bodyB.label === "Point") {
                     points++
                     if (world.gravity.y <= 2) {
-                        world.gravity.y = world.gravity.y + 0.02
+                        world.gravity.y = world.gravity.y + 0.01
                     }
                     dispatch({ type: "new_point" })
                     Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 })
@@ -229,7 +229,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     if (!isBonusActive) {
                         dispatch({ type: "miss" })
                         if (world.gravity.y > 0.4) {
-                            world.gravity.y = world.gravity.y - 0.02
+                            world.gravity.y = world.gravity.y - 0.01
                         }
                         Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 })
                         Matter.Body.setPosition(bodyB, {
@@ -279,7 +279,8 @@ const Physics = (entities, { time, touches, dispatch }) => {
             })
         })
     }
-
+    Matter.Engine.update(engine)
+    
     return {
         ...entities,
         coinCount,

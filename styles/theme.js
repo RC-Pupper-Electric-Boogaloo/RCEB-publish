@@ -91,7 +91,7 @@ const DarkTheme = (isDarkMode) => {
     //BUTTONIT
     button: {
       backgroundColor: themeBlue,
-      paddingVertical: 5,
+      paddingVertical: 1,
       paddingHorizontal: 10,
       borderRadius: borderRadius,
       marginBottom: 5,
@@ -123,8 +123,8 @@ const DarkTheme = (isDarkMode) => {
       paddingVertical: 15,
       textAlign: 'center',
       borderRadius: borderRadius,
-      marginBottom: 10,
-      width: '44%',
+      marginBottom: insets.bottom + 8,
+      width: windowWidth * 0.44,
     },
 
     //optionsScreen
@@ -175,7 +175,7 @@ const DarkTheme = (isDarkMode) => {
       textAlign: 'center',
       borderRadius: borderRadius,
       marginBottom: 10,
-      width: '55%',
+      width: windowWidth * 0.55,
     },
 
     //startScreen
@@ -191,7 +191,7 @@ const DarkTheme = (isDarkMode) => {
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: containerBackgroundColor,
-      width: '60%',
+      width: windowWidth * 0.6,
       padding: 20,
       borderRadius: borderRadius,
     },
@@ -228,6 +228,7 @@ const DarkTheme = (isDarkMode) => {
       textAlign: 'center',
       marginTop: 4,
       marginBottom: 12,
+      paddingVertical: 8,
       borderRadius: borderRadius,
     },
     gameOverButton: {
@@ -236,7 +237,7 @@ const DarkTheme = (isDarkMode) => {
       borderRadius: borderRadius,
       marginBottom: 10,
       textAlign: 'center',
-      width: '100%',
+      width: windowWidth * 0.5,
     },
 
     //guideScreen, statsScreen, achievementScreen ja highscoreScreen
@@ -306,6 +307,35 @@ const DarkTheme = (isDarkMode) => {
     },
 
     //shopScreen
+    shopHeaderContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%',
+      marginBottom: 8,
+    },
+    shopHeader: {
+      width: '32%',
+      paddingHorizontal: 6,
+      borderRadius: borderRadius,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    coinCountContainer: {
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: borderRadius,
+      padding: 5,
+    },
+    coinsTextShop: {
+      textAlign: 'center',
+      color: textWhite,
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginHorizontal: 10, // Asetetaan marginaali oikealle
+    },
     skinsContainer: {
       backgroundColor: 'rgba(0, 0, 0, 0.2)',
       flexDirection: 'row',
@@ -318,6 +348,10 @@ const DarkTheme = (isDarkMode) => {
     signImage: {
       width: windowWidth / 4,
       height: windowWidth / 4,
+      position: 'absolute',
+      top: Constants.statusBarHeight + 8, // Asetetaan 8px statusbarin alapuolelle
+      left: windowWidth * 0.5, // Keskittää vaakasuunnassa
+      marginLeft: -(windowWidth / 8), // Korjaa, jotta kuva on täysin keskitetty
     },
     coinImageSmall: {
       width: 10,
