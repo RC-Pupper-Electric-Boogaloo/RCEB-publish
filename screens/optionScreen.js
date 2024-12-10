@@ -71,7 +71,7 @@ const OptionScreen = ({ navigation }) => {
           if (Array.isArray(parsedSkins) && parsedSkins.includes(18)) {
             setShowClassic(true)
           }
-          if (Array.isArray(parsedSkins) && parsedSkins.includes(14)) {
+          if (Array.isArray(parsedSkins) && parsedSkins.includes(15)) {
             setShowFastmode(true)
           }
         }
@@ -154,9 +154,7 @@ const OptionScreen = ({ navigation }) => {
       </GameEngine>
       <View style={styles.optionsContainer}>
         <View style={styles.optionsColorContainer}>
-          <View style={styles.headerContainer}>
             <Text style={styles.screenHeader}>Options</Text>
-          </View>
           <View style={styles.optionsRowContainer}>
             <View style={styles.row}>
               <Text style={styles.label}>Music</Text>
