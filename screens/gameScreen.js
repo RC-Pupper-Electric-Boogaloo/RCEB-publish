@@ -34,7 +34,7 @@ export default function GameScreen({ navigation }) {
     const [collectedBatteries, setCollectedBatteries] = useState(0)
     const maxBatteries = 7
     const [bonusMode, setBonusMode] = useState(false)
-    const [gravity, setGravity] = useState(0.3)
+    const [gravity, setGravity] = useState(0.15)
 
     const backgroundImage = isDarkMode
         ? require('../assets/Taustakuvatakatumma.jpg')
@@ -64,7 +64,7 @@ export default function GameScreen({ navigation }) {
                 if (fastMode === 'true') {
                     setGravity(0.6); // Jos FastmodeOn on true, aseta gravity 0.5
                 } else {
-                    setGravity(0.25); // Muuten aseta gravity 0.3
+                    setGravity(0.15); 
                 }
             } catch (error) {
                 console.error("Error reading FastmodeOn value from AsyncStorage", error);
@@ -143,11 +143,27 @@ export default function GameScreen({ navigation }) {
     const loadActiveSkin = async () => {
         try {
             const storedActiveSkin = await AsyncStorage.getItem('activeSkin')
+            const savedSkins = await AsyncStorage.getItem('purchasedSkins')
+            let purchasedSkins = savedSkins ? JSON.parse(savedSkins) : []
+            if (!purchasedSkins.includes(0)) {
+                purchasedSkins.push(0);
+      
+                await AsyncStorage.setItem('purchasedSkins', JSON.stringify(purchasedSkins))
+            }
+
             if (storedActiveSkin) {
                 let skinIndex = JSON.parse(storedActiveSkin)
                 let skin = skinIndex
-                if (skinIndex === 20) {
-                    skin = getRandom(0, 19)
+            
+                const getValidSkin = () => {
+                    do {
+                        skin = getRandom(0, 19)
+                    } while (!purchasedSkins.includes(skin))
+                    return skin
+                }
+            
+                if (skinIndex === 20 || !purchasedSkins.includes(skin)) {
+                    skin = getValidSkin()
                 }
 
                 // Assign skin based on the index
