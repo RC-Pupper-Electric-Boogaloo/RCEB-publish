@@ -17,7 +17,9 @@ import * as Speech from 'expo-speech'
 export default function GameScreen({ navigation }) {
     const [running, setRunning] = useState(true)
     const [currentPoints, setCurrentPoints] = useState(0)
+    const [boneCount, setBoneCount] = useState(0)
     const [coinCount, setCoinCount] = useState(0)
+    const [chocoCount, setChocoCount] = useState(0)
     const playCollisionSound = usePlayCollisionSound()
     const playPointSound = usePlayPointSound()
     const playPowerupSound = usePlayPowerupSound()
@@ -104,11 +106,12 @@ export default function GameScreen({ navigation }) {
             try {
                 const savedStats = await AsyncStorage.getItem('GAME_STATS')
                 const storedCoinCount = await AsyncStorage.getItem('coinCount')
-                let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 }
+                let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, totalChoco: 0, gamesPlayed: 0, totalPlayTime: 0 }
                 let newCoinCount = storedCoinCount ? JSON.parse(storedCoinCount) : 0
 
-                stats.totalPoints += currentPoints
+                stats.totalPoints += boneCount
                 stats.totalCoins += coinCount
+                stats.totalChoco += chocoCount
                 stats.gamesPlayed += 1
                 stats.totalPlayTime += elapsedTime
                 newCoinCount += coinCount
@@ -157,12 +160,12 @@ export default function GameScreen({ navigation }) {
             
                 const getValidSkin = () => {
                     do {
-                        skin = getRandom(0, 19)
+                        skin = getRandom(0, 21)
                     } while (!purchasedSkins.includes(skin))
                     return skin
                 }
             
-                if (skinIndex === 20 || !purchasedSkins.includes(skin)) {
+                if (skinIndex === 22 || !purchasedSkins.includes(skin)) {
                     skin = getValidSkin()
                 }
 
@@ -226,6 +229,12 @@ export default function GameScreen({ navigation }) {
                         setActiveSkin(require('../assets/rcCrashBuldog.png'))
                         break
                     case 19:
+                        setActiveSkin(require('../assets/rcLePapillon.png'))
+                        break                    
+                    case 20:
+                        setActiveSkin(require('../assets/rcCheemsShiba.png'))
+                        break
+                    case 21:
                         setActiveSkin(require('../assets/rcPupperOg.png'))
                         break
                     default:
@@ -271,7 +280,9 @@ export default function GameScreen({ navigation }) {
 
     const handleRestart = () => {
         setCurrentPoints(0)
+        setBoneCount(0)
         setCoinCount(0)
+        setChocoCount(0)
         setRunning(true)
         setCollectedBatteries(0)
 
@@ -304,9 +315,9 @@ export default function GameScreen({ navigation }) {
                                 <Image 
                                     source={require('../assets/bonus.png')} 
                                     style={{
-                                    width: 160, // Aseta haluamasi leveys
-                                    height: 100, // Aseta haluamasi korkeus
-                                    resizeMode: 'contain', // Säilyttää kuvan mittasuhteet
+                                    width: 160,
+                                    height: 100,
+                                    resizeMode: 'contain',
                                 }} 
                             />
                             ) : (
@@ -315,7 +326,7 @@ export default function GameScreen({ navigation }) {
                             </View>
                             <Text style={styles.pointsText}>
                                 <Image source={require('../assets/Point.png')} style={styles.coinImage} /> x {currentPoints}{"\n"} 
-                                <Image source={require('../assets/Coin.png')} style={styles.coinImage} /> x {coinCount}
+                                <Image source={require('../assets/Coin.png')} style={styles.coinImage} /> x {coinCount}{"\n"} 
                             </Text>
                             <View
                                 style={{
@@ -363,6 +374,7 @@ export default function GameScreen({ navigation }) {
                                         case 'new_point':
                                             if (sfxOn) playPointSound()
                                             setCurrentPoints(currentPoints + 1)
+                                            setBoneCount(boneCount + 1)
                                             break
                                         case 'coin_collected':
                                             if (sfxOn) playPointSound()
@@ -370,7 +382,9 @@ export default function GameScreen({ navigation }) {
                                             break
                                         case 'miss':
                                             if (sfxOn) playCollisionSound()
-                                            setCurrentPoints(Math.max(currentPoints - 1, 0))
+                                            setCurrentPoints(Math.max(currentPoints - 1, 0))           
+                                            setChocoCount(chocoCount + 1)
+                                            if(collectedBatteries>0){setCollectedBatteries(prev => Math.min(prev - 1, maxBatteries))}
                                             break
                                         case 'battery_collected':
                                             if (sfxOn) playPowerupSound()
@@ -398,7 +412,9 @@ export default function GameScreen({ navigation }) {
                 ) : (
                     <GameOverScreen
                         currentPoints={currentPoints}
+                        boneCount={boneCount}
                         coinCount={coinCount}
+                        chocoCount={chocoCount}
                         onRestart={handleRestart}
                         onShowHighscores={handleShowHighscores}
                         navigation={navigation}

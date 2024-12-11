@@ -1,30 +1,33 @@
-import Matter from "matter-js";
-import { Dimensions } from "react-native";
-import { getRandom } from "../utils/random";
-import Backdrop from "../components/Backdrop";
-import Sprites from "../components/Sprites";
-import Puppy from "../components/Puppy";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import Matter from "matter-js"
+import { Dimensions } from "react-native"
+import { getRandom } from "../utils/random"
+import Backdrop from "../components/Backdrop"
+import Sprites from "../components/Sprites"
+import Obstacle from "../components/Obstacle"
+import Puppy from "../components/Puppy"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const windowHeight = Dimensions.get("window").height;
-const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height
+const windowWidth = Dimensions.get("window").width
 
 const fetchPurchasedSkins = async () => {
-    const savedSkins = await AsyncStorage.getItem("purchasedSkins");
-    return savedSkins ? JSON.parse(savedSkins) : [];
+    const savedSkins = await AsyncStorage.getItem("purchasedSkins")
+    return savedSkins ? JSON.parse(savedSkins) : []
 };
 
 export default async (restart, imageSource) => {
-    let engine = Matter.Engine.create({ enableSleeping: false });
+    let engine = Matter.Engine.create({ enableSleeping: false })
     let world = engine.world;
 
-    world.gravity.y = 0;
-    world.gravity.x = -0.02;
+    world.gravity.y = 0
+    world.gravity.x = -0.02
 
-    const purchasedSkins = await fetchPurchasedSkins();
+    const shouldAddCheems = Math.random() < 0.2
+
+    const purchasedSkins = await fetchPurchasedSkins()
 
     const allEntities = [
-        { id: 19, name: "OG RC Pupper", source: require("../assets/rcPupperOg.png"), x: 0.85, y: 0.72, message: "Blast from the past! The Original RC Puppy didn't ride a remote-controlled car—no, no, no. It was the remote-controlled Puppy, full of electric boogaloo. Classic mode offers a glimpse of how things could have been." },
+        { id: 21, name: "OG RC Pupper", source: require("../assets/rcPupperOg.png"), x: 0.85, y: 0.72, message: "Blast from the past! The Original RC Puppy didn't ride a remote-controlled car—no, no, no. It was the remote-controlled Puppy, full of electric boogaloo. Classic mode offers a glimpse of how things could have been." },
         { id: 11, name: "Pirate Corgi", source: require("../assets/rcPiratePup.png"), x: 0.15, y: 0.75, message: "Hide your bones! This greedy Corgi takes them all. Rumor has it this puppy has already collected over 10,000 of them—just look at that full sack!" },
         { id: 6, name: "Business Borzoi", source: require("../assets/rcBusinessBorzoi.png"), x: 0.45, y: 0.75, message: "Why the long face? Business Borzoi has his snout deep in work. At least the commute goes fast with brand new remote-controlled car." },
         { id: 16, name: "Win Whippet", source: require("../assets/rcWinWhippet.png"), x: 0.75, y: 0.75, message: "This puppy just can't stop winning! A medal hangs proudly around its neck, proving to other puppies that it's the best. Hitting speeds of 60 mph without a remote-controlled car—and going even faster with one—nobody can catch this speedster. Whip it, Win Whippet!" },
@@ -44,9 +47,11 @@ export default async (restart, imageSource) => {
         { id: 18, name: "Crash Buldog", source: require("../assets/rcCrashBuldog.png"), x: 0.64, y: 0.92, message: "Crash Bulldog is the ultimate testament to persistence! Did a cat jump scare you? No problem—just keep going. RC car malfunction? Brush it off and try again. This bulldog never backs down, and neither should you!" },
         { id: 15, name: "Power Puppy Pampai", source: require("../assets/rcPowerPuppy.png"), x: 0.27, y: 0.92, message: "Is it a plane? Is it a bird? No—it's Power Puppy Pampai soaring through the air for a treat! With boundless energy and jumps that defy gravity, Power Puppy's here to show you how high a pup can fly. Time to play in style!" },
         { id: 8, name: "Royal Pupper", source: require("../assets/rcRoyalAfgan.png"), x: 0.08, y: 0.96, message: "Meet the royal pup of RC racing! This blue-blooded Afghan Hound brings elegance to the track with every graceful stride. Bow down—Royal Pupper has arrived to steal the spotlight!" },
-    ];
+        { id: 19, name: "Le Papillon", source: require("../assets/rcLePapillon.png"), x: 0.43, y: 0.95, message: "Delicate and graceful, Le Papillon flutters onto the scene! This artistic pup dreams of chocolate but knows better—art is its true calling. With elegance like this, who needs sweets?" },
+        { id: 20, name: "Cheems the Shiba", source: require("../assets/rcCheemsShiba.png"), x: 0.78, y: 0.95, message: "Cheeky and charming, Cheems the Shiba always steals the spotlight—invited or not! With a love for cheemsburgers and a smug grin, this mischievous pup is impossible to resist." },
+    ]
 
-    const purchasedEntities = allEntities.filter(entity => purchasedSkins.includes(entity.id));
+    const purchasedEntities = allEntities.filter(entity => purchasedSkins.includes(entity.id))
 
     const entities = purchasedEntities.reduce((acc, entity) => {
         acc[entity.name] = Puppy(
@@ -57,15 +62,18 @@ export default async (restart, imageSource) => {
             { height: windowWidth * 0.3, width: windowWidth * 0.3 },
             entity.source,
             entity.message
-        );
-        return acc;
-    }, {});
+        )
+        return acc
+    }, {})
 
     return {
         physics: { engine, world },
         Graphic: Backdrop(world, 'Graphic', 'black', { x: windowWidth / 2, y: windowHeight / 2 +31 }, { height: windowHeight, width: windowWidth }, imageSource),
         Cloud1: Sprites(world, 'Cloud1', 'black',  { x: windowWidth +50, y: getRandom(150, windowHeight / 1.1)}, { height: 160, width: 160 }, require('../assets/cloudcouble.png')),
         Cloud2: Sprites(world, 'Cloud2', 'black',  { x: windowWidth -20, y: getRandom(150, windowHeight / 1.1)}, { height: 50, width: 100 }, require('../assets/cloudSingle.png')),
+        ...(shouldAddCheems && !purchasedSkins.includes(20) && {
+            Cheems: Obstacle(world, 'Cheems', 'black', { x: windowWidth +50, y: windowHeight}, { height: windowWidth * 0.3, width: windowWidth * 0.3 }, require('../assets/rcCheemsShiba.png'))
+        }),
         ...entities,
-    };
-};
+    }
+}

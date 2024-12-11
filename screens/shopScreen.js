@@ -28,20 +28,22 @@ import Skin16 from '../assets/rcPowerPuppy.png'
 import Skin17 from '../assets/rcWinWhippet.png'
 import Skin18 from '../assets/rcFluffers.png'
 import Skin19 from '../assets/rcCrashBuldog.png'
-import Skin20 from '../assets/rcPupperOg.png'
-import Skin21 from '../assets/Random.png'
+import Skin20 from '../assets/rcLePapillon.png'
+import Skin21 from '../assets/rcCheemsShiba.png'
+import Skin22 from '../assets/rcPupperOg.png'
+import Skin23 from '../assets/Random.png'
 
 const ShopScreen = ({ navigation }) => {
-  const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8, Skin9, Skin10, Skin11, Skin12, Skin13, Skin14, Skin15, Skin16, Skin17, Skin18, Skin19, Skin20, Skin21]
+  const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8, Skin9, Skin10, Skin11, Skin12, Skin13, Skin14, Skin15, Skin16, Skin17, Skin18, Skin19, Skin20, Skin21, Skin22, Skin23]
   const SkinNames = [
     'RC Puppy', 'Doc Dog', 'ShopDog', 'Silken Engineer',
     'Saint Bernard', 'Professor Poodle', 'Business Borzoi',
     'Maurice "PugLife" Pupper', 'Royal Pupper', 'Golden Puppy','Timekeeper Dachshund',
     'Pirate Corgi', 'Bonus Pupper', 'Sergeant Woofer', 'Merchant Beagle',
     'Power Puppy Pampai', 'Win Whippet', 'Fluffers', 'Crash Buldog',
-    'OG RC Pupper', 'Random'
+    'Le Papillon', 'Cheems the Shiba', 'OG RC Pupper', 'Random'
   ]
-  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 9999, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 9999, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
   const { isDarkMode } = useTheme()
   const styles = DarkTheme(isDarkMode)
@@ -171,6 +173,7 @@ const ShopScreen = ({ navigation }) => {
                 {'\u00A0'}{coinCount > 9999 ? 9999 : coinCount}
                 </Text>
                 <Image source={require('../assets/Coin.png')} style={styles.coinImageSmall} />
+                <Text style={styles.coinsTextShop}>{'\u00A0'}</Text>
               </View>
             </View>
           </View>

@@ -5,7 +5,7 @@ import { useTheme } from '../components/Theme'
 import DarkTheme from '../styles/theme'
 import { MusicContext } from '../contexts/MusicContext'
 
-const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores, navigation }) => {
+const GameOverScreen = ({ currentPoints, boneCount, coinCount, chocoCount, onRestart, onShowHighscores, navigation }) => {
     const { isDarkMode } = useTheme()
     const styles = DarkTheme(isDarkMode)
     const [highScores, setHighScores] = useState([])
@@ -89,8 +89,18 @@ const GameOverScreen = ({ currentPoints, coinCount, onRestart, onShowHighscores,
                 <Text style={styles.pointsTextGameOver}>Points: {currentPoints}</Text>
                 {!isClassicMode && (
                     <View style={styles.coinsContainer}>
-                        <Image source={require('../assets/Coin.png')} style={styles.coinImage} />
-                        <Text style={styles.coinsTextGameOver}>x {coinCount}</Text>
+                        <View style={styles.coinsRow}>
+                            <Image source={require('../assets/Point.png')} style={styles.coinImage} />
+                            <Text style={styles.coinsTextGameOver}>x {boneCount}</Text>
+                        </View>
+                        <View style={styles.coinsRow}>
+                            <Image source={require('../assets/Coin.png')} style={styles.coinImage} />
+                            <Text style={styles.coinsTextGameOver}>x {coinCount}</Text>
+                        </View>
+                        <View style={styles.coinsRow}>
+                            <Image source={require('../assets/Choco.png')} style={styles.coinImage} />
+                            <Text style={styles.coinsTextGameOver}>x {chocoCount}</Text>
+                        </View>
                     </View>
                 )}
                 {isHighScore ? (
