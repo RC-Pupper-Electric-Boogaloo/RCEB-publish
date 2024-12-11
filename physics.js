@@ -158,7 +158,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
         Matter.Body.setVelocity(entities["Battery"].body, { x: -0.5, y: 0 })
         Matter.Body.setPosition(entities["Battery"].body, {
             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
-            y: getRandom(3, 6) * -windowHeight
+            y: getRandom(2, 4) * -windowHeight
         })
     }
 
@@ -199,8 +199,8 @@ const Physics = (entities, { time, touches, dispatch }) => {
             event.pairs.forEach(({ bodyA, bodyB }) => {
                 if (bodyA.label === "Char" && bodyB.label === "Point") {
                     points++
-                    if (world.gravity.y <= 2) {
-                        world.gravity.y = world.gravity.y + 0.01
+                    if (world.gravity.y <= (1.6+(points/100))) {
+                        world.gravity.y = world.gravity.y + 0.005
                     }
                     dispatch({ type: "new_point" })
                     Matter.Body.setVelocity(entities["Point"].body, { x: 0, y: 0 })
@@ -229,7 +229,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     if (!isBonusActive) {
                         dispatch({ type: "miss" })
                         if (world.gravity.y > 0.4) {
-                            world.gravity.y = world.gravity.y - 0.01
+                            world.gravity.y = world.gravity.y - 0.005
                         }
                         Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 })
                         Matter.Body.setPosition(bodyB, {
@@ -273,7 +273,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                     Matter.Body.setVelocity(entities["Battery"].body, { x: 0, y: 0 })
                     Matter.Body.setPosition(bodyB, {
                         x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),
-                        y: getRandom(2, 4) * -windowHeight
+                        y: getRandom(1.5, 3) * -windowHeight
                     })
                 }
             })

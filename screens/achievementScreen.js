@@ -35,7 +35,7 @@ const AchievementScreen = ({ navigation }) => {
         { id: 9, name: "My Precious", requirement: "Collect 50,000 total from points and coins", image: require('../assets/rcFluffers.png'), progress: 0, goal: 50000 },
         { id: 10, name: "Test Drive!", requirement: "Play during 14 different days", image: require('../assets/rcCrashBuldog.png'), progress: 0, goal: 14 },
         { id: 11, name: "Howling Success!", requirement: "Score 250 points in one game", image: require('../assets/rcPupperOg.png'), progress: 0, goal: 250 },
-        { id: 12, name: "Everypuppy is here!", requirement: "Adopt all 19 puppies", image: require('../assets/Random.png'), progress: 0, goal: 20 },
+        { id: 12, name: "Everypuppy is here!", requirement: "Adopt atleast 15 puppies", image: require('../assets/Random.png'), progress: 0, goal: 15 },
     ]
 
     useEffect(() => {
@@ -194,7 +194,7 @@ const AchievementScreen = ({ navigation }) => {
         12: {
             skinIndex: 20,
             name: "Random Puppy",
-            message: "You unlocked 'Everypuppy is here!' You can now randomise your puppy when entering game. Choose random from shop."
+            message: "You unlocked 'Everypuppy is here!', Maybe not every Every puppy, but quite many. You can now randomise your puppy when entering game. Choose random from shop."
         },
     }
 

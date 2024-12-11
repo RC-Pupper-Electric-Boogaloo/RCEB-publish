@@ -28,40 +28,42 @@ export default function StartScreen({ navigation }) {
   }, [setMusic])
 
   const saveTodayIfNotAlreadySaved = async () => {
-    const today = new Date().toISOString().split('T')[0]; // Päivämäärä muodossa "YYYY-MM-DD"
+    const today = new Date().toISOString().split('T')[0] // Päivämäärä muodossa "YYYY-MM-DD"
     try {
         // Hae tallennetut päivämäärät
-        const storedDates = await AsyncStorage.getItem('DaysPlayed');
-        let daysPlayed = storedDates ? JSON.parse(storedDates) : [];
+        const storedDates = await AsyncStorage.getItem('DaysPlayed')
+        let daysPlayed = storedDates ? JSON.parse(storedDates) : []
 
         // Lisää tämän päivän päivämäärä vain, jos sitä ei ole jo listassa
         if (!daysPlayed.includes(today)) {
-            daysPlayed.push(today);
-            await AsyncStorage.setItem('DaysPlayed', JSON.stringify(daysPlayed));
+            daysPlayed.push(today)
+            await AsyncStorage.setItem('DaysPlayed', JSON.stringify(daysPlayed))
         }
-        console.log('DaysPlayed:', daysPlayed);  // Tämä näyttää koko listan konsolissa
+        console.log('DaysPlayed:', daysPlayed)  // Tämä näyttää koko listan konsolissa
 
-        return daysPlayed.length;
+        return daysPlayed.length
     } catch (error) {
-        console.error('Error saving the date:', error);
-        return 0;
+        console.error('Error saving the date:', error)
+        return 0
     }
-  };
+  }
   
   const handleStartPress = async () => {
     try {
-      const daysPlayed = await saveTodayIfNotAlreadySaved();
-      console.log(`Days played so far: ${daysPlayed}`);
+      const daysPlayed = await saveTodayIfNotAlreadySaved()
+      console.log(`Days played so far: ${daysPlayed}`)
       // Lataa SfxOn-asetuksen arvo
       const savedSfx = await AsyncStorage.getItem('SfxOn')
       if (savedSfx === null) {
         // Jos arvoa ei ole, asetetaan oletus true ja tallennetaan se
-        await AsyncStorage.setItem('SfxOn', 'true');
+        await AsyncStorage.setItem('SfxOn', 'true')
       }
       const parsedSfx = savedSfx === 'true'
 
-      // Aseta tila manuaalisesti
-      setSfxOn(parsedSfx)
+      const activeSkin = await AsyncStorage.getItem('activeSkin')
+      if (activeSkin === null) {
+        await AsyncStorage.setItem('activeSkin', JSON.stringify(0))
+      }
 
       // Jos SfxOn on päällä, puhe käynnistyy
       if (parsedSfx) {
