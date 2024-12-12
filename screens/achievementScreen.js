@@ -34,42 +34,44 @@ const AchievementScreen = ({ navigation }) => {
         { id: 8, name: "Fast and furryous!", requirement: "Score 100 points in one game", image: require('../assets/rcWinWhippet.png'), progress: 0, goal: 100 },
         { id: 9, name: "My Precious", requirement: "Collect 50,000 total from points and coins", image: require('../assets/rcFluffers.png'), progress: 0, goal: 50000 },
         { id: 10, name: "Test Drive!", requirement: "Play during 14 different days", image: require('../assets/rcCrashBuldog.png'), progress: 0, goal: 14 },
-        { id: 11, name: "Howling Success!", requirement: "Score 250 points in one game", image: require('../assets/rcPupperOg.png'), progress: 0, goal: 250 },
-        { id: 12, name: "Everypuppy is here!", requirement: "Adopt atleast 15 puppies", image: require('../assets/Random.png'), progress: 0, goal: 15 },
+        { id: 11, name: "Choco-Lot of Trouble", requirement: "Get hit by 5,000 Choco. Hurts tummy. Don't give Choco to dogs!", image: require('../assets/rcLePapillon.png'), progress: 0, goal: 5000 },
+        { id: 12, name: "Paw-ty Crasher!", requirement: "Find hidden puppy. Rumour says it sometimes visits credits.", image: require('../assets/rcCheemsShiba.png'), progress: 0, goal: 1 },
+        { id: 13, name: "Howling Success!", requirement: "Score 250 points in one game", image: require('../assets/rcPupperOg.png'), progress: 0, goal: 250 },
+        { id: 14, name: "Everypuppy is here!", requirement: "Adopt atleast 20 puppies", image: require('../assets/Random.png'), progress: 0, goal: 20 },
     ]
 
     useEffect(() => {
         const loadStatsAndScores = async () => {
             try {
-                const savedStats = await AsyncStorage.getItem('GAME_STATS');
-                const parsedStats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 };
-                setStats(parsedStats);
+                const savedStats = await AsyncStorage.getItem('GAME_STATS')
+                const parsedStats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 }
+                setStats(parsedStats)
     
-                const savedScores = await AsyncStorage.getItem('HIGHSCORES');
-                let scoresArray = savedScores ? JSON.parse(savedScores) : [];
-                const highestScore = scoresArray.length > 0 ? Math.max(...scoresArray.map(score => score.points)) : 0;
-                setHighScore(highestScore);
+                const savedScores = await AsyncStorage.getItem('HIGHSCORES')
+                let scoresArray = savedScores ? JSON.parse(savedScores) : []
+                const highestScore = scoresArray.length > 0 ? Math.max(...scoresArray.map(score => score.points)) : 0
+                setHighScore(highestScore)
     
-                const savedSkins = await AsyncStorage.getItem('purchasedSkins');
+                const savedSkins = await AsyncStorage.getItem('purchasedSkins')
                 // Ladataan päivämäärät
-                const storedDates = await AsyncStorage.getItem('DaysPlayed');
-                let daysPlayed = 0;
+                const storedDates = await AsyncStorage.getItem('DaysPlayed')
+                let daysPlayed = 0
                 if (storedDates) {
-                    const parsedDates = JSON.parse(storedDates);
-                    daysPlayed = parsedDates ? parsedDates.length : 0;
+                    const parsedDates = JSON.parse(storedDates)
+                    daysPlayed = parsedDates ? parsedDates.length : 0
                 }
-                console.log(`Days played so far: ${daysPlayed}`);
+                console.log(`Days played so far: ${daysPlayed}`)
                 setDatesPlayed(daysPlayed); // Asetetaan päivitetty arvo
 
                 // Kutsutaan updateAchievements vasta, kun kaikki tiedot on ladattu ja setState suoritettu
-                updateAchievements(parsedStats, highestScore, savedSkins, daysPlayed);
+                updateAchievements(parsedStats, highestScore, savedSkins, daysPlayed)
 
             } catch (error) {
-                console.error("Error loading stats or high scores:", error);
+                console.error("Error loading stats or high scores:", error)
             }
         };
     
-        loadStatsAndScores();
+        loadStatsAndScores()
     }, []);
     
     
@@ -77,7 +79,8 @@ const AchievementScreen = ({ navigation }) => {
         console.log("Updating achievements, daysPlayed:", daysPlayed); // Debuggaa päivitetty arvo
    
         const skinCount = savedSkins ? JSON.parse(savedSkins).length : 0
-        const wooferSkinIndex = 12;
+        const wooferSkinIndex = 13
+        const cheemsSkinIndex = 20
         const purchasedSkins = savedSkins ? JSON.parse(savedSkins) : []
         const requiredSkins = [1, 2, 3, 4, 5, 6, 7] // Skinindexit, jotka pitää olla hankittu
 
@@ -99,8 +102,12 @@ const AchievementScreen = ({ navigation }) => {
                 case 8: progress = highestScore; break
                 case 9: progress = stats.totalPoints+stats.totalCoins; break
                 case 10: progress = daysPlayed; break
-                case 11: progress = highestScore; break
-                case 12: progress = skinCount; break
+                case 11: progress = stats.totalChoco; break
+                case 12:
+                    progress = purchasedSkins.includes(cheemsSkinIndex) ? 1 : 0
+                    break
+                case 13: progress = highestScore; break
+                case 14: progress = skinCount; break
                 default: break
             }
 
@@ -188,11 +195,21 @@ const AchievementScreen = ({ navigation }) => {
         },
         11: {
             skinIndex: 19,
-            name: "OG RC Pupper",
-            message: "You unlocked 'Howling Success!' OG RC Pupper is now available in the shop. You can also toggle Classic mode from options"
+            name: "Le Papillon",
+            message: "You unlocked 'Choco-Lot of Trouble' Le Papillon is now available in the shop. DO NOT GIVE CHOCO TO PUPPIES."
         },
         12: {
             skinIndex: 20,
+            name: "Cheems the Shiba",
+            message: "You unlocked 'Paw-ty Crasher!' Cheems the Shiba is now available in the shop."
+        },
+        13: {
+            skinIndex: 21,
+            name: "OG RC Pupper",
+            message: "You unlocked 'Howling Success!' OG RC Pupper is now available in the shop. You can also toggle Classic mode from options."
+        },
+        14: {
+            skinIndex: 22,
             name: "Random Puppy",
             message: "You unlocked 'Everypuppy is here!', Maybe not every Every puppy, but quite many. You can now randomise your puppy when entering game. Choose random from shop."
         },

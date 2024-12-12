@@ -119,6 +119,27 @@ const Physics = (entities, { time, touches, dispatch }) => {
                 }
             }
         }
+        if (entities["Cheems"]) {
+            const cheems = entities["Cheems"]
+            const { min, max } = cheems.body.bounds
+
+            if (
+                touchX >= min.x && touchX <= max.x &&
+                touchY >= min.y && touchY <= max.y
+            ) {
+                const skinIndex = 20
+                const currentSkins = await AsyncStorage.getItem("purchasedSkins")
+                const purchasedSkins = currentSkins ? JSON.parse(currentSkins) : []
+
+                if (!purchasedSkins.includes(skinIndex)) {
+                    purchasedSkins.push(skinIndex)
+                    await AsyncStorage.setItem("purchasedSkins", JSON.stringify(purchasedSkins))
+                    dispatch({ type: "skin_unlocked", skinIndex })
+                    Alert.alert("Yip!", "Cheems the Shiba unlocked! You can now find this puppy from the shop.");
+
+                }
+            }
+        }
     })
 
 
@@ -231,6 +252,7 @@ const Physics = (entities, { time, touches, dispatch }) => {
                         if (world.gravity.y > 0.4) {
                             world.gravity.y = world.gravity.y - 0.005
                         }
+                        if (powerUp > 0) { powerUp-- }
                         Matter.Body.setVelocity(entities["Choco"].body, { x: 0, y: 0 })
                         Matter.Body.setPosition(bodyB, {
                             x: getRandom(10 + 110 / 2, windowWidth - 10 - 110 / 2),

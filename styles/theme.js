@@ -201,9 +201,14 @@ const DarkTheme = (isDarkMode) => {
       marginBottom: 10,
     },
     coinsContainer: {
-      flexDirection: 'row',
+      flexDirection: 'column',
       alignItems: 'center',
       marginBottom: 16,
+    },
+    coinsRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 8,
     },
     coinImage: {
       width: 30,
@@ -334,7 +339,7 @@ const DarkTheme = (isDarkMode) => {
       color: textWhite,
       fontSize: 20,
       fontWeight: 'bold',
-      marginHorizontal: 10, // Asetetaan marginaali oikealle
+      marginHorizontal: 2, // Asetetaan marginaali oikealle
     },
     skinsContainer: {
       backgroundColor: 'rgba(0, 0, 0, 0.2)',

@@ -80,7 +80,7 @@ const GuideScreen = ({ navigation }) => {
                             <View style={styles.guideCenter}>
                                 <Text style={styles.title}>Choco</Text>
                                 <Text style={styles.text}>
-                                    Chocolate steals one point
+                                    Chocolate steals one point and discharges some battery
                                 </Text>
                             </View>
                         </View>
@@ -140,7 +140,7 @@ const GuideScreen = ({ navigation }) => {
                             <View style={styles.guideCenter}>
                                 <Text style={styles.title}>Bonus coin</Text>
                                 <Text style={styles.text}>
-                                    Keep collecting to keep them coming
+                                    Cats and Choco turn to coins during bonus mode. Watch out when bonus ends!
                                 </Text>
                             </View>
                         </View>
