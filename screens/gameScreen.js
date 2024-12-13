@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
-import { View, Text, ImageBackground, Image } from 'react-native'
+import { View, Text, ImageBackground, Image, Alert } from 'react-native'
 import { GameEngine } from 'react-native-game-engine'
 import { StatusBar } from 'expo-status-bar'
 import { useFocusEffect } from '@react-navigation/native'
@@ -105,7 +105,9 @@ export default function GameScreen({ navigation }) {
         const saveStats = async () => {
             try {
                 const savedStats = await AsyncStorage.getItem('GAME_STATS')
-                const storedCoinCount = await AsyncStorage.getItem('coinCount')
+                const storedCoinCount = await AsyncStorage.getItem('coinCount')         
+                const currentSkins2 = await AsyncStorage.getItem("purchasedSkins")
+                let purchasedSkins2 = currentSkins2 ? JSON.parse(currentSkins2) : []
                 let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, totalChoco: 0, gamesPlayed: 0, totalPlayTime: 0 }
                 let newCoinCount = storedCoinCount ? JSON.parse(storedCoinCount) : 0
 
@@ -115,6 +117,19 @@ export default function GameScreen({ navigation }) {
                 stats.gamesPlayed += 1
                 stats.totalPlayTime += elapsedTime
                 newCoinCount += coinCount
+
+                if (!currentSkins2) {
+                    currentSkins2 = JSON.stringify([]); // Initialize as empty array if it doesn't exist
+                    await AsyncStorage.setItem("purchasedSkins", currentSkins2)
+                }
+
+                if (currentPoints === 0 && coinCount > 999) {
+                    if (!purchasedSkins2.includes(21)) {
+                        purchasedSkins2.push(21) // Add skin ID to the array
+                        await AsyncStorage.setItem("purchasedSkins", JSON.stringify(purchasedSkins2)) // Save updated array
+                        Alert.alert("Ruff!", "Tibetan Tycoon unlocked! You can now find this puppy from the shop.")
+                    }
+                }
 
                 await AsyncStorage.setItem('coinCount', JSON.stringify(newCoinCount))
                 await AsyncStorage.setItem('GAME_STATS', JSON.stringify(stats))
@@ -160,12 +175,12 @@ export default function GameScreen({ navigation }) {
             
                 const getValidSkin = () => {
                     do {
-                        skin = getRandom(0, 21)
+                        skin = getRandom(0, 22)
                     } while (!purchasedSkins.includes(skin))
                     return skin
                 }
             
-                if (skinIndex === 22 || !purchasedSkins.includes(skin)) {
+                if (skinIndex === 23 || !purchasedSkins.includes(skin)) {
                     skin = getValidSkin()
                 }
 
@@ -233,8 +248,11 @@ export default function GameScreen({ navigation }) {
                         break                    
                     case 20:
                         setActiveSkin(require('../assets/rcCheemsShiba.png'))
-                        break
+                        break                    
                     case 21:
+                        setActiveSkin(require('../assets/rcTibetanTycoon.png'))
+                        break
+                    case 22:
                         setActiveSkin(require('../assets/rcPupperOg.png'))
                         break
                     default:

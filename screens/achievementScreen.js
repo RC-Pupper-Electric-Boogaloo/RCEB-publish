@@ -36,8 +36,9 @@ const AchievementScreen = ({ navigation }) => {
         { id: 10, name: "Test Drive!", requirement: "Play during 14 different days", image: require('../assets/rcCrashBuldog.png'), progress: 0, goal: 14 },
         { id: 11, name: "Choco-Lot of Trouble", requirement: "Get hit by 5,000 Choco. Hurts tummy. Don't give Choco to dogs!", image: require('../assets/rcLePapillon.png'), progress: 0, goal: 5000 },
         { id: 12, name: "Paw-ty Crasher!", requirement: "Find hidden puppy. Rumour says it sometimes visits credits.", image: require('../assets/rcCheemsShiba.png'), progress: 0, goal: 1 },
-        { id: 13, name: "Howling Success!", requirement: "Score 250 points in one game", image: require('../assets/rcPupperOg.png'), progress: 0, goal: 250 },
-        { id: 14, name: "Everypuppy is here!", requirement: "Adopt atleast 20 puppies", image: require('../assets/Random.png'), progress: 0, goal: 20 },
+        { id: 13, name: "All about money", requirement: "Get 1000 coins and 0 points in one game.", image: require('../assets/rcTibetanTycoon.png'), progress: 0, goal: 1 },
+        { id: 14, name: "Howling Success!", requirement: "Score 250 points in one game", image: require('../assets/rcPupperOg.png'), progress: 0, goal: 250 },
+        { id: 15, name: "Everypuppy is here!", requirement: "Adopt atleast 20 puppies", image: require('../assets/Random.png'), progress: 0, goal: 20 },
     ]
 
     useEffect(() => {
@@ -81,6 +82,7 @@ const AchievementScreen = ({ navigation }) => {
         const skinCount = savedSkins ? JSON.parse(savedSkins).length : 0
         const wooferSkinIndex = 13
         const cheemsSkinIndex = 20
+        const tycoonSkinIndex = 21
         const purchasedSkins = savedSkins ? JSON.parse(savedSkins) : []
         const requiredSkins = [1, 2, 3, 4, 5, 6, 7] // Skinindexit, jotka pitää olla hankittu
 
@@ -106,8 +108,11 @@ const AchievementScreen = ({ navigation }) => {
                 case 12:
                     progress = purchasedSkins.includes(cheemsSkinIndex) ? 1 : 0
                     break
-                case 13: progress = highestScore; break
-                case 14: progress = skinCount; break
+                case 13:
+                    progress = purchasedSkins.includes(tycoonSkinIndex) ? 1 : 0
+                    break
+                case 14: progress = highestScore; break
+                case 15: progress = skinCount; break
                 default: break
             }
 
@@ -205,11 +210,16 @@ const AchievementScreen = ({ navigation }) => {
         },
         13: {
             skinIndex: 21,
-            name: "OG RC Pupper",
-            message: "You unlocked 'Howling Success!' OG RC Pupper is now available in the shop. You can also toggle Classic mode from options."
+            name: "Tibetan Tycoon",
+            message: "You unlocked 'All about money' Tibetan Tycoon is now available in the shop."
         },
         14: {
             skinIndex: 22,
+            name: "OG RC Pupper",
+            message: "You unlocked 'Howling Success!' OG RC Pupper is now available in the shop. You can also toggle Classic mode from options."
+        },
+        15: {
+            skinIndex: 23,
             name: "Random Puppy",
             message: "You unlocked 'Everypuppy is here!', Maybe not every Every puppy, but quite many. You can now randomise your puppy when entering game. Choose random from shop."
         },
