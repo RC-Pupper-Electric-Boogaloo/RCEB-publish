@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
-import { View, Text, ImageBackground, Image, Alert } from 'react-native'
+import { View, Text, ImageBackground, Image, Alert, BackHandler } from 'react-native'
 import { GameEngine } from 'react-native-game-engine'
 import { StatusBar } from 'expo-status-bar'
 import { useFocusEffect } from '@react-navigation/native'
@@ -58,6 +58,19 @@ export default function GameScreen({ navigation }) {
             }
         }, [])
     )
+
+    useEffect(() => {
+        const backAction = () => {
+            return true // Estää Back-painikkeen toiminnan
+        }
+
+        const backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            backAction
+        )
+
+        return () => backHandler.remove()
+    }, [])
 
     useEffect(() => {
         const fetchFastMode = async () => {
