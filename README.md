@@ -43,7 +43,6 @@ Peli testattiin eri laitteilla joilla varmistettiin yhteensopivuus ja suoritusky
 
 ## Pelin käyttöönottaminen
 
-1.	Avaa Google Play -kauppa
-2.	Etsi peli nimellä RC-Pupper: Electric Boogaloo
-3.	Asenna sovellus
-4.	Aloita pelaaminen
+1.	Kloonaa repositorio koneelle
+2.	Aja terminaalissa npm i
+3.	Käynnistä peli ajamalla terminaalissa npx expo
