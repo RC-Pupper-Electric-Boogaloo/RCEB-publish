@@ -27,7 +27,7 @@ export default async (restart, imageSource) => {
     const purchasedSkins = await fetchPurchasedSkins()
 
     const allEntities = [
-        { id: 22, name: "OG RC Pupper", source: require("../assets/rcPupperOg.png"), x: 0.85, y: 0.72, message: "Blast from the past! The Original RC Puppy didn't ride a remote-controlled car—no, no, no. It was the remote-controlled Puppy, full of electric boogaloo. Classic mode offers a glimpse of how things could have been." },
+        { id: 23, name: "OG RC Pupper", source: require("../assets/rcPupperOg.png"), x: 0.85, y: 0.72, message: "Blast from the past! The Original RC Puppy didn't ride a remote-controlled car—no, no, no. It was the remote-controlled Puppy, full of electric boogaloo. Classic mode offers a glimpse of how things could have been." },
         { id: 11, name: "Pirate Corgi", source: require("../assets/rcPiratePup.png"), x: 0.15, y: 0.75, message: "Hide your bones! This greedy Corgi takes them all. Rumor has it this puppy has already collected over 10,000 of them—just look at that full sack!" },
         { id: 6, name: "Business Borzoi", source: require("../assets/rcBusinessBorzoi.png"), x: 0.45, y: 0.75, message: "Why the long face? Business Borzoi has his snout deep in work. At least the commute goes fast with brand new remote-controlled car." },
         { id: 16, name: "Win Whippet", source: require("../assets/rcWinWhippet.png"), x: 0.75, y: 0.75, message: "This puppy just can't stop winning! A medal hangs proudly around its neck, proving to other puppies that it's the best. Hitting speeds of 60 mph without a remote-controlled car—and going even faster with one—nobody can catch this speedster. Whip it, Win Whippet!" },
@@ -50,6 +50,7 @@ export default async (restart, imageSource) => {
         { id: 8, name: "Royal Pupper", source: require("../assets/rcRoyalAfgan.png"), x: 0.08, y: 0.96, message: "Meet the royal pup of RC racing! This blue-blooded Afghan Hound brings elegance to the track with every graceful stride. Bow down—Royal Pupper has arrived to steal the spotlight!" },
         { id: 19, name: "Le Papillon", source: require("../assets/rcLePapillon.png"), x: 0.43, y: 0.95, message: "Delicate and graceful, Le Papillon flutters onto the scene! This artistic pup dreams of chocolate but knows better—art is its true calling. With elegance like this, who needs sweets?" },
         { id: 20, name: "Cheems the Shiba", source: require("../assets/rcCheemsShiba.png"), x: 0.78, y: 0.95, message: "Cheeky and charming, Cheems the Shiba always steals the spotlight—invited or not! With a love for cheemsburgers and a smug grin, this mischievous pup is impossible to resist." },
+        { id: 22, name: "Howard the howavart", source: require("../assets/rcHoward.png"), x: 0.23, y: 0.98, message: "How art thou, Howard the Howavart? A true philosopher of the pup world, Howard is always pondering the great questions of life. With a heart full of wisdom and a mind full of 'how', this furry sage is ready to guide you through the wonders of the puppyverse!" },
     ]
 
     const purchasedEntities = allEntities.filter(entity => purchasedSkins.includes(entity.id))

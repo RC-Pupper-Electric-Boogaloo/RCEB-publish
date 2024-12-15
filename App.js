@@ -6,6 +6,7 @@ import { MusicProvider } from './contexts/MusicContext'
 import StartScreen from './screens/startScreen'
 import MainMenuScreen from './screens/mainMenuScreen'
 import GameScreen from './screens/gameScreen'
+import PuppyparkScreen from './screens/puppyparkScreen'
 import GameScreenClassic from './screens/gameScreenClassic'
 import GameOverScreen from './screens/gameOverScreen'
 import HighscoreScreen from './screens/highscoreScreen'
@@ -82,6 +83,11 @@ export default function App() {
                         <Stack.Screen
                             name='Credits'
                             component={CreditsScreen}
+                            options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                            name='Puppypark'
+                            component={PuppyparkScreen}
                             options={{ headerShown: false }}
                         />
                     </Stack.Navigator>

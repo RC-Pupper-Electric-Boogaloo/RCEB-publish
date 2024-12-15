@@ -11,7 +11,7 @@ import DarkTheme from '../styles/theme'
 const StatsScreen = ({ navigation }) => {
     const { isDarkMode } = useTheme()
     const styles = DarkTheme(isDarkMode)
-    const [stats, setStats] = useState({ totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 })
+    const [stats, setStats] = useState({ totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0, Puppyparks: 0 })
     const gameEngine = useRef(null)
 
     const backgroundImage = isDarkMode
@@ -86,7 +86,7 @@ const StatsScreen = ({ navigation }) => {
                         <Text style={styles.label}>Total Choco:</Text>
                         <View style={styles.statBox}>
                             <Text style={styles.labelOrange}>{stats.totalChoco}</Text>
-                            <Text style={[styles.labelOrange, styles, { fontSize: 14, color: '#2196F3' }]}>Avg. ({Math.round(stats.totalChoco / stats.gamesPlayed || 0)})</Text>
+                            <Text style={[styles.labelOrange, styles, { fontSize: 14, color: '#2196F3' }]}>Avg. ({Math.round(stats.totalChoco / stats.Puppyparks || 0)})</Text>
                         </View>
                     </View>
                     <View style={styles.row}>
