@@ -66,7 +66,7 @@ export default function PuppyparkScreen({ navigation }) {
                 const Puppyparks = await AsyncStorage.getItem('Puppyparks')        
                 let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, totalChoco: 0, gamesPlayed: 0, totalPlayTime: 0 }
                 let newCoinCount = storedCoinCount ? JSON.parse(storedCoinCount) : 0
-                let newPuppyparks = Puppyparks ? JSON.parse(storedCoinCount) : 0
+                let newPuppyparks = Puppyparks ? JSON.parse(Puppyparks) : 0
 
                 stats.totalPoints += boneCount
                 stats.totalCoins += coinCount
