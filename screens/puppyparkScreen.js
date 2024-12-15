@@ -62,9 +62,11 @@ export default function PuppyparkScreen({ navigation }) {
         const saveStats = async () => {
             try {
                 const savedStats = await AsyncStorage.getItem('GAME_STATS')
-                const storedCoinCount = await AsyncStorage.getItem('coinCount')         
-                let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, totalChoco: 0, gamesPlayed: 0, totalPlayTime: 0, Puppyparks: 0 }
+                const storedCoinCount = await AsyncStorage.getItem('coinCount')  
+                const Puppyparks = await AsyncStorage.getItem('Puppyparks')        
+                let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, totalChoco: 0, gamesPlayed: 0, totalPlayTime: 0 }
                 let newCoinCount = storedCoinCount ? JSON.parse(storedCoinCount) : 0
+                let newPuppyparks = Puppyparks ? JSON.parse(storedCoinCount) : 0
 
                 stats.totalPoints += boneCount
                 stats.totalCoins += coinCount
@@ -72,11 +74,12 @@ export default function PuppyparkScreen({ navigation }) {
                 stats.gamesPlayed += 1
                 stats.totalPlayTime += elapsedTime
                 newCoinCount += coinCount
-                stats.Puppyparks += 1
+                newPuppyparks += 1
 
 
                 await AsyncStorage.setItem('coinCount', JSON.stringify(newCoinCount))
                 await AsyncStorage.setItem('GAME_STATS', JSON.stringify(stats))
+                await AsyncStorage.setItem('Puppyparks', JSON.stringify(newPuppyparks))
             } catch (error) {
                 console.error('Error saving game stats:', error)
             }
