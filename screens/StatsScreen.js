@@ -11,7 +11,7 @@ import DarkTheme from '../styles/theme'
 const StatsScreen = ({ navigation }) => {
     const { isDarkMode } = useTheme()
     const styles = DarkTheme(isDarkMode)
-    const [stats, setStats] = useState({ totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0, Puppyparks: 0 })
+    const [stats, setStats] = useState({ totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 })
     const gameEngine = useRef(null)
 
     const backgroundImage = isDarkMode

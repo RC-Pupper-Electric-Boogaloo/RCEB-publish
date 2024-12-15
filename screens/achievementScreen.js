@@ -57,6 +57,9 @@ const AchievementScreen = ({ navigation }) => {
                 const savedSkins = await AsyncStorage.getItem('purchasedSkins')
                 // Ladataan päivämäärät
                 const storedDates = await AsyncStorage.getItem('DaysPlayed')
+                const Puppyparks = await AsyncStorage.getItem('Puppyparks')
+                let puppyparkvisits = Puppyparks ? JSON.parse(Puppyparks) : 0
+
                 let daysPlayed = 0
                 if (storedDates) {
                     const parsedDates = JSON.parse(storedDates)
@@ -66,7 +69,7 @@ const AchievementScreen = ({ navigation }) => {
                 setDatesPlayed(daysPlayed); // Asetetaan päivitetty arvo
 
                 // Kutsutaan updateAchievements vasta, kun kaikki tiedot on ladattu ja setState suoritettu
-                updateAchievements(parsedStats, highestScore, savedSkins, daysPlayed)
+                updateAchievements(parsedStats, highestScore, savedSkins, daysPlayed, puppyparkvisits)
 
             } catch (error) {
                 console.error("Error loading stats or high scores:", error)
@@ -77,7 +80,7 @@ const AchievementScreen = ({ navigation }) => {
     }, []);
     
     
-    const updateAchievements = (stats, highestScore, savedSkins, daysPlayed) => {
+    const updateAchievements = (stats, highestScore, savedSkins, daysPlayed, puppyparkvisits) => {
         console.log("Updating achievements, daysPlayed:", daysPlayed); // Debuggaa päivitetty arvo
    
         const skinCount = savedSkins ? JSON.parse(savedSkins).length : 0
@@ -112,7 +115,7 @@ const AchievementScreen = ({ navigation }) => {
                 case 13:
                     progress = purchasedSkins.includes(tycoonSkinIndex) ? 1 : 0
                     break
-                case 14: progress = stats.Puppyparks; break
+                case 14: progress = puppyparkvisits; break
                 case 15: progress = highestScore; break
                 case 16: progress = skinCount; break
                 default: break
