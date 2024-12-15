@@ -14,7 +14,7 @@ const AchievementScreen = ({ navigation }) => {
     const styles = DarkTheme(isDarkMode)
     const gameEngine = useRef(null)
     const [achievements, setAchievements] = useState([])
-    const [stats, setStats] = useState({ totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 })
+    const [stats, setStats] = useState({ totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0, Puppyparks: 0 })
     const [highScore, setHighScore] = useState(0)
     const [daysPlayed, setDatesPlayed] = useState(0)
 
@@ -37,15 +37,16 @@ const AchievementScreen = ({ navigation }) => {
         { id: 11, name: "Choco-Lot of Trouble", requirement: "Get hit by 5,000 Choco. Hurts tummy. Don't give Choco to dogs!", image: require('../assets/rcLePapillon.png'), progress: 0, goal: 5000 },
         { id: 12, name: "Paw-ty Crasher!", requirement: "Find hidden puppy. Rumour says it sometimes visits credits.", image: require('../assets/rcCheemsShiba.png'), progress: 0, goal: 1 },
         { id: 13, name: "All about money", requirement: "Get 1000 coins and 0 points in one game.", image: require('../assets/rcTibetanTycoon.png'), progress: 0, goal: 1 },
-        { id: 14, name: "Howling Success!", requirement: "Score 250 points in one game", image: require('../assets/rcPupperOg.png'), progress: 0, goal: 250 },
-        { id: 15, name: "Everypuppy is here!", requirement: "Adopt atleast 20 puppies", image: require('../assets/Random.png'), progress: 0, goal: 20 },
+        { id: 14, name: "How art thou Howard the howavart", requirement: "Everyone needs a friend to play with. Play with puppies at puppypark 50 times.", image: require('../assets/rcHoward.png'), progress: 0, goal: 50 },
+        { id: 15, name: "Howling Success!", requirement: "Score 250 points in one game", image: require('../assets/rcPupperOg.png'), progress: 0, goal: 250 },
+        { id: 16, name: "Everypuppy is here!", requirement: "Adopt atleast 20 puppies", image: require('../assets/Random.png'), progress: 0, goal: 20 },
     ]
 
     useEffect(() => {
         const loadStatsAndScores = async () => {
             try {
                 const savedStats = await AsyncStorage.getItem('GAME_STATS')
-                const parsedStats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0 }
+                const parsedStats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, gamesPlayed: 0, totalPlayTime: 0, Puppyparks: 0, }
                 setStats(parsedStats)
     
                 const savedScores = await AsyncStorage.getItem('HIGHSCORES')
@@ -111,8 +112,9 @@ const AchievementScreen = ({ navigation }) => {
                 case 13:
                     progress = purchasedSkins.includes(tycoonSkinIndex) ? 1 : 0
                     break
-                case 14: progress = highestScore; break
-                case 15: progress = skinCount; break
+                case 14: progress = stats.Puppyparks; break
+                case 15: progress = highestScore; break
+                case 16: progress = skinCount; break
                 default: break
             }
 
@@ -215,11 +217,16 @@ const AchievementScreen = ({ navigation }) => {
         },
         14: {
             skinIndex: 22,
-            name: "OG RC Pupper",
-            message: "You unlocked 'Howling Success!' OG RC Pupper is now available in the shop. You can also toggle Classic mode from options."
+            name: "Howard the howavart",
+            message: "You unlocked 'How art thou Howard the howavart!' Howard the howavart is now available in the shop."
         },
         15: {
             skinIndex: 23,
+            name: "OG RC Pupper",
+            message: "You unlocked 'Howling Success!' OG RC Pupper is now available in the shop. You can also toggle Classic mode from options."
+        },
+        16: {
+            skinIndex: 24,
             name: "Random Puppy",
             message: "You unlocked 'Everypuppy is here!', Maybe not every Every puppy, but quite many. You can now randomise your puppy when entering game. Choose random from shop."
         },

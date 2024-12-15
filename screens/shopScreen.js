@@ -1,12 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { View, Text, TouchableOpacity, Image, ImageBackground, ScrollView } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
+import { useFocusEffect } from '@react-navigation/native'
 import DarkTheme from '../styles/theme'
 import { useTheme } from '../components/Theme'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { GameEngine } from 'react-native-game-engine'
 import entities from '../entities/menuentities'
 import Physics from '../physics'
+import { MusicContext } from '../contexts/MusicContext'
+
 
 //Skinien importit
 import Skin1 from '../assets/CharDog.png'
@@ -31,20 +34,22 @@ import Skin19 from '../assets/rcCrashBuldog.png'
 import Skin20 from '../assets/rcLePapillon.png'
 import Skin21 from '../assets/rcCheemsShiba.png'
 import Skin22 from '../assets/rcTibetanTycoon.png'
-import Skin23 from '../assets/rcPupperOg.png'
-import Skin24 from '../assets/Random.png'
+import Skin23 from '../assets/rcHoward.png'
+import Skin24 from '../assets/rcPupperOg.png'
+import Skin25 from '../assets/Random.png'
+
 
 const ShopScreen = ({ navigation }) => {
-  const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8, Skin9, Skin10, Skin11, Skin12, Skin13, Skin14, Skin15, Skin16, Skin17, Skin18, Skin19, Skin20, Skin21, Skin22, Skin23, Skin24]
+  const Skins = [Skin1, Skin2, Skin3, Skin4, Skin5, Skin6, Skin7, Skin8, Skin9, Skin10, Skin11, Skin12, Skin13, Skin14, Skin15, Skin16, Skin17, Skin18, Skin19, Skin20, Skin21, Skin22, Skin23, Skin24, Skin25]
   const SkinNames = [
     'RC Puppy', 'Doc Dog', 'ShopDog', 'Silken Engineer',
     'Saint Bernard', 'Professor Poodle', 'Business Borzoi',
     'Maurice "PugLife" Pupper', 'Royal Pupper', 'Golden Puppy','Timekeeper Dachshund',
     'Pirate Corgi', 'Bonus Pupper', 'Sergeant Woofer', 'Merchant Beagle',
     'Power Puppy Pampai', 'Win Whippet', 'Fluffers', 'Crash Buldog',
-    'Le Papillon', 'Cheems the Shiba', 'Tibetan Tycoon', 'OG RC Pupper', 'Random'
+    'Le Papillon', 'Cheems the Shiba', 'Tibetan Tycoon', 'Howard the howavart', 'OG RC Pupper', 'Random'
   ]
-  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 9999, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  const SkinPrices = [0, 50, 100, 250, 500, 1000, 2500, 5000, 9999, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
   const { isDarkMode } = useTheme()
   const styles = DarkTheme(isDarkMode)
@@ -56,11 +61,29 @@ const ShopScreen = ({ navigation }) => {
 
   const backdropImage = require('../assets/Taustakuva6ala.png')
 
-
   const [selectedSkin, setSelectedSkin] = useState(null)
   const [purchasedSkins, setPurchasedSkins] = useState([])
   const [coinCount, setCoinCount] = useState(0) // Track coin count from AsyncStorage
   const [activeSkin, setActiveSkin] = useState(null)
+  const { setMusic } = useContext(MusicContext)
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setMusic(require('../assets/bgmenu.mp3'))
+      const updateCoinCount = async () => {
+        try {
+          const storedCoinCount = await AsyncStorage.getItem('coinCount')
+          if (storedCoinCount) {
+            setCoinCount(JSON.parse(storedCoinCount))
+          }
+        } catch (error) {
+          console.error("Error loading updated coin count from AsyncStorage", error)
+        }
+      }
+  
+      updateCoinCount()
+    }, [setMusic])
+  )
 
   // Load purchased skins and coin count from AsyncStorage
   useEffect(() => {
@@ -89,7 +112,7 @@ const ShopScreen = ({ navigation }) => {
       }
     }
     loadData();
-  }, []); // Empty dependency array to run this only once when the component mounts
+  }, [setMusic]); // Empty dependency array to run this only once when the component mounts
 
   useEffect(() => {
     const loadActiveSkin = async () => {
@@ -240,22 +263,23 @@ const ShopScreen = ({ navigation }) => {
               </TouchableOpacity>
             </View>
           )}
-          {/*
+          
           <View style={styles.shopButtonContainer}>
+          <TouchableOpacity style={[styles.shopButton]} onPress={() => { navigation.navigate('Puppypark') }}>
+              <Image source={require('../assets/Parksign.png')} style={styles.coinImage} />
+              <Text style={styles.shopButtonTitleOrange}>Puppy Park</Text>
+            </TouchableOpacity>   
+          {/*
             <TouchableOpacity style={[styles.shopButton]} onPress={() => alert('Try Your Luck nappi toimii')}>
               <Text style={styles.shopButtonTitleOrange}>LUCKY SKIN{'\n'}</Text>
               <Text style={styles.shopButtonTitle}>20 COINS</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.shopButton]} onPress={() => alert('Remove Ads nappi toimii')}>
-              <Text style={styles.shopButtonTitleOrange}>REMOVE ADS{'\n'}</Text>
-              <Text style={styles.shopButtonTitle}>3 €</Text>
-            </TouchableOpacity>            
-            <TouchableOpacity style={[styles.shopButton]} onPress={() => alert('Watch Ad nappi toimii')}>
+            <TouchableOpacity style={[styles.shopButton]} onPress={() => alert('Watch Ad will be added later')}>
               <Text style={styles.shopButtonTitleOrange}>WATCH AD{'\n'}</Text>
-              <Text style={styles.shopButtonTitle}>FOR 50 <Image source={require('../assets/Coin.png')} style={styles.coinImageSmall} /></Text>
-            </TouchableOpacity>            
+              <Text style={styles.shopButtonTitle}>GET 50 <Image source={require('../assets/Coin.png')} style={styles.coinImageSmall} /></Text>
+            </TouchableOpacity>
+          */}            
           </View>
-          */}
           <TouchableOpacity style={styles.returnButton} onPress={() => navigation.goBack()}>
             <Text style={styles.buttonTitle}>RETURN</Text>
           </TouchableOpacity>

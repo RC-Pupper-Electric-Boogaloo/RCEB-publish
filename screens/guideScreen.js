@@ -132,7 +132,7 @@ const GuideScreen = ({ navigation }) => {
                                 </Text>
                             </View>
                         </View>
-                        <View style={styles.guideSectionLast}>
+                        <View style={styles.guideSection}>
                             <Image
                                 source={require('../assets/Coin.png')}
                                 style={styles.guideImage}
@@ -141,6 +141,42 @@ const GuideScreen = ({ navigation }) => {
                                 <Text style={styles.title}>Bonus coin</Text>
                                 <Text style={styles.text}>
                                     Cats and Choco turn to coins during bonus mode. Watch out when bonus ends!
+                                </Text>
+                            </View>
+                        </View>
+                        <View style={styles.guideSection}>
+                            <Image
+                                source={require('../assets/Random.png')}
+                                style={styles.guideImage}
+                            />
+                            <View style={styles.guideCenter}>
+                                <Text style={styles.title}>Achievements</Text>
+                                <Text style={styles.text}>
+                                    You can get even more puppies by completing tasks at achievements. Some puppies need you to click achievement after you complete it. After that new pupper can be found at shop.
+                                </Text>
+                            </View>
+                        </View>
+                        <View style={styles.guideSection}>
+                            <Image
+                                source={require('../assets/sign.png')}
+                                style={styles.guideImage}
+                            />
+                            <View style={styles.guideCenter}>
+                                <Text style={styles.title}>Puppy Pawn Shop</Text>
+                                <Text style={styles.text}>
+                                    You can use your hard earned coins here to get new puppers! You can also access Puppypark from shop.
+                                </Text>
+                            </View>
+                        </View>
+                        <View style={styles.guideSectionLast}>
+                            <Image
+                                source={require('../assets/Parksign.png')}
+                                style={styles.guideImage}
+                            />
+                            <View style={styles.guideCenter}>
+                                <Text style={styles.title}>Puppypark</Text>
+                                <Text style={styles.text}>
+                                    Join Puppypark with your pupper. You can pet your pupper by tapping it. Once pupper is super happy it may leave you with a treasure. Give him treats to get even more treasure. Sometimes treats can get lost if pupper is too eager.
                                 </Text>
                             </View>
                         </View>

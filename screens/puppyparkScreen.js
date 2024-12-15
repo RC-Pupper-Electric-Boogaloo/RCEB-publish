@@ -1,20 +1,18 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
-import { View, Text, ImageBackground, Image, Alert, BackHandler } from 'react-native'
+import { View, Text, TouchableOpacity, ImageBackground, Image, Alert } from 'react-native'
 import { GameEngine } from 'react-native-game-engine'
 import { StatusBar } from 'expo-status-bar'
 import { useFocusEffect } from '@react-navigation/native'
-import entities from '../entities'
-import Physics from '../physics'
+import entities from '../entities/parkentities'
+import Physics from '../parkphysics'
 import { usePlayCollisionSound, usePlayPointSound, usePlayPowerupSound } from '../components/BackgroundMusic'
-import GameOverScreen from './gameOverScreen'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import DarkTheme from '../styles/theme'
 import { useTheme } from '../components/Theme'
 import { MusicContext } from '../contexts/MusicContext'
 import { getRandom } from '../utils/random'
-import * as Speech from 'expo-speech'
 
-export default function GameScreen({ navigation }) {
+export default function PuppyparkScreen({ navigation }) {
     const [running, setRunning] = useState(true)
     const [currentPoints, setCurrentPoints] = useState(0)
     const [boneCount, setBoneCount] = useState(0)
@@ -34,15 +32,14 @@ export default function GameScreen({ navigation }) {
     const [startTime, setStartTime] = useState(null)
     const [elapsedTime, setElapsedTime] = useState(0)
     const [collectedBatteries, setCollectedBatteries] = useState(0)
-    const maxBatteries = 7
-    const [bonusMode, setBonusMode] = useState(false)
-    const [gravity, setGravity] = useState(0.15)
+    const [multiplier, setMultiplier] = useState(1)
+    const maxBatteries = 100
 
     const backgroundImage = isDarkMode
         ? require('../assets/Taustakuvatakatumma.jpg')
         : require('../assets/Taustakuvatakavaalea.jpg')
 
-    const backdropImage = require('../assets/Taustakuva3ala.png')
+    const backdropImage = require('../assets/Taustakuva10ala.png')
     useFocusEffect(
         React.useCallback(() => {
             if (gameEngine.current) {
@@ -59,69 +56,14 @@ export default function GameScreen({ navigation }) {
         }, [])
     )
 
-    useEffect(() => {
-        const backAction = () => {
-            return true // Estää Back-painikkeen toiminnan
-        }
 
-        const backHandler = BackHandler.addEventListener(
-            "hardwareBackPress",
-            backAction
-        )
-
-        return () => backHandler.remove()
-    }, [])
-
-    useEffect(() => {
-        const fetchFastMode = async () => {
-            try {
-                const fastMode = await AsyncStorage.getItem('FastmodeOn');
-                if (fastMode === 'true') {
-                    setGravity(0.6); // Jos FastmodeOn on true, aseta gravity 0.5
-                } else {
-                    setGravity(0.15); 
-                }
-            } catch (error) {
-                console.error("Error reading FastmodeOn value from AsyncStorage", error);
-            }
-        };
-
-        fetchFastMode();
-    }, []);
-
-    const Bonus = async () => {
-        try {
-          // Lataa SfxOn-asetuksen arvo
-          const savedSfx = await AsyncStorage.getItem('SfxOn')
-          const parsedSfx = savedSfx === 'true'
-    
-          // Aseta tila manuaalisesti
-          setSfxOn(parsedSfx)
-    
-          // Jos SfxOn on päällä, puhe käynnistyy
-          if (parsedSfx) {
-            // Puhu kaksi tekstiosiota peräkkäin
-    
-            await Speech.speak("Bounus activate!", {
-              language: 'en',
-              pitch: 0.3,
-              rate: 0.5
-            })
-          }
-    
-        } catch (error) {
-          console.error('Error pronouncing Bonus:', error)
-        }
-      }
 
     useEffect(() => {
         const saveStats = async () => {
             try {
                 const savedStats = await AsyncStorage.getItem('GAME_STATS')
                 const storedCoinCount = await AsyncStorage.getItem('coinCount')         
-                const currentSkins2 = await AsyncStorage.getItem("purchasedSkins")
-                let purchasedSkins2 = currentSkins2 ? JSON.parse(currentSkins2) : []
-                let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, totalChoco: 0, gamesPlayed: 0, totalPlayTime: 0 }
+                let stats = savedStats ? JSON.parse(savedStats) : { totalPoints: 0, totalCoins: 0, totalChoco: 0, gamesPlayed: 0, totalPlayTime: 0, Puppyparks: 0 }
                 let newCoinCount = storedCoinCount ? JSON.parse(storedCoinCount) : 0
 
                 stats.totalPoints += boneCount
@@ -130,19 +72,8 @@ export default function GameScreen({ navigation }) {
                 stats.gamesPlayed += 1
                 stats.totalPlayTime += elapsedTime
                 newCoinCount += coinCount
+                stats.Puppyparks += 1
 
-                if (!currentSkins2) {
-                    currentSkins2 = JSON.stringify([]); // Initialize as empty array if it doesn't exist
-                    await AsyncStorage.setItem("purchasedSkins", currentSkins2)
-                }
-
-                if (currentPoints === 0 && coinCount > 999) {
-                    if (!purchasedSkins2.includes(21)) {
-                        purchasedSkins2.push(21) // Add skin ID to the array
-                        await AsyncStorage.setItem("purchasedSkins", JSON.stringify(purchasedSkins2)) // Save updated array
-                        Alert.alert("Ruff!", "Tibetan Tycoon unlocked! You can now find this puppy from the shop.")
-                    }
-                }
 
                 await AsyncStorage.setItem('coinCount', JSON.stringify(newCoinCount))
                 await AsyncStorage.setItem('GAME_STATS', JSON.stringify(stats))
@@ -264,7 +195,7 @@ export default function GameScreen({ navigation }) {
                         break                    
                     case 21:
                         setActiveSkin(require('../assets/rcTibetanTycoon.png'))
-                        break                   
+                        break                    
                     case 22:
                         setActiveSkin(require('../assets/rcHoward.png'))
                         break
@@ -312,56 +243,15 @@ export default function GameScreen({ navigation }) {
         }
     }, [running])
 
-    const handleRestart = () => {
-        setCurrentPoints(0)
-        setBoneCount(0)
-        setCoinCount(0)
-        setChocoCount(0)
-        setRunning(true)
-        setCollectedBatteries(0)
-
-        if (gameEngine.current) {
-            gameEngine.current.swap(entities())
-            gameEngine.current.start()
-        }
-
-        loadActiveSkin()
-        // Restart music when game restarts
-        setMusic(require('../assets/bgm2.mp3'))
-    }
-
-    const handleShowHighscores = () => {
-        navigation.navigate('Highscore')
-    }
 
     return (
         <View style={{ flex: 1 }}>
             {isSkinLoaded ? (
-                running ? (
                     <>
                         <ImageBackground
                             source={backgroundImage}
                             style={{ flex: 1 }}
                         >
-
-                            <View style={{ alignItems: 'left', margin: 20 }}>
-                                {bonusMode ? (
-                                <Image 
-                                    source={require('../assets/bonus.png')} 
-                                    style={{
-                                    width: 160,
-                                    height: 100,
-                                    resizeMode: 'contain',
-                                }} 
-                            />
-                            ) : (
-                                <Text> </Text>
-                            )}
-                            </View>
-                            <Text style={styles.pointsText}>
-                                <Image source={require('../assets/Point.png')} style={styles.coinImage} /> x {currentPoints}{"\n"} 
-                                <Image source={require('../assets/Coin.png')} style={styles.coinImage} /> x {coinCount}{"\n"} 
-                            </Text>
                             <View
                                 style={{
                                     position: 'absolute',
@@ -371,6 +261,7 @@ export default function GameScreen({ navigation }) {
                                     height: 200,
                                     backgroundColor: 'rgba(255, 255, 255, 0.3)',
                                     borderRadius: 10,
+                                    zIndex: 10000,
                                     overflow: 'hidden'
                                 }}
                             >
@@ -382,58 +273,48 @@ export default function GameScreen({ navigation }) {
                                             bottom: (index / maxBatteries) * 100 + '%',
                                             width: '100%',
                                             height: `${100 / maxBatteries}%`,
-                                            backgroundColor: index < collectedBatteries ? 'green' : 'gray',
-                                            opacity: index < collectedBatteries ? 1 : 0.3
+                                            backgroundColor: index < collectedBatteries ? 'pink' : 'gray',
+                                            opacity: index < collectedBatteries ? 1 : 0.5
                                         }}
                                     />
                                 ))}
+                                <Image source={require('../assets/heart.png')} style={styles.coinImage} />
                             </View>
 
                             <GameEngine
                                 ref={gameEngine}
                                 systems={[Physics]}
-                                entities={entities(null, backdropImage, activeSkin, gravity)}
+                                entities={entities(null, backdropImage, activeSkin)}
                                 running={running}
                                 onEvent={(e) => {
                                     switch (e.type) {
                                         case 'game_over':
                                             if (stopMusicRef.current) stopMusicRef.current()
-                                            if (sfxOn) playCollisionSound()
                                             if (gameEngine.current && running) {
                                                 gameEngine.current.stop()
-                                            }
-                                            setRunning(false)
+                                            }   
+                                            const newCoinCount = Math.floor(getRandom(5, 50) * multiplier)
+                                            const newBoneCount = Math.floor(getRandom(5, 50) * multiplier)
+                                            const newChocoCount = Math.floor(getRandom(2, 25) * multiplier)
+                                            console.log("used multiplier: ", multiplier)
+                                            
+                                            setCoinCount(newCoinCount)
+                                            setBoneCount(newBoneCount)
+                                            setChocoCount(newChocoCount)
+                                            Alert.alert( "Treasure", `Puppy left you ${newCoinCount} Coins, ${newBoneCount} Bones, and ${newChocoCount} Choco! Thank you pupper!`                                            )
                                             calculateElapsedTime()
+                                            setRunning(false)
                                             break
-                                        case 'new_point':
-                                            if (sfxOn) playPointSound()
-                                            setCurrentPoints(currentPoints + 1)
-                                            setBoneCount(boneCount + 1)
-                                            break
-                                        case 'coin_collected':
-                                            if (sfxOn) playPointSound()
-                                            setCoinCount(coinCount + 1)
-                                            break
-                                        case 'miss':
-                                            if (sfxOn) playCollisionSound()
-                                            setCurrentPoints(Math.max(currentPoints - 1, 0))           
-                                            setChocoCount(chocoCount + 1)
-                                            if(collectedBatteries>0){setCollectedBatteries(prev => Math.min(prev - 1, maxBatteries))}
-                                            break
-                                        case 'battery_collected':
+                                        case 'petted':
                                             if (sfxOn) playPowerupSound()
                                             setCollectedBatteries(prev => Math.min(prev + 1, maxBatteries))
                                             break
-                                        case 'bonus_activated':
-                                            Bonus()
-                                            setBonusMode(true)
-                                            break
-                                        case 'bonus_tick':
-                                            setCollectedBatteries(prev => Math.min(prev - 1, maxBatteries))
-                                            break
-                                        case 'bonus_ended':
-                                            setBonusMode(false)
-                                            setCollectedBatteries(0)
+                                        case 'treat_collected':
+                                            if (sfxOn) playPointSound()
+                                            
+                                            setMultiplier(multiplier+0.1)
+                                            console.log("new multiplier: ", multiplier);
+                                            
                                             break
                                     }
                                 }}
@@ -441,22 +322,30 @@ export default function GameScreen({ navigation }) {
                             >
                                 <StatusBar style="auto" hidden={true} />
                             </GameEngine>
+                            <View style={styles.optionsContainer}>
+                                <View style={styles.petColorContainer}>
+                                    <Text style={styles.shopHeader}>
+                                        <Image source={require('../assets/Parksign.png')} style={styles.signImage} />
+                                    </Text>
+                        {/*    <View style={styles.shopButtonContainer}>
+                                    <TouchableOpacity style={[styles.shopButton]}  onPress={() => gameEngine.current.dispatch({ type: 'move_treat' })}>
+                                        <Image source={require('../assets/Treat.png')} style={styles.image} />
+                                        <Text style={styles.shopButtonTitleOrange}>Give treat</Text>
+                                    </TouchableOpacity>            
+                                    <TouchableOpacity style={[styles.shopButton]} onPress={() => alert('Watch Ad will be added later')}>
+                                        <Text style={styles.shopButtonTitleOrange}>WATCH AD with puppy{'\n'}</Text>
+                                        <Text style={styles.shopButtonTitle}>GET 50 <Image source={require('../assets/heart2.png')} style={styles.coinImageSmall} /></Text>
+                                    </TouchableOpacity>            
+                                </View> */}
+                                    </View>
+                            <View style={styles.optionButtonContainer}>
+                                    <TouchableOpacity style={styles.returnButton} onPress={() => navigation.goBack()}>
+                                    <Text style={styles.buttonTitle}>RETURN</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
                         </ImageBackground>
                     </>
-                ) : (
-                    <GameOverScreen
-                        currentPoints={currentPoints}
-                        boneCount={boneCount}
-                        coinCount={coinCount}
-                        chocoCount={chocoCount}
-                        onRestart={handleRestart}
-                        onShowHighscores={handleShowHighscores}
-                        navigation={navigation}
-                        setMusic={setMusic}
-                        musicOn={musicOn}
-                        toggleMusic={toggleMusic}
-                    />
-                )
             ) : (
                 <Text style={{ flex: 1, justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontSize: 24 }}>
                     Loading...

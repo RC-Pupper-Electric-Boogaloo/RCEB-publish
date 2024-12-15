@@ -65,6 +65,11 @@ const DarkTheme = (isDarkMode) => {
       textAlign: 'center',
       color: textWhite,
     },
+    image: {
+      height: 30,
+      width: 55,
+      zIndex: 10,
+    },
 
     //gameScreen
     pointsText: {
@@ -433,6 +438,7 @@ const DarkTheme = (isDarkMode) => {
       borderRadius: borderRadius,
       width: '30%',
       justifyContent: 'center',
+      alignItems: 'center',
     },
     shopButtonTitleOrange: {
       fontSize: 13,
@@ -445,6 +451,18 @@ const DarkTheme = (isDarkMode) => {
       color: themeBlue,
       fontWeight: 'bold',
       textAlign: 'center',
+    },
+
+    //Puppypark
+    petColorContainer: {
+      flex: 1,
+      backgroundColor: containerBackgroundColor,
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '90%',
+      borderRadius: borderRadius,
+      padding: 10,
+      maxHeight: windowHeight / 4,
     },
   }
 }
