@@ -4,7 +4,28 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7788d1ac-c1b4-410c-8785-1d3e76a8cc67" name="Changes" comment="" />
+    <list default="true" id="7788d1ac-c1b4-410c-8785-1d3e76a8cc67" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/8.10.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/8.10.2/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/8.10.2/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/8.10.2/dependencies-accessors/569c8b261a8a714d7731d5f568e0e5c05babae10/metadata.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.10.2/dependencies-accessors/569c8b261a8a714d7731d5f568e0e5c05babae10/metadata.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/8.10.2/dependencies-accessors/63bfea9ebd7ffa1cdafd0ae8ce62aa3c210042bd/metadata.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.10.2/dependencies-accessors/63bfea9ebd7ffa1cdafd0ae8ce62aa3c210042bd/metadata.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/8.10.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.10.2/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/8.10.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.10.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/8.10.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/noVersion/buildLogic.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/noVersion/buildLogic.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/generated/autolinking/autolinking.json" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/generated/autolinking/autolinking.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/generated/autolinking/package-lock.json.sha" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/generated/autolinking/package-lock.json.sha" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/generated/autolinking/package.json.sha" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/generated/autolinking/package.json.sha" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,9 +54,9 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "bareflow",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Koulu/mobiiliprojekti/RCEB",
+    "last_opened_file_path": "C:/Koulu/mobiiliprojekti/RCEB/android",
     "settings.editor.selected.configurable": "AndroidSdkUpdater"
   }
 }]]></component>

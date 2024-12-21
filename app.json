@@ -22,7 +22,6 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.gulfa.RCEB",
       "permissions": [
         "INTERNET",
         "ACCESS_NETWORK_STATE",
@@ -31,11 +30,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "9b96641d-7454-4c6f-8647-ab6d2f713973"
-      }
     }
   }
 }
