@@ -1,0 +1,21 @@
+Privacy Policy
+Updated: 21 December 2024
+The privacy of RCEB app users is important to us. This Privacy Policy explains what data the app collects and how it is used.
+1. Data Collected
+Our app does not collect, store, or share your personal information, such as your name, email address, photos, or audio.
+The only data collected relates to:
+•	Game progress (e.g., achievements and high scores).
+•	User-selected settings within the app (e.g., audio and visual preferences).
+This data is stored solely on the user’s device. We do not store this data on servers or share it with third parties.
+2. Third-Party Services
+Our app does not use external services, such as analytics or advertising platforms, that collect user data.
+3. Use of Data
+All stored data (game progress and settings):
+•	Is used solely to improve gameplay and the user experience.
+•	Remains exclusively on the user’s device and is not shared with anyone else.
+4. User Rights
+Since our app does not store any personal information, users do not need to request the deletion or correction of their data. Deleting game progress and settings can be done by uninstalling the app from the device or using reset data option at Options.
+5. Contact Information
+If you have any questions about our Privacy Policy, you can contact us at:
+rcpupper@gmail.com
+
